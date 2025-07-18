@@ -1,0 +1,16 @@
+{
+  "printWidth": 150,
+  "tabWidth": 2,
+  "useTabs": false,
+
+  "singleQuote": false,
+  "semi": true,
+
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+
+  "arrowParens": "always",
+  "endOfLine": "auto",
+  "ignorePathPatterns": ["**/node_modules/**", "**/view/**"]
+}

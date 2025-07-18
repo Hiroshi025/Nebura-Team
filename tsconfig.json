@@ -1,0 +1,117 @@
+{
+  // compilerOptions: Main configuration for TypeScript compiler behavior.
+  // Reference: https://www.typescriptlang.org/tsconfig#compilerOptions
+  "compilerOptions": {
+    // Enable all strict type-checking options.
+    "strict": true, // https://www.typescriptlang.org/tsconfig#strict
+
+    // Raise error on expressions and declarations with an implied 'any' type.
+    "noImplicitAny": true, // https://www.typescriptlang.org/tsconfig#noImplicitAny
+
+    // Ensure null and undefined are checked in type system.
+    "strictNullChecks": true, // https://www.typescriptlang.org/tsconfig#strictNullChecks
+
+    // Ensure function types are checked strictly.
+    "strictFunctionTypes": true, // https://www.typescriptlang.org/tsconfig#strictFunctionTypes
+
+    // Ensure bind, call, and apply methods are checked strictly.
+    "strictBindCallApply": true, // https://www.typescriptlang.org/tsconfig#strictBindCallApply
+
+    // Ensure class properties are initialized in the constructor.
+    "strictPropertyInitialization": true, // https://www.typescriptlang.org/tsconfig#strictPropertyInitialization
+
+    // Report errors on unused local variables.
+    "noUnusedLocals": true, // https://www.typescriptlang.org/tsconfig#noUnusedLocals
+
+    // Report errors on unused function parameters.
+    "noUnusedParameters": true, // https://www.typescriptlang.org/tsconfig#noUnusedParameters
+
+    // Ensure all code paths in a function return a value.
+    "noImplicitReturns": true, // https://www.typescriptlang.org/tsconfig#noImplicitReturns
+
+    // Report errors for fallthrough cases in switch statements.
+    "noFallthroughCasesInSwitch": true, // https://www.typescriptlang.org/tsconfig#noFallthroughCasesInSwitch
+
+    // Specify module code generation method.
+    "module": "CommonJS", // https://www.typescriptlang.org/tsconfig#module
+
+    // Specify how modules get resolved.
+    "moduleResolution": "node10", // https://www.typescriptlang.org/tsconfig#moduleResolution
+
+    // Enables compatibility with CommonJS-style modules.
+    "esModuleInterop": true, // https://www.typescriptlang.org/tsconfig#esModuleInterop
+
+    // Allow importing .json files as modules.
+    "resolveJsonModule": true, // https://www.typescriptlang.org/tsconfig#resolveJsonModule
+
+    // Specify ECMAScript target version for output files.
+    "target": "ESNext", // https://www.typescriptlang.org/tsconfig#target
+
+    // Specify library files to include in the compilation.
+    "lib": ["ES2022", "DOM"], // https://www.typescriptlang.org/tsconfig#lib
+
+    // Enable experimental support for decorators.
+    "experimentalDecorators": true, // https://www.typescriptlang.org/tsconfig#experimentalDecorators
+
+    // Emit design-type metadata for decorated declarations.
+    "emitDecoratorMetadata": true, // https://www.typescriptlang.org/tsconfig#emitDecoratorMetadata
+
+    // Specify output directory for compiled files.
+    "outDir": "./build", // https://www.typescriptlang.org/tsconfig#outDir
+
+    // Base directory for resolving non-relative module names.
+    "baseUrl": "./", // https://www.typescriptlang.org/tsconfig#baseUrl
+
+    // Path mapping for module resolution.
+    "paths": {
+      "#entity/*": ["src/adapters/database/entity/*"], // https://www.typescriptlang.org/tsconfig#paths
+      "#routes/*": ["src/interfaces/http/routes/*"], // https://www.typescriptlang.org/tsconfig#paths
+      "#gateaway/*": ["src/domain/gateway/*"], // https://www.typescriptlang.org/tsconfig#paths
+      "#common/*": ["src/shared/common/*"], // https://www.typescriptlang.org/tsconfig#paths
+      "#ports/*": ["src/domain/ports/*"], // https://www.typescriptlang.org/tsconfig#paths
+      "#adapters/*": ["src/adapters/*"], // https://www.typescriptlang.org/tsconfig#paths
+      "#shared/*": ["src/shared/*"], // https://www.typescriptlang.org/tsconfig#paths
+      "#/*": ["src/*"] // https://www.typescriptlang.org/tsconfig#paths
+    },
+
+    // Specify the root directory of input files.
+    "rootDir": "./", // https://www.typescriptlang.org/tsconfig#rootDir
+
+    // List of type declaration files to include.
+    "types": ["node", "jest"], // https://www.typescriptlang.org/tsconfig#types
+
+    // Skip type checking of declaration files.
+    "skipLibCheck": true, // https://www.typescriptlang.org/tsconfig#skipLibCheck
+
+    // Ensure file name casing is consistent.
+    "forceConsistentCasingInFileNames": true, // https://www.typescriptlang.org/tsconfig#forceConsistentCasingInFileNames
+
+    // Generate source map files for debugging.
+    "sourceMap": true, // https://www.typescriptlang.org/tsconfig#sourceMap
+
+    // Include original source code in source maps.
+    "inlineSources": true, // https://www.typescriptlang.org/tsconfig#inlineSources
+
+    // Specify the root path for debugging sources.
+    "sourceRoot": "/" // https://www.typescriptlang.org/tsconfig#sourceRoot
+  },
+
+  // include: Files and directories to include in the compilation.
+  // Reference: https://www.typescriptlang.org/tsconfig#include
+  "include": [
+    "**/*.ts", // All TypeScript files in the project.
+    "tsconfig.json", // The configuration file itself.
+    "config/json/*.json", // JSON files in config/json.
+    "src/typings/.d.ts", // Type declaration files.
+    "src/**/*", // All files in src directory.
+    "./**/*.json" // All JSON files in the project.
+  ],
+
+  // exclude: Files and directories to exclude from compilation.
+  // Reference: https://www.typescriptlang.org/tsconfig#exclude
+  "exclude": [
+    "node_modules", // Dependency modules.
+    "dist", // Distribution output directory.
+    "build" // Build output directory.
+  ]
+}

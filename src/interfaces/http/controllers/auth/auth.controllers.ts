@@ -3,8 +3,9 @@ import { randomUUID } from "crypto";
 import z, { object } from "zod";
 
 import {
-	Body, Controller, Delete, Get, HttpException, HttpStatus, Post, Query
+	BadRequestException, Body, Controller, Delete, Get, Post, Query, UseGuards
 } from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 import { AuthService } from "../../routes/auth/auth.service";
@@ -66,7 +67,10 @@ export class AuthController {
   @Post("register")
   async create(@Body() userData: RegisterUserDto): Promise<object> {
     if (!userData.name || !userData.email || !userData.password) {
-      throw new HttpException("All fields are required", HttpStatus.BAD_REQUEST);
+      throw new BadRequestException("All fields are required", {
+        cause: new Error("All fields are required"),
+        description: "Missing fields: name, email, password",
+      });
     }
 
     const uuid = randomUUID();
@@ -99,7 +103,10 @@ export class AuthController {
   @Post("login")
   async login(@Body() userData: LoginUserDto): Promise<object> {
     if (!userData.email || !userData.password) {
-      throw new HttpException("Email and password are required", HttpStatus.BAD_REQUEST);
+      throw new BadRequestException("Email and password are required", {
+        cause: new Error("Email and password are required"),
+        description: "Missing fields: email, password",
+      });
     }
 
     const validation = object({
@@ -109,7 +116,10 @@ export class AuthController {
 
     const result = validation.safeParse(userData);
     if (!result.success) {
-      throw new HttpException("Invalid input data", HttpStatus.BAD_REQUEST);
+      throw new BadRequestException("Invalid input data", {
+        cause: new Error("Invalid input data"),
+        description: "Input data does not match the required format",
+      });
     }
 
     const { user, token } = await this.authService.loginAuth(userData.email, userData.password);
@@ -138,17 +148,24 @@ export class AuthController {
    * @example
    * const info = await authController.getMe("user-uuid");
    */
+  @UseGuards(AuthGuard("jwt"))
   @Get("me")
   async getMe(@Query("id") id: string): Promise<object> {
     if (!id) {
-      throw new HttpException("ID is required", HttpStatus.BAD_REQUEST);
+      throw new BadRequestException("ID is required", {
+        cause: new Error("ID is required"),
+        description: "Missing field: id",
+      });
     }
 
     // Validar que el id sea un UUID válido
     const uuidSchema = z.uuid();
     const result = uuidSchema.safeParse(id);
     if (!result.success) {
-      throw new HttpException("Invalid UUID format", HttpStatus.BAD_REQUEST);
+      throw new BadRequestException("Invalid UUID format", {
+        cause: new Error("Invalid UUID format"),
+        description: "The provided ID is not a valid UUID",
+      });
     }
 
     const user = await this.authService.getAuth(id);
@@ -161,14 +178,20 @@ export class AuthController {
   @Delete("delete")
   async deleteAuth(@Query("id") id: string): Promise<object> {
     if (!id) {
-      throw new HttpException("ID is required", HttpStatus.BAD_REQUEST);
+      throw new BadRequestException("ID is required", {
+        cause: new Error("ID is required"),
+        description: "Missing field: id",
+      });
     }
 
     // Validar que el id sea un UUID válido
     const uuidSchema = z.uuid();
     const result = uuidSchema.safeParse(id);
     if (!result.success) {
-      throw new HttpException("Invalid UUID format", HttpStatus.BAD_REQUEST);
+      throw new BadRequestException("Invalid UUID format", {
+        cause: new Error("Invalid UUID format"),
+        description: "The provided ID is not a valid UUID",
+      });
     }
 
     await this.authService.deleteAuth(id);

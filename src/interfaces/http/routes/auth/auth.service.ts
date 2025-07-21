@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { main } from "#/main";
 import { UserEntity } from "#entity/auth/user.entity";
-import { encrypt, signToken, verified } from "#shared/webToken";
+import { encrypt } from "#shared/webToken";
+import { compare } from "bcryptjs";
 import { Repository } from "typeorm";
 
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
 
 import { RegisterUserDto } from "./dto/user/register.dto";
@@ -33,6 +36,7 @@ export class AuthService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly authRepository: Repository<UserEntity>,
+    private readonly jwtService: JwtService,
   ) {}
 
   /**
@@ -85,15 +89,19 @@ export class AuthService {
         throw new HttpException("User not found", HttpStatus.NOT_FOUND);
       }
 
-      const verifiedPassword = await verified(password, user.password);
+      const verifiedPassword = await compare(password, user.password);
       if (!verifiedPassword) {
         throw new HttpException("Invalid credentials", HttpStatus.UNAUTHORIZED);
       }
 
-      const token = signToken(String(user.id));
+      const payload = { sub: user.id, username: user.email, role: user.role };
+      const token = this.jwtService.sign(payload);
 
       this.logger.log(`User logged in with ID: ${user.id}`);
-      return { user: { ...user }, token };
+      return {
+        user: { ...user, password: undefined },
+        token,
+      };
     } catch (error) {
       this.logger.error("Error during login", error);
       throw new HttpException("Login failed", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -129,5 +137,14 @@ export class AuthService {
       this.logger.error("Error deleting user", error);
       throw new HttpException("Error deleting user", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  async validateUser(uuid: string, pass: string): Promise<any> {
+    const user = await this.authRepository.findOne({ where: { uuid } });
+    if (user && (await compare(pass, user.password))) {
+      const { password, ...result } = user;
+      return result;
+    }
+    return null;
   }
 }

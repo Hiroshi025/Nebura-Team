@@ -1,29 +1,32 @@
 import { compare, hash } from "bcryptjs";
 import { sign, verify } from "jsonwebtoken";
 
-import { HttpException, HttpStatus } from "@nestjs/common";
+import { HttpException, HttpStatus, NotFoundException } from "@nestjs/common";
 
 /**
- * Generates a JSON Web Token (JWT) for the given user ID (email).
+ * Generates a JSON Web Token (JWT) for the given payload.
  *
- * @param {string} id - The user ID (must be a valid email).
+ * @param {object} payload - The payload to sign (e.g., { sub, username, role }).
  * @returns {string} The signed JWT.
- * @throws {ServerError} If the provided ID is not a valid email.
+ * @throws {ServerError} If the JWT secret is not provided.
  *
  * @example
- * const token = signToken("user@example.com");
+ * const token = signToken({ sub: 1, username: "user@example.com", role: "admin" });
  * console.log(token);
  */
-export const signToken = (id: string): string => {
-  if (!process.env.JWT_SECRET) throw new HttpException("No JWT secret provided", HttpStatus.NOT_FOUND);
+export const signToken = (payload: object): string => {
+  if (!process.env.JWT_SECRET)
+    throw new NotFoundException("No JWT secret provided", {
+      cause: new Error("JWT_SECRET is not defined in environment variables"),
+      description: "Ensure that JWT_SECRET is set in your environment variables",
+    });
 
-  const jwt = sign({ id }, process.env.JWT_SECRET, {
+  const jwt = sign(payload, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
 
   return jwt;
 };
-
 /**
  * Validates a given JSON Web Token (JWT).
  *

@@ -69,7 +69,8 @@
       "#gateaway/*": ["src/domain/gateway/*"], // https://www.typescriptlang.org/tsconfig#paths
       "#common/*": ["src/shared/common/*"], // https://www.typescriptlang.org/tsconfig#paths
       "#ports/*": ["src/domain/ports/*"], // https://www.typescriptlang.org/tsconfig#paths
-      "#adapters/*": ["src/adapters/*"], // https://www.typescriptlang.org/tsconfig#paths
+      "#adapters/*": ["src/adapters/*"], // https://www.typescriptlang.org/tsconfig#paths      "#typings/*": ["src/typings/*"], // https://www.typescriptlang.org/tsconfig#paths
+      "#typings/*": ["src/typings/*"], // https://www.typescriptlang.org/tsconfig#paths
       "#shared/*": ["src/shared/*"], // https://www.typescriptlang.org/tsconfig#paths
       "#/*": ["src/*"] // https://www.typescriptlang.org/tsconfig#paths
     },

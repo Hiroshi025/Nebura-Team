@@ -1,7 +1,9 @@
 import helmet from "helmet";
+import { join } from "path";
 
 import { ConsoleLogger, ValidationPipe, VersioningType } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import { NestExpressApplication } from "@nestjs/platform-express";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 import { AppModule } from "./app.module";
@@ -10,9 +12,13 @@ import { Logger } from "./shared/logger";
 /**
  * Main class responsible for initializing and starting the Nebura API application.
  *
- * Handles the setup of the NestJS application, enables API versioning,
- * initializes the database connection, configures Swagger documentation,
- * applies security middleware, and manages application logging.
+ * This class orchestrates the setup of the NestJS application, including:
+ * - Enabling API versioning via URI prefix.
+ * - Initializing the database connection.
+ * - Configuring Swagger documentation for API endpoints.
+ * - Applying security middleware (Helmet).
+ * - Setting up global validation pipes.
+ * - Managing application logging.
  *
  * @see {@link https://docs.nestjs.com/ NestJS Documentation}
  * @see {@link https://docs.nestjs.com/openapi/introduction NestJS Swagger}
@@ -26,24 +32,40 @@ export class Main {
    * Used to log messages and errors throughout the application lifecycle.
    * @type {Logger}
    */
-  public logger = new Logger();
+  public logger: Logger = new Logger();
 
   /**
    * Constructs the Main class and sets the logger context to "Main".
+   *
+   * This ensures that all logs from this class are properly tagged.
    */
   constructor() {
     this.logger.setContext("Main");
   }
 
   /**
-   * Initializes and configures the NestJS application module.
-   * Enables URI-based API versioning with the prefix 'v'.
-   * Sets up Swagger documentation for the API.
-   * Applies global validation pipes and security middleware.
-   * Starts the application on the specified port.
+   * Initializes and configures the main NestJS application module.
+   *
+   * This method performs the following main steps:
+   * 1. Creates the NestJS application with a custom logger.
+   * 2. Applies global validation pipes for request validation.
+   * 3. Enables URI-based API versioning with the prefix 'v'.
+   * 4. Configures the folder for static files and the view engine.
+   * 5. Sets up Swagger documentation for the API.
+   * 6. Applies Helmet middleware for enhanced HTTP security.
+   * 7. Starts the application on the specified port.
+   *
+   * Example usage:
+   * ```typescript
+   * const main = new Main();
+   * await main.init();
+   * // Access API: http://localhost:3000/v1/your-endpoint
+   * // Access Swagger UI: http://localhost:3000/v1/docs
+   * // Download Swagger JSON: http://localhost:3000/v1/docs/download
+   * ```
    *
    * @private
-   * @returns {Promise<void>}
+   * @returns {Promise<void>} Resolves when the application is successfully started.
    *
    * @see {@link https://docs.nestjs.com/techniques/validation ValidationPipe}
    * @see {@link https://docs.nestjs.com/techniques/versioning API Versioning}
@@ -51,55 +73,101 @@ export class Main {
    * @see {@link https://helmetjs.github.io/ Helmet}
    */
   private async moduleApp(): Promise<void> {
-    const app = await NestFactory.create(AppModule, {
+    // 1. Create the NestJS application with a custom logger
+    //    - Uses ConsoleLogger for colored output in development.
+    //    - See: https://docs.nestjs.com/fundamentals/logging
+    const app = await NestFactory.create<NestExpressApplication>(AppModule, {
       logger: new ConsoleLogger({
         colors: true,
       }),
     });
+
+    // 2. Apply global validation pipes
+    //    - Ensures all incoming requests are validated.
+    //    - See: https://docs.nestjs.com/techniques/validation
     app.useGlobalPipes(
       new ValidationPipe({
         enableDebugMessages: true,
+        whitelist: true, // Strip properties that do not have decorators
+        forbidNonWhitelisted: true, // Throw error if non-whitelisted properties are present
+        transform: true, // Automatically transform payloads to DTO instances
       }),
     );
+
+    // 3. Enable API versioning by URI
+    //    - Allows endpoints like /v1/your-endpoint
+    //    - See: https://docs.nestjs.com/techniques/versioning
     app.enableVersioning({
       type: VersioningType.URI,
       prefix: "v",
     });
 
+    // 4. Configure static files and view engine
+    //    - Serves static assets from /interfaces/http/views/public
+    //    - Sets Handlebars (hbs) as the view engine
+    //    - See: https://docs.nestjs.com/techniques/mvc
+    app.useStaticAssets(join(__dirname, "interfaces", "http", "views", "public"));
+    app.setBaseViewsDir(join(__dirname, "interfaces", "http", "views"));
+    app.setViewEngine("hbs");
+
+    // 5. Configure Swagger for API documentation
+    //    - Interactive API docs at /v1/docs
+    //    - Downloadable OpenAPI JSON at /v1/docs/download
+    //    - JWT Bearer authentication enabled
+    //    - See: https://docs.nestjs.com/openapi/introduction
     const swaggerApp = new DocumentBuilder()
       .setTitle("Nebura API")
       .setDescription("API documentation for the Nebura application")
+      .setVersion("1.0")
       .addSecurity("bearer", {
         type: "http",
         scheme: "bearer",
         bearerFormat: "JWT",
+        description: "Enter JWT token in the format: Bearer <token>",
       })
-      .setVersion("1.0")
+      .addServer("http://localhost:3000", "Local development server")
       .build();
 
     const documentFactory = () => SwaggerModule.createDocument(app, swaggerApp);
-    SwaggerModule.setup("v1/documentation", app, documentFactory, {
-      jsonDocumentUrl: "v1/documentation-json",
+    SwaggerModule.setup("v1/docs", app, documentFactory, {
+      jsonDocumentUrl: "v1/docs/download",
       swaggerOptions: {
         displayRequestDuration: true,
         persistAuthorization: true,
+        docExpansion: "list",
       },
+      customSiteTitle: "Nebura API Docs",
     });
 
+    // 6. Apply Helmet middleware for HTTP security
+    //    - Sets various HTTP headers for security best practices
+    //    - CSP and COEP are disabled for development simplicity
+    //    - See: https://helmetjs.github.io/
     app.use(
       helmet({
-        contentSecurityPolicy: false, // Disable CSP for simplicity, adjust as needed
-        crossOriginEmbedderPolicy: false, // Disable COEP for simplicity, adjust as needed
+        contentSecurityPolicy: false, // CSP disabled for simplicity
+        crossOriginEmbedderPolicy: false, // COEP disabled for simplicity
       }),
     );
-    await app.listen(process.env.PORT ?? 3000);
+
+    // 7. Start the application on the specified port
+    //    - Default: 3000, or use process.env.PORT
+    //    - Logs the URL for API and Swagger UI
+    //app.useGlobalGuards(new RolesGuard());
+    const port = process.env.PORT ?? 3000;
+    await app.listen(port);
+    this.logger.log(`Nebura API is running at http://localhost:${port}/v1/`);
+    this.logger.log(`Swagger UI available at http://localhost:${port}/v1/docs`);
   }
 
   /**
    * Initializes the database connection and starts the API application.
-   * Logs a success message when the application is running.
    *
-   * @returns {Promise<void>}
+   * This method is the main entry point for starting the Nebura API.
+   * It calls the internal moduleApp method to configure and launch the application,
+   * and logs a success message upon successful startup.
+   *
+   * @returns {Promise<void>} Resolves when the application is running.
    *
    * @example
    * const main = new Main();
@@ -113,8 +181,9 @@ export class Main {
 
 /**
  * Entry point for the Nebura API application.
- * Creates an instance of Main and starts the initialization process.
- * Logs errors if the application fails to start.
+ *
+ * This code creates an instance of the Main class and starts the initialization process.
+ * If the application fails to start, it logs the error using the custom logger and outputs it to the console.
  *
  * @see {@link https://docs.nestjs.com/ NestJS Documentation}
  * @example

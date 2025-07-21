@@ -1,5 +1,9 @@
+import { UserEntity } from "#entity/auth/user.entity";
+import { AdminModule } from "#routes/admin/admin.module";
 import { AuthModule } from "#routes/auth/auth.module";
 import { HealthModule } from "#routes/health/health.module";
+import { UsersModule } from "#routes/users/users.module";
+import { LoggerModule } from "nestjs-pino";
 
 import { CacheInterceptor, CacheModule } from "@nestjs/cache-manager";
 import { Module } from "@nestjs/common";
@@ -7,6 +11,8 @@ import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { TypeOrmModule } from "@nestjs/typeorm";
+
+import { AppController } from "./interfaces/http/controllers/app.controller";
 
 /**
  * The root module of the application.
@@ -34,10 +40,10 @@ import { TypeOrmModule } from "@nestjs/typeorm";
       type: "postgres",
       host: process.env.DB_HOST,
       port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
-      username: process.env.DB_USERNAME ? String(process.env.DB_USERNAME) : "",
-      password: process.env.DB_PASSWORD ? String(process.env.DB_PASSWORD) : "",
+      username: process.env.DB_USERNAME ? String(process.env.DB_USERNAME) : "postgres",
+      password: process.env.DB_PASSWORD ? String(process.env.DB_PASSWORD) : "luisP200",
       database: process.env.DB_NAME,
-      entities: ["src/adapters/database/entity/*.ts"],
+      entities: [UserEntity],
       synchronize: true,
       logging: true,
     }),
@@ -79,6 +85,22 @@ import { TypeOrmModule } from "@nestjs/typeorm";
       max: 100, // Maximum number of items in cache
     }),
     /**
+     * Integrates the LoggerModule for logging capabilities.
+     * @see {@link https://docs.nestjs.com/techniques/logger LoggerModule}
+     */
+    LoggerModule.forRoot({
+      pinoHttp: {
+        transport: {
+          target: "pino-pretty",
+          options: {
+            colorize: true,
+            translateTime: "SYS:standard",
+            ignore: "pid,hostname",
+          },
+        },
+      },
+    }),
+    /**
      * Integrates health check endpoints.
      * @see {@link https://docs.nestjs.com/recipes/terminus HealthModule}
      */
@@ -88,8 +110,18 @@ import { TypeOrmModule } from "@nestjs/typeorm";
      * @see {@link https://docs.nestjs.com/security/authentication AuthModule}
      */
     AuthModule,
+    /**
+     * Integrates user management endpoints.
+     * @see {@link https://docs.nestjs.com/modules UsersModule}
+     */
+    UsersModule,
+    /**
+     * Integrates admin management endpoints.
+     * @see {@link https://docs.nestjs.com/modules AdminModule}
+     */
+    AdminModule,
   ], // List of modules to import into the application.
-  controllers: [], // List of controllers to register.
+  controllers: [AppController], // List of controllers to register.
   providers: [
     /**
      * Registers ThrottlerGuard globally to protect all endpoints.

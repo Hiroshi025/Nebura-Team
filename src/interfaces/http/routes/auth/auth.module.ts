@@ -1,10 +1,12 @@
+import { JwtConfigModule } from "#/jwt.module";
+import { JwtStrategy } from "#adapters/database/strategy/jwt.strategy";
+import { LocalStrategy } from "#adapters/database/strategy/local.strategy";
 import { UserEntity } from "#entity/auth/user.entity";
 
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
+import { Module, NestModule } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 import { AuthController } from "../../controllers/auth/auth.controllers";
-import { AuthMiddleware } from "../../middleware/auth/auth.middleware";
 import { AuthService } from "./auth.service";
 
 /**
@@ -19,8 +21,8 @@ import { AuthService } from "./auth.service";
  * @see {@link https://docs.nestjs.com/techniques/database NestJS TypeORM}
  */
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity])],
-  providers: [AuthService],
+  imports: [TypeOrmModule.forFeature([UserEntity]), JwtConfigModule],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
   controllers: [AuthController],
   exports: [AuthService],
 })
@@ -34,11 +36,5 @@ export class AuthModule implements NestModule {
    *
    * @see {@link https://docs.nestjs.com/middleware#applying-middleware Applying Middleware}
    */
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes({
-      path: "auth/me",
-      version: "1",
-      method: RequestMethod.GET,
-    });
-  }
+  configure() {}
 }

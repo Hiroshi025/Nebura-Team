@@ -1,5 +1,5 @@
+import { UserRole } from "#common/typeRole";
 // import UserRoles as a value, not just a type
-import { UserRoles } from "#/typings/user";
 import { UserEntity } from "#entity/auth/user.entity";
 import { In, Repository } from "typeorm";
 
@@ -39,8 +39,8 @@ export class UserService {
        * List of valid user roles.
        * @type {UserRoles[]}
        */
-      const validRoles: UserRoles[] = ["admin", "user", "developer", "moderator", "client"];
-      if (!validRoles.includes(userData.role as UserRoles)) throw new HttpException("Invalid role", HttpStatus.BAD_REQUEST);
+      const validRoles: UserRole[] = [UserRole.ADMIN, UserRole.USER, UserRole.DEVELOPER, UserRole.MODERATOR, UserRole.CLIENT];
+      if (!validRoles.includes(userData.role as UserRole)) throw new HttpException("Invalid role", HttpStatus.BAD_REQUEST);
 
       await this.userRepository.save({
         ...user,
@@ -119,7 +119,7 @@ export class UserService {
       const adminUser = await this.findByUuid(uuid);
       if (!adminUser) throw new HttpException("Admin user not found", HttpStatus.NOT_FOUND);
 
-      const validRoles: UserRoles[] = ["user", "client"];
+      const validRoles: UserRole[] = [UserRole.USER, UserRole.CLIENT];
       const usersToDelete = await this.userRepository.find({ where: { role: In(validRoles) } });
       await this.userRepository.remove(usersToDelete);
       this.logger.log("All users deleted successfully");

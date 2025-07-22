@@ -1,7 +1,8 @@
 import { Module } from "@nestjs/common";
 import { TerminusModule } from "@nestjs/terminus";
 
-import { HealthController } from "../../controllers/health/health.controllers";
+import { HealthController } from "./controllers/health.controllers";
+import { HealthService } from "./health.service";
 
 /**
  * Health module for application health checks.
@@ -24,5 +25,6 @@ import { HealthController } from "../../controllers/health/health.controllers";
     }),
   ],
   controllers: [HealthController],
+  providers: [HealthService],
 })
 export class HealthModule {}

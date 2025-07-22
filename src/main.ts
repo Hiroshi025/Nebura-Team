@@ -1,5 +1,6 @@
 import helmet from "helmet";
 import { join } from "path";
+import { loadEnvFile } from "process";
 
 import { ConsoleLogger, ValidationPipe, VersioningType } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
@@ -26,6 +27,8 @@ import { Logger } from "./shared/logger";
  * @see {@link https://docs.nestjs.com/techniques/logger Logger}
  * @see {@link https://helmetjs.github.io/ Helmet}
  */
+
+loadEnvFile();
 export class Main {
   /**
    * Logger instance for application-wide logging.
@@ -128,7 +131,16 @@ export class Main {
       .addServer("http://localhost:3000", "Local development server")
       .build();
 
-    const documentFactory = () => SwaggerModule.createDocument(app, swaggerApp);
+    const documentFactory = () =>
+      SwaggerModule.createDocument(app, swaggerApp, {
+        operationIdFactory: (controllerKey: string, methodKey: string) => `${controllerKey}_${methodKey}`,
+        autoTagControllers: true,
+        linkNameFactory: (controllerKey: string, methodKey: string, fieldKey: string) =>
+          `${controllerKey}_${methodKey}_${fieldKey}`,
+        ignoreGlobalPrefix: false,
+        deepScanRoutes: true,
+        extraModels: [],
+      });
     SwaggerModule.setup("v1/docs", app, documentFactory, {
       jsonDocumentUrl: "v1/docs/download",
       swaggerOptions: {
@@ -136,7 +148,11 @@ export class Main {
         persistAuthorization: true,
         docExpansion: "list",
       },
-      customSiteTitle: "Nebura API Docs",
+      customSiteTitle: process.env.SWAGGER_TITLE,
+      customfavIcon: process.env.SWAGGER_FAVICON_URL,
+      customCssUrl: "/css/swagger.css",
+      explorer: true,
+      swaggerUiEnabled: true,
     });
 
     // 6. Apply Helmet middleware for HTTP security

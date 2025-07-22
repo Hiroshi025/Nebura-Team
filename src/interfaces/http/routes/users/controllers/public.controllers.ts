@@ -6,7 +6,7 @@ import {
 	BadRequestException, Controller, Get, NotFoundException, Query, UseGuards
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 /**
  * Public controller for user-related endpoints.
@@ -38,6 +38,10 @@ export class PublicUserController {
    * @throws {HttpException} If validation fails or the user is not found.
    */
   @Get()
+  @ApiResponse({ status: 200, description: "User found", type: Object, isArray: false })
+  @ApiResponse({ status: 500, description: "Internal server error" })
+  @ApiResponse({ status: 400, description: "Invalid UUID format" })
+  @ApiResponse({ status: 404, description: "User not found" })
   async findByUuid(@Query("uuid") uuid: string) {
     const validZod = z.object({
       uuid: z.uuid(),

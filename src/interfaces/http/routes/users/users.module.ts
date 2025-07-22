@@ -4,7 +4,7 @@ import { UserEntity } from "#entity/auth/user.entity";
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { PublicUserController } from "../../controllers/users/public.controllers";
+import { PublicUserController } from "./controllers/public.controllers";
 import { UserService } from "./users.service";
 
 /**

@@ -1,4 +1,4 @@
-import { UserRoles } from "#/typings/user";
+import { UserRole } from "#common/typeRole";
 import { IsEmail } from "class-validator";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
@@ -93,5 +93,5 @@ export class UserEntity extends BaseEntity {
     example: "user",
     type: "string",
   })
-  role!: UserRoles;
+  role!: UserRole;
 }

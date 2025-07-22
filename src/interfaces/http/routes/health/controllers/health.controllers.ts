@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+import { HealthService } from "#routes/health/health.service";
+
 import { Controller, Get } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import {
@@ -45,6 +47,7 @@ export class HealthController {
     private memory: MemoryHealthIndicator,
     private health: HealthCheckService,
     private db: TypeOrmHealthIndicator,
+    private readonly healthService: HealthService,
   ) {}
 
   /**
@@ -75,5 +78,20 @@ export class HealthController {
        */
       () => this.db.pingCheck("database"),
     ]);
+  }
+
+  @Get()
+  getHealthStatus() {
+    return this.healthService.checkHealth();
+  }
+
+  @Get("metrics")
+  getMetrics() {
+    return this.healthService.getMetrics();
+  }
+
+  @Get("errors")
+  getErrorHistory() {
+    return this.healthService.getErrorHistory();
   }
 }

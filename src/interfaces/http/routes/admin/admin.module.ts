@@ -5,9 +5,9 @@ import { UserService } from "#routes/users/users.service";
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { AdminCacheController } from "../../controllers/admin/cache.controllers";
-import { AdminController } from "../../controllers/admin/users.controllers";
 import { CacheService } from "./cache.service";
+import { AdminCacheController } from "./controllers/cache.controllers";
+import { AdminController } from "./controllers/users.controllers";
 
 /**
  * AdminModule is responsible for providing admin-related services and controllers.

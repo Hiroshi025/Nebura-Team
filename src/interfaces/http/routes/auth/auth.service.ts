@@ -6,6 +6,7 @@ import { compare } from "bcryptjs";
 import { Repository } from "typeorm";
 
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import { EventEmitter2 } from "@nestjs/event-emitter";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
 
@@ -37,6 +38,7 @@ export class AuthService {
     @InjectRepository(UserEntity)
     private readonly authRepository: Repository<UserEntity>,
     private readonly jwtService: JwtService,
+    private eventEmitter: EventEmitter2,
   ) {}
 
   /**
@@ -67,6 +69,7 @@ export class AuthService {
       });
 
       this.logger.log(`User created with ID: ${user.id}`);
+      this.eventEmitter.emit("user.created", user);
       return user;
     } catch (error) {
       this.logger.error("Error creating user", error);

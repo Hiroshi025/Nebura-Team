@@ -1,0 +1,6 @@
+necord:
+  presence:
+    status: online
+    activity:
+      type: PLAYING
+      name: "with necord"

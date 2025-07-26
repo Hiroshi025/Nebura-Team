@@ -1,7 +1,6 @@
-import { JwtConfigModule } from "#/jwt.module";
+import { JwtConfigModule } from "#/core/jwt.module";
 import { JwtStrategy } from "#common/strategies/jwt.strategy";
-import { LocalStrategy } from "#common/strategies/local.strategy";
-import { UserEntity } from "#entity/auth/user.entity";
+import { UserEntity } from "#entity/users/user.entity";
 
 import { Module, NestModule } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -23,7 +22,7 @@ import { UserCreatedListener } from "./listeners/user-created.listener";
  */
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity]), JwtConfigModule],
-  providers: [AuthService, LocalStrategy, JwtStrategy, UserCreatedListener],
+  providers: [AuthService, JwtStrategy, UserCreatedListener],
   controllers: [AuthController],
   exports: [AuthService],
 })

@@ -1,16 +1,19 @@
+import { UserLoginSchema, UserSchema } from "#adapters/schemas/auth.schema";
+import { UuidSchema } from "#adapters/schemas/shared/uuid.schema";
+import { AuthGuard } from "#common/guards/auth.guard";
 /* eslint-disable prettier/prettier */
 import { randomUUID } from "crypto";
-import z, { object } from "zod";
 
 import {
 	BadRequestException, Body, Controller, Delete, Get, Post, Query, UseGuards
 } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import {
+	ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags
+} from "@nestjs/swagger";
 
-import { AuthService } from "../../routes/auth/auth.service";
-import { LoginUserDto } from "../../routes/auth/dto/user/login-user.dto";
-import { RegisterUserDto } from "../../routes/auth/dto/user/register.dto";
+import { AuthService } from "../auth.service";
+import { LoginUserDto } from "../dto/user/login-user.dto";
+import { RegisterUserDto } from "../dto/user/register.dto";
 
 /**
  * Controller for authentication endpoints.
@@ -65,11 +68,29 @@ export class AuthController {
    * const user = await authController.create({ email: "john@doe.com", password: "pass", name: "John Doe" });
    */
   @Post("register")
+  @ApiResponse({ status: 201, description: "User created successfully." })
+  @ApiResponse({ status: 400, description: "Bad request. Missing required fields or invalid data." })
+  @ApiOperation({
+    summary: "Register a new user",
+    description: "Creates a new user in the system with the provided data.",
+  })
+  @ApiBody({
+    description: "User registration data",
+    type: RegisterUserDto,
+  })
   async create(@Body() userData: RegisterUserDto): Promise<object> {
     if (!userData.name || !userData.email || !userData.password) {
       throw new BadRequestException("All fields are required", {
         cause: new Error("All fields are required"),
         description: "Missing fields: name, email, password",
+      });
+    }
+
+    const result = UserSchema.safeParse(userData);
+    if (!result.success) {
+      throw new BadRequestException("Invalid input data", {
+        cause: result.error.message,
+        description: "Input data does not match the required format",
       });
     }
 
@@ -101,6 +122,16 @@ export class AuthController {
    * const result = await authController.login({ email: "john@doe.com", password: "pass" });
    */
   @Post("login")
+  @ApiResponse({ status: 200, description: "Login successful", type: Object })
+  @ApiResponse({ status: 400, description: "Bad request. Missing required fields or invalid data." })
+  @ApiOperation({
+    summary: "Login a user",
+    description: "Authenticates a user and returns a JWT token.",
+  })
+  @ApiBody({
+    description: "User login credentials",
+    type: LoginUserDto,
+  })
   async login(@Body() userData: LoginUserDto): Promise<object> {
     if (!userData.email || !userData.password) {
       throw new BadRequestException("Email and password are required", {
@@ -109,15 +140,10 @@ export class AuthController {
       });
     }
 
-    const validation = object({
-      email: z.email(),
-      password: z.string().min(6, "Password must be at least 6 characters long"),
-    });
-
-    const result = validation.safeParse(userData);
+    const result = UserLoginSchema.safeParse(userData);
     if (!result.success) {
       throw new BadRequestException("Invalid input data", {
-        cause: new Error("Invalid input data"),
+        cause: result.error.message,
         description: "Input data does not match the required format",
       });
     }
@@ -148,8 +174,15 @@ export class AuthController {
    * @example
    * const info = await authController.getMe("user-uuid");
    */
-  @UseGuards(AuthGuard("jwt"))
+  @UseGuards(AuthGuard)
   @Get("me")
+  @ApiResponse({ status: 200, description: "User retrieved successfully", type: Object })
+  @ApiResponse({ status: 400, description: "Bad request. Missing required fields or invalid data." })
+  @ApiOperation({
+    summary: "Retrieve the authenticated user's information",
+    description: "Fetches the details of the currently authenticated user.",
+  })
+  @ApiQuery({ name: "id", type: String, required: true, description: "User ID (UUID)" })
   async getMe(@Query("id") id: string): Promise<object> {
     if (!id) {
       throw new BadRequestException("ID is required", {
@@ -159,11 +192,10 @@ export class AuthController {
     }
 
     // Validar que el id sea un UUID válido
-    const uuidSchema = z.uuid();
-    const result = uuidSchema.safeParse(id);
+    const result = UuidSchema.safeParse(id);
     if (!result.success) {
       throw new BadRequestException("Invalid UUID format", {
-        cause: new Error("Invalid UUID format"),
+        cause: result.error.message,
         description: "The provided ID is not a valid UUID",
       });
     }
@@ -176,6 +208,13 @@ export class AuthController {
   }
 
   @Delete("delete")
+  @ApiResponse({ status: 200, description: "User deleted successfully" })
+  @ApiResponse({ status: 400, description: "Bad request. Missing required fields or invalid data." })
+  @ApiOperation({
+    summary: "Delete a user",
+    description: "Removes a user from the system.",
+  })
+  @ApiQuery({ name: "id", type: String, required: true, description: "User ID (UUID)" })
   async deleteAuth(@Query("id") id: string): Promise<object> {
     if (!id) {
       throw new BadRequestException("ID is required", {
@@ -185,11 +224,10 @@ export class AuthController {
     }
 
     // Validar que el id sea un UUID válido
-    const uuidSchema = z.uuid();
-    const result = uuidSchema.safeParse(id);
+    const result = UuidSchema.safeParse(id);
     if (!result.success) {
       throw new BadRequestException("Invalid UUID format", {
-        cause: new Error("Invalid UUID format"),
+        cause: result.error.message,
         description: "The provided ID is not a valid UUID",
       });
     }

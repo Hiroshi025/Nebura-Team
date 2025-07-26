@@ -1,5 +1,8 @@
+import { StatusEntity } from "#adapters/database/entities/health/status.entity";
+
 import { Module } from "@nestjs/common";
 import { TerminusModule } from "@nestjs/terminus";
+import { TypeOrmModule } from "@nestjs/typeorm";
 
 import { HealthController } from "./controllers/health.controllers";
 import { HealthService } from "./health.service";
@@ -15,7 +18,7 @@ import { HealthService } from "./health.service";
  */
 @Module({
   imports: [
-    TerminusModule,
+    TypeOrmModule.forFeature([StatusEntity]),
     /**
      * Configures TerminusModule with logging enabled.
      * @see {@link https://docs.nestjs.com/recipes/terminus#configuration Terminus Configuration}

@@ -1,15 +1,21 @@
 /* eslint-disable prettier/prettier */
 import { Roles } from "#common/decorators/role.decorator";
-import { RoleGuard } from "#common/guards/role.guard";
+import { AuthGuard } from "#common/guards/auth.guard";
+import { RoleGuard } from "#common/guards/permissions/role.guard";
 import { UserRole } from "#common/typeRole";
-import { CacheService } from "#routes/admin/cache.service";
+import { CacheService } from "#routes/admin/service/cache.service";
 
 import {
-	Controller, Get, HttpException, HttpStatus, InternalServerErrorException, Logger, Param,
-	UseGuards
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  InternalServerErrorException,
+  Logger,
+  Param,
+  UseGuards,
 } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 /**
  * AdminCacheController
@@ -22,7 +28,7 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
  * - All endpoints require a valid Bearer token for authentication.
  * - Intended for use by admin-level users.
  */
-@UseGuards(AuthGuard("jwt"), RoleGuard)
+@UseGuards(AuthGuard, RoleGuard)
 @ApiTags("admin")
 @ApiBearerAuth()
 @Controller({
@@ -39,6 +45,12 @@ export class AdminCacheController {
    */
   @Roles(UserRole.DEVELOPER)
   @Get("keys")
+  @ApiResponse({ status: 200, description: "Cache keys retrieved successfully" })
+  @ApiResponse({ status: 500, description: "Internal server error" })
+  @ApiOperation({
+    summary: "Get all cache keys",
+    description: "Retrieves all cache keys stored in the cache manager.",
+  })
   async getAllKeys() {
     try {
       return await this.adminCacheService.getCacheKeys();
@@ -58,6 +70,13 @@ export class AdminCacheController {
    */
   @Roles(UserRole.DEVELOPER)
   @Get("value/:key")
+  @ApiResponse({ status: 200, description: "Cache value retrieved successfully" })
+  @ApiResponse({ status: 404, description: "Cache key not found" })
+  @ApiOperation({
+    summary: "Get cache value by key",
+    description: "Retrieves the value for a specific cache key. Returns 404 if the key does not exist.",
+  })
+  @ApiParam({ name: "key", description: "The cache key to retrieve", required: true })
   async getValue(@Param("key") key: string): Promise<string | number | boolean | object> {
     try {
       const value = await this.adminCacheService.getCacheValue(key);
@@ -81,6 +100,12 @@ export class AdminCacheController {
    */
   @Roles(UserRole.DEVELOPER)
   @Get("all")
+  @ApiResponse({ status: 200, description: "All cache entries retrieved successfully" })
+  @ApiResponse({ status: 500, description: "Internal server error" })
+  @ApiOperation({
+    summary: "Get all cache entries",
+    description: "Retrieves all cache entries as a key-value object.",
+  })
   async getAllCache() {
     try {
       return await this.adminCacheService.getAllCache();

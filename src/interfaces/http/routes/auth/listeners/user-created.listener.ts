@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { UserEntity } from "#entity/auth/user.entity";
+import { UserEntity } from "#entity/users/user.entity";
 
 //import { HttpService } from "@nestjs/axios";
 import { Injectable } from "@nestjs/common";

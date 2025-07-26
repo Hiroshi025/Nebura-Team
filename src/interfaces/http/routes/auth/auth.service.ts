@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { main } from "#/main";
-import { UserEntity } from "#entity/auth/user.entity";
+import { UserEntity } from "#entity/users/user.entity";
 import { encrypt } from "#shared/webToken";
 import { compare } from "bcryptjs";
+import Qrcode from "qrcode";
 import { Repository } from "typeorm";
 
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
@@ -58,10 +59,20 @@ export class AuthService {
 
       const password = await encrypt(userData.password);
       if (!password) throw new HttpException("Password encryption failed", HttpStatus.INTERNAL_SERVER_ERROR);
+
+      const dataJson = JSON.stringify({
+        name: userData.name,
+        email: userData.email,
+        password: userData.password,
+        uuid,
+      });
+
+      const qrcode = await Qrcode.toDataURL(dataJson);
       const user = this.authRepository.create({
         ...userData,
         password,
         uuid,
+        qrCodeBase64: qrcode,
       });
 
       await this.authRepository.save(user).then((savedUser) => {

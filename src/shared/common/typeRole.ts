@@ -4,4 +4,5 @@ export enum UserRole {
   MODERATOR = "moderator",
   DEVELOPER = "developer",
   CLIENT = "client",
+  OWNER = "owner",
 }

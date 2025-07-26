@@ -1,27 +1,30 @@
-import { UserEntity } from "#entity/auth/user.entity";
+import { StatusEntity } from "#adapters/database/entities/health/status.entity";
+import { LoggingInterceptor } from "#common/interceptors/register.interceptor";
+import { UserEntity } from "#entity/users/user.entity";
+import { FileEntity } from "#entity/utils/file.entity";
+import { LicenseEntity } from "#entity/utils/licence.entity";
 import { AdminModule } from "#routes/admin/admin.module";
 import { AuthModule } from "#routes/auth/auth.module";
+import { ClientModule } from "#routes/client/client.module";
 import { ErrorHistoryModule } from "#routes/errors/error-history.module";
 import { HealthModule } from "#routes/health/health.module";
+import { HealthService } from "#routes/health/health.service";
 import { UsersModule } from "#routes/users/users.module";
-import configuration from "#shared/configuration";
-import { IntentsBitField } from "discord.js";
-import { NecordModule } from "necord";
-import { LoggerModule } from "nestjs-pino";
+import { UtilsController } from "#routes/utils.controller";
+import configuration from "#shared/utils/configuration";
 
 import { HttpModule } from "@nestjs/axios";
 import { CacheInterceptor, CacheModule } from "@nestjs/cache-manager";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { EventEmitterModule } from "@nestjs/event-emitter";
+import { ScheduleModule } from "@nestjs/schedule";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { SentryGlobalFilter, SentryModule } from "@sentry/nestjs/setup";
 
-import { AppController } from "./app.controller";
-import { CsrfModule } from "./csrf.module";
-import { ClientUpdate } from "./interfaces/mesagging/discord/client.module";
-import { LoggingInterceptor } from "./shared/common/interceptors/register.interceptor";
+import { AppController } from "./interfaces/http/routes/app.controller";
 
 /**
  * The root module of the application.
@@ -41,6 +44,7 @@ import { LoggingInterceptor } from "./shared/common/interceptors/register.interc
  */
 @Module({
   imports: [
+    TypeOrmModule.forFeature([StatusEntity]),
     /**
      * Configures TypeORM for PostgreSQL database connection.
      * @see {@link https://docs.nestjs.com/techniques/database TypeORM Integration}
@@ -52,7 +56,7 @@ import { LoggingInterceptor } from "./shared/common/interceptors/register.interc
       username: process.env.DB_USERNAME ? String(process.env.DB_USERNAME) : "postgres",
       password: process.env.DB_PASSWORD ? String(process.env.DB_PASSWORD) : "luisP200",
       database: process.env.DB_NAME,
-      entities: [UserEntity],
+      entities: [UserEntity, StatusEntity, FileEntity, LicenseEntity],
       synchronize: true,
       logging: true,
     }),
@@ -96,22 +100,6 @@ import { LoggingInterceptor } from "./shared/common/interceptors/register.interc
       max: 100, // Maximum number of items in cache
     }),
     /**
-     * Integrates the LoggerModule for logging capabilities.
-     * @see {@link https://docs.nestjs.com/techniques/logger LoggerModule}
-     */
-    LoggerModule.forRoot({
-      pinoHttp: {
-        transport: {
-          target: "pino-pretty",
-          options: {
-            colorize: true,
-            translateTime: "SYS:standard",
-            ignore: "pid,hostname",
-          },
-        },
-      },
-    }),
-    /**
      * Integrates the HttpModule for making HTTP requests.
      * @see {@link https://docs.nestjs.com/techniques/http HttpModule}
      */
@@ -120,29 +108,25 @@ import { LoggingInterceptor } from "./shared/common/interceptors/register.interc
       maxRedirects: 5,
     }),
     /**
-     * Integrates the NecordModule for Discord bot functionality.
-     * @see {@link https://docs.npmjs.com/package/necord NecordModule}
+     * Integrates Sentry for error tracking and performance monitoring.
+     * @see {@link https://docs.sentry.io/platforms/node/ Sentry Node.js SDK}
      */
-    NecordModule.forRoot({
-      token: process.env.DISCORD_TOKEN as string,
-      intents: [IntentsBitField.Flags.Guilds],
-      development: [process.env.DISCORD_DEVELOPMENT_GUILD_ID as string],
-    }),
+    SentryModule.forRoot(),
     /**
      * Integrates the EventEmitterModule for event-driven architecture.
      * @see {@link https://docs.nestjs.com/recipes/event-emitter EventEmitterModule}
      */
     EventEmitterModule.forRoot(),
     /**
+     * Integrates the HealthModule for health checks.
+     * @see {@link https://docs.nestjs.com/recipes/terminus HealthModule}
+     */
+    ScheduleModule.forRoot(),
+    /**
      * Integrates health check endpoints.
      * @see {@link https://docs.nestjs.com/recipes/terminus HealthModule}
      */
     HealthModule,
-    /**
-     * Integrates CSRF protection middleware.
-     * @see {@link https://docs.npmjs.com/package/csrf-csrf CsrfModule}
-     */
-    CsrfModule,
     /**
      * Integrates authentication endpoints.
      * @see {@link https://docs.nestjs.com/security/authentication AuthModule}
@@ -163,14 +147,24 @@ import { LoggingInterceptor } from "./shared/common/interceptors/register.interc
      * @see {@link https://docs.nestjs.com/modules ErrorHistoryModule}
      */
     ErrorHistoryModule,
+    /**
+     * Integrates client management endpoints.
+     * @see {@link https://docs.nestjs.com/modules ClientModule}
+     */
+    ClientModule,
   ], // List of modules to import into the application.
-  controllers: [AppController], // List of controllers to register.
+  controllers: [AppController, UtilsController], // List of controllers to register.
   providers: [
+    /**
+     * Provides the HealthService for health check functionality.
+     * @see {@link #routes/health/health.service.ts HealthService}
+     */
+    HealthService,
     /**
      * Registers the ClientUpdate service to handle Discord client events.
      * @see {@link ./interfaces/mesagging/discord/client.module.ts ClientUpdate}
      */
-    ClientUpdate,
+    //ClientUpdate,
     /**
      * Registers ThrottlerGuard globally to protect all endpoints.
      * @see {@link https://docs.nestjs.com/security/rate-limiting ThrottlerGuard}
@@ -188,12 +182,16 @@ import { LoggingInterceptor } from "./shared/common/interceptors/register.interc
       useClass: CacheInterceptor,
     },
     /**
-     * Registers LoggingInterceptor globally to log requests and responses.
-     * @see {@link https://docs.nestjs.com/interceptors Interceptors}
+     * Registers LoggingInterceptor globally to log request lifecycle events.
+     * @see {@link #common/interceptors/register.interceptor.ts LoggingInterceptor}
      */
     {
       provide: APP_INTERCEPTOR,
-      useClass: LoggingInterceptor, // Custom logging interceptor for request logging.
+      useClass: LoggingInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: SentryGlobalFilter,
     },
   ], // List of providers (services, etc.) to register.
 })

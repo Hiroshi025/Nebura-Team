@@ -37,7 +37,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    * @throws Error if JWT_SECRET is not defined in the configuration.
    */
   constructor(configService: ConfigService) {
-    const jwtSecret = configService.get<string>("JWT_SECRET");
+    const jwtSecret = configService.get<string>("JWT_SECRET") || process.env.JWT_SECRET;
     if (!jwtSecret) {
       throw new JwtError("JWT_SECRET is not defined in the configuration");
     }

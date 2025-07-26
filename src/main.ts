@@ -1,14 +1,16 @@
+import "./shared/utils/instrument";
+
+import { registerHelpers } from "#shared/utils/helpers";
+import hbs from "hbs";
 import helmet from "helmet";
 import { join } from "path";
-import { loadEnvFile } from "process";
 
-import { ConsoleLogger, ValidationPipe, VersioningType } from "@nestjs/common";
+import { ConsoleLogger, Logger, ValidationPipe, VersioningType } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 import { AppModule } from "./app.module";
-import { Logger } from "./shared/logger";
 
 /**
  * Main class responsible for initializing and starting the Nebura API application.
@@ -28,23 +30,20 @@ import { Logger } from "./shared/logger";
  * @see {@link https://helmetjs.github.io/ Helmet}
  */
 
-loadEnvFile();
 export class Main {
   /**
    * Logger instance for application-wide logging.
    * Used to log messages and errors throughout the application lifecycle.
    * @type {Logger}
    */
-  public logger: Logger = new Logger();
+  public readonly logger: Logger = new Logger(Main.name);
 
   /**
    * Constructs the Main class and sets the logger context to "Main".
    *
    * This ensures that all logs from this class are properly tagged.
    */
-  constructor() {
-    this.logger.setContext("Main");
-  }
+  constructor() {}
 
   /**
    * Initializes and configures the main NestJS application module.
@@ -80,9 +79,8 @@ export class Main {
     //    - Uses ConsoleLogger for colored output in development.
     //    - See: https://docs.nestjs.com/fundamentals/logging
     const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-      logger: new ConsoleLogger({
-        colors: true,
-      }),
+      logger: process.env.NODE_ENV === "development" ? new ConsoleLogger({ colors: true }) : false,
+      bufferLogs: true,
     });
 
     // 2. Apply global validation pipes
@@ -102,7 +100,7 @@ export class Main {
     //    - See: https://docs.nestjs.com/techniques/versioning
     app.enableVersioning({
       type: VersioningType.URI,
-      prefix: "v",
+      prefix: "api/v",
     });
 
     // 4. Configure static files and view engine
@@ -113,6 +111,10 @@ export class Main {
     app.setBaseViewsDir(join(__dirname, "interfaces", "http", "views"));
     app.setViewEngine("hbs");
 
+    registerHelpers(hbs);
+    hbs.registerHelper("json", function (context) {
+      return JSON.stringify(context, null, 2);
+    });
     // 5. Configure Swagger for API documentation
     //    - Interactive API docs at /v1/docs
     //    - Downloadable OpenAPI JSON at /v1/docs/download
@@ -129,6 +131,10 @@ export class Main {
         description: "Enter JWT token in the format: Bearer <token>",
       })
       .addServer("http://localhost:3000", "Local development server")
+      .addGlobalResponse({
+        status: 500,
+        description: "Internal Server Error",
+      })
       .build();
 
     const documentFactory = () =>

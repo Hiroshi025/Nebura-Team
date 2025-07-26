@@ -1,17 +1,21 @@
+import { RoleSchema } from "#adapters/schemas/auth.schema";
+import { UuidSchema, UuidType } from "#adapters/schemas/shared/uuid.schema";
 import { Roles } from "#common/decorators/role.decorator";
-import { RoleGuard } from "#common/guards/role.guard";
+import { AuthGuard } from "#common/guards/auth.guard";
+import { RoleGuard } from "#common/guards/permissions/role.guard";
 import { UserRole } from "#common/typeRole";
 /* eslint-disable prettier/prettier */
-import { UserEntity } from "#entity/auth/user.entity";
-import { UserService } from "#routes/users/users.service";
-import z, { object } from "zod";
+import { UserEntity } from "#entity/users/user.entity";
+import { UserService } from "#routes/users/service/users.service";
+import { Repository } from "typeorm";
 
 import {
-	BadRequestException, Body, Controller, Delete, Get, NotFoundException, Post, Query,
-	UnauthorizedException, UseGuards
+	BadRequestException, Body, Controller, Delete, Get, NotFoundException, Post, Query, UseGuards
 } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import {
+	ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags
+} from "@nestjs/swagger";
+import { InjectRepository } from "@nestjs/typeorm";
 
 /**
  * AdminController
@@ -25,11 +29,11 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
  *
  * @see https://docs.nestjs.com/controllers
  */
-@UseGuards(AuthGuard("jwt"), RoleGuard)
+@UseGuards(AuthGuard, RoleGuard)
 @ApiTags("admin")
 @ApiBearerAuth()
 @Controller({
-  path: "admin",
+  path: "admin/users",
   version: "1",
 })
 export class AdminController {
@@ -38,15 +42,25 @@ export class AdminController {
    *
    * @param userService - The service responsible for user operations.
    */
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    @InjectRepository(UserEntity)
+    private readonly authRepository: Repository<UserEntity>,
+    private readonly userService: UserService,
+  ) {}
 
   /**
    * Retrieves a list of all users in the system.
    *
    * @returns An array of user entities.
    */
-  @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
-  @Get("users")
+  @Roles(UserRole.OWNER, UserRole.DEVELOPER)
+  @Get("")
+  @ApiResponse({ status: 200, description: "List of all users retrieved successfully", type: [UserEntity] })
+  @ApiResponse({ status: 500, description: "Internal server error" })
+  @ApiOperation({
+    summary: "Get all users",
+    description: "Retrieves a list of all users in the system.",
+  })
   async findAll() {
     return this.userService.findAll();
   }
@@ -58,38 +72,34 @@ export class AdminController {
    * @throws {HttpException} If the deletion operation fails.
    */
   @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
-  @Delete("users")
-  async deleteAll(@Query("uuid") uuid: string) {
-    // Validate the UUID format using Zod
-    const validZod = object({
-      uuid: z.uuid(),
-    });
-
-    const result = validZod.safeParse({ uuid });
+  @Delete("delete")
+  @ApiResponse({ status: 200, description: "All users deleted successfully" })
+  @ApiResponse({ status: 500, description: "Internal server error" })
+  @ApiOperation({
+    summary: "Delete all users",
+    description: "Deletes all users in the system. Requires admin privileges.",
+  })
+  @ApiQuery({ name: "uuid", type: String, required: true, description: "UUID of the user to delete" })
+  async delete(@Query("uuid") uuid: UuidType) {
+    const result = UuidSchema.safeParse(uuid);
     if (!result.success)
       throw new BadRequestException(result.error.message, {
-        cause: result.error,
+        cause: result.error.message,
         description: "Invalid UUID format",
       });
 
-    const adminUser = await this.userService.findByUuid(uuid);
-    if (!adminUser)
-      throw new NotFoundException("Admin user not found", {
-        cause: new Error("Admin user not found"),
-        description: "Admin user not found",
+    const user = await this.authRepository.findOne({ where: { uuid } });
+    if (!user) {
+      throw new NotFoundException(`User with UUID ${uuid} not found`, {
+        cause: new Error("User not found"),
+        description: "The user with the specified UUID does not exist.",
       });
+    }
 
-    const roleValid = process.env.ADMIN_ROLE_PERMISSION;
-    if (adminUser.role !== roleValid)
-      throw new UnauthorizedException("Unauthorized", {
-        cause: new Error("Unauthorized"),
-        description: "User does not have permission to delete all users",
-      });
-
-    await this.userService.deleteAll(uuid);
+    await this.authRepository.delete({ uuid });
     return {
       success: true,
-      message: "All users deleted successfully",
+      message: "User deleted successfully",
     };
   }
 
@@ -113,25 +123,27 @@ export class AdminController {
    * @see https://zod.dev/
    */
   @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
-  @Post("users/update-role")
+  @Post("update-role")
+  @ApiResponse({ status: 200, description: "User role updated successfully", type: UserEntity })
+  @ApiResponse({ status: 400, description: "Bad request. Invalid input data." })
+  @ApiOperation({ summary: "Update user role", description: "Updates the role of a specific user." })
+  @ApiBody({
+    description: "User data containing UUID and new role",
+    type: () => RoleSchema,
+  })
   async roleUpdate(@Body() userData: Partial<UserEntity>): Promise<{ success: boolean; message: string; data: UserEntity }> {
-    // Zod schema for validating the request body
-    const validZod = object({
-      uuid: z.uuid(),
-      role: z.enum(["admin", "user", "developer", "moderator", "client"]),
-    });
-
-    const result = validZod.safeParse({ uuid: userData.uuid, role: userData.role });
+    const result = RoleSchema.safeParse({ uuid: userData.uuid, role: userData.role });
     if (!result.success)
       throw new BadRequestException(result.error.message, {
-        cause: result.error,
+        cause: result.error.message,
         description: "Invalid input data",
       });
 
+    const user = await this.userService.updateRole(userData);
     return {
-      success: true,
-      message: "Role updated successfully",
-      data: await this.userService.updateRole(userData),
+      success: user ? true : false,
+      message: user ? "User role updated successfully" : "User not found",
+      data: user || null,
     };
   }
 }

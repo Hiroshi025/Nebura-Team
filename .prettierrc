@@ -12,5 +12,5 @@
 
   "arrowParens": "always",
   "endOfLine": "auto",
-  "ignorePathPatterns": ["**/node_modules/**", "**/view/**"]
+  "ignorePathPatterns": ["**/node_modules/**", "**/views/**"]
 }

@@ -1,12 +1,10 @@
+import { UuidSchema, UuidType } from "#adapters/schemas/shared/uuid.schema";
+import { AuthGuard } from "#common/guards/auth.guard";
 /* eslint-disable prettier/prettier */
-import { UserService } from "#routes/users/users.service";
-import z from "zod";
+import { UserService } from "#routes/users/service/users.service";
 
-import {
-	BadRequestException, Controller, Get, NotFoundException, Query, UseGuards
-} from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { ApiBearerAuth, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { BadRequestException, Controller, Get, NotFoundException, Query, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 /**
  * Public controller for user-related endpoints.
@@ -15,7 +13,7 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from "@nestjs/swagger";
  *
  * @see {@link https://docs.nestjs.com/controllers NestJS Controllers}
  */
-@UseGuards(AuthGuard("jwt"))
+@UseGuards(AuthGuard)
 @ApiTags("users")
 @ApiBearerAuth()
 @Controller({
@@ -40,17 +38,17 @@ export class PublicUserController {
   @Get()
   @ApiResponse({ status: 200, description: "User found", type: Object, isArray: false })
   @ApiResponse({ status: 500, description: "Internal server error" })
-  @ApiResponse({ status: 400, description: "Invalid UUID format" })
-  @ApiResponse({ status: 404, description: "User not found" })
-  async findByUuid(@Query("uuid") uuid: string) {
-    const validZod = z.object({
-      uuid: z.uuid(),
-    });
-
-    const result = validZod.safeParse({ uuid });
+  @ApiOperation({
+    summary: "Find user by UUID",
+    description: "Retrieves a user by their UUID.",
+  })
+  @ApiQuery({ name: "uuid", type: String, required: true, description: "Uuid required query params" })
+  async findByUuid(@Query("uuid") uuid: UuidType) {
+    console.log(uuid);
+    const result = UuidSchema.safeParse(uuid);
     if (!result.success)
       throw new BadRequestException(result.error.message, {
-        cause: result.error,
+        cause: result.error.message,
         description: "Invalid UUID format",
       });
 

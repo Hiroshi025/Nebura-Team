@@ -1,13 +1,16 @@
-import { JwtConfigModule } from "#/jwt.module";
-import { UserEntity } from "#entity/auth/user.entity";
-import { UserService } from "#routes/users/users.service";
+import { JwtConfigModule } from "#/core/jwt.module";
+import { UserEntity } from "#entity/users/user.entity";
+import { LicenseEntity } from "#entity/utils/licence.entity";
+import { UserService } from "#routes/users/service/users.service";
 
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { CacheService } from "./cache.service";
 import { AdminCacheController } from "./controllers/cache.controllers";
+import { AdminLicenceController } from "./controllers/licence.controller";
 import { AdminController } from "./controllers/users.controllers";
+import { CacheService } from "./service/cache.service";
+import { LicenceService } from "./service/licence.service";
 
 /**
  * AdminModule is responsible for providing admin-related services and controllers.
@@ -24,10 +27,10 @@ import { AdminController } from "./controllers/users.controllers";
  * @see {@link https://docs.nestjs.com/middleware | NestJS Middleware}
  */
 @Module({
-  imports: [JwtConfigModule, TypeOrmModule.forFeature([UserEntity])],
-  providers: [UserService, CacheService],
-  controllers: [AdminController, AdminCacheController],
-  exports: [UserService, CacheService],
+  imports: [JwtConfigModule, TypeOrmModule.forFeature([UserEntity, LicenseEntity])],
+  providers: [UserService, CacheService, LicenceService],
+  controllers: [AdminController, AdminCacheController, AdminLicenceController],
+  exports: [UserService, CacheService, LicenceService],
 })
 export class AdminModule {
   /**

@@ -1,6 +1,6 @@
 {
    "name": "nebura-control",
-   "version": "0.0.3",
+   "version": "0.0.4",
    "description": "Nebura Control API using NestJS and TypeORM",
    "author": "Hiroshi025",
    "private": true,

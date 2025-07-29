@@ -57,12 +57,16 @@ import { AppController } from "./interfaces/http/routes/app.controller";
       type: "postgres",
       host: process.env.DB_HOST,
       port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
-      username: process.env.DB_USERNAME ? String(process.env.DB_USERNAME) : "postgres",
-      password: process.env.DB_PASSWORD ? String(process.env.DB_PASSWORD) : "luisP200",
+      username: process.env.DB_USERNAME ? String(process.env.DB_USERNAME) : "hiroshi",
+      password: process.env.DB_PASSWORD ? String(process.env.DB_PASSWORD) : "v94PASssrc8u1nzuZwyjGr0PuaIT1IDr",
       database: process.env.DB_NAME,
       entities: [UserEntity, StatusEntity, FileEntity, LicenseEntity, IPBlockerEntity],
       synchronize: true,
       logging: true,
+      ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
+      extra: {
+        ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : null,
+      }
     }),
     /**
      * Loads environment variables globally.

@@ -175,8 +175,8 @@ export class Main {
     //    - Default: 3000, or use process.env.PORT
     //    - Logs the URL for API and Swagger UI
     //app.useGlobalGuards(new RolesGuard());
-    const port = process.env.PORT ?? 3000;
-    await app.listen(port);
+    const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+    await app.listen(port, '0.0.0.0');
     this.logger.log(`Nebura API is running at http://localhost:${port}/v1/`);
     this.logger.log(`Swagger UI available at http://localhost:${port}/v1/docs`);
   }

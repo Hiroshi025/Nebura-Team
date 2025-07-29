@@ -1,5 +1,7 @@
 import { StatusEntity } from "#adapters/database/entities/health/status.entity";
+import { HttpThrottlerGuard } from "#common/guards/http-throttler.guard";
 import { LoggingInterceptor } from "#common/interceptors/register.interceptor";
+import { IPBlockerEntity } from "#entity/admin/ips-blocker.entity";
 import { UserEntity } from "#entity/users/user.entity";
 import { FileEntity } from "#entity/utils/file.entity";
 import { LicenseEntity } from "#entity/utils/licence.entity";
@@ -15,15 +17,17 @@ import configuration from "#shared/utils/configuration";
 
 import { HttpModule } from "@nestjs/axios";
 import { CacheInterceptor, CacheModule } from "@nestjs/cache-manager";
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
+import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { EventEmitterModule } from "@nestjs/event-emitter";
 import { ScheduleModule } from "@nestjs/schedule";
-import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
+import { ThrottlerModule } from "@nestjs/throttler";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { SentryGlobalFilter, SentryModule } from "@sentry/nestjs/setup";
 
+import { DiscordModule } from "./core/discord/client.module";
+import { ClientListener } from "./core/discord/listeners/client.listener";
+import { IPBlockerMiddleware } from "./interfaces/http/middleware/ip-blocker.middleware";
 import { AppController } from "./interfaces/http/routes/app.controller";
 
 /**
@@ -44,7 +48,7 @@ import { AppController } from "./interfaces/http/routes/app.controller";
  */
 @Module({
   imports: [
-    TypeOrmModule.forFeature([StatusEntity]),
+    TypeOrmModule.forFeature([StatusEntity, UserEntity]),
     /**
      * Configures TypeORM for PostgreSQL database connection.
      * @see {@link https://docs.nestjs.com/techniques/database TypeORM Integration}
@@ -56,12 +60,30 @@ import { AppController } from "./interfaces/http/routes/app.controller";
       username: process.env.DB_USERNAME ? String(process.env.DB_USERNAME) : "postgres",
       password: process.env.DB_PASSWORD ? String(process.env.DB_PASSWORD) : "luisP200",
       database: process.env.DB_NAME,
-      entities: [UserEntity, StatusEntity, FileEntity, LicenseEntity],
+      entities: [UserEntity, StatusEntity, FileEntity, LicenseEntity, IPBlockerEntity],
       synchronize: true,
       logging: true,
     }),
     /**
-     * Sets up request rate limiting using ThrottlerModule.
+     * Loads environment variables globally.
+     * @see {@link https://docs.nestjs.com/techniques/configuration ConfigModule}
+     */
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: ".env", // Load environment variables from .env file
+      load: [configuration], // Load environment variables from .env file
+    }),
+    /**
+     * Registers the AuthModule for handling authentication.
+     * @see {@link https://docs.nestjs.com/security/authentication AuthModule}
+     */
+    CacheModule.register({
+      isGlobal: true, // Make cache available globally
+      ttl: 5 * 60, // Cache time-to-live in seconds
+      max: 100, // Maximum number of items in cache
+    }),
+    /**
+     * Integrates the ThrottlerModule for request throttling.
      * @see {@link https://docs.nestjs.com/security/rate-limiting ThrottlerModule}
      */
     ThrottlerModule.forRoot([
@@ -82,24 +104,6 @@ import { AppController } from "./interfaces/http/routes/app.controller";
       },
     ]),
     /**
-     * Loads environment variables globally.
-     * @see {@link https://docs.nestjs.com/techniques/configuration ConfigModule}
-     */
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: ".env", // Load environment variables from .env file
-      load: [configuration], // Load environment variables from .env file
-    }),
-    /**
-     * Registers the AuthModule for handling authentication.
-     * @see {@link https://docs.nestjs.com/security/authentication AuthModule}
-     */
-    CacheModule.register({
-      isGlobal: true, // Make cache available globally
-      ttl: 5 * 60, // Cache time-to-live in seconds
-      max: 100, // Maximum number of items in cache
-    }),
-    /**
      * Integrates the HttpModule for making HTTP requests.
      * @see {@link https://docs.nestjs.com/techniques/http HttpModule}
      */
@@ -107,11 +111,6 @@ import { AppController } from "./interfaces/http/routes/app.controller";
       timeout: 5000,
       maxRedirects: 5,
     }),
-    /**
-     * Integrates Sentry for error tracking and performance monitoring.
-     * @see {@link https://docs.sentry.io/platforms/node/ Sentry Node.js SDK}
-     */
-    SentryModule.forRoot(),
     /**
      * Integrates the EventEmitterModule for event-driven architecture.
      * @see {@link https://docs.nestjs.com/recipes/event-emitter EventEmitterModule}
@@ -152,6 +151,11 @@ import { AppController } from "./interfaces/http/routes/app.controller";
      * @see {@link https://docs.nestjs.com/modules ClientModule}
      */
     ClientModule,
+    /**
+     * Integrates Discord client management.
+     * @see {@link https://docs.nestjs.com/modules DiscordModule}
+     */
+    DiscordModule,
   ], // List of modules to import into the application.
   controllers: [AppController, UtilsController], // List of controllers to register.
   providers: [
@@ -161,18 +165,10 @@ import { AppController } from "./interfaces/http/routes/app.controller";
      */
     HealthService,
     /**
-     * Registers the ClientUpdate service to handle Discord client events.
-     * @see {@link ./interfaces/mesagging/discord/client.module.ts ClientUpdate}
+     * Registers the ClientListener service to handle Discord client events.
+     * @see {@link ./interfaces/mesagging/discord/client.module.ts ClientListener}
      */
-    //ClientUpdate,
-    /**
-     * Registers ThrottlerGuard globally to protect all endpoints.
-     * @see {@link https://docs.nestjs.com/security/rate-limiting ThrottlerGuard}
-     */
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
+    ClientListener,
     /**
      * Registers CacheInterceptor globally to enable caching for all endpoints.
      * @see {@link https://docs.nestjs.com/techniques/caching Cache
@@ -189,12 +185,18 @@ import { AppController } from "./interfaces/http/routes/app.controller";
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
     },
+    /**
+     * Registers ThrottlerGuard globally to enforce request rate limiting.
+     * @see {@link https://docs.nestjs.com/security/rate-limiting ThrottlerGuard}
+     */
     {
-      provide: APP_FILTER,
-      useClass: SentryGlobalFilter,
+      provide: APP_GUARD,
+      useClass: HttpThrottlerGuard,
     },
   ], // List of providers (services, etc.) to register.
 })
-export class AppModule {
-  // No constructor or custom logic required for this module.
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(IPBlockerMiddleware).forRoutes("*");
+  }
 }

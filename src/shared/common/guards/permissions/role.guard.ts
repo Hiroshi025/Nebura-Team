@@ -81,6 +81,12 @@ export class RoleGuard implements CanActivate {
       return false;
     }
 
-    return roles.includes(user.role as string);
+    const valid = roles.includes(user.role as string);
+    if (!valid) {
+      this.logger.warn(`Access denied for user with role '${user.role}'. Required roles: ${roles.join(", ")}`);
+      return false;
+    }
+
+    return true;
   }
 }

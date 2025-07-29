@@ -1,7 +1,9 @@
+import { SKIP_LOGGING_KEY } from "#common/decorators/logging.decorator";
 import { Observable } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 
 import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
 
 /**
  * LoggingInterceptor is a NestJS HTTP interceptor that logs the start and end of each HTTP request,
@@ -32,6 +34,8 @@ export class LoggingInterceptor implements NestInterceptor {
    */
   private readonly logger = new Logger(LoggingInterceptor.name);
 
+  constructor(private readonly reflector: Reflector) {}
+
   /**
    * Intercepts incoming HTTP requests and logs their lifecycle events.
    *
@@ -47,6 +51,12 @@ export class LoggingInterceptor implements NestInterceptor {
    * // [GET] /api/users - Error after 12.34 ms: NotFoundException
    */
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    // Verifica si el decorador está presente
+    const skipLogging = this.reflector.getAllAndOverride<boolean>(SKIP_LOGGING_KEY, [context.getHandler(), context.getClass()]);
+    if (skipLogging) {
+      return next.handle();
+    }
+
     // Get the HTTP request object
     const req = context.switchToHttp().getRequest();
     // Extract HTTP method (GET, POST, etc.)

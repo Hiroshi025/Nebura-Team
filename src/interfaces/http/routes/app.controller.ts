@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 import { Controller, Get, Render } from "@nestjs/common";
 import { ApiExcludeController } from "@nestjs/swagger";
 
@@ -45,6 +46,15 @@ export class AppController {
       message: "Health check successful!",
       health,
       errors,
+    };
+  }
+
+  @Get("playground")
+  @Render("playground")
+  async onPlayground() {
+    return {
+      title: "Nebura Playground",
+      message: "Welcome to the Nebura Playground!",
     };
   }
 }

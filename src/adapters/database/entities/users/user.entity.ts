@@ -1,5 +1,5 @@
 import { UserRole } from "#common/typeRole";
-import { IsDate, IsEmail, IsString, IsUUID } from "class-validator";
+import { IsBoolean, IsDate, IsEmail, IsString, IsUUID } from "class-validator";
 import { BaseEntity, Column, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
@@ -40,7 +40,7 @@ export class UserEntity extends BaseEntity {
     type: "uuid",
     unique: true,
     nullable: false,
-    default: () => "gen_random_uuid()", // Para PostgreSQL
+    default: () => "gen_random_uuid()", // For PostgreSQL
   })
   @ApiProperty({
     description: "UUID for the user, used for unique identification",
@@ -129,12 +129,43 @@ export class UserEntity extends BaseEntity {
   licenses?: Record<string, any>[];
 
   /**
-   * Timestamp when the user was created.
-   * Automatically set to the current date and time when the record is created.
+   * Optional field for storing Discord-related information.
+   * This can include user IDs, roles, or other Discord-specific data.
+   */
+  @Column("jsonb", { nullable: true })
+  @ApiPropertyOptional({
+    description: "Discord-related information for the user",
+    type: "object",
+    additionalProperties: true,
+    example: {
+      id: "123456789012345678",
+      username: "exampleUser",
+      discriminator: "1234",
+      avatar: "https://cdn.discordapp.com/avatars/123456789012345678/abcdef1234567890.png",
+    },
+  })
+  discordInfo?: Record<string, any>;
+
+  /**
+   * Indicates whether the user is a client.
+   * This can be used to differentiate between regular users and clients.
+   */
+  @Column({ default: false })
+  @ApiProperty({
+    description: "Indicates whether the user is a client",
+    example: false,
+    type: "boolean",
+  })
+  @IsBoolean()
+  isClient?: boolean;
+
+  /**
+   * Timestamp when the user was deleted.
+   * Automatically set to the current date and time when the record is deleted.
    */
   @DeleteDateColumn()
   @ApiProperty({
-    description: "Timestamp when the user was created",
+    description: "Timestamp when the user was deleted",
     example: "2023-10-01T12:00:00Z",
     type: "string",
   })

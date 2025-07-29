@@ -1,5 +1,8 @@
 import { FileUploadSchema } from "#adapters/schemas/files.schema";
 import { FileEntity } from "#entity/utils/file.entity";
+import crypto from "crypto";
+import fs from "fs/promises";
+import path from "path";
 import { Repository } from "typeorm";
 import { ZodError } from "zod";
 
@@ -292,5 +295,126 @@ export class FileUploadService {
     }
     this.logger.log(`File deleted: ${id}`);
     return true;
+  }
+
+  /**
+   * Replaces the physical file for a given file ID and user UUID.
+   *
+   * Deletes the old file from disk and saves the new one, updating metadata in the database.
+   *
+   * @param id File ID.
+   * @param file New file to replace the old one.
+   * @param userUuid User UUID.
+   * @returns Updated file metadata or null if not found.
+   * @throws {BadRequestException} If file is invalid.
+   */
+  async replaceFile(id: number, file: Express.Multer.File, userUuid: string) {
+    this.logger.debug(`replaceFile called with id: ${id}, userUuid: ${userUuid}, file: ${file?.originalname}`);
+    const fileEntity = await this.fileRepository.findOne({ where: { id, userUuid } });
+    if (!fileEntity) {
+      this.logger.warn(`File not found for replacement: ${id}`);
+      return null;
+    }
+
+    // Delete old physical file
+    try {
+      await fs.unlink(path.resolve(fileEntity.path));
+    } catch (err: any) {
+      this.logger.error(`Error deleting old file: ${err.message}`);
+      // Continue even if file does not exist
+    }
+
+    // Validate new file
+    const allowedMimeTypes = ["image/jpeg", "image/png", "application/pdf"];
+    if (!allowedMimeTypes.includes(file.mimetype)) {
+      this.logger.warn(`Invalid file type: ${file.mimetype}`);
+      throw new BadRequestException("Invalid file type", {
+        description: "Allowed file types are: JPEG, PNG, PDF.",
+        cause: "File type not supported",
+      });
+    }
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      this.logger.warn(`File too large: ${file.size}`);
+      throw new BadRequestException("File is too large!", {
+        description: "File size must be less than 5MB.",
+        cause: "File size exceeded",
+      });
+    }
+
+    // Zod validation
+    try {
+      FileUploadSchema.parse({
+        name: file.originalname,
+        path: file.path,
+        mimeType: file.mimetype,
+        size: String(file.size),
+        checksum: "simulated-checksum",
+      });
+    } catch (err) {
+      this.logger.error("Zod validation failed", err instanceof ZodError ? err.message : err);
+      throw new BadRequestException("File data validation failed", {
+        description: "File data does not match schema",
+        cause: err,
+      });
+    }
+
+    // Update metadata
+    fileEntity.name = file.originalname;
+    fileEntity.path = file.path;
+    fileEntity.mimeType = file.mimetype;
+    fileEntity.size = String(file.size);
+    fileEntity.checksum = "simulated-checksum";
+    await this.fileRepository.save(fileEntity);
+
+    this.logger.log(`File replaced and updated: ${fileEntity.id}`);
+    return fileEntity;
+  }
+
+  /**
+   * Returns the history (versions) of a file.
+   *
+   * If versioning is not implemented, returns only the current version.
+   *
+   * @param id File ID.
+   * @param userUuid User UUID.
+   * @returns Array of file versions metadata.
+   */
+  async getFileHistory(id: number, userUuid: string) {
+    this.logger.debug(`getFileHistory called with id: ${id}, userUuid: ${userUuid}`);
+    // Simulate versioning: return only current version
+    const file = await this.fileRepository.findOne({ where: { id, userUuid } });
+    if (!file) {
+      this.logger.warn(`File not found for history: ${id}`);
+      return [];
+    }
+    // If you have a version table, fetch all versions here
+    return [file];
+  }
+
+  /**
+   * Generates a temporary share link for a file.
+   *
+   * Creates a unique token and returns a link for temporary download.
+   *
+   * @param id File ID.
+   * @param userUuid User UUID.
+   * @returns Temporary share link or null if file not found.
+   */
+  async generateShareLink(id: number, userUuid: string) {
+    this.logger.debug(`generateShareLink called with id: ${id}, userUuid: ${userUuid}`);
+    const file = await this.fileRepository.findOne({ where: { id, userUuid } });
+    if (!file) {
+      this.logger.warn(`File not found for share link: ${id}`);
+      return null;
+    }
+    // Generate a random token
+    const token = crypto.randomBytes(24).toString("hex");
+    // Simulate storing token and expiration (implement persistent storage if needed)
+    // For now, just return the link
+    const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+    const expiresInMinutes = 60;
+    // You should store {token, fileId, userUuid, expiresAt} in a DB for real implementation
+    return `${baseUrl}/users/files/shared/${token}?expires=${Date.now() + expiresInMinutes * 60000}`;
   }
 }

@@ -1,6 +1,2 @@
-necord:
-  presence:
-    status: online
-    activity:
-      type: PLAYING
-      name: "with necord"
+owners:
+  - "1272411781641404472"

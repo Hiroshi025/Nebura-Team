@@ -1,6 +1,7 @@
-/* eslint-disable prettier/prettier */
 import { IsArray, IsDate, IsInt, IsOptional, IsString } from "class-validator";
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+	BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn
+} from "typeorm";
 
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 

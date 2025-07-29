@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { HealthService } from "#routes/health/health.service";
 
 import { Controller, Get } from "@nestjs/common";
@@ -6,7 +5,6 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagg
 import {
 	HealthCheck, HealthCheckService, MemoryHealthIndicator, TypeOrmHealthIndicator
 } from "@nestjs/terminus";
-import { SkipThrottle } from "@nestjs/throttler";
 
 /**
  * Controller responsible for handling health check endpoints.
@@ -30,7 +28,6 @@ import { SkipThrottle } from "@nestjs/throttler";
  */
 @ApiTags("health")
 @ApiBearerAuth()
-@SkipThrottle()
 @Controller({
   path: "health",
   version: "1",

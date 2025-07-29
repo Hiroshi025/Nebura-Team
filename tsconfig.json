@@ -71,6 +71,8 @@
       "#ports/*": ["src/domain/ports/*"], // https://www.typescriptlang.org/tsconfig#paths
       "#adapters/*": ["src/adapters/*"], // https://www.typescriptlang.org/tsconfig#paths
       "#shared/*": ["src/shared/*"], // https://www.typescriptlang.org/tsconfig#paths
+      "#core/*": ["src/core/*"], // https://www.typescriptlang.org/tsconfig#paths
+      "#config/*": ["config/*"], // https://www.typescriptlang.org/tsconfig#paths
       "#/*": ["src/*"] // https://www.typescriptlang.org/tsconfig#paths
     },
 
@@ -111,6 +113,9 @@
   // exclude: Files and directories to exclude from compilation.
   // Reference: https://www.typescriptlang.org/tsconfig#exclude
   "exclude": [
+    "views/*", // Exclude Handlebars views.
+    "public/*", // Exclude public assets.
+    "js/*", // Exclude JavaScript files.
     "node_modules", // Dependency modules.
     "dist", // Distribution output directory.
     "build" // Build output directory.

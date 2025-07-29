@@ -1,5 +1,9 @@
-import { Controller, Get } from "@nestjs/common";
+import { UserEntity } from "#entity/users/user.entity";
+import { Repository } from "typeorm";
+
+import { Body, Controller, Get, Post } from "@nestjs/common";
 import { ApiExcludeController } from "@nestjs/swagger";
+import { InjectRepository } from "@nestjs/typeorm";
 
 import { HealthService } from "./health/health.service";
 
@@ -32,7 +36,11 @@ export class UtilsController {
    * Injects the HealthService to retrieve system health data.
    * @param healthService The service used to get health information.
    */
-  constructor(private readonly healthService: HealthService) {}
+  constructor(
+    private readonly healthService: HealthService,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
+  ) {}
 
   /**
    * Returns the current system status in JSON format.
@@ -71,5 +79,30 @@ export class UtilsController {
       uptime: health.info.uptime,
       now: new Date().toISOString(),
     };
+  }
+
+  /**
+   * Converts a user to a client by setting `isClient` to true.
+   *
+   * @param body - Object containing the user's UUID.
+   * @returns An object indicating success and the updated user data.
+   * @throws {HttpException} If the user is not found or update fails.
+   *
+   * @example
+   * // Request body:
+   * // { "uuid": "user-uuid-string" }
+   */
+  @Post("convert-to-client")
+  async convertToClient(@Body("uuid") uuid: string) {
+    const user = await this.userRepository.findOne({ where: { uuid } });
+    if (!user) {
+      return { success: false, message: "User not found", data: null };
+    }
+    if (user.isClient) {
+      return { success: true, message: "User is already a client", data: user };
+    }
+    user.isClient = true;
+    await this.userRepository.save(user);
+    return { success: true, message: "User converted to client successfully", data: user };
   }
 }

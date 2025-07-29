@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/await-thenable */
 import { RoleValidSchema } from "#adapters/schemas/shared/role.schema";
 import { UserRole } from "#common/typeRole";
 // import UserRoles as a value, not just a type
 import { UserEntity } from "#entity/users/user.entity";
+import { LicenseEntity } from "#entity/utils/licence.entity";
 import { In, Repository } from "typeorm";
 
-import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import {
+	BadRequestException, HttpException, HttpStatus, Injectable, Logger, NotFoundException
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
@@ -129,5 +133,77 @@ export class UserService {
       this.logger.error("Error deleting all users", error);
       throw new HttpException("Failed to delete users", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  /**
+   * Validates a software licence.
+   * @param key - Licence key.
+   * @param identifier - Unique licence identifier.
+   * @param ip - IP address from which the request is made.
+   */
+  async validateLicence(key: string, identifier: string, ip: string) {
+    const licenceRepository = await this.userRepository.manager.getRepository(LicenseEntity);
+    const licence = await licenceRepository.findOne({ where: { key, identifier } });
+    if (!licence) throw new HttpException("Licence not found", HttpStatus.NOT_FOUND);
+
+    if (licence.validUntil < new Date())
+      throw new BadRequestException("Licence expired", {
+        cause: new Error("Licence expired"),
+        description: "The licence has expired and is no longer valid.",
+      });
+
+    if (licence.requestCount >= licence.requestLimit)
+      throw new BadRequestException("Request limit exceeded", {
+        cause: new Error("Request limit exceeded"),
+        description: "The number of requests has exceeded the allowed limit.",
+      });
+
+    if (!licence.ips) licence.ips = [];
+    if (!licence.ips.includes(ip)) {
+      if (licence.ips.length >= (licence.maxIps ?? 5))
+        throw new BadRequestException("Maximum IPs reached", {
+          cause: new Error("Maximum IPs reached"),
+          description: "The licence has reached the maximum number of allowed IPs.",
+        });
+      licence.ips.push(ip);
+    }
+
+    licence.requestCount += 1;
+    await licenceRepository.save(licence);
+
+    return {
+      key: licence.key,
+      identifier: licence.identifier,
+      type: licence.type,
+      validUntil: licence.validUntil,
+      requestCount: licence.requestCount,
+      requestLimit: licence.requestLimit,
+      ips: licence.ips,
+      maxIps: licence.maxIps,
+    };
+  }
+
+  /**
+   * Converts a user to a client by setting isClient to true.
+   *
+   * @param uuid - The UUID of the user to convert.
+   * @returns The updated user entity, or null if not found.
+   */
+  async convertToClient(uuid: string): Promise<UserEntity | null> {
+    const user = await this.userRepository.findOneBy({ uuid });
+    if (!user)
+      throw new NotFoundException(`User with UUID ${uuid} not found`, {
+        cause: new Error("User not found"),
+        description: "The user with the specified UUID does not exist.",
+      });
+
+    if (user.isClient) {
+      this.logger.warn(`User with UUID ${uuid} is already a client`);
+      return user; // No changes needed if already a client
+    }
+
+    user.isClient = true;
+    await this.userRepository.save(user);
+    return user;
   }
 }

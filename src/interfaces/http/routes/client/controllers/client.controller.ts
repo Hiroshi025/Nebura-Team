@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /**
  * Controller for client-related endpoints.
  *
@@ -16,14 +15,14 @@
  * @see {@link https://docs.nestjs.com/controllers NestJS Controllers}
  * @see {@link https://docs.nestjs.com/guards NestJS Guards}
  */
-import { Roles } from "#common/decorators/role.decorator";
 import { AuthGuard } from "#common/guards/auth.guard";
-import { RoleGuard } from "#common/guards/permissions/role.guard";
-import { UserRole } from "#common/typeRole";
+import { ClientGuard } from "#common/guards/permissions/customer.guard";
 import { LicenseEntity } from "#entity/utils/licence.entity";
 
 import { Controller, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import {
+	ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags
+} from "@nestjs/swagger";
 
 import { ClientService } from "../client.service";
 
@@ -33,8 +32,7 @@ import { ClientService } from "../client.service";
  * All routes are protected by authentication and role guards.
  * Only users with the CLIENT role can access these endpoints.
  */
-@UseGuards(AuthGuard, RoleGuard)
-@Roles(UserRole.CLIENT)
+@UseGuards(AuthGuard, ClientGuard)
 @ApiTags("client")
 @ApiBearerAuth()
 @Controller({
@@ -55,7 +53,7 @@ export class ClientController {
    * @param uuid - UUID of the user (from query).
    * @returns Array of LicenseEntity objects.
    */
-  @Get("licenses")
+  @Get("licences")
   @ApiOperation({
     summary: "Get all licenses for user",
     description: "Retrieves all licenses associated with the authenticated user.",
@@ -73,7 +71,7 @@ export class ClientController {
    * @param identifier - Unique license identifier.
    * @returns LicenseEntity object.
    */
-  @Get("license/:identifier")
+  @Get("licence/:identifier")
   @ApiOperation({ summary: "Get license by identifier", description: "Retrieves a specific license by its unique identifier." })
   @ApiResponse({ status: 200, description: "License retrieved successfully", type: LicenseEntity })
   @ApiResponse({ status: 404, description: "License not found" })
@@ -88,7 +86,7 @@ export class ClientController {
    * @param identifier - Unique license identifier.
    * @returns Object indicating success and updated license.
    */
-  @Post("license/:identifier/reset-ips")
+  @Post("licence/:identifier/reset-ips")
   @ApiOperation({ summary: "Reset license IPs", description: "Resets the registered IPs for a specific license." })
   @ApiResponse({ status: 200, description: "License IPs reset successfully", type: LicenseEntity })
   @ApiResponse({ status: 404, description: "License not found" })

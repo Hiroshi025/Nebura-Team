@@ -1,4 +1,5 @@
 import { JwtConfigModule } from "#/core/jwt.module";
+import { IPBlockerEntity } from "#entity/admin/ips-blocker.entity";
 import { UserEntity } from "#entity/users/user.entity";
 import { LicenseEntity } from "#entity/utils/licence.entity";
 import { UserService } from "#routes/users/service/users.service";
@@ -7,9 +8,11 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 import { AdminCacheController } from "./controllers/cache.controllers";
+import { AdminIPBlockerController } from "./controllers/ips-blocker.controllers";
 import { AdminLicenceController } from "./controllers/licence.controller";
 import { AdminController } from "./controllers/users.controllers";
 import { CacheService } from "./service/cache.service";
+import { IPBlockerService } from "./service/ips-blocker.service";
 import { LicenceService } from "./service/licence.service";
 
 /**
@@ -27,10 +30,10 @@ import { LicenceService } from "./service/licence.service";
  * @see {@link https://docs.nestjs.com/middleware | NestJS Middleware}
  */
 @Module({
-  imports: [JwtConfigModule, TypeOrmModule.forFeature([UserEntity, LicenseEntity])],
-  providers: [UserService, CacheService, LicenceService],
-  controllers: [AdminController, AdminCacheController, AdminLicenceController],
-  exports: [UserService, CacheService, LicenceService],
+  imports: [JwtConfigModule, TypeOrmModule.forFeature([UserEntity, LicenseEntity, IPBlockerEntity])],
+  providers: [UserService, CacheService, LicenceService, IPBlockerService],
+  controllers: [AdminController, AdminCacheController, AdminLicenceController, AdminIPBlockerController],
+  exports: [UserService, CacheService, LicenceService, IPBlockerService],
 })
 export class AdminModule {
   /**

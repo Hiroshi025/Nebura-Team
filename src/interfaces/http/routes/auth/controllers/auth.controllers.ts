@@ -1,7 +1,6 @@
 import { UserLoginSchema, UserSchema } from "#adapters/schemas/auth.schema";
 import { UuidSchema } from "#adapters/schemas/shared/uuid.schema";
 import { AuthGuard } from "#common/guards/auth.guard";
-/* eslint-disable prettier/prettier */
 import { randomUUID } from "crypto";
 
 import {

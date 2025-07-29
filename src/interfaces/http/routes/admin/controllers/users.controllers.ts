@@ -4,7 +4,6 @@ import { Roles } from "#common/decorators/role.decorator";
 import { AuthGuard } from "#common/guards/auth.guard";
 import { RoleGuard } from "#common/guards/permissions/role.guard";
 import { UserRole } from "#common/typeRole";
-/* eslint-disable prettier/prettier */
 import { UserEntity } from "#entity/users/user.entity";
 import { UserService } from "#routes/users/service/users.service";
 import { Repository } from "typeorm";
@@ -53,8 +52,8 @@ export class AdminController {
    *
    * @returns An array of user entities.
    */
-  @Roles(UserRole.OWNER, UserRole.DEVELOPER)
   @Get("")
+  @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
   @ApiResponse({ status: 200, description: "List of all users retrieved successfully", type: [UserEntity] })
   @ApiResponse({ status: 500, description: "Internal server error" })
   @ApiOperation({
@@ -71,8 +70,8 @@ export class AdminController {
    * @returns An object indicating success and a message.
    * @throws {HttpException} If the deletion operation fails.
    */
-  @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
   @Delete("delete")
+  @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
   @ApiResponse({ status: 200, description: "All users deleted successfully" })
   @ApiResponse({ status: 500, description: "Internal server error" })
   @ApiOperation({
@@ -122,8 +121,8 @@ export class AdminController {
    * @see https://docs.nestjs.com/controllers#request-payloads
    * @see https://zod.dev/
    */
-  @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
   @Post("update-role")
+  @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
   @ApiResponse({ status: 200, description: "User role updated successfully", type: UserEntity })
   @ApiResponse({ status: 400, description: "Bad request. Invalid input data." })
   @ApiOperation({ summary: "Update user role", description: "Updates the role of a specific user." })
@@ -143,6 +142,40 @@ export class AdminController {
     return {
       success: user ? true : false,
       message: user ? "User role updated successfully" : "User not found",
+      data: user || null,
+    };
+  }
+
+  /**
+   * Converts a user to a client by setting `isClient` to true.
+   *
+   * @param body - Object containing the user's UUID.
+   * @returns An object indicating success and the updated user data.
+   * @throws {HttpException} If the user is not found or update fails.
+   *
+   * @example
+   * // Request body:
+   * // { "uuid": "user-uuid-string" }
+   */
+  @Post("convert-to-client")
+  @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
+  @ApiOperation({ summary: "Convert user to client", description: "Sets isClient=true for the specified user." })
+  @ApiBody({
+    schema: {
+      type: "object",
+      properties: {
+        uuid: { type: "string", description: "UUID of the user to convert" },
+      },
+      required: ["uuid"],
+    },
+  })
+  @ApiResponse({ status: 200, description: "User converted to client successfully" })
+  @ApiResponse({ status: 404, description: "User not found" })
+  async convertToClient(@Body("uuid") uuid: string) {
+    const user = await this.userService.convertToClient(uuid);
+    return {
+      success: !!user,
+      message: user ? "User converted to client successfully" : "User not found",
       data: user || null,
     };
   }

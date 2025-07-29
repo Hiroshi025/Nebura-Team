@@ -1,28 +1,16 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { UuidSchema } from "#adapters/schemas/shared/uuid.schema";
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { AuthGuard } from "#common/guards/auth.guard";
 
 import {
-  BadRequestException,
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Logger,
-  NotFoundException,
-  Param,
-  Patch,
-  Post,
-  Query,
-  Res,
-  UploadedFile,
-  UseGuards,
-  UseInterceptors,
+	BadRequestException, Body, Controller, Delete, Get, Logger, NotFoundException, Param, Patch,
+	Post, Query, Res, UploadedFile, UseGuards, UseInterceptors
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import {
+	ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags
+} from "@nestjs/swagger";
 
 import { UpdateMulterDto } from "../dto/update-multer.dto";
 import { FileUploadService } from "../service/multer.service";
@@ -58,7 +46,6 @@ import { FileUploadService } from "../service/multer.service";
  * @see {@link https://docs.nestjs.com/techniques/file-upload NestJS File Upload}
  * @see {@link https://swagger.io/docs/ NestJS Swagger}
  */
-@UseGuards(AuthGuard)
 @ApiTags("files")
 @ApiBearerAuth()
 @Controller({
@@ -94,6 +81,7 @@ export class FileUploadController {
    * ```
    */
   @Post("upload")
+  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor("file"))
   @ApiOperation({ summary: "Upload a file", description: "Uploads a new file." })
   @ApiResponse({ status: 201, description: "File uploaded successfully." })
@@ -141,6 +129,7 @@ export class FileUploadController {
    * ```
    */
   @Get(":id")
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Get file by ID", description: "Retrieves a file by its ID." })
   @ApiResponse({ status: 200, description: "File found." })
   @ApiResponse({ status: 404, description: "File not found." })
@@ -180,6 +169,7 @@ export class FileUploadController {
    * ```
    */
   @Get()
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Get all files", description: "Retrieves all uploaded files." })
   @ApiResponse({ status: 200, description: "List of files." })
   @ApiQuery({ name: "uuid", type: String, required: true })
@@ -218,6 +208,7 @@ export class FileUploadController {
    * @see {@link UpdateMulterDto}
    */
   @Patch(":id")
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Update file", description: "Updates file metadata." })
   @ApiResponse({ status: 200, description: "File updated successfully." })
   @ApiResponse({ status: 400, description: "Invalid update data." })
@@ -260,6 +251,7 @@ export class FileUploadController {
    * ```
    */
   @Delete(":id")
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Delete file", description: "Deletes a file by its ID." })
   @ApiResponse({ status: 200, description: "File deleted successfully." })
   @ApiResponse({ status: 404, description: "File not found." })
@@ -305,6 +297,7 @@ export class FileUploadController {
    * @see {@link https://expressjs.com/en/api.html#res.sendFile Express sendFile}
    */
   @Get("download/:id")
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Download physical file", description: "Downloads the physical file by its ID." })
   @ApiResponse({ status: 200, description: "File downloaded successfully." })
   @ApiResponse({ status: 404, description: "File not found." })
@@ -335,5 +328,145 @@ export class FileUploadController {
         res.status(404).json({ success: false, message: "File not found on disk" });
       }
     });
+  }
+
+  /**
+   * Replace the physical file for a given file ID.
+   *
+   * Allows the user to upload a new file that replaces the content of the existing file,
+   * keeping the same database record (ID and main metadata).
+   *
+   * @param id The file ID.
+   * @param file The new file to replace the old one.
+   * @param uuid The user UUID.
+   * @returns Updated file metadata.
+   * @throws {NotFoundException} If the file is not found.
+   * @throws {BadRequestException} If the file is invalid.
+   *
+   * @example
+   * ```typescript
+   * POST /users/files/replace/1
+   * Content-Type: multipart/form-data
+   * Body: { file: <file> }
+   * ```
+   */
+  @Post("replace/:id")
+  @UseGuards(AuthGuard)
+  @UseInterceptors(FileInterceptor("file"))
+  @ApiOperation({ summary: "Replace physical file", description: "Replaces the physical file for a given file ID." })
+  @ApiResponse({ status: 200, description: "File replaced successfully." })
+  @ApiResponse({ status: 400, description: "Invalid file or upload error." })
+  @ApiResponse({ status: 404, description: "File not found." })
+  @ApiParam({ name: "id", type: Number, required: true, description: "File ID" })
+  @ApiQuery({ name: "uuid", type: String, required: true })
+  async replaceFile(@Param("id") id: number, @UploadedFile() file: Express.Multer.File, @Query("uuid") uuid: string) {
+    this.logger.debug(`replaceFile endpoint called with id: ${id}, file: ${file?.originalname}`);
+    if (!file) {
+      this.logger.warn("No file uploaded");
+      throw new BadRequestException("No file uploaded", {
+        description: "Please upload a file to proceed.",
+        cause: "File upload is required",
+      });
+    }
+    if (!uuid) {
+      this.logger.warn("User UUID not found in request");
+      throw new BadRequestException("User UUID not found", {
+        description: "Please provide a valid user UUID.",
+        cause: "User UUID is required for file replacement",
+      });
+    }
+    const result = UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error("Invalid UUID format", result.error);
+      throw new BadRequestException("Invalid UUID format");
+    }
+    const updated = await this.fileUploadService.replaceFile(id, file, uuid);
+    if (!updated) {
+      this.logger.warn(`File not found for replacement: ${id}`);
+      throw new NotFoundException("File not found");
+    }
+    return { success: true, data: updated };
+  }
+
+  /**
+   * Get file history (versions) by file ID.
+   *
+   * Returns a list of metadata for each version of the file.
+   *
+   * @param id The file ID.
+   * @param uuid The user UUID.
+   * @returns List of file versions metadata.
+   * @throws {NotFoundException} If the file or history is not found.
+   *
+   * @example
+   * ```typescript
+   * GET /users/files/history/1?uuid=...
+   * ```
+   */
+  @Get("history/:id")
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: "Get file history", description: "Returns the history (versions) of a file." })
+  @ApiResponse({ status: 200, description: "File history retrieved successfully." })
+  @ApiResponse({ status: 404, description: "File or history not found." })
+  @ApiParam({ name: "id", type: Number, required: true, description: "File ID" })
+  @ApiQuery({ name: "uuid", type: String, required: true })
+  async getFileHistory(@Param("id") id: number, @Query("uuid") uuid: string) {
+    this.logger.debug(`getFileHistory endpoint called with id: ${id}`);
+    if (!uuid) {
+      this.logger.warn("User UUID not found in request");
+      throw new NotFoundException("User UUID not found");
+    }
+    const result = UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error("Invalid UUID format", result.error);
+      throw new NotFoundException("Invalid UUID format");
+    }
+    const history = await this.fileUploadService.getFileHistory(id, uuid);
+    if (!history || history.length === 0) {
+      this.logger.warn(`File history not found: ${id}`);
+      throw new NotFoundException("File history not found");
+    }
+    return { success: true, data: history };
+  }
+
+  /**
+   * Generate a temporary share link for a file.
+   *
+   * Allows the user to generate a temporary link to share the file with third parties.
+   *
+   * @param id The file ID.
+   * @param uuid The user UUID.
+   * @returns Temporary share link.
+   * @throws {NotFoundException} If the file is not found.
+   * @throws {BadRequestException} If the UUID is invalid.
+   *
+   * @example
+   * ```typescript
+   * POST /users/files/share/1?uuid=...
+   * ```
+   */
+  @Post("share/:id")
+  @ApiOperation({ summary: "Generate temporary share link", description: "Generates a temporary share link for a file." })
+  @ApiResponse({ status: 200, description: "Share link generated successfully." })
+  @ApiResponse({ status: 404, description: "File not found." })
+  @ApiParam({ name: "id", type: Number, required: true, description: "File ID" })
+  @ApiQuery({ name: "uuid", type: String, required: true })
+  async generateShareLink(@Param("id") id: number, @Query("uuid") uuid: string) {
+    this.logger.debug(`generateShareLink endpoint called with id: ${id}`);
+    if (!uuid) {
+      this.logger.warn("User UUID not found in request");
+      throw new BadRequestException("User UUID not found");
+    }
+    const result = UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error("Invalid UUID format", result.error);
+      throw new BadRequestException("Invalid UUID format");
+    }
+    const link = await this.fileUploadService.generateShareLink(id, uuid);
+    if (!link) {
+      this.logger.warn(`File not found for share link: ${id}`);
+      throw new NotFoundException("File not found");
+    }
+    return { success: true, link };
   }
 }

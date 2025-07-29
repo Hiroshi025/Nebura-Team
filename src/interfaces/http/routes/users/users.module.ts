@@ -1,6 +1,7 @@
 import { JwtConfigModule } from "#/core/jwt.module";
 import { UserEntity } from "#entity/users/user.entity";
 import { FileEntity } from "#entity/utils/file.entity";
+import { LicenseEntity } from "#entity/utils/licence.entity";
 import fs from "fs";
 import { diskStorage } from "multer";
 
@@ -42,7 +43,7 @@ import { UserService } from "./service/users.service";
      * Registers UserEntity and FileEntity for TypeORM repository injection.
      * @see {@link https://typeorm.io/#/modules}
      */
-    TypeOrmModule.forFeature([UserEntity, FileEntity]),
+    TypeOrmModule.forFeature([UserEntity, FileEntity, LicenseEntity]),
     /**
      * Configures Multer for file uploads.
      * Uses diskStorage to save files to the path specified by the MULTER_PATH environment variable.

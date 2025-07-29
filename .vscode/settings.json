@@ -19,7 +19,8 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/build": false,
-    "**/docs": false
+    "**/docs": false,
+    "**/capitulo-*": true,
   },
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#1f6fd0",

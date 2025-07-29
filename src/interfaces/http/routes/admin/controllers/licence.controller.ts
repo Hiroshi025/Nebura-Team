@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { LicenceCreateSchema, LicenceUpdateSchema } from "#adapters/schemas/licence.schema";
 import { Roles } from "#common/decorators/role.decorator";
 import { AuthGuard } from "#common/guards/auth.guard";
@@ -8,8 +7,13 @@ import { LicenceCreateDto } from "#routes/admin/dto/create-licence.dto";
 import { LicenceUpdateDto } from "#routes/admin/dto/update-licence.dto";
 import { LicenceService } from "#routes/admin/service/licence.service";
 
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards } from "@nestjs/common";
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
+import {
+	BadRequestException, Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put,
+	UseGuards
+} from "@nestjs/common";
+import {
+	ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags
+} from "@nestjs/swagger";
 
 /**
  * AdminLicenceController
@@ -83,7 +87,7 @@ export class AdminLicenceController {
    * GET /admin/licence/550e8400-e29b-41d4-a716-446655440000
    */
   @Get(":id")
-  @Roles(UserRole.CLIENT)
+  @Roles(UserRole.ADMIN)
   @ApiResponse({ status: 200, description: "Licence retrieved successfully" })
   @ApiResponse({ status: 404, description: "Licence not found" })
   @ApiOperation({
@@ -105,7 +109,7 @@ export class AdminLicenceController {
    * GET /admin/licence/identifier/LIC-UNIQUE-001
    */
   @Get("identifier/:identifier")
-  @Roles(UserRole.CLIENT)
+  @Roles(UserRole.ADMIN)
   @ApiResponse({ status: 200, description: "Licence retrieved successfully by identifier" })
   @ApiResponse({ status: 404, description: "Licence not found" })
   @ApiOperation({
@@ -148,7 +152,10 @@ export class AdminLicenceController {
   async create(@Body() body: LicenceCreateDto) {
     const parse = LicenceCreateSchema.safeParse(body);
     if (!parse.success) {
-      throw new HttpException(parse.error.message, HttpStatus.BAD_REQUEST);
+      throw new BadRequestException(parse.error.message, {
+        cause: new Error("Validation failed"),
+        description: "Invalid licence creation data",
+      });
     }
     return await this.licenceService.create(parse.data);
   }

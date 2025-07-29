@@ -1,9 +1,8 @@
-import "./shared/utils/instrument";
-
 import { registerHelpers } from "#shared/utils/helpers";
 import hbs from "hbs";
 import helmet from "helmet";
 import { join } from "path";
+import { loadEnvFile } from "process";
 
 import { ConsoleLogger, Logger, ValidationPipe, VersioningType } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
@@ -29,7 +28,7 @@ import { AppModule } from "./app.module";
  * @see {@link https://docs.nestjs.com/techniques/logger Logger}
  * @see {@link https://helmetjs.github.io/ Helmet}
  */
-
+loadEnvFile();
 export class Main {
   /**
    * Logger instance for application-wide logging.

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Roles } from "#common/decorators/role.decorator";
 import { AuthGuard } from "#common/guards/auth.guard";
 import { RoleGuard } from "#common/guards/permissions/role.guard";
@@ -6,14 +5,8 @@ import { UserRole } from "#common/typeRole";
 import { CacheService } from "#routes/admin/service/cache.service";
 
 import {
-  Controller,
-  Get,
-  HttpException,
-  HttpStatus,
-  InternalServerErrorException,
-  Logger,
-  Param,
-  UseGuards,
+	Controller, Get, HttpException, HttpStatus, InternalServerErrorException, Logger, Param,
+	UseGuards
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 

@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+
+
 /* eslint-disable @typescript-eslint/require-await */
-import { Controller, Get, Render } from "@nestjs/common";
+import { Controller, Get, Render, Res } from "@nestjs/common";
 import { ApiExcludeController } from "@nestjs/swagger";
 
 import { HealthService } from "./health/health.service";
@@ -49,6 +52,16 @@ export class AppController {
     };
   }
 
+  /**
+   * Handles GET requests to the '/playground' path.
+   *
+   * Renders the 'playground' view with a welcome message.
+   *
+   * @returns An object containing a title and a welcome message.
+   * @example
+   * // Example response:
+   * // { title: "Nebura Playground", message: "Welcome to the Nebura Playground!" }
+   */
   @Get("playground")
   @Render("playground")
   async onPlayground() {
@@ -56,5 +69,21 @@ export class AppController {
       title: "Nebura Playground",
       message: "Welcome to the Nebura Playground!",
     };
+  }
+
+  /**
+   * Redirects to the documentation index page.
+   *
+   * This method handles GET requests to the '/docs' path and redirects the user
+   * to the documentation index page.
+   *
+   * @param res The response object used to perform the redirect.
+   * @example
+   * // Example usage:
+   * // Visiting http://localhost:3000/dashboard/docs will redirect to /docs/index.html
+   */
+  @Get("docs")
+  redirectToIndex(@Res() res: any) {
+    res.redirect("/docs/index.html");
   }
 }

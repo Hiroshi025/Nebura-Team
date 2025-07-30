@@ -27,43 +27,42 @@
 - [Monitoring & Health](#monitoring--health)
 - [Testing](#testing)
 - [Deployment](#deployment)
-- [Support](#support)
+- [Support & Resources](#support--resources)
 - [Contributing](#contributing)
 - [License](#license)
+- [Advanced Guides](#advanced-guides)
 
 ---
 
 ## 📝 Overview
 
-**Nebura Control** is a modular, extensible, and robust API platform designed to integrate services such as Discord, WhatsApp, GitHub, Google Gemini AI, and more. Built in TypeScript, it is focused on scalability and maintainability for modern multi-service applications.
+**Nebura Control** is a modular, extensible, and robust API platform designed to integrate with services such as Discord, WhatsApp, GitHub, Google Gemini AI, and more. Built with TypeScript and NestJS, it focuses on scalability, maintainability, and security for modern multi-service applications.
 
 ---
 
 ## 🚀 Features
 
-| Feature                | Description                                      |
-| ---------------------- | ------------------------------------------------ |
-| Modular Architecture   | Modules for Auth, Users, Admin, Health, and more |
-| PostgreSQL Integration | Advanced ORM support                             |
-| JWT Authentication     | Security and role-based access control           |
-| Rate Limiting          | Configurable request limiting                    |
-| Global Cache           | Performance optimization                         |
-| DTO Validation         | Data validation and transformation               |
-| API Versioning         | Backward compatibility                           |
-| Swagger/OpenAPI        | Interactive documentation                        |
-| Security               | Helmet, sanitization, secure headers             |
-| Health Checks          | Health and monitoring endpoints                  |
-| Logging                | Structured and colorized logs                    |
-| Extensible Middleware  | Easy integration of custom middlewares           |
-| Cloud-Ready            | Docker, Kubernetes, serverless compatible        |
-| Monitoring             | Metrics and health endpoints                     |
-| Audit Logging          | Audit of key actions                             |
+| Feature                | Description                               |
+| ---------------------- | ----------------------------------------- |
+| Modular Architecture   | Auth, Users, Admin, Health, and more      |
+| PostgreSQL Integration | Advanced ORM with TypeORM                 |
+| JWT Authentication     | Secure, role-based access control         |
+| Rate Limiting          | Configurable request throttling           |
+| Global Cache           | Performance optimization                  |
+| DTO Validation         | Data validation and transformation        |
+| API Versioning         | Backward compatibility                    |
+| Swagger/OpenAPI        | Interactive API documentation             |
+| Security               | Helmet, sanitization, secure headers      |
+| Health Checks          | Health and monitoring endpoints           |
+| Logging                | Structured and colorized logs             |
+| Extensible Middleware  | Easy integration of custom middlewares    |
+| Cloud-Ready            | Docker, Kubernetes, serverless compatible |
+| Monitoring             | Metrics and health endpoints              |
+| Audit Logging          | Audit of key actions                      |
 
 ---
 
 ## 🏗️ Architecture
-
-Nebura Control follows a modular and scalable architecture.
 
 ```
 src/
@@ -76,7 +75,7 @@ src/
 ├── shared/             # Shared utilities
 ├── app.module.ts       # Root module
 ├── main.ts             # Entry point
-└── jwt.module.ts       # JWT configuration
+└── core/               # Core modules (JWT, Discord, etc.)
 ```
 
 ---
@@ -91,12 +90,17 @@ src/
 - **Environment variables:** Secrets are never exposed in code.
 - **Audit Logging:** Critical actions are audited.
 
+**References:**
+
+- [NestJS Security Docs](https://docs.nestjs.com/security)
+- [Helmet.js](https://helmetjs.github.io/)
+
 ---
 
 ## 📈 Scalability
 
 - **Stateless API:** JWT enables horizontal scaling.
-- **Global Cache:** Less load on the database.
+- **Global Cache:** Reduces database load.
 - **Pooling:** Efficient resource usage.
 - **Cloud-Ready:** Docker/Kubernetes/serverless.
 - **Observability:** Health endpoints and logs.
@@ -139,20 +143,28 @@ JWT_SECRET=your_jwt_secret
 JWT_EXPIRES_IN=1d
 ```
 
+**See:** [NestJS Environment Variables](https://docs.nestjs.com/techniques/configuration)
+
 ---
 
 ## ▶️ Usage
 
-### Run the application
+### Start the application
 
 ```bash
 npm run start
 ```
 
-### Development mode
+### Development mode (with hot reload)
 
 ```bash
 npm run start:dev
+```
+
+### Example: Making an authenticated request
+
+```bash
+curl -H "Authorization: Bearer <your_jwt_token>" http://localhost:3000/v1/users/me
 ```
 
 ---
@@ -167,6 +179,9 @@ npm run start:dev
 - JWT Bearer authentication support
 - Interactive endpoint testing
 - Download OpenAPI specification
+
+**Tutorial:**  
+See [NestJS Swagger Docs](https://docs.nestjs.com/openapi/introduction) for customizing API docs.
 
 ---
 
@@ -193,65 +208,9 @@ Nebura exposes health and metrics endpoints for monitoring:
 }
 ```
 
----
+**References:**
 
-## 🧪 Testing
-
-```bash
-npm run test
-npm run test:e2e
-npm run test:cov
-```
-
----
-
-## 🚀 Deployment
-
-Nebura Control is cloud-ready and can be deployed on any modern platform.
-
----
-
-## 🆘 Support
-
-- **Help Center:** [https://help.hiroshi-dev.me/](https://help.hiroshi-dev.me/)
-- **GitHub:** [https://github.com/Hiroshi025/Nebura-AI](https://github.com/Hiroshi025/Nebura-AI)
-- **Report bugs:** [GitHub Issues](https://github.com/Hiroshi025/Nebura-AI/issues)
-- **Documentation:** [Swagger UI](http://localhost:3000/v1/docs) (after starting the server)
-- **Discord.js Docs:** [https://discord.js.org/#/docs](https://discord.js.org/#/docs)
-- **WhatsApp Web.js Docs:** [https://wwebjs.dev/guide/](https://wwebjs.dev/guide/)
-- **Prisma Docs:** [https://www.prisma.io/docs/](https://www.prisma.io/docs/)
-- **Express Docs:** [https://expressjs.com/](https://expressjs.com/)
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Open issues or pull requests on [GitHub](https://github.com/Hiroshi025/Nebura-AI).
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-<p align="center">
-  <b>Developed with ❤️ by Hiroshi025</b>
-</p>
-| `/v1/health/disk`   | Disk space and I/O           |
-
-**Sample Health Response:**
-
-```json
-{
-  "status": "ok",
-  "info": {
-    "database": { "status": "up" },
-    "memory": { "status": "up", "used": "120MB" }
-  }
-}
-```
+- [NestJS Terminus (Health Checks)](https://docs.nestjs.com/recipes/terminus)
 
 ---
 
@@ -270,24 +229,68 @@ npm run test:e2e
 npm run test:cov
 ```
 
+**Tutorial:**  
+See [NestJS Testing Docs](https://docs.nestjs.com/fundamentals/testing) for advanced testing strategies.
+
 ---
 
 ## 🚀 Deployment
 
-Nebura is cloud-ready and can be deployed to any modern platform.
+Nebura Control is cloud-ready and can be deployed on any modern platform.
 
-### Deploying to AWS with Mau
+### Docker
 
 ```bash
-npm install -g @nestjs/mau
-mau deploy
+docker build -t nebura-control .
+docker run -p 3000:3000 --env-file .env nebura-control
 ```
 
-Or follow the [NestJS deployment guide](https://docs.nestjs.com/deployment) for Docker, Kubernetes, and other platforms.
+### Kubernetes
+
+See [NestJS Kubernetes Guide](https://docs.nestjs.com/recipes/kubernetes).
+
+### Serverless
+
+See [NestJS Serverless Docs](https://docs.nestjs.com/recipes/serverless).
 
 ---
 
-## 🧭 Advanced Menus
+## 🆘 Support & Resources
+
+- **Help Center:** [https://help.hiroshi-dev.me/](https://help.hiroshi-dev.me/)
+- **GitHub:** [https://github.com/Hiroshi025/Nebura-AI](https://github.com/Hiroshi025/Nebura-AI)
+- **Report bugs:** [GitHub Issues](https://github.com/Hiroshi025/Nebura-AI/issues)
+- **Documentation:** [Swagger UI](http://localhost:3000/v1/docs)
+- **NestJS Docs:** [https://docs.nestjs.com](https://docs.nestjs.com)
+- **Discord.js Docs:** [https://discord.js.org/#/docs](https://discord.js.org/#/docs)
+- **WhatsApp Web.js Docs:** [https://wwebjs.dev/guide/](https://wwebjs.dev/guide/)
+- **Prisma Docs:** [https://www.prisma.io/docs/](https://www.prisma.io/docs/)
+- **Express Docs:** [https://expressjs.com/](https://expressjs.com/)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Open issues or pull requests on [GitHub](https://github.com/Hiroshi025/Nebura-AI).
+
+**Guidelines:**
+
+- Fork the repository
+- Create a feature branch
+- Commit your changes
+- Open a pull request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 🧭 Advanced Guides
 
 <details>
   <summary><b>Module Navigation</b></summary>
@@ -330,25 +333,24 @@ Or follow the [NestJS deployment guide](https://docs.nestjs.com/deployment) for 
 
 </details>
 
----
+<details>
+  <summary><b>Tutorials & Examples</b></summary>
 
-## 🆘 Support
+- [NestJS Official Tutorial](https://docs.nestjs.com/first-steps)
+- [How to Secure APIs with JWT](https://docs.nestjs.com/security/authentication)
+- [Integrating Discord.js with NestJS](https://necord.dev/)
+- [Testing Strategies in NestJS](https://docs.nestjs.com/fundamentals/testing)
+- [Deploying with Docker](https://docs.nestjs.com/recipes/docker)
+- [API Versioning in NestJS](https://docs.nestjs.com/techniques/versioning)
+- [Advanced Caching Techniques](https://docs.nestjs.com/techniques/caching)
+- [Health Checks with Terminus](https://docs.nestjs.com/recipes/terminus)
+- [File Uploads with Multer](https://docs.nestjs.com/techniques/file-upload)
+- [Rate Limiting](https://docs.nestjs.com/security/rate-limiting)
 
-- **Documentation:** [NestJS Docs](https://docs.nestjs.com)
-- **Community:** [Discord](https://discord.gg/G7Qnnhy)
-- **Enterprise Support:** [NestJS Enterprise](https://enterprise.nestjs.com)
-- **Jobs Board:** [NestJS Jobs](https://jobs.nestjs.com)
-
----
-
-## 🤝 Contributing
-
-Nebura is an open-source project. Contributions, issues, and feature requests are welcome! Please read our [contributing guidelines](CONTRIBUTING.md) before submitting a pull request.
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
+</details>
 
 ---
+
+<p align="center">
+  <b>Developed with ❤️ by Hiroshi025</b>
+</p>

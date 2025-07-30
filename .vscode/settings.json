@@ -10,7 +10,8 @@
     "*.tsx": "${capture}.ts",
     "tsconfig.json": "tsconfig.*.json, typedoc.json, tsconfig.build.tsbuildinfo, eslint.config.mjs, .prettierrc",
     ".eslintrc.cjs": ".eslintignore, .eslintrc.js, .eslintrc.json, .eslintrc.yaml, .eslintrc.yml, .editorconfig, jest.config.ts, .prettierrc, .lintstagedrc.json",
-    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock, .gitattributes, .npmrc, .yarnrc, .pnpmfile.cjs, .npmignore, .yarnclean"
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock, .gitattributes, .npmrc, .yarnrc, .pnpmfile.cjs, .npmignore, .yarnclean",
+    "README.md": "CHANGELOG.md, CONTRIBUTING.md, LICENSE, .gitignore, .vscode/settings.json, .vscode/extensions.json, .vscode/tasks.json, CODE_OF_CONDUCT.md",
   },
   "files.exclude": {
     "**/.git": true,
@@ -19,8 +20,8 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/build": false,
-    "**/docs": false,
-    "**/capitulo-*": true,
+    "**/documentation": true,
+    "**/_test_": true,
   },
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#1f6fd0",
@@ -41,5 +42,16 @@
     "titleBar.inactiveBackground": "#1857a499",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.color": "#1857a4"
+  "peacock.color": "#1857a4",
+  "symbols.folders.associations": {
+    "views": "folder-layout",
+    "locales": "folder-context",
+    "schemas": "folder-models",
+  },
+  "symbols.files.associations": {
+    "*.controller.ts": "nest-controller",
+    "*.service.ts": "nest-service",
+    "*.guard.ts": "nest-guard",
+    "*.middleware.ts": "nest-middleware",
+  }
 }

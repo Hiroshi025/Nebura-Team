@@ -1,0 +1,1189 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nebura-control documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">nebura-control documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >InteractionHandler</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/core/discord/interactions/interaction.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>InteractionHandler class to manage Discord interactions.</p>
+<p>This class handles specific interactions such as the ping command.
+It uses the @SlashCommand decorator to define a slash command that can be invoked in Discord.</p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#logger" >logger</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#linkAccount" >linkAccount</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#onAbout" >onAbout</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#showLicenses" >showLicenses</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#showProfile" >showProfile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#showUserQr" >showUserQr</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authRepository: <a href="../entitys/UserEntity.html" target="_self">Repository&lt;UserEntity&gt;</a>, configService: ConfigService, paginationService: NecordPaginationService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/core/discord/interactions/interaction.ts:29</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/UserEntity.html" target="_self" >Repository&lt;UserEntity&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>configService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ConfigService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>paginationService</td>
+                                                  
+                                                        <td>
+                                                                    <code>NecordPaginationService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="linkAccount"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>linkAccount</b></span>
+                        <a href="#linkAccount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>linkAccount(undefined: SlashCommandContext, dto: <a href="../classes/TextDto.html" target="_self">TextDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@SlashCommand({name: &#x27;link&#x27;, description: &#x27;Link your Discord account with your registered project account using your email.&#x27;, guilds: undefined, defaultMemberPermissions: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Command to link your Discord account with your registered project account.
+Requests your email and saves Discord information to your project account.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                        <code>SlashCommandContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>dto</td>
+                                            <td>
+                                                            <code><a href="../classes/TextDto.html" target="_self" >TextDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onAbout"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>onAbout</b></span>
+                        <a href="#onAbout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onAbout(undefined: SlashCommandContext)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@SlashCommand({name: &#x27;about&#x27;, description: &#x27;Show information about the project.&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Presents Nebura project information in an embed with buttons.</p>
+<p>Example usage: /about</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                        <code>SlashCommandContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An embed with project details and action buttons.</p>
+<p>Example usage: /about</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showLicenses"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>showLicenses</b></span>
+                        <a href="#showLicenses"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>showLicenses(undefined: SlashCommandContext)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@SlashCommand({name: &#x27;licenses&#x27;, description: &#x27;Show all your licenses registered in the system.&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Command to show all user licenses with pagination.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                        <code>SlashCommandContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showProfile"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>showProfile</b></span>
+                        <a href="#showProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>showProfile(undefined: SlashCommandContext)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@SlashCommand({name: &#x27;profile&#x27;, description: &#x27;Show your linked profile information.&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="227"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:227</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Command to show the user&#39;s profile information.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                        <code>SlashCommandContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showUserQr"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>showUserQr</b></span>
+                        <a href="#showUserQr"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>showUserQr(undefined: SlashCommandContext)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@SlashCommand({name: &#x27;userqr&#x27;, description: &#x27;Show your QR code if your Discord account is linked.&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="281"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:281</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Command to show the user&#39;s QR code if Discord is linked to an account.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                        <code>SlashCommandContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logger"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>logger</b></span>
+                        <a href="#logger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Logger(InteractionHandler.name)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/core/discord/interactions/interaction.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { SkipLogging } from &quot;#common/decorators/logging.decorator&quot;;
+import { UserRole } from &quot;#common/typeRole&quot;;
+import { UserEntity } from &quot;#entity/users/user.entity&quot;;
+import {
+	ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedData, PermissionFlagsBits
+} from &quot;discord.js&quot;;
+import { Context, Options, SlashCommand, SlashCommandContext } from &quot;necord&quot;;
+import { Repository } from &quot;typeorm&quot;;
+
+import { NecordPaginationService, PageBuilder, PaginationBuilder } from &quot;@necord/pagination&quot;;
+import { Injectable, Logger } from &quot;@nestjs/common&quot;;
+import { ConfigService } from &quot;@nestjs/config&quot;;
+import { SkipThrottle } from &quot;@nestjs/throttler&quot;;
+import { InjectRepository } from &quot;@nestjs/typeorm&quot;;
+
+import { TextDto } from &quot;./dto/email-request.dto&quot;;
+
+/**
+ * InteractionHandler class to manage Discord interactions.
+ *
+ * This class handles specific interactions such as the ping command.
+ * It uses the @SlashCommand decorator to define a slash command that can be invoked in Discord.
+ */
+@SkipThrottle()
+@SkipLogging()
+@Injectable()
+export class InteractionHandler {
+  private readonly logger &#x3D; new Logger(InteractionHandler.name);
+  constructor(
+    @InjectRepository(UserEntity)
+    private readonly authRepository: Repository&lt;UserEntity&gt;,
+    private readonly configService: ConfigService,
+    private readonly paginationService: NecordPaginationService,
+  ) {}
+  /**
+   * Presents Nebura project information in an embed with buttons.
+   *
+   * @param interaction - The interaction context.
+   * @returns An embed with project details and action buttons.
+   *
+   * Example usage: /about
+   */
+  @SlashCommand({
+    name: &quot;about&quot;,
+    description: &quot;Show information about the project.&quot;,
+    defaultMemberPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks],
+  })
+  public async onAbout(@Context() [interaction]: SlashCommandContext) {
+    const embed &#x3D; {
+      title: &quot;Project Control&quot;,
+      description:
+        &quot;A modular, extensible, and robust API platform integrating Discord, WhatsApp, GitHub, Google Gemini AI, and more.\n\nBuilt in TypeScript for scalability and maintainability.&quot;,
+      thumbnail: { url: &quot;https://i.pinimg.com/1200x/58/08/35/5808355cb825f18671975d00cbe10870.jpg&quot; },
+      fields: [
+        { name: &quot;Version&quot;, value: &quot;1.0.0&quot;, inline: true },
+        { name: &quot;License&quot;, value: &quot;MIT&quot;, inline: true },
+        { name: &quot;Author&quot;, value: &quot;[Hiroshi025](https://github.com/Hiroshi025)&quot;, inline: true },
+      ],
+      color: 0x5865f2,
+    };
+
+    const row &#x3D; new ActionRowBuilder&lt;ButtonBuilder&gt;().addComponents(
+      new ButtonBuilder().setLabel(&quot;GitHub&quot;).setStyle(ButtonStyle.Link).setURL(&quot;https://github.com/Hiroshi025&quot;),
+    );
+
+    return interaction.reply({ embeds: [embed], components: [row] });
+  }
+
+  /**
+   * Command to link your Discord account with your registered project account.
+   * Requests your email and saves Discord information to your project account.
+   */
+  @SlashCommand({
+    name: &quot;link&quot;,
+    description: &quot;Link your Discord account with your registered project account using your email.&quot;,
+    guilds: [process.env.DISCORD_DEVELOPMENT_GUILD_ID as string],
+    defaultMemberPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks],
+  })
+  public async linkAccount(@Context() [interaction]: SlashCommandContext, @Options() dto: TextDto) {
+    const email &#x3D; dto.email;
+    const user &#x3D; await this.authRepository.findOne({ where: { email } });
+
+    if (!user) {
+      const embed &#x3D; {
+        title: &quot;Account Linking Failed&quot;,
+        description: &quot;No account registered with that email was found.&quot;,
+        color: 0xff0000,
+      };
+      return interaction.reply({
+        embeds: [embed],
+        ephemeral: true,
+      });
+    }
+
+    const discordUser &#x3D; interaction.user;
+    const discordInfo &#x3D; {
+      id: discordUser.id,
+      username: discordUser.username,
+      global_name: discordUser.globalName ?? null,
+      discriminator: discordUser.discriminator,
+      avatar: discordUser.avatarURL?.() ?? &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot;,
+    };
+
+    user.discordInfo &#x3D; discordInfo;
+    if (this.configService.get&lt;string[]&gt;(&quot;owners&quot;)?.includes(discordUser.id)) {
+      this.logger.fatal(&#x60;User ${discordUser.username} (${discordUser.id}) linked their Discord account.&#x60;);
+      user.role &#x3D; UserRole.DEVELOPER;
+    }
+
+    await this.authRepository.save(user);
+    return interaction.reply({
+      embeds: [
+        {
+          title: &quot;Account Linked Successfully&quot;,
+          description: &quot;Your Discord account has been successfully linked to your project account!&quot;,
+          fields: [
+            { name: &quot;Email&quot;, value: email, inline: true },
+            { name: &quot;Discord Username&quot;, value: discordUser.username, inline: true },
+          ],
+          color: 0x57f287,
+          thumbnail: { url: discordUser.avatarURL?.() ?? &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
+        },
+      ],
+      flags: &quot;Ephemeral&quot;,
+    });
+  }
+
+  /**
+   * Command to show all user licenses with pagination.
+   */
+  @SlashCommand({
+    name: &quot;licenses&quot;,
+    description: &quot;Show all your licenses registered in the system.&quot;,
+    defaultMemberPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks],
+  })
+  public async showLicenses(@Context() [interaction]: SlashCommandContext) {
+    const discordUser &#x3D; interaction.user;
+    const user &#x3D; await this.authRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: discordUser.id })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+
+    if (!user) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;Licenses not found&quot;,
+            description: &quot;No profile linked to your Discord account was found.&quot;,
+            color: 0xff0000,
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    const licenses &#x3D; user.licenses ?? [];
+    if (licenses.length &#x3D;&#x3D;&#x3D; 0) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;No licenses&quot;,
+            description: &quot;You have no licenses registered in your account.&quot;,
+            color: 0xff0000,
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    const embeds: EmbedData[] &#x3D; licenses.map((lic, idx) &#x3D;&gt; ({
+      title: &#x60;🔑 License #${idx + 1} • ${lic.type &#x3D;&#x3D;&#x3D; &quot;premium&quot; ? &quot;🌟 Premium&quot; : lic.type &#x3D;&#x3D;&#x3D; &quot;basic&quot; ? &quot;🔹 Basic&quot; : &quot;🏢 Enterprise&quot;}&#x60;,
+      description: [
+        &#x60;**ID:** \&#x60;${lic.id}\&#x60;&#x60;,
+        &#x60;**Key:** \&#x60;${lic.key}\&#x60;&#x60;,
+        &#x60;**Type:** \&#x60;${lic.type}\&#x60;&#x60;,
+        &#x60;**Created:** &lt;t:${Math.floor(new Date(lic.createdAt).getTime() / 1000)}:f&gt;&#x60;,
+        &#x60;**Expires:** &lt;t:${Math.floor(new Date(lic.validUntil).getTime() / 1000)}:R&gt;&#x60;,
+        &#x60;**Max IPs:** \&#x60;${lic.maxIps ?? &quot;N/A&quot;}\&#x60;&#x60;,
+        &#x60;**Request limit:** \&#x60;${lic.requestLimit ?? &quot;N/A&quot;}\&#x60;&#x60;,
+        &#x60;**Requests used:** \&#x60;${lic.requestCount ?? 0}\&#x60;&#x60;,
+        &#x60;**Identifier:** \&#x60;${lic.identifier ?? &quot;N/A&quot;}\&#x60;&#x60;,
+      ].join(&quot;\n&quot;),
+      color: lic.type &#x3D;&#x3D;&#x3D; &quot;premium&quot; ? 0xf1c40f : lic.type &#x3D;&#x3D;&#x3D; &quot;basic&quot; ? 0x3498db : 0x8e44ad,
+      fields: [
+        {
+          name: &quot;Ips List&quot;,
+          value:
+            lic.ips &amp;&amp; lic.ips.length ? lic.ips.map((ip: any, index: number) &#x3D;&gt; &#x60;No.${index + 1} \&#x60;${ip}\&#x60;&#x60;).join(&quot;\n&quot;) : &quot;N/A&quot;,
+        },
+        {
+          name: &quot;Hwid List&quot;,
+          value:
+            lic.hwid &amp;&amp; lic.hwid.length ? lic.hwid.map((h: any, index: number) &#x3D;&gt; &#x60;No.${index + 1} \&#x60;${h}\&#x60;&#x60;).join(&quot;\n&quot;) : &quot;N/A&quot;,
+        },
+      ],
+      footer: { text: &#x60;License ${idx + 1} of ${licenses.length}&#x60; },
+      timestamp: lic.createdAt,
+    }));
+
+    const paginatedMessage &#x3D; this.paginationService.register((builder: PaginationBuilder) &#x3D;&gt; {
+      return builder
+        .setCustomId(&quot;licenses-pagination&quot;)
+        .setPages([
+          ...embeds.map((embed) &#x3D;&gt; {
+            return new PageBuilder().addEmbed(embed);
+          }),
+        ])
+        .setPagesFactory((page) &#x3D;&gt; {
+          return new PageBuilder().setContent(&#x60;Page ${page + 1} of ${embeds.length}&#x60;);
+        });
+    });
+
+    const page &#x3D; await paginatedMessage.build();
+    return interaction.reply(page);
+  }
+
+  /**
+   * Command to show the user&#x27;s profile information.
+   */
+  @SlashCommand({
+    name: &quot;profile&quot;,
+    description: &quot;Show your linked profile information.&quot;,
+    defaultMemberPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks],
+  })
+  public async showProfile(@Context() [interaction]: SlashCommandContext) {
+    const discordUser &#x3D; interaction.user;
+    const user &#x3D; await this.authRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: discordUser.id })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+
+    if (!user) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;❌ Profile Not Linked&quot;,
+            description: &quot;No profile linked to your Discord account was found.\n\nUse &#x60;/link&#x60; to connect your account.&quot;,
+            color: 0xe74c3c,
+            thumbnail: { url: &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
+            footer: { text: &quot;Nebura System&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    const embed &#x3D; {
+      title: &quot;👤 User Profile&quot;,
+      description: &quot;Your linked account details are shown below.&quot;,
+      color: 0x2ecc71,
+      thumbnail: { url: discordUser.avatarURL?.() ?? &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
+      fields: [
+        { name: &quot;Full Name&quot;, value: &#x60;\&#x60;${user.name}\&#x60;&#x60;, inline: true },
+        { name: &quot;Email&quot;, value: &#x60;\&#x60;${user.email}\&#x60;&#x60;, inline: true },
+        { name: &quot;Role&quot;, value: &#x60;\&#x60;${user.role}\&#x60;&#x60;, inline: true },
+        { name: &quot;UUID&quot;, value: &#x60;\&#x60;${user.uuid}\&#x60;&#x60;, inline: false },
+        { name: &quot;Discord Username&quot;, value: &#x60;\&#x60;${user.discordInfo?.username ?? &quot;N/A&quot;}\&#x60;&#x60;, inline: true },
+        { name: &quot;Discord ID&quot;, value: &#x60;\&#x60;${user.discordInfo?.id ?? &quot;N/A&quot;}\&#x60;&#x60;, inline: true },
+      ],
+      footer: { text: &#x60;Requested by ${discordUser.username} • Nebura System&#x60; },
+      timestamp: new Date().toISOString(),
+    };
+
+    return interaction.reply({
+      embeds: [embed],
+      flags: &quot;Ephemeral&quot;,
+    });
+  }
+
+  /**
+   * Command to show the user&#x27;s QR code if Discord is linked to an account.
+   */
+  @SlashCommand({
+    name: &quot;userqr&quot;,
+    description: &quot;Show your QR code if your Discord account is linked.&quot;,
+    defaultMemberPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks],
+  })
+  public async showUserQr(@Context() [interaction]: SlashCommandContext) {
+    const discordUser &#x3D; interaction.user;
+    const user &#x3D; await this.authRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: discordUser.id })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+
+    if (!user) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;❌ Account Not Linked&quot;,
+            description: &quot;No profile linked to your Discord account was found.\n\nUse &#x60;/link&#x60; to connect your account.&quot;,
+            color: 0xe74c3c,
+            thumbnail: { url: &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
+            footer: { text: &quot;Nebura System&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    if (!user.qrCodeBase64) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;⚠️ QR Code Not Found&quot;,
+            description: &quot;No QR code is registered for your account.&quot;,
+            color: 0xf39c12,
+            thumbnail: { url: discordUser.avatarURL?.() ?? &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
+            footer: { text: &quot;Nebura System&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    const matches &#x3D; user.qrCodeBase64.match(/^data:image\/png;base64,(.+)$/);
+    if (!matches) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;❗ QR Code Error&quot;,
+            description: &quot;Failed to decode the QR code image. Please contact support.&quot;,
+            color: 0xe74c3c,
+            thumbnail: { url: discordUser.avatarURL?.() ?? &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
+            footer: { text: &quot;Nebura System&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    const qrBuffer &#x3D; Buffer.from(matches[1], &quot;base64&quot;);
+    const qrAttachment &#x3D; { attachment: qrBuffer, name: &quot;user-qr.png&quot; };
+
+    return await interaction.reply({
+      embeds: [
+        {
+          author: {
+            name: &#x60;${user.name} (${user.uuid})&#x60;,
+            icon_url: user.discordInfo?.avatar ?? &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot;,
+          },
+          title: &quot;🔒 Your QR Code&quot;,
+          description: &quot;This is your personal QR code. Keep it safe and do not share it with anyone.&quot;,
+          image: { url: &quot;attachment://user-qr.png&quot; },
+          fields: [
+            {
+              name: &quot;Account Info&quot;,
+              value: [
+                &#x60;**Name:** \&#x60;${user.name}\&#x60;&#x60;,
+                &#x60;**Email:** \&#x60;${user.email}\&#x60;&#x60;,
+                &#x60;**Role:** \&#x60;${user.role}\&#x60;&#x60;,
+                &#x60;**UUID:** \&#x60;${user.uuid}\&#x60;&#x60;,
+                &#x60;**Discord ID:** \&#x60;${user.discordInfo?.id ?? &quot;N/A&quot;}\&#x60;&#x60;,
+              ].join(&quot;\n&quot;),
+              inline: false,
+            },
+          ],
+          color: 0x1abc9c,
+          footer: { text: &#x60;Requested by ${discordUser.username} • Nebura System&#x60; },
+          timestamp: new Date().toISOString(),
+        },
+      ],
+      files: [qrAttachment],
+      flags: &quot;Ephemeral&quot;,
+    });
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'InteractionHandler.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

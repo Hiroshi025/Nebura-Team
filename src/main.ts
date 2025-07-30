@@ -108,6 +108,10 @@ export class Main {
     //    - See: https://docs.nestjs.com/techniques/mvc
     app.useStaticAssets(join(__dirname, "interfaces", "http", "views", "public"));
     app.setBaseViewsDir(join(__dirname, "interfaces", "http", "views"));
+    app.useStaticAssets(join(process.cwd(), "documentation"), {
+      prefix: "/docs", 
+    });
+
     app.setViewEngine("hbs");
 
     registerHelpers(hbs);
@@ -176,7 +180,7 @@ export class Main {
     //    - Logs the URL for API and Swagger UI
     //app.useGlobalGuards(new RolesGuard());
     const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
-    await app.listen(port, '0.0.0.0');
+    await app.listen(port, "0.0.0.0");
     this.logger.log(`Nebura API is running at http://localhost:${port}/v1/`);
     this.logger.log(`Swagger UI available at http://localhost:${port}/v1/docs`);
   }

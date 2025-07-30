@@ -6,7 +6,7 @@ import { Module, NestModule } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 import { AuthService } from "./auth.service";
-import { AuthController } from "./controllers/auth.controllers";
+import { AuthController } from "./controllers/auth.controller";
 import { UserCreatedListener } from "./listeners/user-created.listener";
 
 /**

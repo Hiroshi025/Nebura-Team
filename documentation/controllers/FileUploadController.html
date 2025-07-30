@@ -1,0 +1,1854 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nebura-control documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">nebura-control documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content controller">
+                   <div class="content-data">
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >FileUploadController</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/interfaces/http/routes/users/controllers/multer.controller.ts</code>
+        </p>
+
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Controller for file management endpoints.</p>
+<p>This controller provides RESTful endpoints for uploading, retrieving, updating, deleting,
+and downloading files. All endpoints are protected by JWT authentication.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">```typescript
+// Upload a file
+POST /users/files/upload
+Content-Type: multipart/form-data
+Body: { file: &lt;file&gt; }</code></pre></div><p>// Get file metadata by ID
+GET /users/files/1</p>
+<p>// Download file by ID
+GET /users/files/download/1</p>
+<p>// Update file metadata
+PATCH /users/files/1
+Body: { name: &quot;newname.txt&quot; }</p>
+<p>// Delete file
+DELETE /users/files/1</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-none">
+See {&#64;link https://docs.nestjs.com/controllers NestJS Controllers}
+See {&#64;link https://docs.nestjs.com/techniques/file-upload NestJS File Upload}
+See {&#64;link https://swagger.io/docs/ NestJS Swagger}</code></pre></div>
+            </p>
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteFile" >deleteFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#downloadFile" >downloadFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#generateShareLink" >generateShareLink</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getAllFiles" >getAllFiles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getFile" >getFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getFileHistory" >getFileHistory</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#replaceFile" >replaceFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateFile" >updateFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                <a href="#uploadFile" >uploadFile</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteFile"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteFile</b></span>
+                        <a href="#deleteFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteFile(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, uuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Delete(&#x27;:id&#x27;)<br />@UseGuards(AuthGuard)<br />@ApiOperation({summary: &#x27;Delete file&#x27;, description: &#x27;Deletes a file by its ID.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;File deleted successfully.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;File not found.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, type: Number, required: true, description: &#x27;File ID&#x27;})<br />@ApiQuery({name: &#x27;uuid&#x27;, type: String, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="260"
+                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/multer.controller.ts:260</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Delete a file by its ID.</p>
+<p>Removes a file record from the database and deletes the file from disk.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">```typescript
+DELETE /users/files/1</code></pre></div><b>Example :</b><div><pre class="line-numbers"><code class="language-none"></code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The file ID.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Deletion result.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadFile"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>downloadFile</b></span>
+                        <a href="#downloadFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadFile(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, res: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, uuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;download/:id&#x27;)<br />@UseGuards(AuthGuard)<br />@ApiOperation({summary: &#x27;Download physical file&#x27;, description: &#x27;Downloads the physical file by its ID.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;File downloaded successfully.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;File not found.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, type: Number, required: true, description: &#x27;File ID&#x27;})<br />@ApiQuery({name: &#x27;uuid&#x27;, type: String, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="306"
+                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/multer.controller.ts:306</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Download the physical file by its ID.</p>
+<p>Sends the actual file stored on disk to the client.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">```typescript
+GET /users/files/download/1</code></pre></div><b>Example :</b><div><pre class="line-numbers"><code class="language-none">See {&#64;link https://docs.nestjs.com/techniques/file-upload NestJS File Upload}
+See {&#64;link https://expressjs.com/en/api.html#res.sendFile Express sendFile}</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The file ID.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>res</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The HTTP response object.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The physical file.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateShareLink"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>generateShareLink</b></span>
+                        <a href="#generateShareLink"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateShareLink(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, uuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;share/:id&#x27;)<br />@ApiOperation({summary: &#x27;Generate temporary share link&#x27;, description: &#x27;Generates a temporary share link for a file.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Share link generated successfully.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;File not found.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, type: Number, required: true, description: &#x27;File ID&#x27;})<br />@ApiQuery({name: &#x27;uuid&#x27;, type: String, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="454"
+                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/multer.controller.ts:454</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Generate a temporary share link for a file.</p>
+<p>Allows the user to generate a temporary link to share the file with third parties.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">```typescript
+POST /users/files/share/1?uuid=...</code></pre></div><b>Example :</b><div><pre class="line-numbers"><code class="language-none"></code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The file ID.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The user UUID.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Temporary share link.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllFiles"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getAllFiles</b></span>
+                        <a href="#getAllFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAllFiles(uuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get()<br />@UseGuards(AuthGuard)<br />@ApiOperation({summary: &#x27;Get all files&#x27;, description: &#x27;Retrieves all uploaded files.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;List of files.&#x27;})<br />@ApiQuery({name: &#x27;uuid&#x27;, type: String, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="176"
+                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/multer.controller.ts:176</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Get all files.</p>
+<p>Retrieves metadata for all uploaded files.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">```typescript
+GET /users/files</code></pre></div><b>Example :</b><div><pre class="line-numbers"><code class="language-none"></code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>List of all files.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFile"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getFile</b></span>
+                        <a href="#getFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getFile(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, uuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;:id&#x27;)<br />@UseGuards(AuthGuard)<br />@ApiOperation({summary: &#x27;Get file by ID&#x27;, description: &#x27;Retrieves a file by its ID.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;File found.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;File not found.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, type: Number, required: true, description: &#x27;File ID&#x27;})<br />@ApiQuery({name: &#x27;uuid&#x27;, type: String, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/multer.controller.ts:138</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Get a file by its ID.</p>
+<p>Retrieves file metadata from the database by its unique ID.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">```typescript
+GET /users/files/1</code></pre></div><b>Example :</b><div><pre class="line-numbers"><code class="language-none"></code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The file ID.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The file metadata.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFileHistory"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getFileHistory</b></span>
+                        <a href="#getFileHistory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getFileHistory(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, uuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;history/:id&#x27;)<br />@UseGuards(AuthGuard)<br />@ApiOperation({summary: &#x27;Get file history&#x27;, description: &#x27;Returns the history (versions) of a file.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;File history retrieved successfully.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;File or history not found.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, type: Number, required: true, description: &#x27;File ID&#x27;})<br />@ApiQuery({name: &#x27;uuid&#x27;, type: String, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="413"
+                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/multer.controller.ts:413</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Get file history (versions) by file ID.</p>
+<p>Returns a list of metadata for each version of the file.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">```typescript
+GET /users/files/history/1?uuid=...</code></pre></div><b>Example :</b><div><pre class="line-numbers"><code class="language-none"></code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The file ID.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The user UUID.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>List of file versions metadata.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="replaceFile"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>replaceFile</b></span>
+                        <a href="#replaceFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>replaceFile(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, file: Express.Multer.File, uuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;replace/:id&#x27;)<br />@UseGuards(AuthGuard)<br />@UseInterceptors(undefined)<br />@ApiOperation({summary: &#x27;Replace physical file&#x27;, description: &#x27;Replaces the physical file for a given file ID.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;File replaced successfully.&#x27;})<br />@ApiResponse({status: 400, description: &#x27;Invalid file or upload error.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;File not found.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, type: Number, required: true, description: &#x27;File ID&#x27;})<br />@ApiQuery({name: &#x27;uuid&#x27;, type: String, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="362"
+                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/multer.controller.ts:362</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Replace the physical file for a given file ID.</p>
+<p>Allows the user to upload a new file that replaces the content of the existing file,
+keeping the same database record (ID and main metadata).</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">```typescript
+POST /users/files/replace/1
+Content-Type: multipart/form-data
+Body: { file: &lt;file&gt; }</code></pre></div><b>Example :</b><div><pre class="line-numbers"><code class="language-none"></code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The file ID.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>Express.Multer.File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The new file to replace the old one.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The user UUID.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Updated file metadata.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateFile"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>updateFile</b></span>
+                        <a href="#updateFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateFile(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, updateDto: <a href="../classes/UpdateMulterDto.html" target="_self">UpdateMulterDto</a>, uuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Patch(&#x27;:id&#x27;)<br />@UseGuards(AuthGuard)<br />@ApiOperation({summary: &#x27;Update file&#x27;, description: &#x27;Updates file metadata.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;File updated successfully.&#x27;})<br />@ApiResponse({status: 400, description: &#x27;Invalid update data.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;File not found.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, type: Number, required: true, description: &#x27;File ID&#x27;})<br />@ApiBody({type: UpdateMulterDto, required: true, description: &#x27;File update data&#x27;})<br />@ApiQuery({name: &#x27;uuid&#x27;, type: String, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="219"
+                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/multer.controller.ts:219</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Update file metadata.</p>
+<p>Updates file metadata such as name, path, mimeType, etc.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">```typescript
+PATCH /users/files/1
+Body: { name: &quot;newname.txt&quot; }</code></pre></div><p>See <a href="../classes/UpdateMulterDto.html">UpdateMulterDto</a>
+```</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The file ID.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>updateDto</td>
+                                            <td>
+                                                            <code><a href="../classess/UpdateMulterDto.html" target="_self" >UpdateMulterDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The update data (UpdateMulterDto).</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The user UUID.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Updated file data.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadFile"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                        <span ><b>uploadFile</b></span>
+                        <a href="#uploadFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadFile(file: Express.Multer.File, uuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;upload&#x27;)<br />@UseGuards(AuthGuard)<br />@UseInterceptors(undefined)<br />@ApiOperation({summary: &#x27;Upload a file&#x27;, description: &#x27;Uploads a new file.&#x27;})<br />@ApiResponse({status: 201, description: &#x27;File uploaded successfully.&#x27;})<br />@ApiResponse({status: 400, description: &#x27;Invalid file or upload error.&#x27;})<br />@ApiBody({type: &#x27;multipart/form-data&#x27;, required: true})<br />@ApiQuery({name: &#x27;uuid&#x27;, type: String, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/multer.controller.ts:91</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Upload a new file.</p>
+<p>Accepts a file via multipart/form-data and stores it on disk and in the database.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">```typescript
+POST /users/files/upload
+Content-Type: multipart/form-data
+Body: { file: &lt;file&gt; }</code></pre></div><b>Example :</b><div><pre class="line-numbers"><code class="language-none"></code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>Express.Multer.File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The file to upload.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>File upload result including metadata.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { UuidSchema } from &quot;#adapters/schemas/shared/uuid.schema&quot;;
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+import { AuthGuard } from &quot;#common/guards/auth.guard&quot;;
+
+import {
+	BadRequestException, Body, Controller, Delete, Get, Logger, NotFoundException, Param, Patch,
+	Post, Query, Res, UploadedFile, UseGuards, UseInterceptors
+} from &quot;@nestjs/common&quot;;
+import { FileInterceptor } from &quot;@nestjs/platform-express&quot;;
+import {
+	ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags
+} from &quot;@nestjs/swagger&quot;;
+
+import { UpdateMulterDto } from &quot;../dto/update-multer.dto&quot;;
+import { FileUploadService } from &quot;../service/multer.service&quot;;
+
+/**
+ * Controller for file management endpoints.
+ *
+ * This controller provides RESTful endpoints for uploading, retrieving, updating, deleting,
+ * and downloading files. All endpoints are protected by JWT authentication.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;typescript
+ * // Upload a file
+ * POST /users/files/upload
+ * Content-Type: multipart/form-data
+ * Body: { file: &lt;file&gt; }
+ *
+ * // Get file metadata by ID
+ * GET /users/files/1
+ *
+ * // Download file by ID
+ * GET /users/files/download/1
+ *
+ * // Update file metadata
+ * PATCH /users/files/1
+ * Body: { name: &quot;newname.txt&quot; }
+ *
+ * // Delete file
+ * DELETE /users/files/1
+ * &#x60;&#x60;&#x60;
+ *
+ * @see {@link https://docs.nestjs.com/controllers NestJS Controllers}
+ * @see {@link https://docs.nestjs.com/techniques/file-upload NestJS File Upload}
+ * @see {@link https://swagger.io/docs/ NestJS Swagger}
+ */
+@ApiTags(&quot;files&quot;)
+@ApiBearerAuth()
+@Controller({
+  path: &quot;users/files&quot;,
+  version: &quot;1&quot;,
+})
+export class FileUploadController {
+  /**
+   * Logger instance for this controller.
+   */
+  private readonly logger &#x3D; new Logger(FileUploadController.name);
+
+  /**
+   * Creates an instance of FileUploadController.
+   * @param fileUploadService The service for file operations.
+   */
+  constructor(private readonly fileUploadService: FileUploadService) {}
+
+  /**
+   * Upload a new file.
+   *
+   * Accepts a file via multipart/form-data and stores it on disk and in the database.
+   *
+   * @param file The file to upload.
+   * @returns File upload result including metadata.
+   * @throws {BadRequestException} If the file is invalid.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * POST /users/files/upload
+   * Content-Type: multipart/form-data
+   * Body: { file: &lt;file&gt; }
+   * &#x60;&#x60;&#x60;
+   */
+  @Post(&quot;upload&quot;)
+  @UseGuards(AuthGuard)
+  @UseInterceptors(FileInterceptor(&quot;file&quot;))
+  @ApiOperation({ summary: &quot;Upload a file&quot;, description: &quot;Uploads a new file.&quot; })
+  @ApiResponse({ status: 201, description: &quot;File uploaded successfully.&quot; })
+  @ApiResponse({ status: 400, description: &quot;Invalid file or upload error.&quot; })
+  @ApiBody({ type: &quot;multipart/form-data&quot;, required: true })
+  @ApiQuery({ name: &quot;uuid&quot;, type: String, required: true })
+  uploadFile(@UploadedFile() file: Express.Multer.File, @Query(&quot;uuid&quot;) uuid: string) {
+    this.logger.debug(&#x60;uploadFile endpoint called with file: ${file?.originalname}&#x60;);
+    if (!file) {
+      this.logger.warn(&quot;No file uploaded&quot;);
+      throw new BadRequestException(&quot;no file uploaded&quot;, {
+        description: &quot;Please upload a file to proceed.&quot;,
+        cause: &quot;File upload is required&quot;,
+      });
+    }
+
+    if (!uuid) {
+      this.logger.warn(&quot;User UUID not found in request&quot;);
+      throw new BadRequestException(&quot;User UUID not found&quot;, {
+        description: &quot;Please provide a valid user UUID.&quot;,
+        cause: &quot;User UUID is required for file upload&quot;,
+      });
+    }
+
+    const result &#x3D; UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error(&quot;Invalid UUID format&quot;, result.error);
+      throw new BadRequestException(&quot;Invalid UUID format&quot;);
+    }
+    return this.fileUploadService.handleFileUpload(file, uuid);
+  }
+
+  /**
+   * Get a file by its ID.
+   *
+   * Retrieves file metadata from the database by its unique ID.
+   *
+   * @param id The file ID.
+   * @returns The file metadata.
+   * @throws {NotFoundException} If the file is not found.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * GET /users/files/1
+   * &#x60;&#x60;&#x60;
+   */
+  @Get(&quot;:id&quot;)
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: &quot;Get file by ID&quot;, description: &quot;Retrieves a file by its ID.&quot; })
+  @ApiResponse({ status: 200, description: &quot;File found.&quot; })
+  @ApiResponse({ status: 404, description: &quot;File not found.&quot; })
+  @ApiParam({ name: &quot;id&quot;, type: Number, required: true, description: &quot;File ID&quot; })
+  @ApiQuery({ name: &quot;uuid&quot;, type: String, required: true })
+  async getFile(@Param(&quot;id&quot;) id: number, @Query(&quot;uuid&quot;) uuid: string) {
+    this.logger.debug(&#x60;getFile endpoint called with id: ${id}&#x60;);
+    if (!uuid) {
+      this.logger.warn(&quot;User UUID not found in request&quot;);
+      throw new NotFoundException(&quot;User UUID not found&quot;);
+    }
+
+    const result &#x3D; UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error(&quot;Invalid UUID format&quot;, result.error);
+      throw new NotFoundException(&quot;Invalid UUID format&quot;);
+    }
+
+    const file &#x3D; await this.fileUploadService.getFileByIdForUser(id, uuid);
+    if (!file) {
+      this.logger.warn(&#x60;File not found in controller: ${id}&#x60;);
+      throw new NotFoundException(&quot;File not found&quot;);
+    }
+    return { success: true, data: file };
+  }
+
+  /**
+   * Get all files.
+   *
+   * Retrieves metadata for all uploaded files.
+   *
+   * @returns List of all files.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * GET /users/files
+   * &#x60;&#x60;&#x60;
+   */
+  @Get()
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: &quot;Get all files&quot;, description: &quot;Retrieves all uploaded files.&quot; })
+  @ApiResponse({ status: 200, description: &quot;List of files.&quot; })
+  @ApiQuery({ name: &quot;uuid&quot;, type: String, required: true })
+  async getAllFiles(@Query(&quot;uuid&quot;) uuid: string) {
+    this.logger.debug(&quot;getAllFiles endpoint called&quot;);
+    if (!uuid) {
+      this.logger.warn(&quot;User UUID not found in request&quot;);
+      throw new NotFoundException(&quot;User UUID not found&quot;);
+    }
+
+    const result &#x3D; UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error(&quot;Invalid UUID format&quot;, result.error);
+      throw new NotFoundException(&quot;Invalid UUID format&quot;);
+    }
+    return { success: true, data: await this.fileUploadService.getAllFilesForUser(uuid) };
+  }
+
+  /**
+   * Update file metadata.
+   *
+   * Updates file metadata such as name, path, mimeType, etc.
+   *
+   * @param id The file ID.
+   * @param updateDto The update data (UpdateMulterDto).
+   * @param uuid The user UUID.
+   * @returns Updated file data.
+   * @throws {NotFoundException} If the file is not found.
+   * @throws {BadRequestException} If update data is invalid.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * PATCH /users/files/1
+   * Body: { name: &quot;newname.txt&quot; }
+   * &#x60;&#x60;&#x60;
+   * @see {@link UpdateMulterDto}
+   */
+  @Patch(&quot;:id&quot;)
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: &quot;Update file&quot;, description: &quot;Updates file metadata.&quot; })
+  @ApiResponse({ status: 200, description: &quot;File updated successfully.&quot; })
+  @ApiResponse({ status: 400, description: &quot;Invalid update data.&quot; })
+  @ApiResponse({ status: 404, description: &quot;File not found.&quot; })
+  @ApiParam({ name: &quot;id&quot;, type: Number, required: true, description: &quot;File ID&quot; })
+  @ApiBody({ type: UpdateMulterDto, required: true, description: &quot;File update data&quot; })
+  @ApiQuery({ name: &quot;uuid&quot;, type: String, required: true })
+  async updateFile(@Param(&quot;id&quot;) id: number, @Body() updateDto: UpdateMulterDto, @Query(&quot;uuid&quot;) uuid: string) {
+    this.logger.debug(&#x60;updateFile endpoint called with id: ${id}, data: ${JSON.stringify(updateDto)}&#x60;);
+    if (!uuid) {
+      this.logger.warn(&quot;User UUID not found in request&quot;);
+      throw new NotFoundException(&quot;User UUID not found&quot;);
+    }
+
+    const result &#x3D; UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error(&quot;Invalid UUID format&quot;, result.error);
+      throw new BadRequestException(&quot;Invalid UUID format&quot;);
+    }
+    const updated &#x3D; await this.fileUploadService.updateFileForUser(id, updateDto, uuid);
+    if (!updated) {
+      this.logger.warn(&#x60;File not found for update in controller: ${id}&#x60;);
+      throw new NotFoundException(&quot;File not found&quot;);
+    }
+    return { success: true, data: updated };
+  }
+
+  /**
+   * Delete a file by its ID.
+   *
+   * Removes a file record from the database and deletes the file from disk.
+   *
+   * @param id The file ID.
+   * @returns Deletion result.
+   * @throws {NotFoundException} If the file is not found.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * DELETE /users/files/1
+   * &#x60;&#x60;&#x60;
+   */
+  @Delete(&quot;:id&quot;)
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: &quot;Delete file&quot;, description: &quot;Deletes a file by its ID.&quot; })
+  @ApiResponse({ status: 200, description: &quot;File deleted successfully.&quot; })
+  @ApiResponse({ status: 404, description: &quot;File not found.&quot; })
+  @ApiParam({ name: &quot;id&quot;, type: Number, required: true, description: &quot;File ID&quot; })
+  @ApiQuery({ name: &quot;uuid&quot;, type: String, required: true })
+  async deleteFile(@Param(&quot;id&quot;) id: number, @Query(&quot;uuid&quot;) uuid: string) {
+    this.logger.debug(&#x60;deleteFile endpoint called with id: ${id}&#x60;);
+    if (!uuid) {
+      this.logger.warn(&quot;User UUID not found in request&quot;);
+      throw new NotFoundException(&quot;User UUID not found&quot;);
+    }
+
+    const result &#x3D; UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error(&quot;Invalid UUID format&quot;, result.error);
+      throw new BadRequestException(&quot;Invalid UUID format&quot;);
+    }
+
+    const deleted &#x3D; await this.fileUploadService.deleteFileForUser(id, uuid);
+    if (!deleted) {
+      this.logger.warn(&#x60;File not found for deletion in controller: ${id}&#x60;);
+      throw new NotFoundException(&quot;File not found&quot;);
+    }
+    return { success: true, message: &quot;File deleted successfully&quot; };
+  }
+
+  /**
+   * Download the physical file by its ID.
+   *
+   * Sends the actual file stored on disk to the client.
+   *
+   * @param id The file ID.
+   * @param res The HTTP response object.
+   * @returns The physical file.
+   * @throws {NotFoundException} If the file does not exist.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * GET /users/files/download/1
+   * &#x60;&#x60;&#x60;
+   *
+   * @see {@link https://docs.nestjs.com/techniques/file-upload NestJS File Upload}
+   * @see {@link https://expressjs.com/en/api.html#res.sendFile Express sendFile}
+   */
+  @Get(&quot;download/:id&quot;)
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: &quot;Download physical file&quot;, description: &quot;Downloads the physical file by its ID.&quot; })
+  @ApiResponse({ status: 200, description: &quot;File downloaded successfully.&quot; })
+  @ApiResponse({ status: 404, description: &quot;File not found.&quot; })
+  @ApiParam({ name: &quot;id&quot;, type: Number, required: true, description: &quot;File ID&quot; })
+  @ApiQuery({ name: &quot;uuid&quot;, type: String, required: true })
+  async downloadFile(@Param(&quot;id&quot;) id: number, @Res() res: any, @Query(&quot;uuid&quot;) uuid: string) {
+    this.logger.debug(&#x60;downloadFile endpoint called with id: ${id}&#x60;);
+    if (!uuid) {
+      this.logger.warn(&quot;User UUID not found in request&quot;);
+      throw new NotFoundException(&quot;User UUID not found&quot;);
+    }
+
+    const result &#x3D; UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error(&quot;Invalid UUID format&quot;, result.error);
+      throw new BadRequestException(&quot;Invalid UUID format&quot;);
+    }
+
+    const file &#x3D; await this.fileUploadService.getFileByIdForUser(id, uuid);
+    if (!file) {
+      this.logger.warn(&#x60;File not found for download: ${id}&#x60;);
+      throw new NotFoundException(&quot;File not found&quot;);
+    }
+    // Send the physical file
+    return res.sendFile(file.path, { root: &quot;.&quot; }, (err: Error) &#x3D;&gt; {
+      if (err) {
+        this.logger.error(&#x60;Error sending file: ${err.message}&#x60;);
+        res.status(404).json({ success: false, message: &quot;File not found on disk&quot; });
+      }
+    });
+  }
+
+  /**
+   * Replace the physical file for a given file ID.
+   *
+   * Allows the user to upload a new file that replaces the content of the existing file,
+   * keeping the same database record (ID and main metadata).
+   *
+   * @param id The file ID.
+   * @param file The new file to replace the old one.
+   * @param uuid The user UUID.
+   * @returns Updated file metadata.
+   * @throws {NotFoundException} If the file is not found.
+   * @throws {BadRequestException} If the file is invalid.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * POST /users/files/replace/1
+   * Content-Type: multipart/form-data
+   * Body: { file: &lt;file&gt; }
+   * &#x60;&#x60;&#x60;
+   */
+  @Post(&quot;replace/:id&quot;)
+  @UseGuards(AuthGuard)
+  @UseInterceptors(FileInterceptor(&quot;file&quot;))
+  @ApiOperation({ summary: &quot;Replace physical file&quot;, description: &quot;Replaces the physical file for a given file ID.&quot; })
+  @ApiResponse({ status: 200, description: &quot;File replaced successfully.&quot; })
+  @ApiResponse({ status: 400, description: &quot;Invalid file or upload error.&quot; })
+  @ApiResponse({ status: 404, description: &quot;File not found.&quot; })
+  @ApiParam({ name: &quot;id&quot;, type: Number, required: true, description: &quot;File ID&quot; })
+  @ApiQuery({ name: &quot;uuid&quot;, type: String, required: true })
+  async replaceFile(@Param(&quot;id&quot;) id: number, @UploadedFile() file: Express.Multer.File, @Query(&quot;uuid&quot;) uuid: string) {
+    this.logger.debug(&#x60;replaceFile endpoint called with id: ${id}, file: ${file?.originalname}&#x60;);
+    if (!file) {
+      this.logger.warn(&quot;No file uploaded&quot;);
+      throw new BadRequestException(&quot;No file uploaded&quot;, {
+        description: &quot;Please upload a file to proceed.&quot;,
+        cause: &quot;File upload is required&quot;,
+      });
+    }
+    if (!uuid) {
+      this.logger.warn(&quot;User UUID not found in request&quot;);
+      throw new BadRequestException(&quot;User UUID not found&quot;, {
+        description: &quot;Please provide a valid user UUID.&quot;,
+        cause: &quot;User UUID is required for file replacement&quot;,
+      });
+    }
+    const result &#x3D; UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error(&quot;Invalid UUID format&quot;, result.error);
+      throw new BadRequestException(&quot;Invalid UUID format&quot;);
+    }
+    const updated &#x3D; await this.fileUploadService.replaceFile(id, file, uuid);
+    if (!updated) {
+      this.logger.warn(&#x60;File not found for replacement: ${id}&#x60;);
+      throw new NotFoundException(&quot;File not found&quot;);
+    }
+    return { success: true, data: updated };
+  }
+
+  /**
+   * Get file history (versions) by file ID.
+   *
+   * Returns a list of metadata for each version of the file.
+   *
+   * @param id The file ID.
+   * @param uuid The user UUID.
+   * @returns List of file versions metadata.
+   * @throws {NotFoundException} If the file or history is not found.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * GET /users/files/history/1?uuid&#x3D;...
+   * &#x60;&#x60;&#x60;
+   */
+  @Get(&quot;history/:id&quot;)
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: &quot;Get file history&quot;, description: &quot;Returns the history (versions) of a file.&quot; })
+  @ApiResponse({ status: 200, description: &quot;File history retrieved successfully.&quot; })
+  @ApiResponse({ status: 404, description: &quot;File or history not found.&quot; })
+  @ApiParam({ name: &quot;id&quot;, type: Number, required: true, description: &quot;File ID&quot; })
+  @ApiQuery({ name: &quot;uuid&quot;, type: String, required: true })
+  async getFileHistory(@Param(&quot;id&quot;) id: number, @Query(&quot;uuid&quot;) uuid: string) {
+    this.logger.debug(&#x60;getFileHistory endpoint called with id: ${id}&#x60;);
+    if (!uuid) {
+      this.logger.warn(&quot;User UUID not found in request&quot;);
+      throw new NotFoundException(&quot;User UUID not found&quot;);
+    }
+    const result &#x3D; UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error(&quot;Invalid UUID format&quot;, result.error);
+      throw new NotFoundException(&quot;Invalid UUID format&quot;);
+    }
+    const history &#x3D; await this.fileUploadService.getFileHistory(id, uuid);
+    if (!history || history.length &#x3D;&#x3D;&#x3D; 0) {
+      this.logger.warn(&#x60;File history not found: ${id}&#x60;);
+      throw new NotFoundException(&quot;File history not found&quot;);
+    }
+    return { success: true, data: history };
+  }
+
+  /**
+   * Generate a temporary share link for a file.
+   *
+   * Allows the user to generate a temporary link to share the file with third parties.
+   *
+   * @param id The file ID.
+   * @param uuid The user UUID.
+   * @returns Temporary share link.
+   * @throws {NotFoundException} If the file is not found.
+   * @throws {BadRequestException} If the UUID is invalid.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * POST /users/files/share/1?uuid&#x3D;...
+   * &#x60;&#x60;&#x60;
+   */
+  @Post(&quot;share/:id&quot;)
+  @ApiOperation({ summary: &quot;Generate temporary share link&quot;, description: &quot;Generates a temporary share link for a file.&quot; })
+  @ApiResponse({ status: 200, description: &quot;Share link generated successfully.&quot; })
+  @ApiResponse({ status: 404, description: &quot;File not found.&quot; })
+  @ApiParam({ name: &quot;id&quot;, type: Number, required: true, description: &quot;File ID&quot; })
+  @ApiQuery({ name: &quot;uuid&quot;, type: String, required: true })
+  async generateShareLink(@Param(&quot;id&quot;) id: number, @Query(&quot;uuid&quot;) uuid: string) {
+    this.logger.debug(&#x60;generateShareLink endpoint called with id: ${id}&#x60;);
+    if (!uuid) {
+      this.logger.warn(&quot;User UUID not found in request&quot;);
+      throw new BadRequestException(&quot;User UUID not found&quot;);
+    }
+    const result &#x3D; UuidSchema.safeParse(uuid);
+    if (!result.success) {
+      this.logger.error(&quot;Invalid UUID format&quot;, result.error);
+      throw new BadRequestException(&quot;Invalid UUID format&quot;);
+    }
+    const link &#x3D; await this.fileUploadService.generateShareLink(id, uuid);
+    if (!link) {
+      this.logger.warn(&#x60;File not found for share link: ${id}&#x60;);
+      throw new NotFoundException(&quot;File not found&quot;);
+    }
+    return { success: true, link };
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'FileUploadController.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,455 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nebura-control documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">nebura-control documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >HttpThrottlerGuard</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/shared/common/guards/http-throttler.guard.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p><code>HttpThrottlerGuard</code> is a custom guard that extends NestJS&#39;s <a href="ThrottlerGuard">ThrottlerGuard</a>.</p>
+<p>This guard applies rate limiting only to HTTP requests. For other types of requests
+(such as Discord events or WebSocket connections), it allows access without throttling.</p>
+<h2>Usage</h2>
+<p>Register this guard globally or at the controller/route level to enable HTTP-specific throttling.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">// In your module
+import { APP_GUARD } from &#39;&#64;nestjs/core&#39;;
+import { HttpThrottlerGuard } from &#39;./shared/common/guards/http-throttler.guard&#39;;
+
+&#64;Module({
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: HttpThrottlerGuard,
+    },
+  ],
+})
+export class AppModule {}</code></pre></div><h2>Example</h2>
+<p>If a request is made via HTTP, the guard will enforce the throttling rules:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">// HTTP request
+GET /api/resource
+// Throttling is applied</code></pre></div><p>If a request is made via another transport (e.g., Discord event):</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">// Discord event
+onMessageReceived()
+// Throttling is NOT applied</code></pre></div><h2>See Also</h2>
+<ul>
+<li><a href="https://github.com/nestjs/throttler">NestJS Throttler Documentation</a></li>
+<li><a href="https://docs.nestjs.com/guards">NestJS Guards</a></li>
+</ul>
+
+            </p>
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                        <code>ThrottlerGuard</code>
+            </p>
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#canActivate" >canActivate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canActivate"></a>
+                    <span class="name">
+                        <span ><b>canActivate</b></span>
+                        <a href="#canActivate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>canActivate(context: ExecutionContext)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/shared/common/guards/http-throttler.guard.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Determines whether the current request should be rate-limited.</p>
+<p>Only applies throttling if the request type is HTTP. For other types,
+access is always allowed.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">// HTTP request
+await guard.canActivate(context); // Throttling is applied</code></pre></div><p>// Discord event
+await guard.canActivate(context); // Always returns true</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>context</td>
+                                            <td>
+                                                        <code>ExecutionContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The execution context of the request.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to <code>true</code> if access is allowed, or <code>false</code> if throttled.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ExecutionContext, Injectable } from &quot;@nestjs/common&quot;;
+import { ThrottlerGuard } from &quot;@nestjs/throttler&quot;;
+
+/**
+ * &#x60;HttpThrottlerGuard&#x60; is a custom guard that extends NestJS&#x27;s {@link ThrottlerGuard}.
+ *
+ * This guard applies rate limiting only to HTTP requests. For other types of requests
+ * (such as Discord events or WebSocket connections), it allows access without throttling.
+ *
+ * ## Usage
+ *
+ * Register this guard globally or at the controller/route level to enable HTTP-specific throttling.
+ *
+ * &#x60;&#x60;&#x60;typescript
+ * // In your module
+ * import { APP_GUARD } from &#x27;@nestjs/core&#x27;;
+ * import { HttpThrottlerGuard } from &#x27;./shared/common/guards/http-throttler.guard&#x27;;
+ *
+ * @Module({
+ *   providers: [
+ *     {
+ *       provide: APP_GUARD,
+ *       useClass: HttpThrottlerGuard,
+ *     },
+ *   ],
+ * })
+ * export class AppModule {}
+ * &#x60;&#x60;&#x60;
+ *
+ * ## Example
+ *
+ * If a request is made via HTTP, the guard will enforce the throttling rules:
+ *
+ * &#x60;&#x60;&#x60;typescript
+ * // HTTP request
+ * GET /api/resource
+ * // Throttling is applied
+ * &#x60;&#x60;&#x60;
+ *
+ * If a request is made via another transport (e.g., Discord event):
+ *
+ * &#x60;&#x60;&#x60;typescript
+ * // Discord event
+ * onMessageReceived()
+ * // Throttling is NOT applied
+ * &#x60;&#x60;&#x60;
+ *
+ * ## See Also
+ * - [NestJS Throttler Documentation](https://github.com/nestjs/throttler)
+ * - [NestJS Guards](https://docs.nestjs.com/guards)
+ *
+ * @extends ThrottlerGuard
+ */
+@Injectable()
+export class HttpThrottlerGuard extends ThrottlerGuard {
+  /**
+   * Determines whether the current request should be rate-limited.
+   *
+   * Only applies throttling if the request type is HTTP. For other types,
+   * access is always allowed.
+   *
+   * @param context - The execution context of the request.
+   * @returns A promise that resolves to &#x60;true&#x60; if access is allowed, or &#x60;false&#x60; if throttled.
+   *
+   * @example
+   * // HTTP request
+   * await guard.canActivate(context); // Throttling is applied
+   *
+   * // Discord event
+   * await guard.canActivate(context); // Always returns true
+   */
+  canActivate(context: ExecutionContext): Promise&lt;boolean&gt; {
+    // Only apply the guard if it&#x27;s an HTTP request
+    if (context.getType() &#x3D;&#x3D;&#x3D; &quot;http&quot;) {
+      return super.canActivate(context);
+    }
+    // If not HTTP (e.g., Discord events), allow access
+    return Promise.resolve(true);
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'HttpThrottlerGuard.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

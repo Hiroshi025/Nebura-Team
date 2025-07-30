@@ -1,0 +1,603 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nebura-control documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">nebura-control documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<!-- LOGO & TITLE -->
+<p align="center">
+  <img src="https://i.pinimg.com/1200x/58/08/35/5808355cb825f18671975d00cbe10870.jpg" width="120" alt="Nebura Control Logo" />
+</p>
+
+<h1 align="center">Nebura Control</h1>
+<p align="center">
+  <b>Version:</b> 1.0.0<br>
+  <b>License:</b> MIT<br>
+  <b>Author:</b> <a href="https://github.com/Hiroshi025" target="_blank">Hiroshi025</a>
+</p>
+
+<hr>
+<h2>🗂️ Table of Contents</h2>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#security">Security</a></li>
+<li><a href="#scalability">Scalability</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#api-documentation">API Documentation</a></li>
+<li><a href="#monitoring--health">Monitoring &amp; Health</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#deployment">Deployment</a></li>
+<li><a href="#support--resources">Support &amp; Resources</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#advanced-guides">Advanced Guides</a></li>
+</ul>
+<hr>
+<h2>📝 Overview</h2>
+<p><strong>Nebura Control</strong> is a modular, extensible, and robust API platform designed to integrate with services such as Discord, WhatsApp, GitHub, Google Gemini AI, and more. Built with TypeScript and NestJS, it focuses on scalability, maintainability, and security for modern multi-service applications.</p>
+<hr>
+<h2>🚀 Features</h2>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modular Architecture</td>
+<td>Auth, Users, Admin, Health, and more</td>
+</tr>
+<tr>
+<td>PostgreSQL Integration</td>
+<td>Advanced ORM with TypeORM</td>
+</tr>
+<tr>
+<td>JWT Authentication</td>
+<td>Secure, role-based access control</td>
+</tr>
+<tr>
+<td>Rate Limiting</td>
+<td>Configurable request throttling</td>
+</tr>
+<tr>
+<td>Global Cache</td>
+<td>Performance optimization</td>
+</tr>
+<tr>
+<td>DTO Validation</td>
+<td>Data validation and transformation</td>
+</tr>
+<tr>
+<td>API Versioning</td>
+<td>Backward compatibility</td>
+</tr>
+<tr>
+<td>Swagger/OpenAPI</td>
+<td>Interactive API documentation</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Helmet, sanitization, secure headers</td>
+</tr>
+<tr>
+<td>Health Checks</td>
+<td>Health and monitoring endpoints</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>Structured and colorized logs</td>
+</tr>
+<tr>
+<td>Extensible Middleware</td>
+<td>Easy integration of custom middlewares</td>
+</tr>
+<tr>
+<td>Cloud-Ready</td>
+<td>Docker, Kubernetes, serverless compatible</td>
+</tr>
+<tr>
+<td>Monitoring</td>
+<td>Metrics and health endpoints</td>
+</tr>
+<tr>
+<td>Audit Logging</td>
+<td>Audit of key actions</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>🏗️ Architecture</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-none">src/
+├── adapters/           # Database adapters and external services
+├── entity/             # ORM entities
+├── interfaces/
+│   └── http/
+│       ├── controllers/
+│       └── routes/
+├── shared/             # Shared utilities
+├── app.module.ts       # Root module
+├── main.ts             # Entry point
+└── core/               # Core modules (JWT, Discord, etc.)</code></pre></div><hr>
+<h2>🛡️ Security</h2>
+<ul>
+<li><strong>JWT:</strong> All protected endpoints require a valid JWT.</li>
+<li><strong>Roles:</strong> Granular access by roles (admin, developer, user, etc).</li>
+<li><strong>Helmet:</strong> Secure HTTP headers.</li>
+<li><strong>Validation:</strong> DTOs and whitelisting.</li>
+<li><strong>Rate Limiting:</strong> Prevents brute-force attacks.</li>
+<li><strong>Environment variables:</strong> Secrets are never exposed in code.</li>
+<li><strong>Audit Logging:</strong> Critical actions are audited.</li>
+</ul>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://docs.nestjs.com/security">NestJS Security Docs</a></li>
+<li><a href="https://helmetjs.github.io/">Helmet.js</a></li>
+</ul>
+<hr>
+<h2>📈 Scalability</h2>
+<ul>
+<li><strong>Stateless API:</strong> JWT enables horizontal scaling.</li>
+<li><strong>Global Cache:</strong> Reduces database load.</li>
+<li><strong>Pooling:</strong> Efficient resource usage.</li>
+<li><strong>Cloud-Ready:</strong> Docker/Kubernetes/serverless.</li>
+<li><strong>Observability:</strong> Health endpoints and logs.</li>
+</ul>
+<hr>
+<h2>⚙️ Requirements</h2>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Component</th>
+<th>Minimum Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node.js</td>
+<td>18.x</td>
+</tr>
+<tr>
+<td>npm</td>
+<td>9.x</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>13.x</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td>Optional</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>🛠️ Installation</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">git clone https://github.com/Hiroshi025/Nebura-AI.git
+cd Nebura-AI
+npm install</code></pre></div><hr>
+<h2>🧩 Configuration</h2>
+<p>Create a <code>.env</code> file in the project root:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-env">PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=yourpassword
+DB_NAME=nebura
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=1d</code></pre></div><p><strong>See:</strong> <a href="https://docs.nestjs.com/techniques/configuration">NestJS Environment Variables</a></p>
+<hr>
+<h2>▶️ Usage</h2>
+<h3>Start the application</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run start</code></pre></div><h3>Development mode (with hot reload)</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run start:dev</code></pre></div><h3>Example: Making an authenticated request</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">curl -H &quot;Authorization: Bearer &lt;your_jwt_token&gt;&quot; http://localhost:3000/v1/users/me</code></pre></div><hr>
+<h2>📚 API Documentation</h2>
+<ul>
+<li><strong>Swagger UI:</strong> <a href="http://localhost:3000/v1/docs">http://localhost:3000/v1/docs</a></li>
+<li><strong>OpenAPI JSON:</strong> <a href="http://localhost:3000/v1/docs/download">http://localhost:3000/v1/docs/download</a></li>
+</ul>
+<p><strong>Features:</strong></p>
+<ul>
+<li>JWT Bearer authentication support</li>
+<li>Interactive endpoint testing</li>
+<li>Download OpenAPI specification</li>
+</ul>
+<p><strong>Tutorial:</strong><br>See <a href="https://docs.nestjs.com/openapi/introduction">NestJS Swagger Docs</a> for customizing API docs.</p>
+<hr>
+<h2>📊 Monitoring &amp; Health</h2>
+<p>Nebura exposes health and metrics endpoints for monitoring:</p>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/v1/health</code></td>
+<td>General health check</td>
+</tr>
+<tr>
+<td><code>/v1/health/db</code></td>
+<td>Database connectivity status</td>
+</tr>
+<tr>
+<td><code>/v1/health/memory</code></td>
+<td>Memory usage and limits</td>
+</tr>
+<tr>
+<td><code>/v1/health/disk</code></td>
+<td>Disk space and usage</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sample health response:</strong></p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-json">{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;info&quot;: {
+    &quot;database&quot;: { &quot;status&quot;: &quot;up&quot; },
+    &quot;memory&quot;: { &quot;status&quot;: &quot;up&quot;, &quot;used&quot;: &quot;120MB&quot; }
+  }
+}</code></pre></div><p><strong>References:</strong></p>
+<ul>
+<li><a href="https://docs.nestjs.com/recipes/terminus">NestJS Terminus (Health Checks)</a></li>
+</ul>
+<hr>
+<h2>🧪 Testing</h2>
+<p>Nebura includes comprehensive unit and e2e test support:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Run unit tests
+npm run test
+
+# Run end-to-end tests
+npm run test:e2e
+
+# Generate test coverage report
+npm run test:cov</code></pre></div><p><strong>Tutorial:</strong><br>See <a href="https://docs.nestjs.com/fundamentals/testing">NestJS Testing Docs</a> for advanced testing strategies.</p>
+<hr>
+<h2>🚀 Deployment</h2>
+<p>Nebura Control is cloud-ready and can be deployed on any modern platform.</p>
+<h3>Docker</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">docker build -t nebura-control .
+docker run -p 3000:3000 --env-file .env nebura-control</code></pre></div><h3>Kubernetes</h3>
+<p>See <a href="https://docs.nestjs.com/recipes/kubernetes">NestJS Kubernetes Guide</a>.</p>
+<h3>Serverless</h3>
+<p>See <a href="https://docs.nestjs.com/recipes/serverless">NestJS Serverless Docs</a>.</p>
+<hr>
+<h2>🆘 Support &amp; Resources</h2>
+<ul>
+<li><strong>Help Center:</strong> <a href="https://help.hiroshi-dev.me/">https://help.hiroshi-dev.me/</a></li>
+<li><strong>GitHub:</strong> <a href="https://github.com/Hiroshi025/Nebura-AI">https://github.com/Hiroshi025/Nebura-AI</a></li>
+<li><strong>Report bugs:</strong> <a href="https://github.com/Hiroshi025/Nebura-AI/issues">GitHub Issues</a></li>
+<li><strong>Documentation:</strong> <a href="http://localhost:3000/v1/docs">Swagger UI</a></li>
+<li><strong>NestJS Docs:</strong> <a href="https://docs.nestjs.com">https://docs.nestjs.com</a></li>
+<li><strong>Discord.js Docs:</strong> <a href="https://discord.js.org/#/docs">https://discord.js.org/#/docs</a></li>
+<li><strong>WhatsApp Web.js Docs:</strong> <a href="https://wwebjs.dev/guide/">https://wwebjs.dev/guide/</a></li>
+<li><strong>Prisma Docs:</strong> <a href="https://www.prisma.io/docs/">https://www.prisma.io/docs/</a></li>
+<li><strong>Express Docs:</strong> <a href="https://expressjs.com/">https://expressjs.com/</a></li>
+</ul>
+<hr>
+<h2>🤝 Contributing</h2>
+<p>Contributions are welcome! Open issues or pull requests on <a href="https://github.com/Hiroshi025/Nebura-AI">GitHub</a>.</p>
+<p><strong>Guidelines:</strong></p>
+<ul>
+<li>Fork the repository</li>
+<li>Create a feature branch</li>
+<li>Commit your changes</li>
+<li>Open a pull request</li>
+</ul>
+<p>See <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> for more details.</p>
+<hr>
+<h2>📄 License</h2>
+<p>This project is licensed under the <a href="LICENSE">MIT License</a>.</p>
+<hr>
+<h2>🧭 Advanced Guides</h2>
+<details>
+  <summary><b>Module Navigation</b></summary>
+
+<ul>
+<li><a href="src/interfaces/http/routes/auth">Auth Module</a></li>
+<li><a href="src/interfaces/http/routes/users">Users Module</a></li>
+<li><a href="src/interfaces/http/routes/admin">Admin Module</a></li>
+<li><a href="src/interfaces/http/routes/health">Health Module</a></li>
+<li><a href="src/shared">Shared Utilities</a></li>
+<li><a href="src/entity">Entities</a></details></li>
+</ul>
+<details>
+  <summary><b>System States</b></summary>
+
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>State</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Booting</td>
+<td>Application is starting</td>
+</tr>
+<tr>
+<td>Initializing</td>
+<td>Modules and dependencies are loading</td>
+</tr>
+<tr>
+<td>Ready</td>
+<td>API is ready to accept requests</td>
+</tr>
+<tr>
+<td>HandlingRequests</td>
+<td>Processing incoming HTTP requests</td>
+</tr>
+<tr>
+<td>HealthCheck</td>
+<td>Performing health and status checks</td>
+</tr>
+<tr>
+<td>Authenticated</td>
+<td>User is authenticated via JWT</td>
+</tr>
+<tr>
+<td>Authorized</td>
+<td>User has required role/permissions</td>
+</tr>
+<tr>
+<td>ServingData</td>
+<td>Data is being served to the client</td>
+</tr>
+</tbody>
+</table>
+</details>
+
+<details>
+  <summary><b>API Endpoints Overview</b></summary>
+
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+<th>Auth Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/v1/auth/login</code></td>
+<td>User login</td>
+<td>No</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/auth/me</code></td>
+<td>Get current user</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/users/:id</code></td>
+<td>Get user by ID</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/health</code></td>
+<td>Health check</td>
+<td>No</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/v1/admin/users</code></td>
+<td>List all users (admin)</td>
+<td>Yes (Admin)</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/v1/admin/cache/clear</code></td>
+<td>Clear cache (admin)</td>
+<td>Yes (Admin)</td>
+</tr>
+</tbody>
+</table>
+</details>
+
+<details>
+  <summary><b>Tutorials & Examples</b></summary>
+
+<ul>
+<li><a href="https://docs.nestjs.com/first-steps">NestJS Official Tutorial</a></li>
+<li><a href="https://docs.nestjs.com/security/authentication">How to Secure APIs with JWT</a></li>
+<li><a href="https://necord.dev/">Integrating Discord.js with NestJS</a></li>
+<li><a href="https://docs.nestjs.com/fundamentals/testing">Testing Strategies in NestJS</a></li>
+<li><a href="https://docs.nestjs.com/recipes/docker">Deploying with Docker</a></li>
+<li><a href="https://docs.nestjs.com/techniques/versioning">API Versioning in NestJS</a></li>
+<li><a href="https://docs.nestjs.com/techniques/caching">Advanced Caching Techniques</a></li>
+<li><a href="https://docs.nestjs.com/recipes/terminus">Health Checks with Terminus</a></li>
+<li><a href="https://docs.nestjs.com/techniques/file-upload">File Uploads with Multer</a></li>
+<li><a href="https://docs.nestjs.com/security/rate-limiting">Rate Limiting</a></li>
+</ul>
+</details>
+
+<hr>
+<p align="center">
+  <b>Developed with ❤️ by Hiroshi025</b>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -7,10 +7,10 @@ import { UserService } from "#routes/users/service/users.service";
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { AdminCacheController } from "./controllers/cache.controllers";
-import { AdminIPBlockerController } from "./controllers/ips-blocker.controllers";
+import { AdminCacheController } from "./controllers/cache.controller";
+import { AdminIPBlockerController } from "./controllers/ips-blocker.controller";
 import { AdminLicenceController } from "./controllers/licence.controller";
-import { AdminController } from "./controllers/users.controllers";
+import { AdminController } from "./controllers/users.controller";
 import { CacheService } from "./service/cache.service";
 import { IPBlockerService } from "./service/ips-blocker.service";
 import { LicenceService } from "./service/licence.service";

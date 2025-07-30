@@ -10,7 +10,7 @@ import { MulterModule } from "@nestjs/platform-express";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 import { FileUploadController } from "./controllers/multer.controller";
-import { PublicUserController } from "./controllers/public.controllers";
+import { PublicUserController } from "./controllers/public.controller";
 import { FileUploadService } from "./service/multer.service";
 import { UserService } from "./service/users.service";
 

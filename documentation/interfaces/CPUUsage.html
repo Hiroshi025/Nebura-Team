@@ -1,0 +1,721 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nebura-control documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">nebura-control documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  CPUUsage</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/shared/utils/helpers.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Represents CPU usage times for a single core.
+See <a href="https://nodejs.org/api/os.html#oscpus">https://nodejs.org/api/os.html#oscpus</a></p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#idle" 
+>
+                                            idle
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#irq" 
+>
+                                            irq
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#nice" 
+>
+                                            nice
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#sys" 
+>
+                                            sys
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#user" 
+>
+                                            user
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="idle"></a>
+                                        <span class="name "><b>idle</b>
+                                            <a href="#idle">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>idle:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Time spent idle (ms)</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="irq"></a>
+                                        <span class="name "><b>irq</b>
+                                            <a href="#irq">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>irq:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Time spent servicing interrupts (ms)</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="nice"></a>
+                                        <span class="name "><b>nice</b>
+                                            <a href="#nice">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>nice:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Time spent in nice mode (ms)</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="sys"></a>
+                                        <span class="name "><b>sys</b>
+                                            <a href="#sys">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>sys:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Time spent in system mode (ms)</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="user"></a>
+                                        <span class="name "><b>user</b>
+                                            <a href="#user">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>user:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Time spent in user mode (ms)</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface CPUUsage {
+  /** Time spent in user mode (ms) */
+  user: number;
+  /** Time spent in nice mode (ms) */
+  nice: number;
+  /** Time spent in system mode (ms) */
+  sys: number;
+  /** Time spent idle (ms) */
+  idle: number;
+  /** Time spent servicing interrupts (ms) */
+  irq: number;
+}
+
+/**
+ * Represents a CPU core&#x27;s information.
+ * @see {@link https://nodejs.org/api/os.html#oscpus}
+ */
+export interface CPUCore {
+  /** Core index */
+  core: number;
+  /** CPU model name */
+  model: string;
+  /** CPU speed in MHz */
+  speed: number;
+  /** Usage times for this core */
+  times: CPUUsage;
+}
+
+/**
+ * Collection of helper functions for formatting and calculations.
+ * @remarks
+ * These helpers are used for formatting bytes, percentages, times, dates, and determining status classes.
+ * They can be registered as Handlebars helpers using {@link registerHelpers}.
+ */
+export const helpers &#x3D; {
+  /**
+   * Formats bytes into a human-readable string (KB, MB, GB, etc).
+   * @param bytes - Number of bytes to format.
+   * @param decimals - Number of decimal places to display (default: 2).
+   * @returns Formatted string (e.g., &#x60;&quot;1.25 MB&quot;&#x60;).
+   * @example
+   * &#x60;&#x60;&#x60;ts
+   * helpers.formatBytes(1024); // &quot;1 KB&quot;
+   * helpers.formatBytes(1048576, 1); // &quot;1.0 MB&quot;
+   * &#x60;&#x60;&#x60;
+   * @see {@link https://stackoverflow.com/a/18650828}
+   */
+  formatBytes: (bytes: number, decimals: number &#x3D; 2): string &#x3D;&gt; {
+    if (bytes &#x3D;&#x3D;&#x3D; 0) return &quot;0 Bytes&quot;;
+
+    const k &#x3D; 1024;
+    const dm &#x3D; decimals &lt; 0 ? 0 : decimals;
+    const sizes &#x3D; [&quot;Bytes&quot;, &quot;KB&quot;, &quot;MB&quot;, &quot;GB&quot;, &quot;TB&quot;];
+    const i &#x3D; Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + &quot; &quot; + sizes[i];
+  },
+
+  /**
+   * Formats a number to 2 decimal places.
+   * @param value - Number to format.
+   * @returns String with 2 decimal places (e.g., &#x60;&quot;123.45&quot;&#x60;).
+   * @example
+   * &#x60;&#x60;&#x60;ts
+   * helpers.toFixed2(123.456); // &quot;123.46&quot;
+   * helpers.toFixed2(123); // &quot;123.00&quot;
+   * &#x60;&#x60;&#x60;
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed}
+   * @see {@link https://stackoverflow.com/a/1757393}
+   */
+  toFixed2: (value: number): string &#x3D;&gt; {
+    return Number(value).toFixed(2);
+  },
+
+  /**
+   * Calculates the percentage between a value and a total.
+   * @param value - Current value.
+   * @param total - Maximum value.
+   * @returns Percentage as a string with 2 decimals (e.g., &#x60;&quot;75.50&quot;&#x60;).
+   * @example
+   * &#x60;&#x60;&#x60;ts
+   * helpers.calculatePercentage(75, 100); // &quot;75.00&quot;
+   * helpers.calculatePercentage(30, 60); // &quot;50.00&quot;
+   * &#x60;&#x60;&#x60;
+   */
+  calculatePercentage: (value: number, total: number): string &#x3D;&gt; {
+    if (total &#x3D;&#x3D;&#x3D; 0) return &quot;0&quot;;
+    return ((value / total) * 100).toFixed(2);
+  },
+
+  /**
+   * Formats milliseconds into a readable time format (h, m, s).
+   * @param ms - Time in milliseconds.
+   * @returns Formatted string (e.g., &#x60;&quot;1h 30m&quot;&#x60;, &#x60;&quot;45s&quot;&#x60;).
+   * @example
+   * &#x60;&#x60;&#x60;ts
+   * helpers.formatMs(3600000); // &quot;1h 0m&quot;
+   * helpers.formatMs(45000); // &quot;45s&quot;
+   * &#x60;&#x60;&#x60;
+   */
+  formatMs: (ms: number): string &#x3D;&gt; {
+    const seconds &#x3D; Math.floor(ms / 1000);
+    const minutes &#x3D; Math.floor(seconds / 60);
+    const hours &#x3D; Math.floor(minutes / 60);
+
+    if (hours &gt; 0) {
+      return &#x60;${hours}h ${minutes % 60}m&#x60;;
+    } else if (minutes &gt; 0) {
+      return &#x60;${minutes}m ${seconds % 60}s&#x60;;
+    } else {
+      return &#x60;${seconds}s&#x60;;
+    }
+  },
+
+  /**
+   * Formats uptime in seconds into a readable format.
+   * @param seconds - Uptime in seconds.
+   * @returns Formatted string (e.g., &#x60;&quot;2d 5h 30m&quot;&#x60;).
+   * @example
+   * &#x60;&#x60;&#x60;ts
+   * helpers.formatUptime(90061); // &quot;1d 1h 1m 1s&quot;
+   * helpers.formatUptime(3600); // &quot;1h 0m 0s&quot;
+   * &#x60;&#x60;&#x60;
+   */
+  formatUptime: (seconds: number): string &#x3D;&gt; {
+    const days &#x3D; Math.floor(seconds / (3600 * 24));
+    const hours &#x3D; Math.floor((seconds % (3600 * 24)) / 3600);
+    const mins &#x3D; Math.floor((seconds % 3600) / 60);
+    const secs &#x3D; Math.floor(seconds % 60);
+
+    const result: string[] &#x3D; [];
+    if (days &gt; 0) result.push(&#x60;${days}d&#x60;);
+    if (hours &gt; 0) result.push(&#x60;${hours}h&#x60;);
+    if (mins &gt; 0) result.push(&#x60;${mins}m&#x60;);
+    if (secs &gt; 0 || result.length &#x3D;&#x3D;&#x3D; 0) result.push(&#x60;${secs}s&#x60;);
+
+    return result.join(&quot; &quot;);
+  },
+
+  /**
+   * Formats a date object or string into a readable date string.
+   * @param date - Date object or date string.
+   * @returns Formatted date string (e.g., &#x60;&quot;Jan 1, 2023, 12:30:45 PM&quot;&#x60;).
+   * @example
+   * &#x60;&#x60;&#x60;ts
+   * helpers.formatDate(new Date());
+   * helpers.formatDate(&quot;2023-01-01T12:30:45Z&quot;);
+   * &#x60;&#x60;&#x60;
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString}
+   */
+  formatDate: (date: Date | string): string &#x3D;&gt; {
+    const options: Intl.DateTimeFormatOptions &#x3D; {
+      year: &quot;numeric&quot;,
+      month: &quot;short&quot;,
+      day: &quot;numeric&quot;,
+      hour: &quot;2-digit&quot;,
+      minute: &quot;2-digit&quot;,
+      second: &quot;2-digit&quot;,
+    };
+    return new Date(date).toLocaleDateString(undefined, options);
+  },
+
+  /**
+   * Determines the CSS class for memory status based on usage.
+   * @param used - Used memory.
+   * @param total - Total memory.
+   * @returns CSS class (&#x60;&quot;error&quot;&#x60;, &#x60;&quot;warning&quot;&#x60;, or &#x60;&quot;healthy&quot;&#x60;).
+   * @example
+   * &#x60;&#x60;&#x60;ts
+   * helpers.getMemoryStatusClass(950, 1000); // &quot;error&quot;
+   * helpers.getMemoryStatusClass(800, 1000); // &quot;warning&quot;
+   * helpers.getMemoryStatusClass(500, 1000); // &quot;healthy&quot;
+   * &#x60;&#x60;&#x60;
+   */
+  getMemoryStatusClass: (used: number, total: number): string &#x3D;&gt; {
+    const percentage &#x3D; (used / total) * 100;
+    if (percentage &gt; 90) return &quot;error&quot;;
+    if (percentage &gt; 75) return &quot;warning&quot;;
+    return &quot;healthy&quot;;
+  },
+
+  /**
+   * Determines the CSS class for CPU status based on usage percentage.
+   * @param percent - CPU usage percentage.
+   * @returns CSS class (&#x60;&quot;error&quot;&#x60;, &#x60;&quot;warning&quot;&#x60;, or &#x60;&quot;healthy&quot;&#x60;).
+   * @example
+   * &#x60;&#x60;&#x60;ts
+   * helpers.getCPUStatusClass(95); // &quot;error&quot;
+   * helpers.getCPUStatusClass(80); // &quot;warning&quot;
+   * helpers.getCPUStatusClass(50); // &quot;healthy&quot;
+   * &#x60;&#x60;&#x60;
+   */
+  getCPUStatusClass: (percent: number): string &#x3D;&gt; {
+    if (percent &gt; 90) return &quot;error&quot;;
+    if (percent &gt; 70) return &quot;warning&quot;;
+    return &quot;healthy&quot;;
+  },
+
+  /**
+   * Sums all CPU times for a core.
+   * @param times - Object containing CPU times.
+   * @returns Total sum of all times.
+   * @example
+   * &#x60;&#x60;&#x60;ts
+   * helpers.sumTimes({user: 100, nice: 10, sys: 50, idle: 200, irq: 5}); // 365
+   * &#x60;&#x60;&#x60;
+   */
+  sumTimes: (times: CPUUsage): number &#x3D;&gt; {
+    return times.user + times.nice + times.sys + times.idle + times.irq;
+  },
+
+  /**
+   * Handlebars helper for equality comparison.
+   * @param arg1 - First value to compare.
+   * @param arg2 - Second value to compare.
+   * @param options - Handlebars options object.
+   * @returns Rendered block if equal, else inverse block.
+   * @example
+   * &#x60;&#x60;&#x60;handlebars
+   * {{#ifEquals value1 value2}}
+   *   &lt;!-- Rendered if value1 &#x3D;&#x3D; value2 --&gt;
+   * {{else}}
+   *   &lt;!-- Rendered if not equal --&gt;
+   * {{/ifEquals}}
+   * &#x60;&#x60;&#x60;
+   * @see {@link https://handlebarsjs.com/guide/block-helpers.html}
+   */
+  ifEquals: function (arg1: any, arg2: any, options: any): any {
+    return arg1 &#x3D;&#x3D; arg2 ? options.fn(this) : options.inverse(this);
+  },
+};
+
+/**
+ * Registers all helpers in a Handlebars instance.
+ * @param hbs - Handlebars instance.
+ * @example
+ * &#x60;&#x60;&#x60;ts
+ * import Handlebars from &quot;handlebars&quot;;
+ * import { registerHelpers } from &quot;./helpers&quot;;
+ * registerHelpers(Handlebars);
+ * &#x60;&#x60;&#x60;
+ * @see {@link https://handlebarsjs.com/api-reference/runtime.html#handlebarsregisterhelper-name-helper}
+ */
+export function registerHelpers(hbs: any): void {
+  for (const [name, fn] of Object.entries(helpers)) {
+    hbs.registerHelper(name, fn);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'CPUUsage.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

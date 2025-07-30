@@ -1,0 +1,1167 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nebura-control documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">nebura-control documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content controller">
+                   <div class="content-data">
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >AdminIPBlockerController</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts</code>
+        </p>
+
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>AdminIPBlockerController</p>
+<p>Controller for administrative IP blocking management endpoints.
+Provides endpoints for blocking, viewing, updating, removing, and unblocking IPs.</p>
+<p>Security:</p>
+<ul>
+<li>All endpoints require a valid Bearer token for authentication.</li>
+<li>Intended for use by admin-level users.</li>
+</ul>
+
+            </p>
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#create" >create</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getAll" >getAll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getByIP" >getByIP</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getOne" >getOne</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#remove" >remove</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#removeAll" >removeAll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#unblockAll" >unblockAll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#update" >update</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="create"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>create</b></span>
+                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>create(body: <a href="../classes/CreateIPBlockerDto.html" target="_self">CreateIPBlockerDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post()<br />@Roles(UserRole.OWNER, UserRole.DEVELOPER)<br />@ApiResponse({status: 201, description: &#x27;IP blocked successfully&#x27;})<br />@ApiResponse({status: 400, description: &#x27;Validation error&#x27;})<br />@ApiOperation({summary: &#x27;Block a new IP address&#x27;, description: &#x27;Blocks a new IP address with the provided data.&#x27;})<br />@ApiBody({type: CreateIPBlockerDto, description: &#x27;IP block creation payload&#x27;})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Blocks a new IP address.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                            <code><a href="../classes/CreateIPBlockerDto.html" target="_self" >CreateIPBlockerDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>IP block creation payload.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The newly blocked IP entity.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAll"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getAll</b></span>
+                        <a href="#getAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAll()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get()<br />@Roles(UserRole.OWNER, UserRole.DEVELOPER)<br />@ApiResponse({status: 200, description: &#x27;All blocked IPs retrieved successfully&#x27;})<br />@ApiOperation({summary: &#x27;Get all blocked IPs&#x27;, description: &#x27;Retrieves all blocked IPs stored in the database.&#x27;})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves all blocked IPs.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An array of all blocked IPs.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getByIP"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getByIP</b></span>
+                        <a href="#getByIP"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getByIP(ipAddress: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;address/:ipAddress&#x27;)<br />@Roles(UserRole.OWNER, UserRole.DEVELOPER)<br />@ApiResponse({status: 200, description: &#x27;Blocked IP retrieved successfully by address&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Blocked IP not found&#x27;})<br />@ApiOperation({summary: &#x27;Get blocked IP by address&#x27;, description: &#x27;Retrieves a blocked IP by its address.&#x27;})<br />@ApiParam({name: &#x27;ipAddress&#x27;, description: &#x27;Blocked IP address&#x27;, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="89"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a blocked IP by its address.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ipAddress</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The IP address to retrieve.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The blocked IP entity.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOne"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getOne</b></span>
+                        <a href="#getOne"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getOne(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;:id&#x27;)<br />@Roles(UserRole.OWNER, UserRole.DEVELOPER)<br />@ApiResponse({status: 200, description: &#x27;Blocked IP retrieved successfully&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Blocked IP not found&#x27;})<br />@ApiOperation({summary: &#x27;Get blocked IP by ID&#x27;, description: &#x27;Retrieves a blocked IP by its unique ID.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, description: &#x27;Blocked IP record ID&#x27;, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a blocked IP by its ID.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The blocked IP record ID.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The blocked IP entity.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="remove"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>remove</b></span>
+                        <a href="#remove"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>remove(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Delete(&#x27;:id&#x27;)<br />@Roles(UserRole.OWNER, UserRole.DEVELOPER)<br />@ApiResponse({status: 200, description: &#x27;Blocked IP deleted successfully&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Blocked IP not found&#x27;})<br />@ApiOperation({summary: &#x27;Delete a blocked IP&#x27;, description: &#x27;Deletes a blocked IP by its unique ID.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, description: &#x27;Blocked IP record ID&#x27;, required: true})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="158"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:158</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Removes a blocked IP by its ID.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The blocked IP record ID.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A message indicating deletion.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeAll"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>removeAll</b></span>
+                        <a href="#removeAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeAll()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Delete()<br />@Roles(UserRole.OWNER, UserRole.DEVELOPER)<br />@ApiResponse({status: 200, description: &#x27;All blocked IPs deleted successfully&#x27;})<br />@ApiOperation({summary: &#x27;Delete all blocked IPs&#x27;, description: &#x27;Deletes all blocked IPs from the database.&#x27;})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:190</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Removes all blocked IP records.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A message indicating all blocked IPs were deleted.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unblockAll"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>unblockAll</b></span>
+                        <a href="#unblockAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>unblockAll()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Put(&#x27;unblock/all&#x27;)<br />@Roles(UserRole.OWNER, UserRole.DEVELOPER)<br />@ApiResponse({status: 200, description: &#x27;All IPs unblocked successfully&#x27;})<br />@ApiOperation({summary: &#x27;Unblock all IPs&#x27;, description: &#x27;Unblocks all IPs by setting isActive to false.&#x27;})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Unblocks all IPs (sets isActive to false).</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A message indicating all IPs were unblocked.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="update"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>update</b></span>
+                        <a href="#update"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>update(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, body: <a href="../classes/UpdateIPBlockerDto.html" target="_self">UpdateIPBlockerDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Put(&#x27;:id&#x27;)<br />@Roles(UserRole.OWNER, UserRole.DEVELOPER)<br />@ApiResponse({status: 200, description: &#x27;Blocked IP updated successfully&#x27;})<br />@ApiResponse({status: 400, description: &#x27;Validation error&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Blocked IP not found&#x27;})<br />@ApiOperation({summary: &#x27;Update a blocked IP&#x27;, description: &#x27;Updates an existing blocked IP by its unique ID.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, description: &#x27;Blocked IP record ID&#x27;, required: true})<br />@ApiBody({type: UpdateIPBlockerDto, description: &#x27;IP block update payload&#x27;})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:139</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Updates an existing blocked IP by its ID.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The blocked IP record ID.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                            <code><a href="../classes/UpdateIPBlockerDto.html" target="_self" >UpdateIPBlockerDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>IP block update payload.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The updated blocked IP entity.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Roles } from &quot;#common/decorators/role.decorator&quot;;
+import { AuthGuard } from &quot;#common/guards/auth.guard&quot;;
+import { RoleGuard } from &quot;#common/guards/permissions/role.guard&quot;;
+import { UserRole } from &quot;#common/typeRole&quot;;
+import { CreateIPBlockerDto } from &quot;#routes/admin/dto/create-ip.dto&quot;;
+import { UpdateIPBlockerDto } from &quot;#routes/admin/dto/update-ip.dto&quot;;
+import { IPBlockerService } from &quot;#routes/admin/service/ips-blocker.service&quot;;
+
+import {
+	Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards
+} from &quot;@nestjs/common&quot;;
+import {
+	ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags
+} from &quot;@nestjs/swagger&quot;;
+
+/**
+ * AdminIPBlockerController
+ *
+ * Controller for administrative IP blocking management endpoints.
+ * Provides endpoints for blocking, viewing, updating, removing, and unblocking IPs.
+ *
+ * Security:
+ * - All endpoints require a valid Bearer token for authentication.
+ * - Intended for use by admin-level users.
+ */
+@UseGuards(AuthGuard, RoleGuard)
+@ApiBearerAuth()
+@ApiTags(&quot;admin&quot;)
+@Controller({
+  path: &quot;admin/ip-blocker&quot;,
+  version: &quot;1&quot;,
+})
+export class AdminIPBlockerController {
+  /**
+   * Creates an instance of AdminIPBlockerController.
+   * @param ipBlockerService Injected IPBlockerService for IP block management logic.
+   */
+  constructor(private readonly ipBlockerService: IPBlockerService) {}
+
+  /**
+   * Retrieves all blocked IPs.
+   * @returns An array of all blocked IPs.
+   */
+  @Get()
+  @Roles(UserRole.OWNER, UserRole.DEVELOPER)
+  @ApiResponse({ status: 200, description: &quot;All blocked IPs retrieved successfully&quot; })
+  @ApiOperation({
+    summary: &quot;Get all blocked IPs&quot;,
+    description: &quot;Retrieves all blocked IPs stored in the database.&quot;,
+  })
+  async getAll() {
+    return await this.ipBlockerService.findAll();
+  }
+
+  /**
+   * Retrieves a blocked IP by its ID.
+   * @param id The blocked IP record ID.
+   * @returns The blocked IP entity.
+   * @throws {HttpException} If the IP is not found.
+   */
+  @Get(&quot;:id&quot;)
+  @Roles(UserRole.OWNER, UserRole.DEVELOPER)
+  @ApiResponse({ status: 200, description: &quot;Blocked IP retrieved successfully&quot; })
+  @ApiResponse({ status: 404, description: &quot;Blocked IP not found&quot; })
+  @ApiOperation({
+    summary: &quot;Get blocked IP by ID&quot;,
+    description: &quot;Retrieves a blocked IP by its unique ID.&quot;,
+  })
+  @ApiParam({ name: &quot;id&quot;, description: &quot;Blocked IP record ID&quot;, required: true })
+  async getOne(@Param(&quot;id&quot;) id: number) {
+    return await this.ipBlockerService.findOne(id);
+  }
+
+  /**
+   * Retrieves a blocked IP by its address.
+   * @param ipAddress The IP address to retrieve.
+   * @returns The blocked IP entity.
+   * @throws {HttpException} If the IP is not found.
+   */
+  @Get(&quot;address/:ipAddress&quot;)
+  @Roles(UserRole.OWNER, UserRole.DEVELOPER)
+  @ApiResponse({ status: 200, description: &quot;Blocked IP retrieved successfully by address&quot; })
+  @ApiResponse({ status: 404, description: &quot;Blocked IP not found&quot; })
+  @ApiOperation({
+    summary: &quot;Get blocked IP by address&quot;,
+    description: &quot;Retrieves a blocked IP by its address.&quot;,
+  })
+  @ApiParam({ name: &quot;ipAddress&quot;, description: &quot;Blocked IP address&quot;, required: true })
+  async getByIP(@Param(&quot;ipAddress&quot;) ipAddress: string) {
+    return await this.ipBlockerService.findByIP(ipAddress);
+  }
+
+  /**
+   * Blocks a new IP address.
+   * @param body IP block creation payload.
+   * @returns The newly blocked IP entity.
+   * @throws {HttpException} If validation fails.
+   */
+  @Post()
+  @Roles(UserRole.OWNER, UserRole.DEVELOPER)
+  @ApiResponse({ status: 201, description: &quot;IP blocked successfully&quot; })
+  @ApiResponse({ status: 400, description: &quot;Validation error&quot; })
+  @ApiOperation({
+    summary: &quot;Block a new IP address&quot;,
+    description: &quot;Blocks a new IP address with the provided data.&quot;,
+  })
+  @ApiBody({
+    type: CreateIPBlockerDto,
+    description: &quot;IP block creation payload&quot;,
+  })
+  async create(@Body() body: CreateIPBlockerDto) {
+    if (!body.ipAddress) {
+      throw new HttpException(&quot;IP address is required&quot;, HttpStatus.BAD_REQUEST);
+    }
+    return await this.ipBlockerService.create(body);
+  }
+
+  /**
+   * Updates an existing blocked IP by its ID.
+   * @param id The blocked IP record ID.
+   * @param body IP block update payload.
+   * @returns The updated blocked IP entity.
+   * @throws {HttpException} If validation fails or IP not found.
+   */
+  @Put(&quot;:id&quot;)
+  @Roles(UserRole.OWNER, UserRole.DEVELOPER)
+  @ApiResponse({ status: 200, description: &quot;Blocked IP updated successfully&quot; })
+  @ApiResponse({ status: 400, description: &quot;Validation error&quot; })
+  @ApiResponse({ status: 404, description: &quot;Blocked IP not found&quot; })
+  @ApiOperation({
+    summary: &quot;Update a blocked IP&quot;,
+    description: &quot;Updates an existing blocked IP by its unique ID.&quot;,
+  })
+  @ApiParam({ name: &quot;id&quot;, description: &quot;Blocked IP record ID&quot;, required: true })
+  @ApiBody({
+    type: UpdateIPBlockerDto,
+    description: &quot;IP block update payload&quot;,
+  })
+  async update(@Param(&quot;id&quot;) id: number, @Body() body: UpdateIPBlockerDto) {
+    return await this.ipBlockerService.update(id, body);
+  }
+
+  /**
+   * Removes a blocked IP by its ID.
+   * @param id The blocked IP record ID.
+   * @returns A message indicating deletion.
+   * @throws {HttpException} If IP not found.
+   */
+  @Delete(&quot;:id&quot;)
+  @Roles(UserRole.OWNER, UserRole.DEVELOPER)
+  @ApiResponse({ status: 200, description: &quot;Blocked IP deleted successfully&quot; })
+  @ApiResponse({ status: 404, description: &quot;Blocked IP not found&quot; })
+  @ApiOperation({
+    summary: &quot;Delete a blocked IP&quot;,
+    description: &quot;Deletes a blocked IP by its unique ID.&quot;,
+  })
+  @ApiParam({ name: &quot;id&quot;, description: &quot;Blocked IP record ID&quot;, required: true })
+  async remove(@Param(&quot;id&quot;) id: number) {
+    await this.ipBlockerService.remove(id);
+    return { message: &quot;Blocked IP deleted&quot; };
+  }
+
+  /**
+   * Unblocks all IPs (sets isActive to false).
+   * @returns A message indicating all IPs were unblocked.
+   */
+  @Put(&quot;unblock/all&quot;)
+  @Roles(UserRole.OWNER, UserRole.DEVELOPER)
+  @ApiResponse({ status: 200, description: &quot;All IPs unblocked successfully&quot; })
+  @ApiOperation({
+    summary: &quot;Unblock all IPs&quot;,
+    description: &quot;Unblocks all IPs by setting isActive to false.&quot;,
+  })
+  async unblockAll() {
+    await this.ipBlockerService.unblockAll();
+    return { message: &quot;All IPs unblocked&quot; };
+  }
+
+  /**
+   * Removes all blocked IP records.
+   * @returns A message indicating all blocked IPs were deleted.
+   */
+  @Delete()
+  @Roles(UserRole.OWNER, UserRole.DEVELOPER)
+  @ApiResponse({ status: 200, description: &quot;All blocked IPs deleted successfully&quot; })
+  @ApiOperation({
+    summary: &quot;Delete all blocked IPs&quot;,
+    description: &quot;Deletes all blocked IPs from the database.&quot;,
+  })
+  async removeAll() {
+    await this.ipBlockerService.removeAll();
+    return { message: &quot;All blocked IPs deleted&quot; };
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminIPBlockerController.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

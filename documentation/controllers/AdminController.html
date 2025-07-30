@@ -1,0 +1,812 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nebura-control documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">nebura-control documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content controller">
+                   <div class="content-data">
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >AdminController</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/interfaces/http/routes/admin/controllers/users.controllers.ts</code>
+        </p>
+
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>AdminController</p>
+<p>Controller for administrative user management endpoints.
+Provides endpoints for listing all users and updating user roles.</p>
+<p>Security:</p>
+<ul>
+<li>All endpoints require a valid Bearer token for authentication.</li>
+<li>Intended for use by admin-level users.</li>
+</ul>
+<p>See <a href="https://docs.nestjs.com/controllers">https://docs.nestjs.com/controllers</a></p>
+
+            </p>
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#convertToClient" >convertToClient</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#delete" >delete</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#findAll" >findAll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#roleUpdate" >roleUpdate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="convertToClient"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>convertToClient</b></span>
+                        <a href="#convertToClient"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>convertToClient(uuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;convert-to-client&#x27;)<br />@Roles(UserRole.ADMIN, UserRole.DEVELOPER)<br />@ApiOperation({summary: &#x27;Convert user to client&#x27;, description: &#x27;Sets isClient&#x3D;true for the specified user.&#x27;})<br />@ApiBody({schema: undefined})<br />@ApiResponse({status: 200, description: &#x27;User converted to client successfully&#x27;})<br />@ApiResponse({status: 404, description: &#x27;User not found&#x27;})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controllers.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Converts a user to a client by setting <code>isClient</code> to true.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">// Request body:
+// { &quot;uuid&quot;: &quot;user-uuid-string&quot; }</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An object indicating success and the updated user data.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="delete"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>delete</b></span>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>delete(uuid: <a href="../undefineds/UuidType.html" target="_self">UuidType</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Delete(&#x27;delete&#x27;)<br />@Roles(UserRole.ADMIN, UserRole.DEVELOPER)<br />@ApiResponse({status: 200, description: &#x27;All users deleted successfully&#x27;})<br />@ApiResponse({status: 500, description: &#x27;Internal server error&#x27;})<br />@ApiOperation({summary: &#x27;Delete all users&#x27;, description: &#x27;Deletes all users in the system. Requires admin privileges.&#x27;})<br />@ApiQuery({name: &#x27;uuid&#x27;, type: String, required: true, description: &#x27;UUID of the user to delete&#x27;})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controllers.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Deletes all users in the system.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#UuidType" target="_self" >UuidType</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An object indicating success and a message.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAll"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>findAll</b></span>
+                        <a href="#findAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findAll()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;&#x27;)<br />@Roles(UserRole.ADMIN, UserRole.DEVELOPER)<br />@ApiResponse({status: 200, description: &#x27;List of all users retrieved successfully&#x27;, type: undefined})<br />@ApiResponse({status: 500, description: &#x27;Internal server error&#x27;})<br />@ApiOperation({summary: &#x27;Get all users&#x27;, description: &#x27;Retrieves a list of all users in the system.&#x27;})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controllers.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a list of all users in the system.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An array of user entities.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="roleUpdate"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>roleUpdate</b></span>
+                        <a href="#roleUpdate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>roleUpdate(userData: <a href="../entitys/UserEntity.html" target="_self">Partial&lt;UserEntity&gt;</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;update-role&#x27;)<br />@Roles(UserRole.ADMIN, UserRole.DEVELOPER)<br />@ApiResponse({status: 200, description: &#x27;User role updated successfully&#x27;, type: UserEntity})<br />@ApiResponse({status: 400, description: &#x27;Bad request. Invalid input data.&#x27;})<br />@ApiOperation({summary: &#x27;Update user role&#x27;, description: &#x27;Updates the role of a specific user.&#x27;})<br />@ApiBody({description: &#x27;User data containing UUID and new role&#x27;, type: () &#x3D;&gt; RoleSchema})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controllers.ts:133</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Updates the role of a specific user.</p>
+<p>Expects a request body containing the user&#39;s UUID and the new role.
+Validates the input using Zod before proceeding.</p>
+<p>Example request body:
+{
+  &quot;uuid&quot;: &quot;user-uuid-string&quot;,
+  &quot;role&quot;: &quot;admin&quot; // or &quot;user&quot;, &quot;developer&quot;, &quot;moderator&quot;, &quot;client&quot;
+}</p>
+<p>See <a href="https://docs.nestjs.com/controllers#request-payloads">https://docs.nestjs.com/controllers#request-payloads</a>
+See <a href="https://zod.dev/">https://zod.dev/</a></p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>userData</td>
+                                            <td>
+                                                            <code><a href="../entitys/UserEntity.html" target="_self" >Partial&lt;UserEntity&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Partial user entity containing at least <code>uuid</code> and <code>role</code>.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An object indicating success and the updated user data.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { RoleSchema } from &quot;#adapters/schemas/auth.schema&quot;;
+import { UuidSchema, UuidType } from &quot;#adapters/schemas/shared/uuid.schema&quot;;
+import { Roles } from &quot;#common/decorators/role.decorator&quot;;
+import { AuthGuard } from &quot;#common/guards/auth.guard&quot;;
+import { RoleGuard } from &quot;#common/guards/permissions/role.guard&quot;;
+import { UserRole } from &quot;#common/typeRole&quot;;
+import { UserEntity } from &quot;#entity/users/user.entity&quot;;
+import { UserService } from &quot;#routes/users/service/users.service&quot;;
+import { Repository } from &quot;typeorm&quot;;
+
+import {
+	BadRequestException, Body, Controller, Delete, Get, NotFoundException, Post, Query, UseGuards
+} from &quot;@nestjs/common&quot;;
+import {
+	ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags
+} from &quot;@nestjs/swagger&quot;;
+import { InjectRepository } from &quot;@nestjs/typeorm&quot;;
+
+/**
+ * AdminController
+ *
+ * Controller for administrative user management endpoints.
+ * Provides endpoints for listing all users and updating user roles.
+ *
+ * Security:
+ * - All endpoints require a valid Bearer token for authentication.
+ * - Intended for use by admin-level users.
+ *
+ * @see https://docs.nestjs.com/controllers
+ */
+@UseGuards(AuthGuard, RoleGuard)
+@ApiTags(&quot;admin&quot;)
+@ApiBearerAuth()
+@Controller({
+  path: &quot;admin/users&quot;,
+  version: &quot;1&quot;,
+})
+export class AdminController {
+  /**
+   * Constructs the AdminController.
+   *
+   * @param userService - The service responsible for user operations.
+   */
+  constructor(
+    @InjectRepository(UserEntity)
+    private readonly authRepository: Repository&lt;UserEntity&gt;,
+    private readonly userService: UserService,
+  ) {}
+
+  /**
+   * Retrieves a list of all users in the system.
+   *
+   * @returns An array of user entities.
+   */
+  @Get(&quot;&quot;)
+  @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
+  @ApiResponse({ status: 200, description: &quot;List of all users retrieved successfully&quot;, type: [UserEntity] })
+  @ApiResponse({ status: 500, description: &quot;Internal server error&quot; })
+  @ApiOperation({
+    summary: &quot;Get all users&quot;,
+    description: &quot;Retrieves a list of all users in the system.&quot;,
+  })
+  async findAll() {
+    return this.userService.findAll();
+  }
+
+  /**
+   * Deletes all users in the system.
+   *
+   * @returns An object indicating success and a message.
+   * @throws {HttpException} If the deletion operation fails.
+   */
+  @Delete(&quot;delete&quot;)
+  @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
+  @ApiResponse({ status: 200, description: &quot;All users deleted successfully&quot; })
+  @ApiResponse({ status: 500, description: &quot;Internal server error&quot; })
+  @ApiOperation({
+    summary: &quot;Delete all users&quot;,
+    description: &quot;Deletes all users in the system. Requires admin privileges.&quot;,
+  })
+  @ApiQuery({ name: &quot;uuid&quot;, type: String, required: true, description: &quot;UUID of the user to delete&quot; })
+  async delete(@Query(&quot;uuid&quot;) uuid: UuidType) {
+    const result &#x3D; UuidSchema.safeParse(uuid);
+    if (!result.success)
+      throw new BadRequestException(result.error.message, {
+        cause: result.error.message,
+        description: &quot;Invalid UUID format&quot;,
+      });
+
+    const user &#x3D; await this.authRepository.findOne({ where: { uuid } });
+    if (!user) {
+      throw new NotFoundException(&#x60;User with UUID ${uuid} not found&#x60;, {
+        cause: new Error(&quot;User not found&quot;),
+        description: &quot;The user with the specified UUID does not exist.&quot;,
+      });
+    }
+
+    await this.authRepository.delete({ uuid });
+    return {
+      success: true,
+      message: &quot;User deleted successfully&quot;,
+    };
+  }
+
+  /**
+   * Updates the role of a specific user.
+   *
+   * Expects a request body containing the user&#x27;s UUID and the new role.
+   * Validates the input using Zod before proceeding.
+   *
+   * @param userData - Partial user entity containing at least &#x60;uuid&#x60; and &#x60;role&#x60;.
+   * @returns An object indicating success and the updated user data.
+   * @throws {HttpException} If validation fails or the update operation fails.
+   *
+   * Example request body:
+   * {
+   *   &quot;uuid&quot;: &quot;user-uuid-string&quot;,
+   *   &quot;role&quot;: &quot;admin&quot; // or &quot;user&quot;, &quot;developer&quot;, &quot;moderator&quot;, &quot;client&quot;
+   * }
+   *
+   * @see https://docs.nestjs.com/controllers#request-payloads
+   * @see https://zod.dev/
+   */
+  @Post(&quot;update-role&quot;)
+  @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
+  @ApiResponse({ status: 200, description: &quot;User role updated successfully&quot;, type: UserEntity })
+  @ApiResponse({ status: 400, description: &quot;Bad request. Invalid input data.&quot; })
+  @ApiOperation({ summary: &quot;Update user role&quot;, description: &quot;Updates the role of a specific user.&quot; })
+  @ApiBody({
+    description: &quot;User data containing UUID and new role&quot;,
+    type: () &#x3D;&gt; RoleSchema,
+  })
+  async roleUpdate(@Body() userData: Partial&lt;UserEntity&gt;): Promise&lt;{ success: boolean; message: string; data: UserEntity }&gt; {
+    const result &#x3D; RoleSchema.safeParse({ uuid: userData.uuid, role: userData.role });
+    if (!result.success)
+      throw new BadRequestException(result.error.message, {
+        cause: result.error.message,
+        description: &quot;Invalid input data&quot;,
+      });
+
+    const user &#x3D; await this.userService.updateRole(userData);
+    return {
+      success: user ? true : false,
+      message: user ? &quot;User role updated successfully&quot; : &quot;User not found&quot;,
+      data: user || null,
+    };
+  }
+
+  /**
+   * Converts a user to a client by setting &#x60;isClient&#x60; to true.
+   *
+   * @param body - Object containing the user&#x27;s UUID.
+   * @returns An object indicating success and the updated user data.
+   * @throws {HttpException} If the user is not found or update fails.
+   *
+   * @example
+   * // Request body:
+   * // { &quot;uuid&quot;: &quot;user-uuid-string&quot; }
+   */
+  @Post(&quot;convert-to-client&quot;)
+  @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
+  @ApiOperation({ summary: &quot;Convert user to client&quot;, description: &quot;Sets isClient&#x3D;true for the specified user.&quot; })
+  @ApiBody({
+    schema: {
+      type: &quot;object&quot;,
+      properties: {
+        uuid: { type: &quot;string&quot;, description: &quot;UUID of the user to convert&quot; },
+      },
+      required: [&quot;uuid&quot;],
+    },
+  })
+  @ApiResponse({ status: 200, description: &quot;User converted to client successfully&quot; })
+  @ApiResponse({ status: 404, description: &quot;User not found&quot; })
+  async convertToClient(@Body(&quot;uuid&quot;) uuid: string) {
+    const user &#x3D; await this.userService.convertToClient(uuid);
+    return {
+      success: !!user,
+      message: user ? &quot;User converted to client successfully&quot; : &quot;User not found&quot;,
+      data: user || null,
+    };
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminController.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

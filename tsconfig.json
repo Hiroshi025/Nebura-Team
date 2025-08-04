@@ -107,13 +107,13 @@
     "src/types/.d.ts", // Type declaration files.
     "src/**/*", // All files in src directory.
     "config/**/*", // All JSON files in config directory.
-    "./**/*.json" // All JSON files in the project.
+    "./**/*.json", // All JSON files in the project.
   ],
 
   // exclude: Files and directories to exclude from compilation.
   // Reference: https://www.typescriptlang.org/tsconfig#exclude
   "exclude": [
-    "views/*", // Exclude Handlebars views.
+    "web/*", // Exclude Handlebars views.
     "public/*", // Exclude public assets.
     "js/*", // Exclude JavaScript files.
     "node_modules", // Dependency modules.

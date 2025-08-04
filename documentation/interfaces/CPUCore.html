@@ -556,6 +556,48 @@ export const helpers &#x3D; {
   },
 
   /**
+   * Capitalizes the first letter of a string.
+   * @param str - The string to capitalize.
+   * @returns The capitalized string.
+   */
+  capitalize: (str: string): string &#x3D;&gt; {
+    if (!str) return &quot;&quot;;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  },
+
+  /**
+   * Checks if a date is expired (before now).
+   * @param date - Date object or ISO string.
+   * @returns true if expired, false otherwise.
+   */
+  isExpired: (date: Date | string): boolean &#x3D;&gt; {
+    if (!date) return false;
+    const d &#x3D; typeof date &#x3D;&#x3D;&#x3D; &quot;string&quot; ? new Date(date) : date;
+    return d.getTime() &lt; Date.now();
+  },
+
+  /**
+   * Formats a number with commas as thousands separators.
+   * @param num - The number to format.
+   * @returns The formatted string.
+   */
+  formatNumber: (num: number): string &#x3D;&gt; {
+    if (typeof num !&#x3D;&#x3D; &quot;number&quot;) return &quot;&quot;;
+    return num.toLocaleString();
+  },
+
+  /**
+   * Formats a date as &quot;Mon YYYY&quot;.
+   * @param date - Date object or ISO string.
+   * @returns The formatted string.
+   */
+  formatMonthYear: (date: Date | string): string &#x3D;&gt; {
+    if (!date) return &quot;&quot;;
+    const d &#x3D; typeof date &#x3D;&#x3D;&#x3D; &quot;string&quot; ? new Date(date) : date;
+    return d.toLocaleString(&quot;en-US&quot;, { month: &quot;short&quot;, year: &quot;numeric&quot; });
+  },
+
+  /**
    * Handlebars helper for equality comparison.
    * @param arg1 - First value to compare.
    * @param arg2 - Second value to compare.
@@ -573,6 +615,175 @@ export const helpers &#x3D; {
    */
   ifEquals: function (arg1: any, arg2: any, options: any): any {
     return arg1 &#x3D;&#x3D; arg2 ? options.fn(this) : options.inverse(this);
+  },
+
+  /**
+   * Handlebars helper for strict equality comparison.
+   * @param a - First value.
+   * @param b - Second value.
+   * @returns true if a &#x3D;&#x3D;&#x3D; b, false otherwise.
+   * @example
+   * {{#if (eq a b)}} ... {{/if}}
+   */
+  eq: (a: any, b: any): boolean &#x3D;&gt; a &#x3D;&#x3D;&#x3D; b,
+
+  /**
+   * Handlebars helper for conditional comparison with operator.
+   * @param v1 - Primer valor.
+   * @param operator - Operador de comparación (&#x27;&#x3D;&#x3D;&#x27;, &#x27;&#x3D;&#x3D;&#x3D;&#x27;, &#x27;!&#x3D;&#x27;, &#x27;&lt;&#x27;, &#x27;&gt;&#x27;, &#x27;&lt;&#x3D;&#x27;, &#x27;&gt;&#x3D;&#x27;).
+   * @param v2 - Segundo valor.
+   * @param options - Opciones de Handlebars.
+   * @returns Renderiza el bloque si la condición es verdadera, de lo contrario el bloque inverso.
+   * @example
+   * {{#ifCond a &#x27;&#x3D;&#x3D;&#x27; b}} ... {{/ifCond}}
+   */
+  ifCond: function (v1: any, operator: string, v2: any, options: any): any {
+    let result &#x3D; false;
+    switch (operator) {
+      case &quot;&#x3D;&#x3D;&quot;:
+        result &#x3D; v1 &#x3D;&#x3D; v2;
+        break;
+      case &quot;&#x3D;&#x3D;&#x3D;&quot;:
+        result &#x3D; v1 &#x3D;&#x3D;&#x3D; v2;
+        break;
+      case &quot;!&#x3D;&quot;:
+        result &#x3D; v1 !&#x3D; v2;
+        break;
+      case &quot;!&#x3D;&#x3D;&quot;:
+        result &#x3D; v1 !&#x3D;&#x3D; v2;
+        break;
+      case &quot;&lt;&quot;:
+        result &#x3D; v1 &lt; v2;
+        break;
+      case &quot;&lt;&#x3D;&quot;:
+        result &#x3D; v1 &lt;&#x3D; v2;
+        break;
+      case &quot;&gt;&quot;:
+        result &#x3D; v1 &gt; v2;
+        break;
+      case &quot;&gt;&#x3D;&quot;:
+        result &#x3D; v1 &gt;&#x3D; v2;
+        break;
+      default:
+        result &#x3D; false;
+    }
+    return result ? options.fn(this) : options.inverse(this);
+  },
+
+  /**
+   * Handlebars helper para comparar si a &gt; b.
+   * @param a - Primer valor.
+   * @param b - Segundo valor.
+   * @returns true si a &gt; b, false si no.
+   * @example
+   * {{#if (gt a b)}} ... {{/if}}
+   */
+  gt: (a: any, b: any): boolean &#x3D;&gt; a &gt; b,
+
+  /**
+   * Formatea el mensaje del ticket para mostrar emojis, negrita, enlaces y saltos de línea.
+   * @param msg - Mensaje original.
+   * @returns Mensaje HTML seguro.
+   */
+  formatMessage: (msg: string): string &#x3D;&gt; {
+    if (!msg) return &quot;&quot;;
+    // Reemplaza saltos de línea por &lt;br&gt;
+    let formatted &#x3D; msg.replace(/\n/g, &quot;&lt;br&gt;&quot;);
+    // Negrita: **texto**
+    formatted &#x3D; formatted.replace(/\*\*(.*?)\*\*/g, &quot;&lt;strong&gt;$1&lt;/strong&gt;&quot;);
+    // Enlaces: [texto](url)
+    formatted &#x3D; formatted.replace(/\[([^\]]+)\]\((https?:\/\/[^\s]+)\)/g, &#x27;&lt;a href&#x3D;&quot;$2&quot; target&#x3D;&quot;_blank&quot;&gt;$1&lt;/a&gt;&#x27;);
+    // Emojis simples: :emoji:
+    formatted &#x3D; formatted.replace(/:([a-zA-Z0-9_+-]+):/g, &#x27;&lt;span class&#x3D;&quot;emoji&quot;&gt;:$1:&lt;/span&gt;&#x27;);
+    // URLs directas
+    formatted &#x3D; formatted.replace(/(https?:\/\/[^\s&lt;]+)/g, &#x27;&lt;a href&#x3D;&quot;$1&quot; target&#x3D;&quot;_blank&quot;&gt;$1&lt;/a&gt;&#x27;);
+    return formatted;
+  },
+
+  /**
+   * Devuelve la clase CSS para el estado del ticket.
+   * @param status - Estado del ticket.
+   * @returns Clase CSS.
+   */
+  ticketStatusClass: (status: string): string &#x3D;&gt; {
+    switch (status) {
+      case &quot;abierto&quot;:
+        return &quot;ticket-status-open&quot;;
+      case &quot;proceso&quot;:
+        return &quot;ticket-status-process&quot;;
+      case &quot;espera&quot;:
+        return &quot;ticket-status-wait&quot;;
+      case &quot;cerrado&quot;:
+        return &quot;ticket-status-closed&quot;;
+      default:
+        return &quot;&quot;;
+    }
+  },
+
+  /**
+   * Devuelve la clase CSS para la prioridad del ticket.
+   * @param priority - Prioridad del ticket.
+   * @returns Clase CSS.
+   */
+  ticketPriorityClass: (priority: string): string &#x3D;&gt; {
+    switch (priority) {
+      case &quot;baja&quot;:
+        return &quot;ticket-priority-low&quot;;
+      case &quot;media&quot;:
+        return &quot;ticket-priority-medium&quot;;
+      case &quot;alta&quot;:
+        return &quot;ticket-priority-high&quot;;
+      case &quot;critica&quot;:
+        return &quot;ticket-priority-critical&quot;;
+      default:
+        return &quot;&quot;;
+    }
+  },
+
+  /**
+   * Handlebars helper para formatear fechas en español.
+   * @param date - Fecha a formatear.
+   * @returns Fecha formateada.
+   * @example
+   * {{formatDateES fecha}}
+   */
+  formatDateES: function (date: Date | string): string {
+    if (!date) return &quot;&quot;;
+    const d &#x3D; typeof date &#x3D;&#x3D;&#x3D; &quot;string&quot; ? new Date(date) : date;
+    return d.toLocaleString(&quot;es-ES&quot;, {
+      year: &quot;numeric&quot;,
+      month: &quot;long&quot;,
+      day: &quot;numeric&quot;,
+      hour: &quot;2-digit&quot;,
+      minute: &quot;2-digit&quot;,
+      second: &quot;2-digit&quot;,
+    });
+  },
+
+  /**
+   * Handlebars helper para calcular la diferencia de tiempo entre dos fechas.
+   * @param start - Fecha de inicio.
+   * @param end - Fecha de fin.
+   * @returns Diferencia de tiempo en formato legible.
+   * @example
+   * {{timeDiff startDate endDate}}
+   */
+  timeDiff: function (start: Date | string, end: Date | string): string {
+    const startDate &#x3D; typeof start &#x3D;&#x3D;&#x3D; &quot;string&quot; ? new Date(start) : start;
+    const endDate &#x3D; typeof end &#x3D;&#x3D;&#x3D; &quot;string&quot; ? new Date(end) : end;
+    const diff &#x3D; Math.abs(endDate.getTime() - startDate.getTime());
+
+    const days &#x3D; Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours &#x3D; Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes &#x3D; Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds &#x3D; Math.floor((diff % (1000 * 60)) / 1000);
+
+    let result &#x3D; &quot;&quot;;
+    if (days &gt; 0) result +&#x3D; &#x60;${days}d &#x60;;
+    if (hours &gt; 0) result +&#x3D; &#x60;${hours}h &#x60;;
+    if (minutes &gt; 0) result +&#x3D; &#x60;${minutes}m &#x60;;
+    if (seconds &gt; 0) result +&#x3D; &#x60;${seconds}s&#x60;;
+    return result.trim();
   },
 };
 

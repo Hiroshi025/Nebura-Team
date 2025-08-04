@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { UuidSchema } from "#adapters/schemas/shared/uuid.schema";
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { AuthGuard } from "#common/guards/auth.guard";
+import { ClientHeaderGuard } from "#common/guards/client-header.guard";
+import { Response } from "express-serve-static-core";
 
 import {
 	BadRequestException, Body, Controller, Delete, Get, Logger, NotFoundException, Param, Patch,
@@ -47,6 +47,7 @@ import { FileUploadService } from "../service/multer.service";
  * @see {@link https://swagger.io/docs/ NestJS Swagger}
  */
 @ApiTags("files")
+@UseGuards(ClientHeaderGuard)
 @ApiBearerAuth()
 @Controller({
   path: "users/files",
@@ -303,7 +304,7 @@ export class FileUploadController {
   @ApiResponse({ status: 404, description: "File not found." })
   @ApiParam({ name: "id", type: Number, required: true, description: "File ID" })
   @ApiQuery({ name: "uuid", type: String, required: true })
-  async downloadFile(@Param("id") id: number, @Res() res: any, @Query("uuid") uuid: string) {
+  async downloadFile(@Param("id") id: number, @Res() res: Response, @Query("uuid") uuid: string) {
     this.logger.debug(`downloadFile endpoint called with id: ${id}`);
     if (!uuid) {
       this.logger.warn("User UUID not found in request");

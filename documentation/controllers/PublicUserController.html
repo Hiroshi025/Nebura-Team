@@ -112,7 +112,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/interfaces/http/routes/users/controllers/public.controllers.ts</code>
+            <code>src/interfaces/http/routes/users/controllers/public.controller.ts</code>
         </p>
 
 
@@ -216,8 +216,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="48"
-                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/public.controllers.ts:48</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/public.controller.ts:50</a></div>
                         </td>
                     </tr>
 
@@ -309,8 +309,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="101"
-                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/public.controllers.ts:101</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/interfaces/http/routes/users/controllers/public.controller.ts:103</a></div>
                         </td>
                     </tr>
 
@@ -418,6 +418,7 @@ See <a href="https://docs.nestjs.com/openapi/introduction">NestJS Swagger</a></p
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { UuidSchema, UuidType } from &quot;#adapters/schemas/shared/uuid.schema&quot;;
 import { AuthGuard } from &quot;#common/guards/auth.guard&quot;;
+import { ClientHeaderGuard } from &quot;#common/guards/client-header.guard&quot;;
 import { UserService } from &quot;#routes/users/service/users.service&quot;;
 
 import {
@@ -433,6 +434,7 @@ import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from &quo
  * @see {@link https://docs.nestjs.com/controllers NestJS Controllers}
  */
 @ApiTags(&quot;users&quot;)
+@UseGuards(ClientHeaderGuard)
 @ApiBearerAuth()
 @Controller({
   version: &quot;1&quot;,

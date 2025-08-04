@@ -145,6 +145,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
                                 <a href="#onAbout" >onAbout</a>
@@ -192,6 +193,7 @@
                     <a name="onAbout"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Public</span>
                             <span class="modifier">Async</span>
                         <span ><b>onAbout</b></span>
@@ -210,14 +212,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@TextCommand({name: &#x27;about&#x27;, description: &#x27;Show information about the project.&#x27;})<br /></code>
+                    <code>@SkipLogging()<br />@TextCommand({name: &#x27;about&#x27;, description: &#x27;Show information about the project.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="25"
-                                    class="link-to-prism">src/core/discord/interactions/message.interaction.ts:25</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="26"
+                                    class="link-to-prism">src/core/discord/interactions/message.interaction.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -306,6 +308,7 @@ export class MessageInteraction {
    *
    * Usage: !about
    */
+  @SkipLogging()
   @TextCommand({ name: &quot;about&quot;, description: &quot;Show information about the project.&quot; })
   public async onAbout(@Context() [message]: TextCommandContext, @Arguments() _args: string[]) {
     const embed &#x3D; {

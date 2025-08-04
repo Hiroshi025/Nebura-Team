@@ -166,8 +166,14 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
                                 <a href="#createAuth" >createAuth</a>
                             </li>
                             <li>
+                                <a href="#createOAuth2" >createOAuth2</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Async</span>
                                 <a href="#deleteAuth" >deleteAuth</a>
+                            </li>
+                            <li>
+                                <a href="#findOAuth2" >findOAuth2</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
@@ -176,6 +182,14 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
                             <li>
                                     <span class="modifier">Async</span>
                                 <a href="#loginAuth" >loginAuth</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateOAuth2" >updateOAuth2</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#validateOAuth2" >validateOAuth2</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
@@ -204,7 +218,7 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:34</a></div>
                             </td>
                         </tr>
 
@@ -295,8 +309,8 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="55"
-                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:55</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:57</a></div>
                         </td>
                     </tr>
 
@@ -370,6 +384,73 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="createOAuth2"></a>
+                    <span class="name">
+                        <span ><b>createOAuth2</b></span>
+                        <a href="#createOAuth2"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createOAuth2(details: <a href="../undefineds/OAuth2Details.html" target="_self">OAuth2Details</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:173</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>details</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#OAuth2Details" target="_self" >OAuth2Details</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="deleteAuth"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -388,8 +469,8 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="140"
-                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:140</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="142"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:142</a></div>
                         </td>
                     </tr>
 
@@ -439,6 +520,73 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="findOAuth2"></a>
+                    <span class="name">
+                        <span ><b>findOAuth2</b></span>
+                        <a href="#findOAuth2"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>findOAuth2(params: <a href="../undefineds/FindOAuth2Params.html" target="_self">FindOAuth2Params</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="185"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:185</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#FindOAuth2Params" target="_self" >FindOAuth2Params</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getAuth"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -457,8 +605,8 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="125"
-                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:125</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:127</a></div>
                         </td>
                     </tr>
 
@@ -526,8 +674,8 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="99"
-                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:99</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="101"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:101</a></div>
                         </td>
                     </tr>
 
@@ -605,6 +753,144 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="updateOAuth2"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>updateOAuth2</b></span>
+                        <a href="#updateOAuth2"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateOAuth2(details: <a href="../undefineds/OAuth2Details.html" target="_self">OAuth2Details</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="179"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:179</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>details</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#OAuth2Details" target="_self" >OAuth2Details</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateOAuth2"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>validateOAuth2</b></span>
+                        <a href="#validateOAuth2"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>validateOAuth2(details: <a href="../undefineds/OAuth2Details.html" target="_self">OAuth2Details</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="167"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:167</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>details</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#OAuth2Details" target="_self" >OAuth2Details</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="validateUser"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -623,8 +909,8 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="156"
-                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:156</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="158"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:158</a></div>
                         </td>
                     </tr>
 
@@ -708,7 +994,7 @@ See <a href="https://typeorm.io/#/repository-api">https://typeorm.io/#/repositor
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/interfaces/http/routes/auth/auth.service.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -729,6 +1015,8 @@ This logger is used to log debug, info, warning, and error messages.</p>
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { main } from &quot;#/main&quot;;
+import { FindOAuth2Params, OAuth2Details } from &quot;#/types/sessions-types&quot;;
+import { OAuth2Credentials } from &quot;#entity/users/Oauth2-credentials.entity&quot;;
 import { UserEntity } from &quot;#entity/users/user.entity&quot;;
 import { encrypt } from &quot;#shared/webToken&quot;;
 import { compare } from &quot;bcryptjs&quot;;
@@ -889,6 +1177,29 @@ export class AuthService {
       return result;
     }
     return null;
+  }
+
+  async validateOAuth2(details: OAuth2Details) {
+    const { discordId } &#x3D; details;
+    const oauth2 &#x3D; await this.findOAuth2({ discordId });
+    return oauth2 ? this.updateOAuth2(details) : this.createOAuth2(details);
+  }
+
+  createOAuth2(details: OAuth2Details) {
+    const oauth2Repository &#x3D; this.authRepository.manager.getRepository(OAuth2Credentials);
+    const user &#x3D; oauth2Repository.create(details);
+    return oauth2Repository.save(user);
+  }
+
+  async updateOAuth2(details: OAuth2Details) {
+    const oauth2Repository &#x3D; this.authRepository.manager.getRepository(OAuth2Credentials);
+    await oauth2Repository.update(details.discordId, details);
+    return details;
+  }
+
+  findOAuth2(params: FindOAuth2Params) {
+    const oauth2Repository &#x3D; this.authRepository.manager.getRepository(OAuth2Credentials);
+    return oauth2Repository.findOne({ where: params });
   }
 }
 </code></pre>

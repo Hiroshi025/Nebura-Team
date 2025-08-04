@@ -1,0 +1,696 @@
+<div class="page-section" id="administration">
+  <!-- Bienvenida mejorada -->
+  <section
+    class="dashboard-card admin-welcome-card"
+    style="margin-bottom: 32px; display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: center;"
+  >
+    <figure class="admin-avatar" style="margin:0;">
+      <img
+        src="https://cdn.discordapp.com/avatars/{{user.discord.id}}/{{user.discord.avatar}}.png"
+        alt="Avatar of {{user.discord.global_name}}"
+        style="width:80px; height:80px; border-radius:16px; object-fit:cover; box-shadow:0 2px 12px var(--shadow-light);"
+      />
+    </figure>
+    <div class="admin-welcome-info" style="display:flex; flex-direction:column; gap:8px;">
+      <header>
+        <h1 style="font-size: 26px; font-weight: 800; color: var(--nebura-purple); margin-bottom:2px;">
+          Welcome,
+          {{user.discord.global_name}}!
+        </h1>
+        <span style="font-size: 15px; color: var(--nebura-magenta); font-weight: 600;">
+          Administration Panel
+        </span>
+      </header>
+      <div style="margin-top: 8px; font-size: 15px; color: var(--text-secondary); line-height:1.6;">
+        Manage all Nebura system resources, support tickets, metrics, configuration and advanced options from this centralized
+        panel.
+      </div>
+      <dl style="margin-top:10px; display:flex; gap:24px; flex-wrap:wrap;">
+        <div>
+          <dt style="font-size:12px; color:var(--text-secondary); font-weight:500;">
+            Discord User
+          </dt>
+          <dd style="font-size:14px; font-weight:600; color:var(--nebura-blue);">
+            {{user.discord.username}}
+          </dd>
+        </div>
+        <div>
+          <dt style="font-size:12px; color:var(--text-secondary); font-weight:500;">
+            Role
+          </dt>
+          <dd style="font-size:14px; font-weight:600; color:var(--nebura-purple);">
+            {{user.api.role}}
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Tabs Navigation -->
+  <div class="dashboard-card" style="margin-bottom: 24px;">
+    <div class="card-header" style="border-bottom: 1px solid var(--border-color); margin-bottom: 0;">
+      <div class="language-tabs" id="adminTabs" style="gap: 18px;">
+        <button class="lang-tab active" onclick="showAdminTab('admin-tickets')">Tickets</button>
+        <button class="lang-tab" onclick="showAdminTab('admin-metrics')">Metrics</button>
+        <button class="lang-tab" onclick="showAdminTab('admin-configuration')">Configuration</button>
+        <button class="lang-tab" onclick="showAdminTab('admin-advanced')">Advanced</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs Content -->
+  <div id="admin-tickets" class="page-section active">
+    <div class="dashboard-card" style="margin-bottom: 18px;">
+      <div class="card-header">
+        <div class="card-title">
+          <svg style="vertical-align:middle;margin-right:8px;" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M20 10V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3H2v4h2v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3h2v-4h-2zM6 7h12v10H6V7z"
+            />
+          </svg>
+          Tickets Management
+        </div>
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" />
+          </svg>
+        </div>
+      </div>
+      <div style="padding: 10px 0;">
+        <span style="color: var(--text-secondary); font-size: 14px;">
+          View, filter and manage all support tickets. Use advanced search, assign agents, edit tags, export, review history, and
+          answer tickets directly.
+        </span>
+        <!-- Advanced Search Filters -->
+        <div style="display:flex; align-items:center; gap:18px; margin-top:18px;">
+          <form
+            id="adminTicketSearchForm"
+            style="flex:1; display: flex; gap: 12px; flex-wrap: wrap; background:var(--accent-bg); border-radius:10px; padding:12px;"
+          >
+            <input
+              type="text"
+              name="keywords"
+              class="control-input ticket-input"
+              placeholder="Keywords"
+              style="max-width: 140px;"
+            />
+            <select name="status" class="control-select ticket-select" style="max-width: 110px;">
+              <option value="">Status</option>
+              <option value="open">Open</option>
+              <option value="in_progress">In Progress</option>
+              <option value="waiting_user">Waiting User</option>
+              <option value="closed">Closed</option>
+            </select>
+            <select name="priority" class="control-select ticket-select" style="max-width: 110px;">
+              <option value="">Priority</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="critical">Critical</option>
+            </select>
+            <input
+              type="text"
+              name="category"
+              class="control-input ticket-input"
+              placeholder="Category"
+              style="max-width: 110px;"
+            />
+            <input
+              type="text"
+              name="assignedTo"
+              class="control-input ticket-input"
+              placeholder="Assigned To (UUID)"
+              style="max-width: 140px;"
+            />
+            <input
+              type="text"
+              name="tags"
+              class="control-input ticket-input"
+              placeholder="Tags (comma separated)"
+              style="max-width: 140px;"
+            />
+            <input type="date" name="dateFrom" class="control-input ticket-input" style="max-width: 110px;" />
+            <input type="date" name="dateTo" class="control-input ticket-input" style="max-width: 110px;" />
+            <input
+              type="text"
+              name="attachmentTypes"
+              class="control-input ticket-input"
+              placeholder="Attachment Types (pdf,png)"
+              style="max-width: 120px;"
+            />
+          </form>
+          <div style="display:flex; gap:10px;">
+            <button
+              type="button"
+              id="adminExportCsv"
+              class="run-btn export-btn"
+              title="Export CSV"
+              style="min-width:40px; padding:8px 0;"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"
+                /></svg>
+            </button>
+            <button
+              type="button"
+              id="adminExportPdf"
+              class="run-btn export-btn"
+              title="Export PDF"
+              style="min-width:40px; background:var(--nebura-magenta); padding:8px 0;"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h-2v6z"
+                /></svg>
+            </button>
+            <button
+              type="submit"
+              form="adminTicketSearchForm"
+              class="run-btn search-btn"
+              title="Search"
+              style="min-width:40px; background:var(--nebura-blue); padding:8px 0;"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path
+                  d="M9 21h6v-1H9v1zm3-19C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10c0-5.52-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+                /></svg>
+            </button>
+          </div>
+        </div>
+        <div id="adminTicketSearchFeedback" style="margin-top:8px; font-size:13px;"></div>
+        <!-- Tickets Table -->
+        <div style="margin-top: 18px;">
+          <table class="ticket-table" id="adminTicketsTable">
+            <thead>
+              <tr>
+                <th><svg width="16" height="16" style="vertical-align:middle;" fill="currentColor"><circle
+                      cx="8"
+                      cy="8"
+                      r="7"
+                    /></svg>
+                  ID</th>
+                <th><svg width="16" height="16" style="vertical-align:middle;" fill="currentColor"><path
+                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                    /></svg>
+                  Title</th>
+                <th>User</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Category</th>
+                <th>Tags</th>
+                <th>Assigned</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Ticket Details Modal -->
+    <div id="adminTicketDetailsModal" class="dashboard-card ticket-details-card" style="display:none; margin-top:24px;">
+      <!-- Rendered by JS -->
+    </div>
+    <!-- Ticket History Modal -->
+    <div id="adminTicketHistoryModal" class="dashboard-card ticket-details-card" style="display:none; margin-top:24px;">
+      <!-- Rendered by JS -->
+    </div>
+    <!-- Ticket Chat Modal (Admin can reply) -->
+    <div id="adminTicketChatModal" class="dashboard-card ticket-chat-card" style="display:none; margin-top:24px;">
+      <div class="chat-header" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="card-icon" style="width:32px; height:32px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-2h-2v2zm0-4h2V7h-2v6z" />
+            </svg>
+          </div>
+          <h3 id="adminTicketChatTitle" style="font-size:17px; font-weight:700; color:var(--nebura-purple); margin:0;">
+            Ticket Chat
+          </h3>
+          <span id="adminTicketChatId" style="font-size:13px; color:var(--text-secondary); margin-left:8px;"></span>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button
+            class="run-btn close-chat-btn"
+            onclick="closeAdminTicketChat()"
+            title="Close Chat"
+            style="background:var(--gradient-secondary); min-width:40px; max-width:40px; height:40px; padding:0; display:flex; align-items:center; justify-content:center; border-radius:8px;"
+          >
+            <svg width="18" height="18" style="vertical-align:middle;" fill="currentColor">
+              <circle cx="9" cy="9" r="8" />
+              <line x1="6" y1="6" x2="12" y2="12" stroke="white" stroke-width="2" />
+              <line x1="12" y1="6" x2="6" y2="12" stroke="white" stroke-width="2" />
+            </svg>
+          </button>
+          <button
+            id="adminChatReloadBtn"
+            class="run-btn"
+            onclick="window.adminReloadChat && adminReloadChat()"
+            title="Reload Chat"
+            style="background:var(--nebura-purple); min-width:40px; max-width:40px; height:40px; padding:0; display:flex; align-items:center; justify-content:center; border-radius:8px;"
+          >
+            <svg width="18" height="18" style="vertical-align:middle;" fill="currentColor">
+              <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.1-.9 2-2 2h-1v2h1c2.21 0 4-1.79 4-4 0-4.42-3.58-8-8-8z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        id="adminTicketChatMessages"
+        style="max-height:320px; overflow-y:auto; margin:16px 0; background:var(--primary-bg); border-radius:8px; padding:12px;"
+      >
+        <!-- Messages rendered here by JS -->
+      </div>
+      <form id="adminTicketChatForm" style="display: flex; gap: 10px; align-items: center; margin-top: 8px;">
+        <input type="text" name="message" class="control-input" placeholder="Type your reply..." required style="flex:1;" />
+        <button
+          type="submit"
+          class="run-btn"
+          style="min-width:40px; max-width:60px; padding:8px 0; background:var(--nebura-purple);"
+        >
+          <svg style="vertical-align:middle;" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path
+              d="M2 21l21-9-21-9v7l15 2-15 2z"
+            /></svg>
+        </button>
+      </form>
+      <div id="adminTicketChatFeedback" style="margin-top:8px; font-size:13px;"></div>
+    </div>
+  </div>
+
+  <div id="admin-metrics" class="page-section" style="display:none;">
+    <div class="dashboard-card" style="padding:32px;">
+      <!-- Licenses Table -->
+      <div class="card-header" style="margin-bottom: 24px; display:flex; align-items:center;">
+        <div class="card-title" style="display: flex; align-items: center; gap: 10px; font-size:20px;">
+          <svg width="26" height="26" style="vertical-align:middle;" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h-2v6z" />
+          </svg>
+          Licenses
+        </div>
+        <div style="margin-left:auto; display:flex; gap:24px;">
+          <button class="run-btn export-btn icon-btn" title="Export CSV">
+            <svg width="22" height="22" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+          </button>
+          <button class="run-btn export-btn icon-btn" title="Export PDF" style="background:var(--nebura-magenta);">
+            <svg width="22" height="22" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h-2v6z"/></svg>
+          </button>
+          <div style="position:relative; min-width:340px;">
+            <input type="text" class="control-input search-input" placeholder="Search licenses..." style="width:100%; padding-left:44px; font-size:16px; height:48px; border-radius:14px;" />
+            <span style="position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--nebura-purple);">
+              <svg width="24" height="24" fill="currentColor"><path d="M9 2a7 7 0 0 1 5.29 11.71l4 4a1 1 0 0 1-1.42 1.42l-4-4A7 7 0 1 1 9 2zm0 2a5 5 0 1 0 0 10A5 5 0 0 0 9 4z"/></svg>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom:56px;">
+        <table class="license-table improved-table" id="licenseTable" style="width:100%; border-collapse:separate; border-spacing:0; background:var(--secondary-bg); border-radius:18px; box-shadow:0 2px 12px var(--shadow-light); font-size:15px;">
+          <thead>
+            <tr style="background:var(--accent-bg); color:var(--nebura-purple);">
+              <th style="padding:12px;">#</th>
+              <th>Type</th>
+              <th>Key</th>
+              <th>Identifier</th>
+              <th>User ID</th>
+              <th>Admin ID</th>
+              <th>HWIDs</th>
+              <th>Request Limit</th>
+              <th>Requests Used</th>
+              <th>Max IPs</th>
+              <th>IPs</th>
+              <th>Last IP</th>
+              <th>Last HWID</th>
+              <th>Valid Until</th>
+              <th>Created</th>
+              <th>Updated</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="licenseTableBody">
+            <!-- Renderizado por JS -->
+          </tbody>
+        </table>
+        <div id="licensePagination" style="margin:18px 0; display:flex; justify-content:center; gap:8px;"></div>
+      </div>
+      <!-- Users Table -->
+      <div style="margin:56px 0 0 0; padding-top:36px; border-top:2px solid var(--nebura-purple);">
+        <div class="card-header" style="margin-bottom: 24px; display:flex; align-items:center;">
+          <div class="card-title" style="display: flex; align-items: center; gap: 10px; font-size:20px;">
+            <svg width="26" height="26" style="vertical-align:middle;" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
+            </svg>
+            Users
+          </div>
+          <div style="margin-left:auto; display:flex; gap:24px;">
+            <button class="run-btn export-btn icon-btn" title="Export CSV">
+              <svg width="22" height="22" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+            </button>
+            <button class="run-btn export-btn icon-btn" title="Export PDF" style="background:var(--nebura-magenta);">
+              <svg width="22" height="22" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h-2v6z"/></svg>
+            </button>
+            <div style="position:relative; min-width:340px;">
+              <input type="text" class="control-input search-input" placeholder="Search users..." style="width:100%; padding-left:44px; font-size:16px; height:48px; border-radius:14px;" />
+              <span style="position:absolute; left="16px"; top:50%; transform:translateY(-50%); color:var(--nebura-purple);">
+                <svg width="24" height="24" fill="currentColor"><path d="M9 2a7 7 0 0 1 5.29 11.71l4 4a1 1 0 0 1-1.42 1.42l-4-4A7 7 0 1 1 9 2zm0 2a5 5 0 1 0 0 10A5 5 0 0 0 9 4z"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="user-table improved-table" id="userTable" style="width:100%; border-collapse:separate; border-spacing:0; background:var(--secondary-bg); border-radius:18px; box-shadow:0 2px 12px var(--shadow-light); font-size:15px;">
+            <thead>
+              <tr style="background:var(--accent-bg); color:var(--nebura-purple);">
+                <th style="padding:12px;">#</th>
+                <th>ID</th>
+                <th>UUID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Is Client</th>
+                <th>Licenses</th>
+                <th>Discord Info</th>
+                <th>QR Code</th>
+                <th>Deleted At</th>
+                <th>Tickets</th>
+              </tr>
+            </thead>
+            <tbody id="userTableBody">
+              <!-- Renderizado por JS -->
+            </tbody>
+          </table>
+          <div id="userPagination" style="margin:18px 0; display:flex; justify-content:center; gap:8px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="admin-configuration" class="page-section" style="display:none;">
+    <div class="dashboard-card">
+      <div class="card-header">
+        <div class="card-title">Configuration</div>
+        <div class="card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2a2 2 0 0 1 2 2v2.09c.7.13 1.37.36 2 .68l1.45-1.45a2 2 0 1 1 2.83 2.83l-1.45 1.45c.32.63.55 1.3.68 2H20a2 2 0 1 1 0 4h-2.09a7.03 7.03 0 0 1-.68 2l1.45 1.45a2 2 0 1 1-2.83 2.83l-1.45-1.45a7.03 7.03 0 0 1-2 .68V20a2 2 0 1 1-4 0v-2.09a7.03 7.03 0 0 1-2-.68l-1.45 1.45a2 2 0 1 1-2.83-2.83l1.45-1.45a7.03 7.03 0 0 1-.68-2H4a2 2 0 1 1 0-4h2.09c.13-.7.36-1.37.68-2L5.32 7.32a2 2 0 1 1 2.83-2.83l1.45 1.45c.63-.32 1.3-.55 2-.68V4a2 2 0 0 1 2-2zm0 4a5 5 0 1 0 0 10A5 5 0 0 0 12 6z"
+            />
+          </svg>
+        </div>
+      </div>
+      <div style="padding: 10px 0;">
+        <span style="color: var(--text-secondary); font-size: 14px;">
+          Change system settings, environment and integrations.
+        </span>
+        <div style="margin-top: 18px;">
+          <div class="control-group">
+            <label class="control-label" for="apiKey">API Key</label>
+            <input type="text" id="apiKey" class="control-input" value="sk_test_1234567890" readonly />
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="webhookUrl">Webhook URL</label>
+            <input type="text" id="webhookUrl" class="control-input" value="https://webhook.site/..." />
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="theme">Theme</label>
+            <select id="theme" class="control-select">
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+            </select>
+          </div>
+          <button class="run-btn" style="margin-top: 12px; max-width: 180px;">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="admin-advanced" class="page-section" style="display:none;">
+    <div class="dashboard-card">
+      <div class="card-header" style="margin-bottom: 18px;">
+        <div class="card-title" style="display: flex; align-items: center; gap: 8px;">
+          <svg width="22" height="22" style="vertical-align:middle;" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h-2v2zm0-4h2V7h-2v6z" />
+          </svg>
+          Create License
+        </div>
+      </div>
+      <form id="advancedLicenseForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; background: transparent;">
+        <!-- License Type -->
+        <div class="form-group">
+          <label for="licenseType" class="control-label">License Type</label>
+          <select id="licenseType" name="type" class="control-select" required>
+            <option value="">Select type</option>
+            <option value="basic">Basic</option>
+            <option value="premium">Premium</option>
+            <option value="enterprise">Enterprise</option>
+          </select>
+        </div>
+        <!-- License Key -->
+        <div class="form-group">
+          <label for="licenseKey" class="control-label">License Key</label>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="licenseKey" name="key" class="control-input" required maxlength="64" style="flex:1;" />
+            <button
+              type="button"
+              class="run-btn"
+              id="generateLicenseKey"
+              title="Generate random key"
+              style="min-width:36px; max-width:36px; padding:0;"
+            >
+              <svg width="18" height="18" fill="currentColor"><path
+                  d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.1-.9 2-2 2h-1v2h1c2.21 0 4-1.79 4-4 0-4.42-3.58-8-8-8z"
+                /></svg>
+            </button>
+          </div>
+        </div>
+        <!-- User ID -->
+        <div class="form-group">
+          <label for="userId" class="control-label">User ID</label>
+          <input type="text" id="userId" name="userId" class="control-input" required list="userIdList" autocomplete="off" />
+          <datalist id="userIdList">
+            <!-- Opciones de autocompletado renderizadas por JS -->
+          </datalist>
+        </div>
+        <!-- Admin ID -->
+        <div class="form-group">
+          <label for="adminId" class="control-label">Admin ID</label>
+          <input type="text" id="adminId" name="adminId" class="control-input" required list="adminIdList" autocomplete="off" />
+          <datalist id="adminIdList">
+            <!-- Opciones de autocompletado renderizadas por JS -->
+          </datalist>
+        </div>
+        <!-- HWIDs -->
+        <div class="form-group">
+          <label for="hwid" class="control-label">HWIDs</label>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="hwid" name="hwid" class="control-input" placeholder="HWID1,HWID2" style="flex:1;" />
+            <button
+              type="button"
+              class="run-btn"
+              id="generateHWID"
+              title="Generate HWID"
+              style="min-width:36px; max-width:36px; padding:0;"
+            >
+              <svg width="18" height="18" fill="currentColor"><circle cx="9" cy="9" r="8" /><text
+                  x="9"
+                  y="13"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="#fff"
+                >H</text></svg>
+            </button>
+          </div>
+        </div>
+        <!-- Request Limit -->
+        <div class="form-group">
+          <label for="requestLimit" class="control-label">Request Limit</label>
+          <input type="number" id="requestLimit" name="requestLimit" class="control-input" min="0" value="1000" required />
+        </div>
+        <!-- Valid Until -->
+        <div class="form-group">
+          <label for="validUntil" class="control-label">Valid Until</label>
+          <input type="date" id="validUntil" name="validUntil" class="control-input" required />
+        </div>
+        <!-- Max IPs -->
+        <div class="form-group">
+          <label for="maxIps" class="control-label">Max IPs</label>
+          <input type="number" id="maxIps" name="maxIps" class="control-input" min="1" value="5" required />
+        </div>
+        <!-- Identifier -->
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label for="identifier" class="control-label">Identifier</label>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="identifier" name="identifier" class="control-input" required maxlength="64" style="flex:1;" />
+            <button
+              type="button"
+              class="run-btn"
+              id="generateIdentifier"
+              title="Generate identifier"
+              style="min-width:36px; max-width:36px; padding:0;"
+            >
+              <svg width="18" height="18" fill="currentColor"><rect x="3" y="3" width="12" height="12" /><text
+                  x="9"
+                  y="13"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="#fff"
+                >ID</text></svg>
+            </button>
+          </div>
+        </div>
+        <div style="grid-column: 1 / -1; display: flex; gap: 18px;">
+          <button type="submit" class="run-btn" style="flex:1; font-size: 16px;">
+            Create License
+          </button>
+          <button type="reset" class="run-btn" style="flex:1; font-size: 16px;">
+            Cancel
+          </button>
+        </div>
+      </form>
+      <div id="advancedLicenseFeedback" style="margin-top: 18px; font-size: 14px; color: var(--nebura-magenta);"></div>
+    </div>
+    <!-- Card separada para cambiar roles -->
+    <div class="dashboard-card" style="margin-top:32px;">
+      <div class="card-header" style="margin-bottom: 18px;">
+        <div class="card-title" style="display: flex; align-items: center; gap: 8px;">
+          <svg width="22" height="22" style="vertical-align:middle;" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h-2v2zm0-4h2V7h-2v6z" />
+          </svg>
+          Change User Role
+        </div>
+      </div>
+      <form id="changeUserRoleForm" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; background:transparent;">
+        <div class="form-group" style="grid-column:1/2;">
+          <label for="changeUserId" class="control-label">User</label>
+          <select id="changeUserId" name="userId" class="control-select" required>
+            <option value="">Select user...</option>
+            <!-- Options rendered by JS -->
+          </select>
+        </div>
+        <div class="form-group" style="grid-column:2/3;">
+          <label for="changeUserRole" class="control-label">Role</label>
+          <select id="changeUserRole" name="role" class="control-select" required>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+            <option value="moderator">Moderator</option>
+            <option value="developer">Developer</option>
+            <option value="client">Client</option>
+          </select>
+        </div>
+        <div style="grid-column:1/-1; display:flex; gap:18px;">
+          <button type="submit" class="run-btn" style="flex:1; font-size:16px;">
+            Change Role
+          </button>
+          <button type="reset" class="run-btn" style="flex:1; font-size:16px;">
+            Cancel
+          </button>
+        </div>
+      </form>
+      <div id="changeUserRoleFeedback" style="margin-top:18px; font-size:14px; color:var(--nebura-magenta);"></div>
+    </div>
+  </div>
+</div>
+<style>
+  .icon-btn {
+    border-radius:50%;
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+    transition:box-shadow 0.2s, background 0.2s;
+    box-shadow:0 2px 8px var(--shadow-light);
+    border:none;
+    outline:none;
+    cursor:pointer;
+  }
+  .icon-btn:hover {
+    background:var(--nebura-purple);
+    box-shadow:0 4px 16px var(--nebura-magenta);
+  }
+  .search-input:focus {
+    border:2px solid var(--nebura-purple);
+    box-shadow:0 2px 12px var(--nebura-magenta);
+  }
+  .improved-table th, .improved-table td {
+    padding:14px 12px;
+    border-bottom:1px solid var(--border-color);
+    vertical-align:middle;
+  }
+  .improved-table th {
+    font-size:16px;
+    font-weight:700;
+    background:var(--accent-bg);
+    color:var(--nebura-purple);
+    border-top:none;
+  }
+  .improved-table tr:last-child td {
+    border-bottom:none;
+  }
+  .custom-notification {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 2px 12px var(--shadow-light);
+    margin-bottom: 8px;
+    animation: fadeInNotif 0.4s;
+    position: relative;
+  }
+  .custom-notification.success {
+    background: #e6fff3;
+    color: #00b86b;
+    border: 1px solid #00ff88;
+  }
+  .custom-notification.error {
+    background: #ffe6f0;
+    color: #e91e63;
+    border: 1px solid #e91e63;
+  }
+  .custom-notification.info {
+    background: #fffbe6;
+    color: #ffb300;
+    border: 1px solid #ffb300;
+  }
+  .custom-notification .notif-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+  }
+  .custom-notification .notif-message {
+    flex: 1;
+  }
+  .custom-notification .notif-close {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 22px;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: color 0.2s;
+    position: absolute;
+    right: 12px;
+    top: 8px;
+  }
+  .custom-notification .notif-close:hover {
+    color: #e91e63;
+  }
+  @keyframes fadeInNotif {
+    from { opacity: 0; transform: translateY(-10px);}
+    to { opacity: 1; transform: translateY(0);}
+  }
+</style>
+{{#if licences.length}}
+  <script>
+    window.licencesData = {{{json licences}}};
+  </script>
+{{/if}}
+{{#if users.length}}
+  <script>
+    window.usersData = {{{json users}}};
+  </script>
+{{/if}}

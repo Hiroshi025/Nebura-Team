@@ -1,6 +1,7 @@
 import { UserLoginSchema, UserSchema } from "#adapters/schemas/auth.schema";
 import { UuidSchema } from "#adapters/schemas/shared/uuid.schema";
 import { AuthGuard } from "#common/guards/auth.guard";
+import { ClientHeaderGuard } from "#common/guards/client-header.guard";
 import { randomUUID } from "crypto";
 
 import {
@@ -36,6 +37,7 @@ import { RegisterUserDto } from "../dto/user/register.dto";
  */
 @ApiTags("auth")
 @ApiBearerAuth()
+@UseGuards(ClientHeaderGuard)
 @Controller({
   path: "auth",
   version: "1",

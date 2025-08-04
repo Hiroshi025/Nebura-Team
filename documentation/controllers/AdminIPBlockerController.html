@@ -112,7 +112,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts</code>
+            <code>src/interfaces/http/routes/admin/controllers/ips-blocker.controller.ts</code>
         </p>
 
 
@@ -276,8 +276,8 @@ Provides endpoints for blocking, viewing, updating, removing, and unblocking IPs
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="111"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:111</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="112"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controller.ts:112</a></div>
                         </td>
                     </tr>
 
@@ -364,8 +364,8 @@ Provides endpoints for blocking, viewing, updating, removing, and unblocking IPs
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="52"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controller.ts:52</a></div>
                         </td>
                     </tr>
 
@@ -422,8 +422,8 @@ Provides endpoints for blocking, viewing, updating, removing, and unblocking IPs
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="89"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:89</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controller.ts:90</a></div>
                         </td>
                     </tr>
 
@@ -512,8 +512,8 @@ Provides endpoints for blocking, viewing, updating, removing, and unblocking IPs
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="70"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:70</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controller.ts:71</a></div>
                         </td>
                     </tr>
 
@@ -602,8 +602,8 @@ Provides endpoints for blocking, viewing, updating, removing, and unblocking IPs
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="158"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:158</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="159"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controller.ts:159</a></div>
                         </td>
                     </tr>
 
@@ -690,8 +690,8 @@ Provides endpoints for blocking, viewing, updating, removing, and unblocking IPs
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="190"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:190</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controller.ts:191</a></div>
                         </td>
                     </tr>
 
@@ -746,8 +746,8 @@ Provides endpoints for blocking, viewing, updating, removing, and unblocking IPs
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="174"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:174</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controller.ts:175</a></div>
                         </td>
                     </tr>
 
@@ -806,8 +806,8 @@ Provides endpoints for blocking, viewing, updating, removing, and unblocking IPs
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="139"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controllers.ts:139</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/ips-blocker.controller.ts:140</a></div>
                         </td>
                     </tr>
 
@@ -883,6 +883,7 @@ Provides endpoints for blocking, viewing, updating, removing, and unblocking IPs
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Roles } from &quot;#common/decorators/role.decorator&quot;;
 import { AuthGuard } from &quot;#common/guards/auth.guard&quot;;
+import { ClientHeaderGuard } from &quot;#common/guards/client-header.guard&quot;;
 import { RoleGuard } from &quot;#common/guards/permissions/role.guard&quot;;
 import { UserRole } from &quot;#common/typeRole&quot;;
 import { CreateIPBlockerDto } from &quot;#routes/admin/dto/create-ip.dto&quot;;
@@ -906,7 +907,7 @@ import {
  * - All endpoints require a valid Bearer token for authentication.
  * - Intended for use by admin-level users.
  */
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
 @ApiBearerAuth()
 @ApiTags(&quot;admin&quot;)
 @Controller({

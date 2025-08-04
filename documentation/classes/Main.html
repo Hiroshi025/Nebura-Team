@@ -189,7 +189,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/main.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/main.ts:40</a></div>
                             </td>
                         </tr>
 
@@ -235,7 +235,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/main.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/main.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -279,8 +279,8 @@ Used to log messages and errors throughout the application lifecycle.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="201"
-                                    class="link-to-prism">src/main.ts:201</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="231"
+                                    class="link-to-prism">src/main.ts:231</a></div>
                         </td>
                     </tr>
 
@@ -329,8 +329,8 @@ await main.init();</code></pre></div></div>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="76"
-                                    class="link-to-prism">src/main.ts:76</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">src/main.ts:78</a></div>
                         </td>
                     </tr>
 
@@ -382,8 +382,10 @@ See <a href="https://helmetjs.github.io/">Helmet</a></p>
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { registerHelpers } from &quot;#shared/utils/helpers&quot;;
+import session from &quot;express-session&quot;;
 import hbs from &quot;hbs&quot;;
 import helmet from &quot;helmet&quot;;
+import passport from &quot;passport&quot;;
 import { join } from &quot;path&quot;;
 import { loadEnvFile } from &quot;process&quot;;
 
@@ -489,18 +491,22 @@ export class Main {
     //    - Serves static assets from /interfaces/http/views/public
     //    - Sets Handlebars (hbs) as the view engine
     //    - See: https://docs.nestjs.com/techniques/mvc
-    app.useStaticAssets(join(__dirname, &quot;interfaces&quot;, &quot;http&quot;, &quot;views&quot;, &quot;public&quot;));
-    app.setBaseViewsDir(join(__dirname, &quot;interfaces&quot;, &quot;http&quot;, &quot;views&quot;));
+    app.useStaticAssets(join(__dirname, &quot;..&quot;, &quot;web&quot;, &quot;public&quot;));
+    app.setBaseViewsDir(join(__dirname, &quot;..&quot;, &quot;web&quot;, &quot;views&quot;));
     app.useStaticAssets(join(process.cwd(), &quot;documentation&quot;), {
-      prefix: &quot;/docs&quot;, 
+      prefix: &quot;/docs&quot;,
     });
 
     app.setViewEngine(&quot;hbs&quot;);
 
     registerHelpers(hbs);
+    hbs.registerPartials(join(__dirname, &quot;..&quot;, &quot;web&quot;, &quot;views&quot;, &quot;partials&quot;));
+    hbs.registerHelper(&#x27;inc&#x27;, function(value) { return parseInt(value) + 1; });
+    hbs.localsAsTemplateData(app);
     hbs.registerHelper(&quot;json&quot;, function (context) {
       return JSON.stringify(context, null, 2);
     });
+    
     // 5. Configure Swagger for API documentation
     //    - Interactive API docs at /v1/docs
     //    - Downloadable OpenAPI JSON at /v1/docs/download
@@ -558,7 +564,31 @@ export class Main {
       }),
     );
 
-    // 7. Start the application on the specified port
+    // 7. Configure session management with express-session
+    //    - Uses a secret from environment variables or a default value
+    //    - Sets session cookie max age to 1 hour
+    //    - See: https://www.npmjs.com/package/express-session
+    app.use(
+      session({
+        secret: (process.env.SESSION_SECRET as string) || &quot;default_session_secret&quot;,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+          maxAge: 86400000, // 1 día
+          secure: process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &quot;production&quot;, // HTTPS en producción
+        },
+        // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-call
+        store: new (require(&quot;connect-sqlite3&quot;)(session))({
+          db: &#x60;sessions.sqlite&#x60;,
+          dir: &quot;./src/adapters/database&quot;,
+        }),
+      }),
+    );
+
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    // 8. Start the application on the specified port
     //    - Default: 3000, or use process.env.PORT
     //    - Logs the URL for API and Swagger UI
     //app.useGlobalGuards(new RolesGuard());

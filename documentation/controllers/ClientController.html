@@ -221,8 +221,8 @@ Only users with the CLIENT role can access these endpoints.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="79"
-                                    class="link-to-prism">src/interfaces/http/routes/client/controllers/client.controller.ts:79</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">src/interfaces/http/routes/client/controllers/client.controller.ts:98</a></div>
                         </td>
                     </tr>
 
@@ -312,8 +312,8 @@ Only users with the CLIENT role can access these endpoints.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="64"
-                                    class="link-to-prism">src/interfaces/http/routes/client/controllers/client.controller.ts:64</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="69"
+                                    class="link-to-prism">src/interfaces/http/routes/client/controllers/client.controller.ts:69</a></div>
                         </td>
                     </tr>
 
@@ -403,8 +403,8 @@ Only users with the CLIENT role can access these endpoints.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="94"
-                                    class="link-to-prism">src/interfaces/http/routes/client/controllers/client.controller.ts:94</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="131"
+                                    class="link-to-prism">src/interfaces/http/routes/client/controllers/client.controller.ts:131</a></div>
                         </td>
                     </tr>
 
@@ -464,7 +464,8 @@ Only users with the CLIENT role can access these endpoints.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">/**
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { UuidSchema } from &quot;#adapters/schemas/shared/uuid.schema&quot;;
+/**
  * Controller for client-related endpoints.
  *
  * Handles HTTP requests for retrieving user licenses and specific license details.
@@ -482,10 +483,14 @@ Only users with the CLIENT role can access these endpoints.</p>
  * @see {@link https://docs.nestjs.com/guards NestJS Guards}
  */
 import { AuthGuard } from &quot;#common/guards/auth.guard&quot;;
+import { ClientHeaderGuard } from &quot;#common/guards/client-header.guard&quot;;
 import { ClientGuard } from &quot;#common/guards/permissions/customer.guard&quot;;
 import { LicenseEntity } from &quot;#entity/utils/licence.entity&quot;;
+import z from &quot;zod&quot;;
 
-import { Controller, Get, Param, Post, Query, UseGuards } from &quot;@nestjs/common&quot;;
+import {
+	BadRequestException, Controller, Get, Param, Post, Query, UseGuards
+} from &quot;@nestjs/common&quot;;
 import {
 	ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags
 } from &quot;@nestjs/swagger&quot;;
@@ -498,7 +503,7 @@ import { ClientService } from &quot;../client.service&quot;;
  * All routes are protected by authentication and role guards.
  * Only users with the CLIENT role can access these endpoints.
  */
-@UseGuards(AuthGuard, ClientGuard)
+@UseGuards(AuthGuard, ClientGuard, ClientHeaderGuard)
 @ApiTags(&quot;client&quot;)
 @ApiBearerAuth()
 @Controller({
@@ -528,6 +533,20 @@ export class ClientController {
   @ApiResponse({ status: 404, description: &quot;No licenses found for user&quot; })
   @ApiQuery({ name: &quot;uuid&quot;, type: String, required: true, description: &quot;UUID of the user&quot; })
   async getLicenses(@Query(&quot;uuid&quot;) uuid: string) {
+    if (!uuid) {
+      throw new BadRequestException(&quot;UUID is required&quot;, {
+        cause: new Error(&quot;UUID is required&quot;),
+        description: &quot;UUID query parameter is missing&quot;,
+      });
+    }
+
+    const result &#x3D; UuidSchema.safeParse(uuid);
+    if (!result.success)
+      throw new BadRequestException(result.error.message, {
+        cause: result.error.message,
+        description: &quot;Invalid UUID format&quot;,
+      });
+
     return this.clientService.getLicenses(uuid);
   }
 
@@ -543,6 +562,24 @@ export class ClientController {
   @ApiResponse({ status: 404, description: &quot;License not found&quot; })
   @ApiParam({ name: &quot;identifier&quot;, type: String, required: true, description: &quot;Unique license identifier&quot; })
   async getLicense(@Param(&quot;identifier&quot;) identifier: string) {
+    if (!identifier) {
+      throw new BadRequestException(&quot;Identifier is required&quot;, {
+        cause: new Error(&quot;Identifier is required&quot;),
+        description: &quot;License identifier path parameter is missing&quot;,
+      });
+    }
+
+    const isValidZod &#x3D; z.object({
+      identifier: z.string().min(5, &quot;Identifier must be at least 10 characters long&quot;),
+    });
+
+    const result &#x3D; isValidZod.safeParse({ identifier });
+    if (!result.success) {
+      throw new BadRequestException(result.error.message, {
+        cause: result.error.message,
+        description: &quot;Invalid identifier format&quot;,
+      });
+    }
     return this.clientService.getLicenseByIdentifier(identifier);
   }
 
@@ -558,6 +595,24 @@ export class ClientController {
   @ApiResponse({ status: 404, description: &quot;License not found&quot; })
   @ApiParam({ name: &quot;identifier&quot;, type: String, required: true, description: &quot;Unique license identifier&quot; })
   async resetLicenseIps(@Param(&quot;identifier&quot;) identifier: string) {
+    if (!identifier) {
+      throw new BadRequestException(&quot;Identifier is required&quot;, {
+        cause: new Error(&quot;Identifier is required&quot;),
+        description: &quot;License identifier path parameter is missing&quot;,
+      });
+    }
+
+    const isValidZod &#x3D; z.object({
+      identifier: z.string().min(5, &quot;Identifier must be at least 10 characters long&quot;),
+    });
+
+    const result &#x3D; isValidZod.safeParse({ identifier });
+    if (!result.success) {
+      throw new BadRequestException(result.error.message, {
+        cause: result.error.message,
+        description: &quot;Invalid identifier format&quot;,
+      });
+    }
     return this.clientService.resetLicenseIps(identifier);
   }
 }

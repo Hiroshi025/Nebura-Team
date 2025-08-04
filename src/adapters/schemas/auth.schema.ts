@@ -23,3 +23,5 @@ export const RoleSchema = object({
 export type UserSchemaType = z.infer<typeof UserSchema>;
 export type UserLoginSchemaType = z.infer<typeof UserLoginSchema>;
 export type RoleSchemaType = z.infer<typeof RoleSchema>;
+
+export const RolesAdmin = ["admin", "moderator", "developer", "owner"]

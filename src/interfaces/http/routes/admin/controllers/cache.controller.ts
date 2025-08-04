@@ -1,5 +1,6 @@
 import { Roles } from "#common/decorators/role.decorator";
 import { AuthGuard } from "#common/guards/auth.guard";
+import { ClientHeaderGuard } from "#common/guards/client-header.guard";
 import { RoleGuard } from "#common/guards/permissions/role.guard";
 import { UserRole } from "#common/typeRole";
 import { CacheService } from "#routes/admin/service/cache.service";
@@ -21,7 +22,7 @@ import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@ne
  * - All endpoints require a valid Bearer token for authentication.
  * - Intended for use by admin-level users.
  */
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
 @ApiTags("admin")
 @ApiBearerAuth()
 @Controller({

@@ -1,6 +1,7 @@
 import { LicenceCreateSchema, LicenceUpdateSchema } from "#adapters/schemas/licence.schema";
 import { Roles } from "#common/decorators/role.decorator";
 import { AuthGuard } from "#common/guards/auth.guard";
+import { ClientHeaderGuard } from "#common/guards/client-header.guard";
 import { RoleGuard } from "#common/guards/permissions/role.guard";
 import { UserRole } from "#common/typeRole";
 import { LicenceCreateDto } from "#routes/admin/dto/create-licence.dto";
@@ -43,7 +44,7 @@ import {
  *   "validUntil": "2025-12-31T23:59:59Z"
  * }
  */
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
 @ApiBearerAuth()
 @ApiTags("admin")
 @Controller({

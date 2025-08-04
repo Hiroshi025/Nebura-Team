@@ -1,0 +1,93 @@
+<div class="page-section" id="licenses">
+  <h2
+    class="glitch"
+    data-text="LICENSE MANAGEMENT"
+    style="font-weight: 700; font-size: 24px; margin-bottom: 25px; text-align: center"
+    data-lang-key="license-management"
+  >
+    LICENSE MANAGEMENT
+  </h2>
+
+  <div class="license-graphics" style="width: 100%; margin-bottom: 32px; display: flex; gap: 24px; flex-wrap: wrap;">
+    <!-- Donut/Pie: License Type Distribution -->
+    <div class="dashboard-card" style="flex: 1; min-width: 320px;">
+      <div class="card-header">
+        <div class="card-title" style="font-size: 16px;" data-lang-key="license-type-distribution">License Type Distribution</div>
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-2h-2v2zm0-4h2V7h-2v6z" />
+          </svg>
+        </div>
+      </div>
+      <div style="padding: 10px 0;">
+        <canvas id="licensePieChart" height="340px" style="width: 100%;"></canvas>
+      </div>
+    </div>
+
+    <!-- Bar: License Usage -->
+    <div class="dashboard-card" style="flex: 2; min-width: 320px;">
+      <div class="card-header">
+        <div class="card-title" style="font-size: 16px;" data-lang-key="license-usage">License Usage</div>
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"
+            />
+          </svg>
+        </div>
+      </div>
+      <div style="padding: 10px 0;">
+        <canvas id="licenseBarChart" height="340px" style="width: 100%;"></canvas>
+      </div>
+    </div>
+
+    <!-- Line/Area: Licenses Over Time -->
+    <div class="dashboard-card" style="flex: 2; min-width: 320px;">
+      <div class="card-header">
+        <div class="card-title" style="font-size: 16px;" data-lang-key="licenses-over-time">Licenses Over Time</div>
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" />
+          </svg>
+        </div>
+      </div>
+      <div style="padding: 10px 0;">
+        <canvas id="licensesLineChart" height="340px" style="width: 100%;"></canvas>
+      </div>
+    </div>
+  </div>
+  {{#if isLicences}}
+    {{#if isLicences.length}}
+      <div id="licensesGrid" class="licenses-grid">
+        <!-- Las licencias se renderizan aquí por JS -->
+      </div>
+      <div id="licensesPagination" style="text-align:center; margin-top:18px;">
+        <!-- Los botones de paginación se renderizan aquí por JS -->
+      </div>
+    {{else}}
+      <div style="text-align: center; margin-top: 40px;">
+        <div style="font-size: 18px; color: var(--text-secondary); margin-bottom: 10px;">
+          No licenses found for your account.
+        </div>
+        <div style="font-size: 13px; color: #ff4d4f;">
+          Error code: NO_LICENSES
+        </div>
+      </div>
+    {{/if}}
+  {{else}}
+    <div style="text-align: center; margin-top: 40px;">
+      <div style="font-size: 18px; color: var(--text-secondary); margin-bottom: 10px;">
+        No licenses created yet.
+      </div>
+      <div style="font-size: 13px; color: #ff4d4f;">
+        Error code: NO_LICENSES
+      </div>
+    </div>
+  {{/if}}
+</div>
+{{#if isLicences.length}}
+  <script>
+    window.userLicenses =
+    {{{json isLicences}}};
+  </script>
+{{/if}}

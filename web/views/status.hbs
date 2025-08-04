@@ -1,0 +1,310 @@
+<html lang="es" data-theme="dark">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+    <link rel="stylesheet" href="/css/status.css" />
+    <link rel="shortcut icon" href="/assets/icono.jpg" type="image/x-icon" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body>
+    <canvas id="interactive-bg"></canvas>
+    <div class="container">
+      <header class="header">
+        <div class="logo">
+          <i class="fas fa-heartbeat floating"></i>
+          <h1>{{subtitle}}</h1>
+        </div>
+        <div class="controls">
+          <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+            <span class="lang-en">Dark Mode</span>
+            <span class="lang-es" style="display: none;">Modo Oscuro</span>
+          </button>
+          <button class="language-toggle" id="languageToggle">
+            <i class="fas fa-language"></i>
+            <span class="lang-en">English</span>
+            <span class="lang-es" style="display: none;">Español</span>
+          </button>
+          <button class="view-toggle" id="viewToggle">
+            <i class="fas fa-expand"></i>
+            <span class="lang-en">Detailed View</span>
+            <span class="lang-es" style="display: none;">Vista Detallada</span>
+          </button>
+          <div class="tooltip">
+            <button class="export-btn" id="exportBtn">
+              <i class="fas fa-download"></i>
+              <span class="lang-en">Export</span>
+              <span class="lang-es" style="display: none;">Exportar</span>
+            </button>
+            <span class="tooltiptext lang-en">Export historical data</span>
+            <span class="tooltiptext lang-es" style="display: none;">Exportar datos históricos</span>
+          </div>
+          <div class="export-menu" id="exportMenu">
+            <div class="export-option" data-format="csv">
+              <i class="fas fa-file-csv"></i>
+              <span class="lang-en">Export as CSV</span>
+              <span class="lang-es" style="display: none;">Exportar como CSV</span>
+            </div>
+            <div class="export-option" data-format="json">
+              <i class="fas fa-file-code"></i>
+              <span class="lang-en">Export as JSON</span>
+              <span class="lang-es" style="display: none;">Exportar como JSON</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Selector de intervalo de actualización -->
+      <div class="refresh-controls">
+        <span class="refresh-label lang-en">Refresh Interval:</span>
+        <span class="refresh-label lang-es" style="display: none;">Intervalo de actualización:</span>
+        <div class="refresh-options">
+          <div class="refresh-option active" data-interval="5000">5s</div>
+          <div class="refresh-option" data-interval="10000">10s</div>
+          <div class="refresh-option" data-interval="30000">30s</div>
+          <div class="refresh-option" data-interval="60000">1m</div>
+          <div class="refresh-option" data-interval="0">
+            <span class="lang-en">Pause</span>
+            <span class="lang-es" style="display: none;">Pausar</span>
+          </div>
+        </div>
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 0.5rem;">
+          <span class="refresh-label lang-en">Real-time updates:</span>
+          <span class="refresh-label lang-es" style="display: none;">Actualizaciones en tiempo real:</span>
+          <label class="switch">
+            <input type="checkbox" id="realTimeToggle" checked />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="status-grid">
+        <!-- Tarjeta de Estado General -->
+        <div class="card healthy" id="overall-status-card">
+          <div class="card-header">
+            <h2 class="card-title lang-en">Overall Status</h2>
+            <h2 class="card-title lang-es" style="display: none;">Estado General</h2>
+            <i class="fas fa-check-circle card-icon pulse-healthy"></i>
+          </div>
+          <div class="card-content">
+            <span class="status-badge healthy lang-en">Healthy</span>
+            <span class="status-badge healthy lang-es" style="display: none;">Saludable</span>
+            <p class="lang-en essential" style="margin-top: 0.5rem;">All systems operational</p>
+            <p class="lang-es essential" style="margin-top: 0.5rem; display: none;">Todos los sistemas operativos</p>
+          </div>
+        </div>
+
+        <!-- Tarjeta de Uso de Memoria -->
+        <div class="card" id="memory-card">
+          <div class="card-header">
+            <h2 class="card-title lang-en">Memory Usage</h2>
+            <h2 class="card-title lang-es" style="display: none;">Uso de Memoria</h2>
+            <i class="fas fa-memory card-icon" id="memory-icon"></i>
+          </div>
+          <div class="card-content">
+            <div class="progress-container">
+              <div class="progress-label">
+                <span>{{formatBytes health.info.memory.heapUsed}}
+                  of
+                  {{formatBytes health.info.memory.heapTotal}}</span>
+                <span>{{calculatePercentage health.info.memory.heapUsed health.info.memory.heapTotal}}%</span>
+              </div>
+              <div class="progress-bar">
+                <div
+                  class="progress-fill {{getMemoryStatusClass health.info.memory.heapUsed health.info.memory.heapTotal}}"
+                  id="memory-progress"
+                  style="width: {{calculatePercentage health.info.memory.heapUsed health.info.memory.heapTotal}}%"
+                ></div>
+              </div>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.9rem;">
+              <div style="display: flex; justify-content: space-between;">
+                <span class="lang-en">RSS:</span>
+                <span class="lang-es" style="display: none;">RSS:</span>
+                <span>{{formatBytes health.info.memory.rss}}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-top: 0.25rem;">
+                <span class="lang-en">External:</span>
+                <span class="lang-es" style="display: none;">Externo:</span>
+                <span>{{formatBytes health.info.memory.external}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta de Uso de CPU -->
+        <div class="card" id="cpu-card">
+          <div class="card-header">
+            <h2 class="card-title lang-en">CPU Usage</h2>
+            <h2 class="card-title lang-es" style="display: none;">Uso de CPU</h2>
+            <i class="fas fa-microchip card-icon" id="cpu-icon"></i>
+          </div>
+          <div class="card-content">
+            <div class="progress-container">
+              <div class="progress-label">
+                <span class="lang-en">Process CPU</span>
+                <span class="lang-es" style="display: none;">CPU Proceso</span>
+                <span class="cpu-percent">{{toFixed2 health.info.cpu.process.cpuPercent}}%</span>
+              </div>
+              <div class="progress-bar">
+                <div
+                  class="progress-fill {{getCPUStatusClass health.info.cpu.process.cpuPercent}}"
+                  id="cpu-progress"
+                  style="width: {{health.info.cpu.process.cpuPercent}}%"
+                ></div>
+              </div>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.9rem;">
+              <div style="display: flex; justify-content: space-between;">
+                <span class="lang-en">User Time:</span>
+                <span class="lang-es" style="display: none;">Tiempo Usuario:</span>
+                <span>{{formatMs health.info.cpu.process.userMs}}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-top: 0.25rem;">
+                <span class="lang-en">System Time:</span>
+                <span class="lang-es" style="display: none;">Tiempo Sistema:</span>
+                <span>{{formatMs health.info.cpu.process.systemMs}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta de Uptime -->
+        <div class="card" id="uptime-card">
+          <div class="card-header">
+            <h2 class="card-title lang-en">Uptime</h2>
+            <h2 class="card-title lang-es" style="display: none;">Tiempo Activo</h2>
+            <i class="fas fa-clock card-icon"></i>
+          </div>
+          <div class="card-content">
+            <div class="uptime-display" id="uptime-display">
+              {{formatUptime health.info.uptime}}
+            </div>
+            <p class="lang-en essential">System has been running continuously</p>
+            <p class="lang-es essential" style="display: none;">El sistema ha estado funcionando continuamente</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráficas históricas -->
+      <div class="detail-panels">
+        <div class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title lang-en">Historical Metrics</h3>
+            <h3 class="panel-title lang-es" style="display: none;">Métricas Históricas</h3>
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="panel-content">
+            <div class="chart-container">
+              <p class="chart-title lang-en">CPU Usage History</p>
+              <p class="chart-title lang-es" style="display: none;">Historial de Uso de CPU</p>
+              <canvas id="cpuChart"></canvas>
+            </div>
+            <div class="chart-container">
+              <p class="chart-title lang-en">Memory Usage History</p>
+              <p class="chart-title lang-es" style="display: none;">Historial de Uso de Memoria</p>
+              <canvas id="memoryChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel de núcleos CPU -->
+        <div class="panel always-visible">
+          <div class="panel-header">
+            <h3 class="panel-title lang-en">CPU Cores Details</h3>
+            <h3 class="panel-title lang-es" style="display: none;">Detalles de Núcleos CPU</h3>
+            <span class="status-badge">{{health.info.cpu.system.length}}
+              cores</span>
+          </div>
+          <div class="panel-content">
+            <div class="cpu-cores" id="cpuCoresContainer">
+              <!-- Renderizado por JS -->
+            </div>
+            <div id="cpuCoresPagination" style="margin:18px 0; display:flex; justify-content:center; gap:8px;"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title lang-en">Memory Details</h3>
+            <h3 class="panel-title lang-es" style="display: none;">Detalles de Memoria</h3>
+            <i class="fas fa-info-circle"></i>
+          </div>
+          <div class="panel-content">
+            <table>
+              <thead>
+                <tr>
+                  <th class="lang-en">Type</th>
+                  <th class="lang-es" style="display: none;">Tipo</th>
+                  <th class="lang-en">Usage</th>
+                  <th class="lang-es" style="display: none;">Uso</th>
+                  <th class="lang-en">Percentage</th>
+                  <th class="lang-es" style="display: none;">Porcentaje</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="lang-en">Heap Total</td>
+                  <td class="lang-es" style="display: none;">Heap Total</td>
+                  <td>{{formatBytes health.info.memory.heapTotal}}</td>
+                  <td>100%</td>
+                </tr>
+                <tr>
+                  <td class="lang-en">Heap Used</td>
+                  <td class="lang-es" style="display: none;">Heap Usado</td>
+                  <td>{{formatBytes health.info.memory.heapUsed}}</td>
+                  <td>{{calculatePercentage health.info.memory.heapUsed health.info.memory.heapTotal}}%</td>
+                </tr>
+                <tr>
+                  <td class="lang-en">RSS</td>
+                  <td class="lang-es" style="display: none;">RSS</td>
+                  <td>{{formatBytes health.info.memory.rss}}</td>
+                  <td>{{calculatePercentage health.info.memory.rss health.info.memory.heapTotal}}%</td>
+                </tr>
+                <tr>
+                  <td class="lang-en">External</td>
+                  <td class="lang-es" style="display: none;">Externo</td>
+                  <td>{{formatBytes health.info.memory.external}}</td>
+                  <td>{{calculatePercentage health.info.memory.external health.info.memory.heapTotal}}%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p class="lang-en">Last updated: <span id="last-updated">{{formatDate now}}</span> - System Status Dashboard</p>
+        <p class="lang-es" style="display: none;">Última actualización:
+          <span id="last-updated">{{formatDate now}}</span>
+          - Panel de Estado del Sistema</p>
+      </footer>
+    </div>
+
+    <!-- Indicador de actualización en tiempo real -->
+    <div class="update-indicator" id="updateIndicator">
+      <div class="pulse-dot"></div>
+      <span class="lang-en">Real-time updates active</span>
+      <span class="lang-es" style="display: none;">Actualizaciones en tiempo real activas</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="/js/status-refresh.js"></script>
+    <script src="/js/interactive-bg.js"></script>
+    <script>
+      window.cpuCoresData =
+      {{{json health.info.cpu.system}}};
+    </script>
+    <script src="/js/status/pagination.js"></script>
+  </body>
+
+</html>

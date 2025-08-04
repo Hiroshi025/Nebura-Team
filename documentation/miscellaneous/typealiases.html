@@ -112,7 +112,16 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
+                            <a href="#Done" title="src/types/sessions-types.ts" ><b>Done</b>&nbsp;&nbsp;&nbsp;(src/.../sessions-types.ts)</a>
+                        </li>
+                        <li>
                             <a href="#FileUploadSchemaType" title="src/adapters/schemas/files.schema.ts" ><b>FileUploadSchemaType</b>&nbsp;&nbsp;&nbsp;(src/.../files.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#FindOAuth2Params" title="src/types/sessions-types.ts" ><b>FindOAuth2Params</b>&nbsp;&nbsp;&nbsp;(src/.../sessions-types.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#FindUserParams" title="src/types/sessions-types.ts" ><b>FindUserParams</b>&nbsp;&nbsp;&nbsp;(src/.../sessions-types.ts)</a>
                         </li>
                         <li>
                             <a href="#LicenceCreateType" title="src/adapters/schemas/licence.schema.ts" ><b>LicenceCreateType</b>&nbsp;&nbsp;&nbsp;(src/.../licence.schema.ts)</a>
@@ -124,6 +133,9 @@
                             <a href="#LogLevel" title="src/shared/logger.ts" ><b>LogLevel</b>&nbsp;&nbsp;&nbsp;(src/.../logger.ts)</a>
                         </li>
                         <li>
+                            <a href="#OAuth2Details" title="src/types/sessions-types.ts" ><b>OAuth2Details</b>&nbsp;&nbsp;&nbsp;(src/.../sessions-types.ts)</a>
+                        </li>
+                        <li>
                             <a href="#RoleSchemaType" title="src/adapters/schemas/auth.schema.ts" ><b>RoleSchemaType</b>&nbsp;&nbsp;&nbsp;(src/.../auth.schema.ts)</a>
                         </li>
                         <li>
@@ -131,6 +143,27 @@
                         </li>
                         <li>
                             <a href="#RoleValidSchemaType" title="src/adapters/schemas/shared/role.schema.ts" ><b>RoleValidSchemaType</b>&nbsp;&nbsp;&nbsp;(src/.../role.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TicketCreate" title="src/adapters/schemas/admin/ticket.schema.ts" ><b>TicketCreate</b>&nbsp;&nbsp;&nbsp;(src/.../ticket.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TicketEdit" title="src/adapters/schemas/admin/ticket.schema.ts" ><b>TicketEdit</b>&nbsp;&nbsp;&nbsp;(src/.../ticket.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TicketExportFilters" title="src/adapters/schemas/admin/ticket.schema.ts" ><b>TicketExportFilters</b>&nbsp;&nbsp;&nbsp;(src/.../ticket.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TicketPriority" title="src/adapters/database/entities/users/tickets.entity.ts" ><b>TicketPriority</b>&nbsp;&nbsp;&nbsp;(src/.../tickets.entity.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TicketSearch" title="src/adapters/schemas/admin/ticket.schema.ts" ><b>TicketSearch</b>&nbsp;&nbsp;&nbsp;(src/.../ticket.schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TicketStatus" title="src/adapters/database/entities/users/tickets.entity.ts" ><b>TicketStatus</b>&nbsp;&nbsp;&nbsp;(src/.../tickets.entity.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UserDetails" title="src/types/sessions-types.ts" ><b>UserDetails</b>&nbsp;&nbsp;&nbsp;(src/.../sessions-types.ts)</a>
                         </li>
                         <li>
                             <a href="#UserLoginSchemaType" title="src/adapters/schemas/auth.schema.ts" ><b>UserLoginSchemaType</b>&nbsp;&nbsp;&nbsp;(src/.../auth.schema.ts)</a>
@@ -141,6 +174,9 @@
                         <li>
                             <a href="#UuidType" title="src/adapters/schemas/shared/uuid.schema.ts" ><b>UuidType</b>&nbsp;&nbsp;&nbsp;(src/.../uuid.schema.ts)</a>
                         </li>
+                        <li>
+                            <a href="#ValidNotification" title="src/adapters/schemas/shared/notification.schema.ts" ><b>ValidNotification</b>&nbsp;&nbsp;&nbsp;(src/.../notification.schema.ts)</a>
+                        </li>
                     </ul>
                 </td>
             </tr>
@@ -148,7 +184,121 @@
     </table>
 </section>
 
-    <h3>src/adapters/schemas/files.schema.ts</h3>
+    <h3>src/types/sessions-types.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Done"></a>
+                    <span class="name "><b>Done</b><a href="#Done"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Callback type for session completion.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FindOAuth2Params"></a>
+                    <span class="name "><b>FindOAuth2Params</b><a href="#FindOAuth2Params"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Parameters for finding OAuth2 details in the session store.
+All properties are optional.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>Partial&lt;literal type&gt;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FindUserParams"></a>
+                    <span class="name "><b>FindUserParams</b><a href="#FindUserParams"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Parameters for finding a user in the session store.
+All properties are optional.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>Partial&lt;literal type&gt;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="OAuth2Details"></a>
+                    <span class="name "><b>OAuth2Details</b><a href="#OAuth2Details"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Represents OAuth2 authentication details for a Discord user.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UserDetails"></a>
+                    <span class="name "><b>UserDetails</b><a href="#UserDetails"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Represents the details of a Discord user session.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/adapters/schemas/files.schema.ts</h3>
     <section data-compodoc="block-typealias">
     <table class="table table-sm table-bordered">
         <tbody>
@@ -326,6 +476,142 @@
             </tr>
         </tbody>
     </table>
+</section>    <h3>src/adapters/schemas/admin/ticket.schema.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TicketCreate"></a>
+                    <span class="name "><b>TicketCreate</b><a href="#TicketCreate"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Represents the payload required to create a new support ticket.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TicketEdit"></a>
+                    <span class="name "><b>TicketEdit</b><a href="#TicketEdit"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Represents the payload for editing a ticket.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TicketExportFilters"></a>
+                    <span class="name "><b>TicketExportFilters</b><a href="#TicketExportFilters"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Represents the filters for exporting tickets.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TicketSearch"></a>
+                    <span class="name "><b>TicketSearch</b><a href="#TicketSearch"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Represents the filters available for searching tickets.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/adapters/database/entities/users/tickets.entity.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TicketPriority"></a>
+                    <span class="name "><b>TicketPriority</b><a href="#TicketPriority"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Ticket priority values.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;low&quot; | &quot;medium&quot; | &quot;high&quot; | &quot;critical&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TicketStatus"></a>
+                    <span class="name "><b>TicketStatus</b><a href="#TicketStatus"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Ticket status values.</p>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;open&quot; | &quot;in_progress&quot; | &quot;waiting_user&quot; | &quot;closed&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>    <h3>src/adapters/schemas/shared/uuid.schema.ts</h3>
     <section data-compodoc="block-typealias">
     <table class="table table-sm table-bordered">
@@ -334,6 +620,30 @@
                 <td class="col-md-4">
                     <a name="UuidType"></a>
                     <span class="name "><b>UuidType</b><a href="#UuidType"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>z.infer&lt;&gt;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/adapters/schemas/shared/notification.schema.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ValidNotification"></a>
+                    <span class="name "><b>ValidNotification</b><a href="#ValidNotification"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Type representing a valid notification object as inferred from the schema.</p>
+</div>
                 </td>
             </tr>
             <tr>

@@ -206,6 +206,11 @@ await user.save();</code></pre></div><p>See <a href="https://typeorm.io/#/entiti
                             </li>
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#tickets" >tickets</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#uuid" >uuid</a>
@@ -679,6 +684,49 @@ Defaults to &quot;user&quot;.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="tickets"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>tickets</b></span>
+                        <a href="#tickets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string, any&gt;[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Column(&#x27;jsonb&#x27;, {nullable: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="179" class="link-to-prism">src/adapters/database/entities/users/user.entity.ts:179</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Array of tickets created by the user.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="uuid"></a>
                     <span class="name">
                             <span class="modifier"></span>
@@ -898,6 +946,12 @@ export class UserEntity extends BaseEntity {
   })
   @IsDate()
   deletedAt!: Date;
+
+  /**
+   * Array of tickets created by the user.
+   */
+  @Column(&quot;jsonb&quot;, { nullable: true })
+  tickets?: Record&lt;string, any&gt;[];
 }
 </code></pre>
     </div>

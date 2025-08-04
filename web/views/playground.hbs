@@ -2,40 +2,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{title}} - License Validation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>{{title}}</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/playground.css" />
-    <link rel="shortcut icon" href="/assets/icono.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" />
+    <link rel="shortcut icon" href="/assets/icono.jpg" type="image/x-icon" />
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" />
   </head>
   <body>
     <div class="sidebar">
-      <a href="https://nestjs.com/" target="_blank" class="sidebar-icon" title="NestJS"><i class="fa-brands fa-nestjs"></i></a>
+      <a href="https://nestjs.com/" target="_blank" class="sidebar-icon"
+        title="NestJS"><i class="fa-brands fa-nestjs"></i></a>
       <div class="sidebar-tooltip">NestJS</div>
-      <a href="https://jwt.io/" target="_blank" class="sidebar-icon" title="JWT"><i class="fa-solid fa-key"></i></a>
+      <a href="https://jwt.io/" target="_blank" class="sidebar-icon"
+        title="JWT"><i class="fa-solid fa-key"></i></a>
       <div class="sidebar-tooltip">JWT</div>
-      <a href="https://swagger.io/tools/swagger-ui/" target="_blank" class="sidebar-icon" title="Swagger"><i
-          class="fa-solid fa-book"
-        ></i></a>
+      <a href="https://swagger.io/tools/swagger-ui/" target="_blank"
+        class="sidebar-icon" title="Swagger"><i
+          class="fa-solid fa-book"></i></a>
       <div class="sidebar-tooltip">Swagger</div>
-      <a href="https://www.postman.com/" target="_blank" class="sidebar-icon" title="Postman"><i
-          class="fa-solid fa-flask"
-        ></i></a>
+      <a href="https://www.postman.com/" target="_blank" class="sidebar-icon"
+        title="Postman"><i
+          class="fa-solid fa-flask"></i></a>
       <div class="sidebar-tooltip">Postman</div>
-      <a href="https://hoppscotch.io/" target="_blank" class="sidebar-icon" title="Hoppscotch"><i
-          class="fa-solid fa-bolt"
-        ></i></a>
+      <a href="https://hoppscotch.io/" target="_blank" class="sidebar-icon"
+        title="Hoppscotch"><i
+          class="fa-solid fa-bolt"></i></a>
       <div class="sidebar-tooltip">Hoppscotch</div>
-      <a href="https://apidocjs.com/" target="_blank" class="sidebar-icon" title="apiDoc"><i
-          class="fa-solid fa-file-code"
-        ></i></a>
+      <a href="https://apidocjs.com/" target="_blank" class="sidebar-icon"
+        title="apiDoc"><i
+          class="fa-solid fa-file-code"></i></a>
       <div class="sidebar-tooltip">apiDoc</div>
-      <a href="https://www.base64decode.org/" target="_blank" class="sidebar-icon" title="Base64"><i
-          class="fa-solid fa-code"
-        ></i></a>
+      <a href="https://www.base64decode.org/" target="_blank"
+        class="sidebar-icon" title="Base64"><i
+          class="fa-solid fa-code"></i></a>
       <div class="sidebar-tooltip">Base64</div>
-      <a href="https://jwt.io/" target="_blank" class="sidebar-icon" title="JWT Debugger"><i class="fa-solid fa-bug"></i></a>
+      <a href="https://jwt.io/" target="_blank" class="sidebar-icon"
+        title="JWT Debugger"><i class="fa-solid fa-bug"></i></a>
       <div class="sidebar-tooltip">JWT Debug</div>
     </div>
     <canvas id="animated-bg"></canvas>
@@ -44,7 +51,7 @@
         <header>
           <div class="logo">
             <i class="fas fa-key"></i>
-            <span id="titleText">License Validation Playground</span>
+            <span id="titleText">{{subtitle}}</span>
           </div>
           <div class="controls">
             <div class="controls-row">
@@ -71,10 +78,12 @@
                 <i class="fas fa-paper-plane"></i>
                 <span id="sendBtnText">Send Request</span>
               </button>
-              <button class="btn btn-outline btn-sm" id="exportHistoryBtn" title="Exportar historial">
+              <button class="btn btn-outline btn-sm" id="exportHistoryBtn"
+                title="Exportar historial">
                 <i class="fas fa-file-export"></i>
               </button>
-              <button class="btn btn-outline btn-sm" id="importHistoryBtn" title="Importar historial">
+              <button class="btn btn-outline btn-sm" id="importHistoryBtn"
+                title="Importar historial">
                 <i class="fas fa-file-import"></i>
               </button>
             </div>
@@ -88,31 +97,36 @@
           <div id="documentationContent" class="documentation-content">
             <div class="doc-section">
               <div class="doc-section-title" id="endpointTitle">Endpoint</div>
-              <span class="doc-endpoint" id="endpointPath">/api/v1/validate-licence</span>
+              <span class="doc-endpoint" id="endpointPath">{{endpoint}}</span>
               <span class="doc-method" id="endpointMethod">GET</span>
             </div>
             <div class="doc-section">
-              <div class="doc-section-title" id="parametersTitle">Parameters</div>
+              <div class="doc-section-title"
+                id="parametersTitle">Parameters</div>
               <ul class="doc-param-list">
                 <li><b id="paramKey">key</b>
-                  <span style="color:var(--primary-light);font-size:0.95em;">(string,
+                  <span
+                    style="color:var(--primary-light);font-size:0.95em;">(string,
                     <span id="requiredText">required</span>)</span>:
                   <span id="paramKeyDesc">License key</span></li>
                 <li><b id="paramIdentifier">identifier</b>
-                  <span style="color:var(--primary-light);font-size:0.95em;">(string,
+                  <span
+                    style="color:var(--primary-light);font-size:0.95em;">(string,
                     <span id="requiredText2">required</span>)</span>:
                   <span id="paramIdentifierDesc">Unique identifier</span></li>
               </ul>
             </div>
             <div class="doc-section">
-              <div class="doc-section-title" id="exampleRequestTitle">Example Request</div>
+              <div class="doc-section-title" id="exampleRequestTitle">Example
+                Request</div>
               <div class="doc-example" id="exampleRequestText">
                 GET
-                <span style="color:var(--primary-light)">/api/v1/validate-licence?key=YOUR_KEY&identifier=YOUR_ID</span>
+                <span style="color:var(--primary-light)">{{url}}</span>
               </div>
             </div>
             <div class="doc-section">
-              <span class="doc-tip" id="tipText">Tip: Puedes usar herramientas como Postman, Hoppscotch o Swagger para probar este
+              <span class="doc-tip" id="tipText">Tip: Puedes usar herramientas
+                como Postman, Hoppscotch o Swagger para probar este
                 endpoint.</span>
             </div>
           </div>
@@ -125,7 +139,8 @@
               <button class="copy-btn" id="copyUrlBtn">
                 <i class="far fa-copy"></i>
               </button>
-              <span class="tooltiptext" id="copyTooltipText">Copy to clipboard</span>
+              <span class="tooltiptext" id="copyTooltipText">Copy to
+                clipboard</span>
             </div>
           </div>
           <div class="url-display">
@@ -139,22 +154,24 @@
             <span id="requestParamsText">Request Parameters</span>
           </div>
           <div class="form-group">
-            <label for="licenseKey" class="form-label" id="licenseKeyLabel">License Key</label>
-            <input type="text" id="licenseKey" class="form-control" placeholder="Enter license key" />
+            <label for="licenseKey" class="form-label"
+              id="licenseKeyLabel">License Key</label>
+            <input type="text" id="licenseKey" class="form-control"
+              placeholder="Enter license key" />
             <div
               id="licenseKeyError"
               class="form-error"
-              style="color: var(--error); font-size: 0.85rem; margin-top: 0.25rem; display: none;"
-            ></div>
+              style="color: var(--error); font-size: 0.85rem; margin-top: 0.25rem; display: none;"></div>
           </div>
           <div class="form-group">
-            <label for="identifier" class="form-label" id="identifierLabel">Identifier</label>
-            <input type="text" id="identifier" class="form-control" placeholder="Enter unique identifier" />
+            <label for="identifier" class="form-label"
+              id="identifierLabel">Identifier</label>
+            <input type="text" id="identifier" class="form-control"
+              placeholder="Enter unique identifier" />
             <div
               id="identifierError"
               class="form-error"
-              style="color: var(--error); font-size: 0.85rem; margin-top: 0.25rem; display: none;"
-            ></div>
+              style="color: var(--error); font-size: 0.85rem; margin-top: 0.25rem; display: none;"></div>
           </div>
         </div>
 
@@ -168,8 +185,10 @@
           </div>
           <div class="headers-container" id="headersContainer">
             <div class="header-row">
-              <input type="text" class="form-control header-input" placeholder="Header name" value="Authorization" />
-              <input type="text" class="form-control header-input" placeholder="Header value" value="Bearer <token>" />
+              <input type="text" class="form-control header-input"
+                placeholder="Header name" value="Authorization" />
+              <input type="text" class="form-control header-input"
+                placeholder="Header value" value="Bearer <token>" />
               <button class="btn btn-outline btn-sm remove-header-btn">
                 <i class="fas fa-times"></i>
               </button>
@@ -180,14 +199,18 @@
         <div class="card">
           <div class="card-title">
             <span id="responseText">Response</span>
-            <div class="response-actions" style="display: flex; gap: 0.5rem; align-items: center;">
-              <button class="btn btn-outline btn-sm" id="testConnectionBtn" title="Test de conexión">
+            <div class="response-actions"
+              style="display: flex; gap: 0.5rem; align-items: center;">
+              <button class="btn btn-outline btn-sm" id="testConnectionBtn"
+                title="Test de conexión">
                 <i class="fas fa-plug"></i>
               </button>
-              <button class="btn btn-outline btn-sm" id="expandResponseBtn" title="Expandir/Colapsar">
+              <button class="btn btn-outline btn-sm" id="expandResponseBtn"
+                title="Expandir/Colapsar">
                 <i class="fas fa-expand"></i>
               </button>
-              <button class="btn btn-outline btn-sm" id="copyResponseBtn" title="Copiar respuesta">
+              <button class="btn btn-outline btn-sm" id="copyResponseBtn"
+                title="Copiar respuesta">
                 <i class="far fa-copy"></i>
               </button>
               <button class="btn btn-outline btn-sm" id="clearResponseBtn">
@@ -203,11 +226,14 @@
           <div class="response-container" id="responseContainer">
             <div id="responseStatus" class="status-indicator hidden"></div>
             <div class="response-tabs">
-              <div class="response-tab active" data-tab="pretty" id="prettyTabText">Pretty</div>
+              <div class="response-tab active" data-tab="pretty"
+                id="prettyTabText">Pretty</div>
               <div class="response-tab" data-tab="raw" id="rawTabText">Raw</div>
-              <div class="response-tab" data-tab="headers" id="headersTabText">Headers</div>
+              <div class="response-tab" data-tab="headers"
+                id="headersTabText">Headers</div>
             </div>
-            <pre class="response-content" id="responsePretty"><code class="json"></code></pre>
+            <pre class="response-content"
+              id="responsePretty"><code class="json"></code></pre>
             <div class="response-content hidden" id="responseRaw"></div>
             <div class="response-content hidden" id="responseHeaders"></div>
           </div>
@@ -215,11 +241,14 @@
       </div>
     </div>
 
-    <input type="file" id="importHistoryInput" accept="application/json" style="display:none" />
+    <input type="file" id="importHistoryInput" accept="application/json"
+      style="display:none" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
-    <script>hljs.highlightAll();</script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
     <script src="/js/playground.js"></script>
+    <script>hljs.highlightAll();</script>
   </body>
 </html>

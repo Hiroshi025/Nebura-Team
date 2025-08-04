@@ -2,6 +2,7 @@ import { RoleSchema } from "#adapters/schemas/auth.schema";
 import { UuidSchema, UuidType } from "#adapters/schemas/shared/uuid.schema";
 import { Roles } from "#common/decorators/role.decorator";
 import { AuthGuard } from "#common/guards/auth.guard";
+import { ClientHeaderGuard } from "#common/guards/client-header.guard";
 import { RoleGuard } from "#common/guards/permissions/role.guard";
 import { UserRole } from "#common/typeRole";
 import { UserEntity } from "#entity/users/user.entity";
@@ -28,7 +29,7 @@ import { InjectRepository } from "@nestjs/typeorm";
  *
  * @see https://docs.nestjs.com/controllers
  */
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
 @ApiTags("admin")
 @ApiBearerAuth()
 @Controller({

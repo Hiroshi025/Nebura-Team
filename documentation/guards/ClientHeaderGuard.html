@@ -1,0 +1,695 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nebura-control documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">nebura-control documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content guard">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Guards</li>
+    <li class="breadcrumb-item" >ClientHeaderGuard</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+        <div class="tab-pane fade active in" id="info">
+            <p class="comment">
+            <h3>File</h3>
+            </p>
+            <p class="comment">
+                <code>src/shared/common/guards/client-header.guard.ts</code>
+            </p>
+
+
+                <p class="comment">
+                <h3>Description</h3>
+                </p>
+                <p class="comment">
+                    <p>Guard that manages the <code>x-client-id</code> header for authenticated requests.</p>
+<p>This guard checks if the incoming request contains the <code>x-client-id</code> header.
+If the header is missing, it logs a warning and allows the request to proceed.
+If the user is found in the database, it sets the <code>x-client-id</code> header to the user&#39;s UUID.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">// Usage in a controller
+getProfile(&#64;Req() req) {
+  // req.headers[&#39;x-client-id&#39;] will be set to the user&#39;s UUID
+}</code></pre></div><p>See <a href="https://docs.nestjs.com/guards">NestJS Guards</a>
+See <a href="https://typeorm.io/#/repository-api">TypeORM Repository API</a></p>
+
+                </p>
+
+
+
+
+                <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#logger" >logger</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#canActivate" >canActivate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#extractTokenFromHeader" >extractTokenFromHeader</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+                <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authRepository: <a href="../entitys/UserEntity.html" target="_self">Repository&lt;UserEntity&gt;</a>, jwtService: JwtService, configService: ConfigService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/shared/common/guards/client-header.guard.ts:32</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Creates a new instance of ClientHeaderGuard.</p>
+<p>See <a href="https://docs.nestjs.com/techniques/database">NestJS Database</a>
+See <a href="https://docs.nestjs.com/security/authentication">NestJS Authentication</a></p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/UserEntity.html" target="_self" >Repository&lt;UserEntity&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>The repository for accessing user entities.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>jwtService</td>
+                                                  
+                                                        <td>
+                                                                    <code>JwtService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Service for handling JWT operations.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>configService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ConfigService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Service for accessing configuration variables.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+                <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canActivate"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>canActivate</b></span>
+                        <a href="#canActivate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>canActivate(context: ExecutionContext)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/shared/common/guards/client-header.guard.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Determines whether the current request is allowed to proceed.</p>
+<p>This method checks for the presence of the <code>x-client-id</code> header in the incoming HTTP request.</p>
+<ul>
+<li>If the header is present, the guard logs a warning and allows the request.</li>
+<li>If the header is missing, it attempts to extract a JWT token from the Authorization header,
+verifies the token, and looks up the user in the database using the decoded username (email).</li>
+<li>If the user is found, it sets the <code>x-client-id</code> header to the user&#39;s UUID for both the request and response.</li>
+<li>If the user is not found or the token is missing, the guard logs a warning and allows the request.</li>
+</ul>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">// The guard will set the x-client-id header if the user is found
+await guard.canActivate(context);</code></pre></div><p>See <a href="https://docs.nestjs.com/guards">NestJS Guards</a>
+See <a href="https://jwt.io/">JWT Introduction</a></p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>context</td>
+                                            <td>
+                                                        <code>ExecutionContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The execution context of the request.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>A promise that resolves to <code>true</code> if the request is allowed.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extractTokenFromHeader"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>extractTokenFromHeader</b></span>
+                        <a href="#extractTokenFromHeader"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>extractTokenFromHeader(request: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">src/shared/common/guards/client-header.guard.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Extracts the JWT token from the Authorization header.</p>
+<p>This utility method parses the Authorization header and returns the JWT token if present.
+The expected format is &quot;Bearer <token>&quot;.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">// Example header: &quot;Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&quot;
+const token = extractTokenFromHeader(request);
+if (token) {
+  // Use token for verification
+}</code></pre></div><p>See <a href="https://jwt.io/">JWT Introduction</a>
+See <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization">Authorization Header</a></p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The HTTP request object.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The JWT token string if present, otherwise undefined.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+        </div>
+
+
+        <div class="tab-pane fade  tab-source-code" id="source">
+            <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { UserEntity } from &quot;#entity/users/user.entity&quot;;
+import { Repository } from &quot;typeorm&quot;;
+
+import { CanActivate, ExecutionContext, Injectable, Logger } from &quot;@nestjs/common&quot;;
+import { ConfigService } from &quot;@nestjs/config&quot;;
+import { JwtService } from &quot;@nestjs/jwt&quot;;
+import { InjectRepository } from &quot;@nestjs/typeorm&quot;;
+
+/**
+ * Guard that manages the &#x60;x-client-id&#x60; header for authenticated requests.
+ *
+ * This guard checks if the incoming request contains the &#x60;x-client-id&#x60; header.
+ * If the header is missing, it logs a warning and allows the request to proceed.
+ * If the user is found in the database, it sets the &#x60;x-client-id&#x60; header to the user&#x27;s UUID.
+ *
+ * @example
+ * // Usage in a controller
+ * @UseGuards(ClientHeaderGuard)
+ * @Get(&#x27;profile&#x27;)
+ * getProfile(@Req() req) {
+ *   // req.headers[&#x27;x-client-id&#x27;] will be set to the user&#x27;s UUID
+ * }
+ *
+ * @see {@link https://docs.nestjs.com/guards NestJS Guards}
+ * @see {@link https://typeorm.io/#/repository-api TypeORM Repository API}
+ */
+@Injectable()
+export class ClientHeaderGuard implements CanActivate {
+  /**
+   * Logger instance for this guard.
+   */
+  private readonly logger &#x3D; new Logger(ClientHeaderGuard.name);
+
+  /**
+   * Creates a new instance of ClientHeaderGuard.
+   *
+   * @param authRepository - The repository for accessing user entities.
+   * @param jwtService - Service for handling JWT operations.
+   * @param configService - Service for accessing configuration variables.
+   *
+   * @see {@link https://docs.nestjs.com/techniques/database NestJS Database}
+   * @see {@link https://docs.nestjs.com/security/authentication NestJS Authentication}
+   */
+  constructor(
+    @InjectRepository(UserEntity)
+    private readonly authRepository: Repository&lt;UserEntity&gt;,
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+  ) {}
+
+  /**
+   * Determines whether the current request is allowed to proceed.
+   *
+   * This method checks for the presence of the &#x60;x-client-id&#x60; header in the incoming HTTP request.
+   * - If the header is present, the guard logs a warning and allows the request.
+   * - If the header is missing, it attempts to extract a JWT token from the Authorization header,
+   *   verifies the token, and looks up the user in the database using the decoded username (email).
+   * - If the user is found, it sets the &#x60;x-client-id&#x60; header to the user&#x27;s UUID for both the request and response.
+   * - If the user is not found or the token is missing, the guard logs a warning and allows the request.
+   *
+   * @param context - The execution context of the request.
+   * @returns A promise that resolves to &#x60;true&#x60; if the request is allowed.
+   *
+   * @example
+   * // The guard will set the x-client-id header if the user is found
+   * await guard.canActivate(context);
+   *
+   * @see {@link https://docs.nestjs.com/guards NestJS Guards}
+   * @see {@link https://jwt.io/ JWT Introduction}
+   */
+  async canActivate(context: ExecutionContext): Promise&lt;boolean&gt; {
+    const request &#x3D; context.switchToHttp().getRequest();
+    const res &#x3D; context.switchToHttp().getResponse();
+
+    if (context.getType() !&#x3D;&#x3D; &quot;http&quot;) {
+      return true;
+    }
+
+    const clientId &#x3D; request.headers[&quot;x-client-id&quot;];
+    if (clientId) {
+      this.logger.warn(&quot;Request contains client ID header.&quot;);
+      return true;
+    }
+
+    const token &#x3D; this.extractTokenFromHeader(request);
+    if (!token) {
+      this.logger.warn(&quot;No token provided in the request headers.&quot;);
+      return true;
+    }
+
+    const decoded &#x3D; await this.jwtService.verifyAsync(token, {
+      secret: this.configService.get&lt;string&gt;(&quot;JWT_SECRET&quot;),
+    });
+
+    // Find user by email (username is expected to be the email)
+    const user &#x3D; await this.authRepository.findOneBy({ email: decoded.username });
+    if (!user) {
+      this.logger.warn(&quot;No user found for the provided email.&quot;);
+      return true;
+    }
+
+    // Set the x-client-id header to the user&#x27;s UUID
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    res.setHeader(&quot;x-client-id&quot;, user.uuid);
+    request.headers[&quot;x-client-id&quot;] &#x3D; user.uuid;
+    return true;
+  }
+
+  /**
+   * Extracts the JWT token from the Authorization header.
+   *
+   * This utility method parses the Authorization header and returns the JWT token if present.
+   * The expected format is &quot;Bearer &lt;token&gt;&quot;.
+   *
+   * @param request - The HTTP request object.
+   * @returns The JWT token string if present, otherwise undefined.
+   *
+   * @example
+   * // Example header: &quot;Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&quot;
+   * const token &#x3D; extractTokenFromHeader(request);
+   * if (token) {
+   *   // Use token for verification
+   * }
+   *
+   * @see {@link https://jwt.io/ JWT Introduction}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization Authorization Header}
+   */
+  private extractTokenFromHeader(request: { headers: { authorization?: string } }) {
+    const authHeader &#x3D; request.headers.authorization;
+    if (typeof authHeader !&#x3D;&#x3D; &quot;string&quot;) {
+      return undefined;
+    }
+    const [type, token] &#x3D; authHeader.split(&quot; &quot;);
+    return type &#x3D;&#x3D;&#x3D; &quot;Bearer&quot; ? token : undefined;
+  }
+}
+</code></pre>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'guard';
+            var COMPODOC_CURRENT_PAGE_URL = 'ClientHeaderGuard.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

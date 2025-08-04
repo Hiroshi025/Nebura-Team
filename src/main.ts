@@ -1,6 +1,8 @@
 import { registerHelpers } from "#shared/utils/helpers";
+import session from "express-session";
 import hbs from "hbs";
 import helmet from "helmet";
+import passport from "passport";
 import { join } from "path";
 import { loadEnvFile } from "process";
 
@@ -106,18 +108,22 @@ export class Main {
     //    - Serves static assets from /interfaces/http/views/public
     //    - Sets Handlebars (hbs) as the view engine
     //    - See: https://docs.nestjs.com/techniques/mvc
-    app.useStaticAssets(join(__dirname, "interfaces", "http", "views", "public"));
-    app.setBaseViewsDir(join(__dirname, "interfaces", "http", "views"));
+    app.useStaticAssets(join(__dirname, "..", "web", "public"));
+    app.setBaseViewsDir(join(__dirname, "..", "web", "views"));
     app.useStaticAssets(join(process.cwd(), "documentation"), {
-      prefix: "/docs", 
+      prefix: "/docs",
     });
 
     app.setViewEngine("hbs");
 
     registerHelpers(hbs);
+    hbs.registerPartials(join(__dirname, "..", "web", "views", "partials"));
+    hbs.registerHelper('inc', function(value) { return parseInt(value) + 1; });
+    hbs.localsAsTemplateData(app);
     hbs.registerHelper("json", function (context) {
       return JSON.stringify(context, null, 2);
     });
+    
     // 5. Configure Swagger for API documentation
     //    - Interactive API docs at /v1/docs
     //    - Downloadable OpenAPI JSON at /v1/docs/download
@@ -175,7 +181,31 @@ export class Main {
       }),
     );
 
-    // 7. Start the application on the specified port
+    // 7. Configure session management with express-session
+    //    - Uses a secret from environment variables or a default value
+    //    - Sets session cookie max age to 1 hour
+    //    - See: https://www.npmjs.com/package/express-session
+    app.use(
+      session({
+        secret: (process.env.SESSION_SECRET as string) || "default_session_secret",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+          maxAge: 86400000, // 1 día
+          secure: process.env.NODE_ENV === "production", // HTTPS en producción
+        },
+        // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-call
+        store: new (require("connect-sqlite3")(session))({
+          db: `sessions.sqlite`,
+          dir: "./src/adapters/database",
+        }),
+      }),
+    );
+
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    // 8. Start the application on the specified port
     //    - Default: 3000, or use process.env.PORT
     //    - Logs the URL for API and Swagger UI
     //app.useGlobalGuards(new RolesGuard());

@@ -216,6 +216,48 @@ export const helpers = {
   },
 
   /**
+   * Capitalizes the first letter of a string.
+   * @param str - The string to capitalize.
+   * @returns The capitalized string.
+   */
+  capitalize: (str: string): string => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  },
+
+  /**
+   * Checks if a date is expired (before now).
+   * @param date - Date object or ISO string.
+   * @returns true if expired, false otherwise.
+   */
+  isExpired: (date: Date | string): boolean => {
+    if (!date) return false;
+    const d = typeof date === "string" ? new Date(date) : date;
+    return d.getTime() < Date.now();
+  },
+
+  /**
+   * Formats a number with commas as thousands separators.
+   * @param num - The number to format.
+   * @returns The formatted string.
+   */
+  formatNumber: (num: number): string => {
+    if (typeof num !== "number") return "";
+    return num.toLocaleString();
+  },
+
+  /**
+   * Formats a date as "Mon YYYY".
+   * @param date - Date object or ISO string.
+   * @returns The formatted string.
+   */
+  formatMonthYear: (date: Date | string): string => {
+    if (!date) return "";
+    const d = typeof date === "string" ? new Date(date) : date;
+    return d.toLocaleString("en-US", { month: "short", year: "numeric" });
+  },
+
+  /**
    * Handlebars helper for equality comparison.
    * @param arg1 - First value to compare.
    * @param arg2 - Second value to compare.
@@ -233,6 +275,175 @@ export const helpers = {
    */
   ifEquals: function (arg1: any, arg2: any, options: any): any {
     return arg1 == arg2 ? options.fn(this) : options.inverse(this);
+  },
+
+  /**
+   * Handlebars helper for strict equality comparison.
+   * @param a - First value.
+   * @param b - Second value.
+   * @returns true if a === b, false otherwise.
+   * @example
+   * {{#if (eq a b)}} ... {{/if}}
+   */
+  eq: (a: any, b: any): boolean => a === b,
+
+  /**
+   * Handlebars helper for conditional comparison with operator.
+   * @param v1 - Primer valor.
+   * @param operator - Operador de comparación ('==', '===', '!=', '<', '>', '<=', '>=').
+   * @param v2 - Segundo valor.
+   * @param options - Opciones de Handlebars.
+   * @returns Renderiza el bloque si la condición es verdadera, de lo contrario el bloque inverso.
+   * @example
+   * {{#ifCond a '==' b}} ... {{/ifCond}}
+   */
+  ifCond: function (v1: any, operator: string, v2: any, options: any): any {
+    let result = false;
+    switch (operator) {
+      case "==":
+        result = v1 == v2;
+        break;
+      case "===":
+        result = v1 === v2;
+        break;
+      case "!=":
+        result = v1 != v2;
+        break;
+      case "!==":
+        result = v1 !== v2;
+        break;
+      case "<":
+        result = v1 < v2;
+        break;
+      case "<=":
+        result = v1 <= v2;
+        break;
+      case ">":
+        result = v1 > v2;
+        break;
+      case ">=":
+        result = v1 >= v2;
+        break;
+      default:
+        result = false;
+    }
+    return result ? options.fn(this) : options.inverse(this);
+  },
+
+  /**
+   * Handlebars helper para comparar si a > b.
+   * @param a - Primer valor.
+   * @param b - Segundo valor.
+   * @returns true si a > b, false si no.
+   * @example
+   * {{#if (gt a b)}} ... {{/if}}
+   */
+  gt: (a: any, b: any): boolean => a > b,
+
+  /**
+   * Formatea el mensaje del ticket para mostrar emojis, negrita, enlaces y saltos de línea.
+   * @param msg - Mensaje original.
+   * @returns Mensaje HTML seguro.
+   */
+  formatMessage: (msg: string): string => {
+    if (!msg) return "";
+    // Reemplaza saltos de línea por <br>
+    let formatted = msg.replace(/\n/g, "<br>");
+    // Negrita: **texto**
+    formatted = formatted.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+    // Enlaces: [texto](url)
+    formatted = formatted.replace(/\[([^\]]+)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+    // Emojis simples: :emoji:
+    formatted = formatted.replace(/:([a-zA-Z0-9_+-]+):/g, '<span class="emoji">:$1:</span>');
+    // URLs directas
+    formatted = formatted.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank">$1</a>');
+    return formatted;
+  },
+
+  /**
+   * Devuelve la clase CSS para el estado del ticket.
+   * @param status - Estado del ticket.
+   * @returns Clase CSS.
+   */
+  ticketStatusClass: (status: string): string => {
+    switch (status) {
+      case "abierto":
+        return "ticket-status-open";
+      case "proceso":
+        return "ticket-status-process";
+      case "espera":
+        return "ticket-status-wait";
+      case "cerrado":
+        return "ticket-status-closed";
+      default:
+        return "";
+    }
+  },
+
+  /**
+   * Devuelve la clase CSS para la prioridad del ticket.
+   * @param priority - Prioridad del ticket.
+   * @returns Clase CSS.
+   */
+  ticketPriorityClass: (priority: string): string => {
+    switch (priority) {
+      case "baja":
+        return "ticket-priority-low";
+      case "media":
+        return "ticket-priority-medium";
+      case "alta":
+        return "ticket-priority-high";
+      case "critica":
+        return "ticket-priority-critical";
+      default:
+        return "";
+    }
+  },
+
+  /**
+   * Handlebars helper para formatear fechas en español.
+   * @param date - Fecha a formatear.
+   * @returns Fecha formateada.
+   * @example
+   * {{formatDateES fecha}}
+   */
+  formatDateES: function (date: Date | string): string {
+    if (!date) return "";
+    const d = typeof date === "string" ? new Date(date) : date;
+    return d.toLocaleString("es-ES", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+  },
+
+  /**
+   * Handlebars helper para calcular la diferencia de tiempo entre dos fechas.
+   * @param start - Fecha de inicio.
+   * @param end - Fecha de fin.
+   * @returns Diferencia de tiempo en formato legible.
+   * @example
+   * {{timeDiff startDate endDate}}
+   */
+  timeDiff: function (start: Date | string, end: Date | string): string {
+    const startDate = typeof start === "string" ? new Date(start) : start;
+    const endDate = typeof end === "string" ? new Date(end) : end;
+    const diff = Math.abs(endDate.getTime() - startDate.getTime());
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    let result = "";
+    if (days > 0) result += `${days}d `;
+    if (hours > 0) result += `${hours}h `;
+    if (minutes > 0) result += `${minutes}m `;
+    if (seconds > 0) result += `${seconds}s`;
+    return result.trim();
   },
 };
 

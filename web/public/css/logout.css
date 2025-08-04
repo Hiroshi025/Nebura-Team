@@ -1,0 +1,109 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-bg);
+}
+.logout-container {
+  background: var(--secondary-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px var(--shadow-medium);
+  padding: 32px 28px;
+  max-width: 400px;
+  width: 100%;
+  margin: 32px 0;
+  border: 1px solid var(--border-color);
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+.logout-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  gap: 10px;
+}
+.logout-logo-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--gradient-accent);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+}
+.logout-logo-text {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--nebura-purple, #c147d9);
+  letter-spacing: 2px;
+}
+.logout-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+.logout-message {
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+.logout-btn {
+  width: 100%;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 8px;
+  margin-bottom: 10px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.logout-btn:hover {
+  background: var(--gradient-secondary);
+}
+.animated-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.floating-particles {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c147d9 60%, #6e3bbf 100%);
+  animation: float 18s linear infinite;
+  will-change: transform;
+}
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.2);
+  }
+}
+@media (max-width: 600px) {
+  .logout-container {
+    padding: 18px 6px;
+    max-width: 98vw;
+  }
+}

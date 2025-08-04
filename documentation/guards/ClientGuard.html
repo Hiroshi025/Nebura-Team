@@ -396,8 +396,8 @@ export class ClientGuard implements CanActivate {
       return false;
     }
 
-    const userId &#x3D; user.id;
-    const data &#x3D; await this.userRepository.findOne({ where: { id: userId } });
+    const userId &#x3D; user.username;
+    const data &#x3D; await this.userRepository.findOne({ where: { email: userId } });
     if (!data) {
       this.logger.warn(&#x60;User with ID ${userId} not found&#x60;);
       return false;

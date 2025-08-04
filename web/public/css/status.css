@@ -1,18 +1,35 @@
 :root {
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
+  --primary: #c147d9;
+  --primary-dark: #6c5ce7;
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
-  --dark-0: #0f172a;
-  --dark-1: #1e293b;
-  --dark-2: #334155;
-  --dark-3: #475569;
-  --light-0: #f8fafc;
-  --light-1: #f1f5f9;
-  --light-2: #e2e8f0;
+  --dark-0: #0a0a0f;
+  --dark-1: #1a1a2e;
+  --dark-2: #2d2d44;
+  --dark-3: #3d3d5a;
+  --light-0: #ffffff;
+  --light-1: #f8f9fa;
+  --light-2: #e9ecef;
   --light-3: #cbd5e1;
   --transition: all 0.3s ease;
+}
+
+/* Para modo claro */
+body[data-theme="light"] {
+  --primary: #c147d9;
+  --primary-dark: #6c5ce7;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --dark-0: #ffffff;
+  --dark-1: #f8f9fa;
+  --dark-2: #e9ecef;
+  --dark-3: #dee2e6;
+  --light-0: #ffffff;
+  --light-1: #f8f9fa;
+  --light-2: #e9ecef;
+  --light-3: #cbd5e1;
 }
 
 * {
@@ -379,7 +396,7 @@ body[data-theme="light"] tr:hover {
 
 .cpu-cores {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
   margin-top: 1rem;
 }
@@ -730,4 +747,20 @@ body[data-theme="light"] .update-indicator {
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+/* Fondo interactivo de partículas */
+#interactive-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+body[data-theme="light"] #interactive-bg {
+  opacity: 0.4;
 }

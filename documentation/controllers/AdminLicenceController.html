@@ -282,8 +282,8 @@ POST /admin/licence
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="152"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:152</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="153"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:153</a></div>
                         </td>
                     </tr>
 
@@ -378,8 +378,8 @@ POST /admin/licence
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="76"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:76</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:77</a></div>
                         </td>
                     </tr>
 
@@ -437,8 +437,8 @@ See <a href="https://docs.nestjs.com/controllers#routing-requests">https://docs.
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="120"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:120</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:121</a></div>
                         </td>
                     </tr>
 
@@ -527,8 +527,8 @@ See <a href="https://docs.nestjs.com/controllers#routing-requests">https://docs.
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="98"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:98</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:99</a></div>
                         </td>
                     </tr>
 
@@ -617,8 +617,8 @@ See <a href="https://docs.nestjs.com/controllers#routing-requests">https://docs.
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="217"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:217</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="218"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:218</a></div>
                         </td>
                     </tr>
 
@@ -705,8 +705,8 @@ See <a href="https://docs.nestjs.com/controllers#routing-requests">https://docs.
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="236"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:236</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="237"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:237</a></div>
                         </td>
                     </tr>
 
@@ -765,8 +765,8 @@ See <a href="https://docs.nestjs.com/controllers#routing-requests">https://docs.
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="191"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:191</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="192"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/licence.controller.ts:192</a></div>
                         </td>
                     </tr>
 
@@ -847,6 +847,7 @@ See <a href="https://docs.nestjs.com/controllers#routing-requests">https://docs.
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { LicenceCreateSchema, LicenceUpdateSchema } from &quot;#adapters/schemas/licence.schema&quot;;
 import { Roles } from &quot;#common/decorators/role.decorator&quot;;
 import { AuthGuard } from &quot;#common/guards/auth.guard&quot;;
+import { ClientHeaderGuard } from &quot;#common/guards/client-header.guard&quot;;
 import { RoleGuard } from &quot;#common/guards/permissions/role.guard&quot;;
 import { UserRole } from &quot;#common/typeRole&quot;;
 import { LicenceCreateDto } from &quot;#routes/admin/dto/create-licence.dto&quot;;
@@ -889,7 +890,7 @@ import {
  *   &quot;validUntil&quot;: &quot;2025-12-31T23:59:59Z&quot;
  * }
  */
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
 @ApiBearerAuth()
 @ApiTags(&quot;admin&quot;)
 @Controller({

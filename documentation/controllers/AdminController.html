@@ -112,7 +112,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/interfaces/http/routes/admin/controllers/users.controllers.ts</code>
+            <code>src/interfaces/http/routes/admin/controllers/users.controller.ts</code>
         </p>
 
 
@@ -240,8 +240,8 @@ Provides endpoints for listing all users and updating user roles.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="174"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controllers.ts:174</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controller.ts:175</a></div>
                         </td>
                     </tr>
 
@@ -326,8 +326,8 @@ Provides endpoints for listing all users and updating user roles.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="82"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controllers.ts:82</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controller.ts:83</a></div>
                         </td>
                     </tr>
 
@@ -410,8 +410,8 @@ Provides endpoints for listing all users and updating user roles.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="63"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controllers.ts:63</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controller.ts:64</a></div>
                         </td>
                     </tr>
 
@@ -468,8 +468,8 @@ Provides endpoints for listing all users and updating user roles.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="133"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controllers.ts:133</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/users.controller.ts:134</a></div>
                         </td>
                     </tr>
 
@@ -542,6 +542,7 @@ See <a href="https://zod.dev/">https://zod.dev/</a></p>
 import { UuidSchema, UuidType } from &quot;#adapters/schemas/shared/uuid.schema&quot;;
 import { Roles } from &quot;#common/decorators/role.decorator&quot;;
 import { AuthGuard } from &quot;#common/guards/auth.guard&quot;;
+import { ClientHeaderGuard } from &quot;#common/guards/client-header.guard&quot;;
 import { RoleGuard } from &quot;#common/guards/permissions/role.guard&quot;;
 import { UserRole } from &quot;#common/typeRole&quot;;
 import { UserEntity } from &quot;#entity/users/user.entity&quot;;
@@ -568,7 +569,7 @@ import { InjectRepository } from &quot;@nestjs/typeorm&quot;;
  *
  * @see https://docs.nestjs.com/controllers
  */
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
 @ApiTags(&quot;admin&quot;)
 @ApiBearerAuth()
 @Controller({

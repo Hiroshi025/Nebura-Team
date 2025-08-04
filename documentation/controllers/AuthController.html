@@ -112,7 +112,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/interfaces/http/routes/auth/controllers/auth.controllers.ts</code>
+            <code>src/interfaces/http/routes/auth/controllers/auth.controller.ts</code>
         </p>
 
 
@@ -238,8 +238,8 @@ const info = await authController.getMe(&quot;user-uuid&quot;);</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="80"
-                                    class="link-to-prism">src/interfaces/http/routes/auth/controllers/auth.controllers.ts:80</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/controllers/auth.controller.ts:82</a></div>
                         </td>
                     </tr>
 
@@ -334,8 +334,8 @@ See <a href="https://docs.nestjs.com/techniques/validation">NestJS Validation</a
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="217"
-                                    class="link-to-prism">src/interfaces/http/routes/auth/controllers/auth.controllers.ts:217</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="219"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/controllers/auth.controller.ts:219</a></div>
                         </td>
                     </tr>
 
@@ -416,8 +416,8 @@ See <a href="https://docs.nestjs.com/techniques/validation">NestJS Validation</a
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="185"
-                                    class="link-to-prism">src/interfaces/http/routes/auth/controllers/auth.controllers.ts:185</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="187"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/controllers/auth.controller.ts:187</a></div>
                         </td>
                     </tr>
 
@@ -510,8 +510,8 @@ Returns user data if found.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="134"
-                                    class="link-to-prism">src/interfaces/http/routes/auth/controllers/auth.controllers.ts:134</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="136"
+                                    class="link-to-prism">src/interfaces/http/routes/auth/controllers/auth.controller.ts:136</a></div>
                         </td>
                     </tr>
 
@@ -579,6 +579,7 @@ See <a href="https://zod.dev/">Zod Documentation</a></p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { UserLoginSchema, UserSchema } from &quot;#adapters/schemas/auth.schema&quot;;
 import { UuidSchema } from &quot;#adapters/schemas/shared/uuid.schema&quot;;
 import { AuthGuard } from &quot;#common/guards/auth.guard&quot;;
+import { ClientHeaderGuard } from &quot;#common/guards/client-header.guard&quot;;
 import { randomUUID } from &quot;crypto&quot;;
 
 import {
@@ -614,6 +615,7 @@ import { RegisterUserDto } from &quot;../dto/user/register.dto&quot;;
  */
 @ApiTags(&quot;auth&quot;)
 @ApiBearerAuth()
+@UseGuards(ClientHeaderGuard)
 @Controller({
   path: &quot;auth&quot;,
   version: &quot;1&quot;,

@@ -112,7 +112,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/interfaces/http/routes/admin/controllers/cache.controllers.ts</code>
+            <code>src/interfaces/http/routes/admin/controllers/cache.controller.ts</code>
         </p>
 
 
@@ -228,8 +228,8 @@ and fetching all cache entries.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="102"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/cache.controllers.ts:102</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/cache.controller.ts:103</a></div>
                         </td>
                     </tr>
 
@@ -285,8 +285,8 @@ and fetching all cache entries.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="47"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/cache.controllers.ts:47</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/cache.controller.ts:48</a></div>
                         </td>
                     </tr>
 
@@ -343,8 +343,8 @@ and fetching all cache entries.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="73"
-                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/cache.controllers.ts:73</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/interfaces/http/routes/admin/controllers/cache.controller.ts:74</a></div>
                         </td>
                     </tr>
 
@@ -404,6 +404,7 @@ and fetching all cache entries.</p>
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Roles } from &quot;#common/decorators/role.decorator&quot;;
 import { AuthGuard } from &quot;#common/guards/auth.guard&quot;;
+import { ClientHeaderGuard } from &quot;#common/guards/client-header.guard&quot;;
 import { RoleGuard } from &quot;#common/guards/permissions/role.guard&quot;;
 import { UserRole } from &quot;#common/typeRole&quot;;
 import { CacheService } from &quot;#routes/admin/service/cache.service&quot;;
@@ -425,7 +426,7 @@ import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from &quo
  * - All endpoints require a valid Bearer token for authentication.
  * - Intended for use by admin-level users.
  */
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
 @ApiTags(&quot;admin&quot;)
 @ApiBearerAuth()
 @Controller({

@@ -123,7 +123,7 @@
             <p class="comment">
                 <p>Dashboard utilities controller.</p>
 <p>This controller provides auxiliary endpoints for the dashboard frontend,
-such as real-time system status in JSON format.</p>
+such as real-time system status in JSON format and user management utilities.</p>
 <p>See <a href="https://docs.nestjs.com/controllers">NestJS Controllers Documentation</a>
 See <a href="../injectables/HealthService.html">HealthService</a></p>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-html">// Example usage in a browser:
@@ -155,10 +155,166 @@ See <a href="../injectables/HealthService.html">HealthService</a></p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#changeUserRole" >changeUserRole</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#convertToClient" >convertToClient</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#create" >create</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#createLicense" >createLicense</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#createTicket" >createTicket</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteTicket" >deleteTicket</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#editTicketAdmin" >editTicketAdmin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#exportTickets" >exportTickets</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getActivityDistribution" >getActivityDistribution</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getAllUsers" >getAllUsers</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getLicenseDistribution" >getLicenseDistribution</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getLicensesOverTime" >getLicensesOverTime</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getLicenseSummary" >getLicenseSummary</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getLicenseUsage" >getLicenseUsage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getNotifications" >getNotifications</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getRequestsPerDay" >getRequestsPerDay</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getTicketHistoryAdmin" >getTicketHistoryAdmin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getTicketMessages" >getTicketMessages</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getTicketMessagesAdmin" >getTicketMessagesAdmin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#isAdminUser" >isAdminUser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#purgeExpiredNotifications" >purgeExpiredNotifications</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#searchTickets" >searchTickets</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendTicketMessage" >sendTicketMessage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendTicketMessageAdmin" >sendTicketMessageAdmin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#statusJson" >statusJson</a>
@@ -184,8 +340,100 @@ See <a href="../injectables/HealthService.html">HealthService</a></p>
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="changeUserRole"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>changeUserRole</b></span>
+                        <a href="#changeUserRole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>changeUserRole(body: literal type)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;change-user-role&#x27;)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="171"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:171</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cambia el rol de un usuario específico.</p>
+<p>Expects a request body containing the user&#39;s UUID and the new role.
+Validates the input using Zod before proceeding.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">// Request body:
+// { &quot;uuid&quot;: &quot;user-uuid-string&quot;, &quot;role&quot;: &quot;admin&quot; }</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Object containing uuid and role.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An object indicating success and the updated user data.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="convertToClient"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>convertToClient</b></span>
@@ -204,14 +452,14 @@ See <a href="../injectables/HealthService.html">HealthService</a></p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post(&#x27;convert-to-client&#x27;)<br /></code>
+                    <code>@Post(&#x27;convert-to-client&#x27;)<br />@ApiExcludeEndpoint()<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="96"
-                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:96</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:138</a></div>
                         </td>
                     </tr>
 
@@ -219,8 +467,322 @@ See <a href="../injectables/HealthService.html">HealthService</a></p>
             <tr>
                 <td class="col-md-4">
                         <div class="io-description"><p>Converts a user to a client by setting <code>isClient</code> to true.</p>
+<p>An object indicating success, a message, and the updated user data.</p>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-html">// Request body:
-// { &quot;uuid&quot;: &quot;user-uuid-string&quot; }</code></pre></div></div>
+// { &quot;uuid&quot;: &quot;user-uuid-string&quot; }
+fetch(&#39;/dashboard/utils/convert-to-client&#39;, {
+  method: &#39;POST&#39;,
+  headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+  body: JSON.stringify({ uuid: &#39;user-uuid-string&#39; })
+})
+  .then(res =&gt; res.json())
+  .then(data =&gt; {
+    if (data.success) {
+      console.log(&#39;User converted:&#39;, data.data);
+    } else {
+      console.error(&#39;Error:&#39;, data.message);
+    }
+  });</code></pre></div><p>See <a href="https://typeorm.io/#/repository-api">TypeORM Repository API</a></p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The UUID of the user to convert.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An object indicating success, a message, and the updated user data.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="create"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>create</b></span>
+                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>create(body: literal type)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;create-notification&#x27;)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="451"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:451</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Creates a new notification in the system.</p>
+<p>This endpoint allows the creation of dashboard notifications, which can be used to inform users
+about important events, updates, or alerts. The notification will expire at the specified date.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">// Request body:
+// { &quot;message&quot;: &quot;System maintenance at midnight&quot;, &quot;type&quot;: &quot;warning&quot;, &quot;expiresAt&quot;: &quot;2024-06-30T23:59:59Z&quot; }
+fetch(&#39;/dashboard/utils/create-notification&#39;, {
+  method: &#39;POST&#39;,
+  headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+  body: JSON.stringify({ message: &#39;System maintenance at midnight&#39;, type: &#39;warning&#39;, expiresAt: &#39;2024-06-30T23:59:59Z&#39; })
+})
+  .then(res =&gt; res.json())
+  .then(notification =&gt; {
+    console.log(notification);
+  });</code></pre></div><p>See <a href="https://docs.nestjs.com/controllers">NestJS Controllers Documentation</a>
+See <a href="../entitys/NotificationEntity.html">NotificationEntity</a></p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The notification data, including message, type, and expiration date.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../entitys/NotificationEntity.html" target="_self" >Promise&lt;NotificationEntity&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The created notification entity.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createLicense"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>createLicense</b></span>
+                        <a href="#createLicense"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createLicense(body: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;create-license&#x27;)<br />@UseGuards(AuthenticatedGuard)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="1109"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:1109</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Creates a new license in the system.</p>
+<p>This endpoint allows admins to create a new software license for a user.
+The payload must pass strict validation; errors are returned with clear messages.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">fetch(&#39;/dashboard/utils/create-license&#39;, {
+  method: &#39;POST&#39;,
+  headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+  body: JSON.stringify({
+    identifier: &quot;LIC-12345&quot;,
+    key: &quot;ABCDEF123456&quot;,
+    type: &quot;basic&quot;,
+    userId: &quot;user-001&quot;,
+    adminId: &quot;admin-001&quot;,
+    hwid: [&quot;HWID-001&quot;],
+    requestLimit: 1000,
+    validUntil: &quot;2025-01-01T00:00:00Z&quot;,
+    ips: [&quot;192.168.1.1&quot;],
+    maxIps: 5
+  })
+})
+  .then(res =&gt; res.json())
+  .then(license =&gt; console.log(license));</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>License creation data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../entitys/LicenseEntity.html" target="_self" >Promise&lt;LicenseEntity&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The created license entity.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createTicket"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>createTicket</b></span>
+                        <a href="#createTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createTicket(req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, body: <a href="../undefineds/TicketCreate.html" target="_self">Partial&lt;TicketCreate&gt;</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;tickets/create&#x27;)<br />@ApiExcludeEndpoint()<br />@UseGuards(AuthenticatedGuard)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="548"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:548</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Create a new support ticket for the authenticated user.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -235,7 +797,112 @@ See <a href="../injectables/HealthService.html">HealthService</a></p>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>uuid</td>
+                                                <td>req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#TicketCreate" target="_self" >Partial&lt;TicketCreate&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteTicket"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteTicket</b></span>
+                        <a href="#deleteTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteTicket(req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;tickets/delete&#x27;)<br />@ApiExcludeEndpoint()<br />@UseGuards(AuthenticatedGuard)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="710"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:710</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Delete a ticket (only if owner).</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>id</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -254,8 +921,1568 @@ See <a href="../injectables/HealthService.html">HealthService</a></p>
 
                         </div>
                             <div class="io-description">
-                                <p>An object indicating success and the updated user data.</p>
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editTicketAdmin"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>editTicketAdmin</b></span>
+                        <a href="#editTicketAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>editTicketAdmin(body: <a href="../undefineds/TicketEdit.html" target="_self">Partial&lt;TicketEdit&gt;</a>)</code>
+                </td>
+            </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;tickets/edit&#x27;)<br />@ApiExcludeEndpoint()<br />@UseGuards(AuthenticatedGuard)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="654"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:654</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Edits a ticket with new data.
+Allows updating assignment, tags, custom status, and logs changes in history.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#TicketEdit" target="_self" >Partial&lt;TicketEdit&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The ticket update data.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportTickets"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>exportTickets</b></span>
+                        <a href="#exportTickets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>exportTickets(_req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, body: literal type)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;tickets/export&#x27;)<br />@ApiExcludeEndpoint()<br />@UseGuards(AuthenticatedGuard)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="898"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:898</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Export tickets and messages in PDF or CSV format.</p>
+<p>This endpoint allows exporting tickets with their messages in either CSV or PDF format.
+It accepts advanced filters similar to <code>/tickets/search</code> and a format specifier (&quot;pdf&quot; or &quot;csv&quot;).</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">// Export tickets as CSV:
+fetch(&#39;/dashboard/utils/tickets/export&#39;, {
+  method: &#39;POST&#39;,
+  headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+  body: JSON.stringify({ format: &#39;csv&#39;, filters: { status: &#39;open&#39; } })
+})
+  .then(res =&gt; res.json())
+  .then(file =&gt; {
+    // file.filename, file.contentType, file.data
+  });</code></pre></div><p>See <a href="https://docs.nestjs.com/controllers">NestJS Controllers Documentation</a>
+See <a href="https://typeorm.io/#/select-query-builder">TypeORM QueryBuilder</a></p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>_req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The request object (not used).</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The export options, including format and filters.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>The exported file data.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getActivityDistribution"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getActivityDistribution</b></span>
+                        <a href="#getActivityDistribution"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getActivityDistribution(req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;activity-distribution&#x27;)<br />@UseGuards(AuthenticatedGuard)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="212"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:212</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the distribution of API activity by endpoint.</p>
+<p>An array of objects with endpoint names and request counts.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">fetch(&#39;/dashboard/utils/activity-distribution&#39;)
+  .then(res =&gt; res.json())
+  .then(stats =&gt; {
+    stats.forEach(stat =&gt; {
+      console.log(stat.endpoint, stat.count);
+    });
+  });</code></pre></div><p>See <a href="https://typeorm.io/#/select-query-builder">TypeORM QueryBuilder</a></p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;Array&lt;literal type&gt;&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An array of objects with endpoint names and request counts.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllUsers"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getAllUsers</b></span>
+                        <a href="#getAllUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAllUsers()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;all-users&#x27;)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="1163"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:1163</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Endpoint para autocompletado de usuarios y admins en el dashboard.
+Devuelve un array de usuarios con uuid, name, role, email y discordInfo.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">fetch(&#39;/dashboard/utils/all-users&#39;)
+  .then(res =&gt; res.json())
+  .then(users =&gt; { ... });</code></pre></div></div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;Array&lt;literal type&gt;&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLicenseDistribution"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getLicenseDistribution</b></span>
+                        <a href="#getLicenseDistribution"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getLicenseDistribution(req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;license-distribution&#x27;)<br />@UseGuards(AuthenticatedGuard)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="284"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:284</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the distribution of licenses by type.</p>
+<p>Retrieves the distribution of licenses by type.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;Array&lt;literal type&gt;&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Retrieves the distribution of licenses by type.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLicensesOverTime"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getLicensesOverTime</b></span>
+                        <a href="#getLicensesOverTime"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getLicensesOverTime(req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;licenses-over-time&#x27;)<br />@UseGuards(AuthenticatedGuard)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="358"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:358</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the number of active and expired licenses over time.</p>
+<p>An array of objects with date, active licenses count, and expired licenses count.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">fetch(&#39;/dashboard/utils/licenses-over-time&#39;)
+  .then(res =&gt; res.json())
+  .then(data =&gt; {
+    data.forEach(item =&gt; {
+      console.log(item.date, item.active, item.expired);
+    });
+  });</code></pre></div><p>See <a href="https://typeorm.io/#/select-query-builder">TypeORM QueryBuilder</a></p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;Array&lt;literal type&gt;&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An array of objects with date, active licenses count, and expired licenses count.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLicenseSummary"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getLicenseSummary</b></span>
+                        <a href="#getLicenseSummary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getLicenseSummary(req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;license-summary&#x27;)<br />@UseGuards(AuthenticatedGuard)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="402"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:402</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a summary of license counts by type.</p>
+<p>An object containing total, basic, premium, and enterprise license counts.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">fetch(&#39;/dashboard/utils/license-summary&#39;)
+  .then(res =&gt; res.json())
+  .then(summary =&gt; {
+    console.log(summary);
+    // { total: 100, basic: 50, premium: 30, enterprise: 20 }
+  });</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An object containing total, basic, premium, and enterprise license counts.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLicenseUsage"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getLicenseUsage</b></span>
+                        <a href="#getLicenseUsage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getLicenseUsage(req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;license-usage&#x27;)<br />@UseGuards(AuthenticatedGuard)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="313"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:313</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the current license usage statistics.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;Array&lt;literal type&gt;&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Retrieves the current license usage statistics.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNotifications"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getNotifications</b></span>
+                        <a href="#getNotifications"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getNotifications()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;get-notifications&#x27;)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="498"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:498</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the latest active notifications.</p>
+<p>This endpoint returns up to 3 notifications that are either not expired or have no expiration date.
+Notifications are ordered by creation date, descending.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">fetch(&#39;/dashboard/utils/get-notifications&#39;)
+  .then(res =&gt; res.json())
+  .then(notifications =&gt; {
+    notifications.forEach(n =&gt; console.log(n.message));
+  });</code></pre></div><p>See <a href="../entitys/NotificationEntity.html">NotificationEntity</a></p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../entitys/NotificationEntity.html" target="_self" >Promise&lt;NotificationEntity[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Array of notification entities.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRequestsPerDay"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getRequestsPerDay</b></span>
+                        <a href="#getRequestsPerDay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getRequestsPerDay(req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;requests-per-day&#x27;)<br />@UseGuards(AuthenticatedGuard)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="251"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:251</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the number of requests per day.</p>
+<p>An array of objects with date and total request count per day.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">fetch(&#39;/dashboard/utils/requests-per-day&#39;)
+  .then(res =&gt; res.json())
+  .then(stats =&gt; {
+    stats.forEach(stat =&gt; {
+      console.log(stat.date, stat.totalRequests);
+    });
+  });</code></pre></div><p>See <a href="https://typeorm.io/#/select-query-builder">TypeORM QueryBuilder</a></p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;Array&lt;literal type&gt;&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>An array of objects with date and total request count per day.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTicketHistoryAdmin"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getTicketHistoryAdmin</b></span>
+                        <a href="#getTicketHistoryAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getTicketHistoryAdmin(ticketUuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;tickets/history/:ticketUuid&#x27;)<br />@ApiExcludeEndpoint()<br />@UseGuards(AuthenticatedGuard)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="862"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:862</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ticketUuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTicketMessages"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getTicketMessages</b></span>
+                        <a href="#getTicketMessages"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getTicketMessages(req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, _body: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, ticketId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;tickets/messages/:ticketId&#x27;)<br />@ApiExcludeEndpoint()<br />@UseGuards(AuthenticatedGuard)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="823"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:823</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Get all messages for a ticket.
+Returns the messages array for the given ticket.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>_body</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>ticketId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTicketMessagesAdmin"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>getTicketMessagesAdmin</b></span>
+                        <a href="#getTicketMessagesAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getTicketMessagesAdmin(ticketUuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;tickets/messages-admin/:ticketUuid&#x27;)<br />@ApiExcludeEndpoint()<br />@UseGuards(AuthenticatedGuard)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="846"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:846</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Get all messages for a ticket (Admin).
+Returns the messages array for the given ticket, accessible by admin.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ticketUuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAdminUser"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>isAdminUser</b></span>
+                        <a href="#isAdminUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isAdminUser(req: <a href="../interfaces/RequestClient.html" target="_self">RequestClient</a>, res: Response)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;is-admin&#x27;)<br />@ApiExcludeEndpoint()<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="1051"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:1051</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks if the user is an admin.</p>
+<p>This endpoint verifies if the authenticated user has an admin role.
+If not, it redirects to the logout page.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">fetch(&#39;/dashboard/utils/is-admin&#39;)
+  .then(res =&gt; res.json())
+  .then(isAdmin =&gt; {
+    if (isAdmin) {
+      // User is admin
+    } else {
+      // User is not admin
+    }
+  });</code></pre></div><p>See <a href="https://docs.nestjs.com/controllers">NestJS Controllers Documentation</a></p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                            <code><a href="../interfaces/RequestClient.html" target="_self" >RequestClient</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The request object containing user information.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>res</td>
+                                            <td>
+                                                        <code>Response</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The response object for redirection if not an admin.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True if the user is an admin, false otherwise.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="purgeExpiredNotifications"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>purgeExpiredNotifications</b></span>
+                        <a href="#purgeExpiredNotifications"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>purgeExpiredNotifications()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Cron(&#x27;0 0 * * *&#x27;)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="522"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:522</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Purges expired notifications from the database.</p>
+<p>This method is scheduled to run daily at midnight using a cron job.
+It deletes all notifications whose expiration date is in the past.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">// This method is not exposed as an endpoint, but runs automatically.
+// See: https://docs.nestjs.com/techniques/task-scheduling</code></pre></div></div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Object with the number of deleted notifications and a status message.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchTickets"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>searchTickets</b></span>
+                        <a href="#searchTickets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>searchTickets(_req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, body: <a href="../undefineds/TicketSearch.html" target="_self">Partial&lt;TicketSearch&gt;</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;tickets/search&#x27;)<br />@ApiExcludeEndpoint()<br />@UseGuards(AuthenticatedGuard)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="600"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:600</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Advanced search for tickets with multiple filters.
+Permite buscar tickets por userId, assignedTo, tags, keywords, date ranges, attachment types, etc.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>_req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#TicketSearch" target="_self" >Partial&lt;TicketSearch&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendTicketMessage"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>sendTicketMessage</b></span>
+                        <a href="#sendTicketMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendTicketMessage(req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, body: literal type)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;tickets/messages/send&#x27;)<br />@ApiExcludeEndpoint()<br />@UseGuards(AuthenticatedGuard)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="739"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:739</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Send a message to a ticket chat.
+Adds a message to the ticket&#39;s messages array.
+Attachments are not implemented in this example.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendTicketMessageAdmin"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>sendTicketMessageAdmin</b></span>
+                        <a href="#sendTicketMessageAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendTicketMessageAdmin(body: literal type)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;tickets/messages/send-admin&#x27;)<br />@ApiExcludeEndpoint()<br />@UseGuards(AuthenticatedGuard)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="785"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:785</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Send a message to a ticket chat (Admin).
+Adds a message to the ticket&#39;s messages array, accessible by admin.
+Attachments are not implemented in this example.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>body</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
                             </div>
                 </td>
             </tr>
@@ -267,6 +2494,7 @@ See <a href="../injectables/HealthService.html">HealthService</a></p>
                 <td class="col-md-4">
                     <a name="statusJson"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>statusJson</b></span>
@@ -285,14 +2513,14 @@ See <a href="../injectables/HealthService.html">HealthService</a></p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;status-json&#x27;)<br /></code>
+                    <code>@Get(&#x27;status-json&#x27;)<br />@ApiExcludeEndpoint()<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="68"
-                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:68</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/interfaces/http/routes/utils.controller.ts:92</a></div>
                         </td>
                     </tr>
 
@@ -302,15 +2530,16 @@ See <a href="../injectables/HealthService.html">HealthService</a></p>
                         <div class="io-description"><p>Returns the current system status in JSON format.</p>
 <p>This endpoint is designed for real-time dashboard updates via AJAX/fetch.
 It provides memory usage, CPU usage, uptime, and the current timestamp.</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-html">// Fetch system status from the frontend:
-fetch(&#39;/dashboard/utils/status-json&#39;)
+<p>An object containing memory, CPU, uptime, and timestamp.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">fetch(&#39;/dashboard/utils/status-json&#39;)
   .then(res =&gt; res.json())
   .then(data =&gt; {
     console.log(data.memory); // Memory info
     console.log(data.cpu);    // CPU info
     console.log(data.uptime); // Uptime in seconds
     console.log(data.now);    // ISO timestamp
-  });</code></pre></div><p>See <a href="HealthService.checkHealth">HealthService.checkHealth</a></p>
+  });</code></pre></div><p>See <a href="HealthService.checkHealth">HealthService.checkHealth</a>
+See <a href="https://docs.nestjs.com/controllers">NestJS Controllers Documentation</a></p>
 </div>
 
                         <div class="io-description">
@@ -329,11 +2558,31 @@ fetch(&#39;/dashboard/utils/status-json&#39;)
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { UserEntity } from &quot;#entity/users/user.entity&quot;;
-import { Repository } from &quot;typeorm&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { RequestClient } from &quot;#/types/express&quot;;
+import {
+	TicketCreate, TicketEdit, TicketExportFilters, TicketSearch
+} from &quot;#adapters/schemas/admin/ticket.schema&quot;;
+import { RolesAdmin } from &quot;#adapters/schemas/auth.schema&quot;;
+import { LicenceCreateSchema, LicenceCreateType } from &quot;#adapters/schemas/licence.schema&quot;;
+import { isValidNotification } from &quot;#adapters/schemas/shared/notification.schema&quot;;
+import { UuidType } from &quot;#adapters/schemas/shared/uuid.schema&quot;;
+import { AuthenticatedGuard } from &quot;#common/guards/auth-discord.guard&quot;;
+import { UserRole } from &quot;#common/typeRole&quot;;
+import { TicketEntity, TicketPriority } from &quot;#entity/users/tickets.entity&quot;;
+import { UserEntity } from &quot;#entity/users/user.entity&quot;;
+import { LicenseEntity, LicenseType } from &quot;#entity/utils/licence.entity&quot;;
+import { NotificationEntity } from &quot;#entity/utils/notification.entity&quot;;
+import { RequestStatEntity } from &quot;#entity/utils/request.entity&quot;;
+import { randomUUID } from &quot;crypto&quot;;
+import { Response } from &quot;express-serve-static-core&quot;;
+import { IsNull, LessThan, MoreThan, Repository } from &quot;typeorm&quot;;
 
-import { Body, Controller, Get, Post } from &quot;@nestjs/common&quot;;
-import { ApiExcludeController } from &quot;@nestjs/swagger&quot;;
+import {
+	BadRequestException, Body, Controller, Get, HttpException, HttpStatus, Logger, Param, Post, Req,
+	Res, UseGuards
+} from &quot;@nestjs/common&quot;;
+import { Cron } from &quot;@nestjs/schedule&quot;;
+import { ApiExcludeController, ApiExcludeEndpoint } from &quot;@nestjs/swagger&quot;;
 import { InjectRepository } from &quot;@nestjs/typeorm&quot;;
 
 import { HealthService } from &quot;./health/health.service&quot;;
@@ -342,7 +2591,7 @@ import { HealthService } from &quot;./health/health.service&quot;;
  * Dashboard utilities controller.
  *
  * This controller provides auxiliary endpoints for the dashboard frontend,
- * such as real-time system status in JSON format.
+ * such as real-time system status in JSON format and user management utilities.
  *
  * @see {@link https://docs.nestjs.com/controllers NestJS Controllers Documentation}
  * @see {@link HealthService}
@@ -363,9 +2612,12 @@ import { HealthService } from &quot;./health/health.service&quot;;
   path: &quot;dashboard/utils&quot;,
 })
 export class UtilsController {
+  private readonly logger &#x3D; new Logger(UtilsController.name);
   /**
-   * Injects the HealthService to retrieve system health data.
-   * @param healthService The service used to get health information.
+   * Creates an instance of UtilsController.
+   *
+   * @param healthService - Injected HealthService for system health checks.
+   * @param userRepository - Injected UserEntity repository for user operations.
    */
   constructor(
     private readonly healthService: HealthService,
@@ -379,11 +2631,10 @@ export class UtilsController {
    * This endpoint is designed for real-time dashboard updates via AJAX/fetch.
    * It provides memory usage, CPU usage, uptime, and the current timestamp.
    *
-   * @route GET /dashboard/utils/status-json
-   * @returns {Promise&lt;object&gt;} An object containing memory, CPU, uptime, and timestamp.
+   * @returns {Promise&lt;{memory: any, cpu: any, uptime: number, now: string}&gt;}
+   * An object containing memory, CPU, uptime, and timestamp.
    *
    * @example
-   * // Fetch system status from the frontend:
    * fetch(&#x27;/dashboard/utils/status-json&#x27;)
    *   .then(res &#x3D;&gt; res.json())
    *   .then(data &#x3D;&gt; {
@@ -394,8 +2645,10 @@ export class UtilsController {
    *   });
    *
    * @see {@link HealthService.checkHealth}
+   * @see {@link https://docs.nestjs.com/controllers NestJS Controllers Documentation}
    */
   @Get(&quot;status-json&quot;)
+  @ApiExcludeEndpoint()
   async statusJson(): Promise&lt;{
     memory: any;
     cpu: any;
@@ -415,16 +2668,38 @@ export class UtilsController {
   /**
    * Converts a user to a client by setting &#x60;isClient&#x60; to true.
    *
-   * @param body - Object containing the user&#x27;s UUID.
-   * @returns An object indicating success and the updated user data.
+   * @param uuid - The UUID of the user to convert.
+   * @returns {Promise&lt;{success: boolean, message: string, data: UserEntity | null}&gt;}
+   * An object indicating success, a message, and the updated user data.
+   *
    * @throws {HttpException} If the user is not found or update fails.
    *
    * @example
    * // Request body:
    * // { &quot;uuid&quot;: &quot;user-uuid-string&quot; }
+   * fetch(&#x27;/dashboard/utils/convert-to-client&#x27;, {
+   *   method: &#x27;POST&#x27;,
+   *   headers: { &#x27;Content-Type&#x27;: &#x27;application/json&#x27; },
+   *   body: JSON.stringify({ uuid: &#x27;user-uuid-string&#x27; })
+   * })
+   *   .then(res &#x3D;&gt; res.json())
+   *   .then(data &#x3D;&gt; {
+   *     if (data.success) {
+   *       console.log(&#x27;User converted:&#x27;, data.data);
+   *     } else {
+   *       console.error(&#x27;Error:&#x27;, data.message);
+   *     }
+   *   });
+   *
+   * @see {@link https://typeorm.io/#/repository-api TypeORM Repository API}
    */
   @Post(&quot;convert-to-client&quot;)
-  async convertToClient(@Body(&quot;uuid&quot;) uuid: string) {
+  @ApiExcludeEndpoint()
+  async convertToClient(@Body(&quot;uuid&quot;) uuid: string): Promise&lt;{
+    success: boolean;
+    message: string;
+    data: UserEntity | null;
+  }&gt; {
     const user &#x3D; await this.userRepository.findOne({ where: { uuid } });
     if (!user) {
       return { success: false, message: &quot;User not found&quot;, data: null };
@@ -435,6 +2710,1029 @@ export class UtilsController {
     user.isClient &#x3D; true;
     await this.userRepository.save(user);
     return { success: true, message: &quot;User converted to client successfully&quot;, data: user };
+  }
+
+  /**
+   * Cambia el rol de un usuario específico.
+   *
+   * Expects a request body containing the user&#x27;s UUID and the new role.
+   * Validates the input using Zod before proceeding.
+   *
+   * @param body - Object containing uuid and role.
+   * @returns An object indicating success and the updated user data.
+   * @throws {BadRequestException} If validation fails or the update operation fails.
+   *
+   * @example
+   * // Request body:
+   * // { &quot;uuid&quot;: &quot;user-uuid-string&quot;, &quot;role&quot;: &quot;admin&quot; }
+   */
+  @Post(&quot;change-user-role&quot;)
+  @ApiExcludeEndpoint()
+  async changeUserRole(
+    @Body() body: { uuid: UuidType; role: string },
+  ): Promise&lt;{ success: boolean; message: string; data: UserEntity | null }&gt; {
+    const user &#x3D; await this.userRepository.findOne({ where: { uuid: body.uuid } });
+    if (!user) {
+      throw new BadRequestException(&quot;User not found&quot;, {
+        cause: &quot;User not found&quot;,
+        description: &quot;The specified user does not exist in the database.&quot;,
+      });
+    }
+
+    user.role &#x3D; body.role as UserRole;
+    await this.userRepository.save(user);
+
+    return {
+      success: true,
+      message: &quot;User role updated successfully&quot;,
+      data: user,
+    };
+  }
+
+  /**
+   * Retrieves the distribution of API activity by endpoint.
+   *
+   * @returns {Promise&lt;Array&lt;{endpoint: string, count: number}&gt;&gt;}
+   * An array of objects with endpoint names and request counts.
+   *
+   * @example
+   * fetch(&#x27;/dashboard/utils/activity-distribution&#x27;)
+   *   .then(res &#x3D;&gt; res.json())
+   *   .then(stats &#x3D;&gt; {
+   *     stats.forEach(stat &#x3D;&gt; {
+   *       console.log(stat.endpoint, stat.count);
+   *     });
+   *   });
+   *
+   * @see {@link https://typeorm.io/#/select-query-builder TypeORM QueryBuilder}
+   */
+  @Get(&quot;activity-distribution&quot;)
+  @UseGuards(AuthenticatedGuard)
+  @ApiExcludeEndpoint()
+  async getActivityDistribution(@Req() req: any): Promise&lt;Array&lt;{ endpoint: string; count: number }&gt;&gt; {
+    const userId &#x3D; req.user?.id;
+    const user &#x3D; await this.userRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+    if (!user) return [];
+    const stats &#x3D; await this.userRepository.manager
+      .getRepository(RequestStatEntity)
+      .createQueryBuilder(&quot;stat&quot;)
+      .select(&quot;stat.endpoint&quot;, &quot;endpoint&quot;)
+      .addSelect(&quot;COUNT(*)&quot;, &quot;count&quot;)
+      .where(&quot;stat.clientId &#x3D; :uuid&quot;, { uuid: user.uuid })
+      .groupBy(&quot;stat.endpoint&quot;)
+      .getRawMany();
+    return stats as Array&lt;{ endpoint: string; count: number }&gt;;
+  }
+
+  /**
+   * Retrieves the number of requests per day.
+   *
+   * @returns {Promise&lt;Array&lt;{date: string, totalRequests: number}&gt;&gt;}
+   * An array of objects with date and total request count per day.
+   *
+   * @example
+   * fetch(&#x27;/dashboard/utils/requests-per-day&#x27;)
+   *   .then(res &#x3D;&gt; res.json())
+   *   .then(stats &#x3D;&gt; {
+   *     stats.forEach(stat &#x3D;&gt; {
+   *       console.log(stat.date, stat.totalRequests);
+   *     });
+   *   });
+   *
+   * @see {@link https://typeorm.io/#/select-query-builder TypeORM QueryBuilder}
+   */
+  @Get(&quot;requests-per-day&quot;)
+  @UseGuards(AuthenticatedGuard)
+  @ApiExcludeEndpoint()
+  async getRequestsPerDay(@Req() req: any): Promise&lt;Array&lt;{ date: string; totalRequests: number }&gt;&gt; {
+    const userId &#x3D; req.user?.id;
+    const user &#x3D; await this.userRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+
+    if (!user) return [];
+    const stats &#x3D; await this.userRepository.manager
+      .getRepository(RequestStatEntity)
+      .createQueryBuilder(&quot;stat&quot;)
+      .select(&quot;DATE(stat.createdAt)&quot;, &quot;date&quot;)
+      .addSelect(&quot;SUM(stat.requests)&quot;, &quot;totalRequests&quot;)
+      .where(&quot;stat.clientId &#x3D; :uuid&quot;, { uuid: user.uuid })
+      .groupBy(&quot;DATE(stat.createdAt)&quot;)
+      .orderBy(&quot;date&quot;, &quot;ASC&quot;)
+      .getRawMany();
+    return stats.map((stat: any) &#x3D;&gt; ({
+      date: stat.date,
+      totalRequests: Number(stat.totalRequests),
+    })) as Array&lt;{ date: string; totalRequests: number }&gt;;
+  }
+
+  /**
+   * Retrieves the distribution of licenses by type.
+   *
+   * @returns {Promise&lt;Array&lt;{ type: string; count: number }&gt;&gt;}
+   * Retrieves the distribution of licenses by type.
+   */
+  @Get(&quot;license-distribution&quot;)
+  @UseGuards(AuthenticatedGuard)
+  @ApiExcludeEndpoint()
+  async getLicenseDistribution(@Req() req: any): Promise&lt;Array&lt;{ type: string; count: number }&gt;&gt; {
+    const userId &#x3D; req.user?.id;
+    const user &#x3D; await this.userRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+
+    if (!user) return [];
+
+    const stats &#x3D; await this.userRepository.manager
+      .getRepository(LicenseEntity)
+      .createQueryBuilder(&quot;license&quot;)
+      .select(&quot;license.type&quot;, &quot;type&quot;)
+      .addSelect(&quot;COUNT(*)&quot;, &quot;count&quot;)
+      .where(&quot;license.userId &#x3D; :uuid&quot;, { uuid: user.uuid })
+      .groupBy(&quot;license.type&quot;)
+      .getRawMany();
+    return stats as Array&lt;{ type: string; count: number }&gt;;
+  }
+
+  /**
+   *
+   * @returns {Promise&lt;Array&lt;{ key: string; type: string; requestLimit: number; requestCount: number }&gt;&gt;}
+   * Retrieves the current license usage statistics.
+   */
+  @Get(&quot;license-usage&quot;)
+  @UseGuards(AuthenticatedGuard)
+  @ApiExcludeEndpoint()
+  async getLicenseUsage(
+    @Req() req: any,
+  ): Promise&lt;Array&lt;{ key: string; type: string; requestLimit: number; requestCount: number }&gt;&gt; {
+    const userId &#x3D; req.user?.id;
+    const user &#x3D; await this.userRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+
+    if (!user) return [];
+
+    const licenses &#x3D; await this.userRepository.manager
+      .getRepository(LicenseEntity)
+      .createQueryBuilder(&quot;license&quot;)
+      .select(&quot;license.key&quot;, &quot;key&quot;)
+      .addSelect(&quot;license.type&quot;, &quot;type&quot;)
+      .addSelect(&quot;license.requestLimit&quot;, &quot;requestLimit&quot;)
+      .addSelect(&quot;license.requestCount&quot;, &quot;requestCount&quot;)
+      .where(&quot;license.userId &#x3D; :uuid&quot;, { uuid: user.uuid })
+      .getRawMany();
+
+    return licenses as Array&lt;{ key: string; type: string; requestLimit: number; requestCount: number }&gt;;
+  }
+
+  /**
+   * Retrieves the number of active and expired licenses over time.
+   *
+   * @returns {Promise&lt;Array&lt;{ date: string; active: number; expired: number }&gt;&gt;}
+   * An array of objects with date, active licenses count, and expired licenses count.
+   *
+   * @example
+   * fetch(&#x27;/dashboard/utils/licenses-over-time&#x27;)
+   *   .then(res &#x3D;&gt; res.json())
+   *   .then(data &#x3D;&gt; {
+   *     data.forEach(item &#x3D;&gt; {
+   *       console.log(item.date, item.active, item.expired);
+   *     });
+   *   });
+   *
+   * @see {@link https://typeorm.io/#/select-query-builder TypeORM QueryBuilder}
+   */
+  @Get(&quot;licenses-over-time&quot;)
+  @UseGuards(AuthenticatedGuard)
+  @ApiExcludeEndpoint()
+  async getLicensesOverTime(@Req() req: any): Promise&lt;Array&lt;{ date: string; active: number; expired: number }&gt;&gt; {
+    const userId &#x3D; req.user?.id;
+    const user &#x3D; await this.userRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+
+    if (!user) return [];
+
+    const raw &#x3D; await this.userRepository.manager
+      .getRepository(LicenseEntity)
+      .createQueryBuilder(&quot;license&quot;)
+      .select(&quot;TO_CHAR(license.createdAt, &#x27;YYYY-MM&#x27;)&quot;, &quot;date&quot;)
+      .addSelect(&quot;SUM(CASE WHEN license.validUntil &gt; NOW() THEN 1 ELSE 0 END)&quot;, &quot;active&quot;)
+      .addSelect(&quot;SUM(CASE WHEN license.validUntil &lt;&#x3D; NOW() THEN 1 ELSE 0 END)&quot;, &quot;expired&quot;)
+      .where(&quot;license.userId &#x3D; :uuid&quot;, { uuid: user.uuid })
+      .groupBy(&quot;date&quot;)
+      .orderBy(&quot;date&quot;, &quot;ASC&quot;)
+      .getRawMany();
+    return raw.map((item: any) &#x3D;&gt; ({
+      date: item.date,
+      active: Number(item.active),
+      expired: Number(item.expired),
+    })) as Array&lt;{ date: string; active: number; expired: number }&gt;;
+  }
+
+  /**
+   * Retrieves a summary of license counts by type.
+   *
+   * @returns {Promise&lt;{ total: number; basic: number; premium: number; enterprise: number }&gt;}
+   * An object containing total, basic, premium, and enterprise license counts.
+   *
+   * @example
+   * fetch(&#x27;/dashboard/utils/license-summary&#x27;)
+   *   .then(res &#x3D;&gt; res.json())
+   *   .then(summary &#x3D;&gt; {
+   *     console.log(summary);
+   *     // { total: 100, basic: 50, premium: 30, enterprise: 20 }
+   *   });
+   */
+  @Get(&quot;license-summary&quot;)
+  @UseGuards(AuthenticatedGuard)
+  @ApiExcludeEndpoint()
+  async getLicenseSummary(@Req() req: any) {
+    const userId &#x3D; req.user?.id;
+    const user &#x3D; await this.userRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+
+    if (!user) return [];
+
+    const repo &#x3D; this.userRepository.manager.getRepository(LicenseEntity);
+    const [basic, premium, enterprise, total] &#x3D; await Promise.all([
+      repo.count({ where: { type: LicenseType.BASIC, userId: user.uuid } }),
+      repo.count({ where: { type: LicenseType.PREMIUM, userId: user.uuid } }),
+      repo.count({ where: { type: LicenseType.ENTERPRISE, userId: user.uuid } }),
+      repo.count(),
+    ]);
+    return { total, basic, premium, enterprise };
+  }
+
+  /**
+   * Creates a new notification in the system.
+   *
+   * This endpoint allows the creation of dashboard notifications, which can be used to inform users
+   * about important events, updates, or alerts. The notification will expire at the specified date.
+   *
+   * @param body - The notification data, including message, type, and expiration date.
+   * @returns {Promise&lt;NotificationEntity&gt;} The created notification entity.
+   *
+   * @throws {HttpException} If the notification data is invalid.
+   *
+   * @example
+   * // Request body:
+   * // { &quot;message&quot;: &quot;System maintenance at midnight&quot;, &quot;type&quot;: &quot;warning&quot;, &quot;expiresAt&quot;: &quot;2024-06-30T23:59:59Z&quot; }
+   * fetch(&#x27;/dashboard/utils/create-notification&#x27;, {
+   *   method: &#x27;POST&#x27;,
+   *   headers: { &#x27;Content-Type&#x27;: &#x27;application/json&#x27; },
+   *   body: JSON.stringify({ message: &#x27;System maintenance at midnight&#x27;, type: &#x27;warning&#x27;, expiresAt: &#x27;2024-06-30T23:59:59Z&#x27; })
+   * })
+   *   .then(res &#x3D;&gt; res.json())
+   *   .then(notification &#x3D;&gt; {
+   *     console.log(notification);
+   *   });
+   *
+   * @see {@link https://docs.nestjs.com/controllers NestJS Controllers Documentation}
+   * @see {@link NotificationEntity}
+   */
+  @Post(&quot;create-notification&quot;)
+  @ApiExcludeEndpoint()
+  async create(@Body() body: { message: string; type: string; expiresAt: string }): Promise&lt;NotificationEntity&gt; {
+    const repo &#x3D; this.userRepository.manager.getRepository(NotificationEntity);
+    const expiresAt &#x3D; new Date(body.expiresAt);
+    const validation &#x3D; isValidNotification.safeParse({
+      ...body,
+      expiresAt: expiresAt,
+    });
+
+    if (!validation.success) {
+      this.logger.error(&quot;Validation failed for create notification&quot;, validation.error);
+      throw new HttpException(validation.error.message, HttpStatus.BAD_REQUEST);
+    }
+
+    const notification &#x3D; repo.create({
+      message: body.message,
+      type: body.type || &quot;info&quot;,
+      expiresAt: expiresAt,
+    });
+
+    if (!notification) {
+      this.logger.error(&quot;Failed to create notification: Invalid data&quot;);
+      throw new HttpException(&quot;Invalid notification data&quot;, HttpStatus.BAD_REQUEST);
+    }
+
+    await repo.save(notification);
+    return notification;
+  }
+
+  /**
+   * Retrieves the latest active notifications.
+   *
+   * This endpoint returns up to 3 notifications that are either not expired or have no expiration date.
+   * Notifications are ordered by creation date, descending.
+   *
+   * @returns {Promise&lt;NotificationEntity[]&gt;} Array of notification entities.
+   *
+   * @example
+   * fetch(&#x27;/dashboard/utils/get-notifications&#x27;)
+   *   .then(res &#x3D;&gt; res.json())
+   *   .then(notifications &#x3D;&gt; {
+   *     notifications.forEach(n &#x3D;&gt; console.log(n.message));
+   *   });
+   *
+   * @see {@link NotificationEntity}
+   */
+  @Get(&quot;get-notifications&quot;)
+  @ApiExcludeEndpoint()
+  async getNotifications(): Promise&lt;NotificationEntity[]&gt; {
+    const repo &#x3D; this.userRepository.manager.getRepository(NotificationEntity);
+    const now &#x3D; new Date();
+    const notifications &#x3D; await repo.find({
+      where: [{ expiresAt: undefined }, { expiresAt: MoreThan(now) }],
+      order: { createdAt: &quot;DESC&quot; },
+      take: 3,
+    });
+    return notifications;
+  }
+
+  /**
+   * Purges expired notifications from the database.
+   *
+   * This method is scheduled to run daily at midnight using a cron job.
+   * It deletes all notifications whose expiration date is in the past.
+   *
+   * @returns {Promise&lt;{ deleted: number; message: string }&gt;} Object with the number of deleted notifications and a status message.
+   *
+   * @example
+   * // This method is not exposed as an endpoint, but runs automatically.
+   * // See: https://docs.nestjs.com/techniques/task-scheduling
+   */
+  @Cron(&quot;0 0 * * *&quot;)
+  async purgeExpiredNotifications(): Promise&lt;{ deleted: number; message: string }&gt; {
+    const repo &#x3D; this.userRepository.manager.getRepository(NotificationEntity);
+    const now &#x3D; new Date();
+    const expiredNotifications &#x3D; await repo.find({
+      where: {
+        expiresAt: LessThan(now),
+      },
+    });
+
+    if (expiredNotifications.length &#x3D;&#x3D;&#x3D; 0) {
+      return { deleted: 0, message: &quot;No expired notifications found.&quot; };
+    }
+
+    for (const notification of expiredNotifications) {
+      await repo.remove(notification);
+    }
+
+    return { deleted: expiredNotifications.length, message: &quot;Expired notifications have been deleted.&quot; };
+  }
+
+  /**
+   * Create a new support ticket for the authenticated user.
+   */
+  @Post(&quot;tickets/create&quot;)
+  @ApiExcludeEndpoint()
+  @UseGuards(AuthenticatedGuard)
+  async createTicket(
+    @Req() req: any,
+    @Body()
+    body: Partial&lt;TicketCreate&gt;,
+  ) {
+    const userId &#x3D; req.user?.id;
+    const user &#x3D; await this.userRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+    if (!user) throw new HttpException(&quot;User not found&quot;, HttpStatus.NOT_FOUND);
+
+    const ticketRepo &#x3D; this.userRepository.manager.getRepository(TicketEntity);
+    const isValidPriority &#x3D; body.priority as TicketPriority;
+    const ticket &#x3D; ticketRepo.create({
+      uuid: randomUUID(),
+      userId: user.uuid,
+      title: body.title,
+      description: body.description,
+      category: body.category,
+      priority: isValidPriority || &quot;low&quot;,
+      links: body.links,
+      attachments: body.attachments,
+      fields: body.fields,
+      status: &quot;open&quot;,
+    });
+    await ticketRepo.save(ticket);
+
+    user.tickets &#x3D; Array.isArray(user.tickets) ? user.tickets : [];
+    user.tickets.push({
+      id: ticket.id,
+      uuid: ticket.uuid,
+      title: ticket.title,
+      status: ticket.status,
+      priority: ticket.priority,
+      category: ticket.category,
+      createdAt: ticket.createdAt,
+      updatedAt: ticket.updatedAt,
+    });
+    await this.userRepository.save(user);
+
+    return { success: true, ticket };
+  }
+
+  /**
+   * Advanced search for tickets with multiple filters.
+   * Permite buscar tickets por userId, assignedTo, tags, keywords, date ranges, attachment types, etc.
+   */
+  @Post(&quot;tickets/search&quot;)
+  @ApiExcludeEndpoint()
+  @UseGuards(AuthenticatedGuard)
+  async searchTickets(
+    @Req() _req: any,
+    @Body()
+    body: Partial&lt;TicketSearch&gt;,
+  ) {
+    const qb &#x3D; this.userRepository.manager.getRepository(TicketEntity).createQueryBuilder(&quot;ticket&quot;);
+
+    // Filtros básicos
+    //if (body.userId) qb.andWhere(&quot;ticket.userId &#x3D; :userId&quot;, { userId: body.userId });
+    if (body.assignedTo) qb.andWhere(&quot;ticket.assignedTo &#x3D; :assignedTo&quot;, { assignedTo: body.assignedTo });
+    if (body.category) qb.andWhere(&quot;ticket.category &#x3D; :category&quot;, { category: body.category });
+    if (body.status) qb.andWhere(&quot;ticket.status &#x3D; :status&quot;, { status: body.status });
+    if (body.customStatus) qb.andWhere(&quot;ticket.customStatus &#x3D; :customStatus&quot;, { customStatus: body.customStatus });
+
+    // Tags (array contiene al menos uno de los tags buscados)
+    if (body.tags &amp;&amp; body.tags.length &gt; 0) {
+      qb.andWhere(
+        body.tags.map((_, i) &#x3D;&gt; &#x60;ticket.tags LIKE :tag${i}&#x60;).join(&quot; OR &quot;),
+        Object.fromEntries(body.tags.map((tag, i) &#x3D;&gt; [&#x60;tag${i}&#x60;, &#x60;%${tag}%&#x60;])),
+      );
+    }
+
+    // Keywords en título o descripción
+    if (body.keywords) {
+      qb.andWhere(&quot;(ticket.title ILIKE :kw OR ticket.description ILIKE :kw)&quot;, { kw: &#x60;%${body.keywords}%&#x60; });
+    }
+
+    // Rango de fechas
+    if (body.dateFrom) qb.andWhere(&quot;ticket.createdAt &gt;&#x3D; :dateFrom&quot;, { dateFrom: body.dateFrom });
+    if (body.dateTo) qb.andWhere(&quot;ticket.createdAt &lt;&#x3D; :dateTo&quot;, { dateTo: body.dateTo });
+
+    // Attachment types (busca por extensión en attachments)
+    if (body.attachmentTypes &amp;&amp; body.attachmentTypes.length &gt; 0) {
+      qb.andWhere(
+        body.attachmentTypes.map((_ext, i) &#x3D;&gt; &#x60;ticket.attachments LIKE :att${i}&#x60;).join(&quot; OR &quot;),
+        Object.fromEntries(body.attachmentTypes.map((ext, i) &#x3D;&gt; [&#x60;att${i}&#x60;, &#x60;%.${ext}%&#x60;])),
+      );
+    }
+
+    qb.orderBy(&quot;ticket.createdAt&quot;, &quot;DESC&quot;);
+    const tickets &#x3D; await qb.getMany();
+    return { tickets };
+  }
+
+  /**
+   * Edits a ticket with new data.
+   * Allows updating assignment, tags, custom status, and logs changes in history.
+   *
+   * @param body - The ticket update data.
+   * @returns {Promise&lt;{success: boolean, message: string, data: TicketEntity | null}&gt;}
+   */
+  @Post(&quot;tickets/edit&quot;)
+  @ApiExcludeEndpoint()
+  @UseGuards(AuthenticatedGuard)
+  async editTicketAdmin(
+    @Body()
+    body: Partial&lt;TicketEdit&gt;,
+  ): Promise&lt;{ success: boolean; message: string; data: TicketEntity | null }&gt; {
+    const ticketRepo &#x3D; this.userRepository.manager.getRepository(TicketEntity);
+    const ticket &#x3D; await ticketRepo.findOne({ where: { uuid: body.ticketUuid } });
+    if (!ticket) {
+      return { success: false, message: &quot;Ticket not found&quot;, data: null };
+    }
+
+    // Track changes for history
+    const changes: Record&lt;string, any&gt; &#x3D; {};
+    const updatableFields &#x3D; [
+      &quot;title&quot;,
+      &quot;description&quot;,
+      &quot;status&quot;,
+      &quot;priority&quot;,
+      &quot;category&quot;,
+      &quot;links&quot;,
+      &quot;attachments&quot;,
+      &quot;fields&quot;,
+      &quot;tags&quot;,
+      &quot;assignedTo&quot;,
+      &quot;customStatus&quot;,
+    ];
+    updatableFields.forEach((field) &#x3D;&gt; {
+      if (
+        (body as Record&lt;string, any&gt;)[field] !&#x3D;&#x3D; undefined &amp;&amp;
+        (ticket as Record&lt;string, any&gt;)[field] !&#x3D;&#x3D; (body as Record&lt;string, any&gt;)[field]
+      ) {
+        changes[field] &#x3D; { from: (ticket as Record&lt;string, any&gt;)[field], to: (body as Record&lt;string, any&gt;)[field] };
+        (ticket as Record&lt;string, any&gt;)[field] &#x3D; (body as Record&lt;string, any&gt;)[field];
+      }
+    });
+
+    // Actualiza history
+    if (!ticket.history) ticket.history &#x3D; [];
+    if (Object.keys(changes).length &gt; 0) {
+      ticket.history.push({
+        action: &quot;edit&quot;,
+        userId: body.userId,
+        timestamp: new Date().toISOString(),
+        details: changes,
+      });
+    }
+
+    await ticketRepo.save(ticket);
+    return { success: true, message: &quot;Ticket updated successfully&quot;, data: ticket };
+  }
+
+  /**
+   * Delete a ticket (only if owner).
+   */
+  @Post(&quot;tickets/delete&quot;)
+  @ApiExcludeEndpoint()
+  @UseGuards(AuthenticatedGuard)
+  async deleteTicket(@Req() req: any, @Body(&quot;id&quot;) id: string) {
+    const userId &#x3D; req.user?.id;
+    const user &#x3D; await this.userRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+    if (!user) throw new HttpException(&quot;User not found&quot;, HttpStatus.NOT_FOUND);
+
+    const ticketRepo &#x3D; this.userRepository.manager.getRepository(TicketEntity);
+    const ticket &#x3D; await ticketRepo.findOne({ where: { id, userId: user.uuid } });
+    if (!ticket) throw new HttpException(&quot;Ticket not found&quot;, HttpStatus.NOT_FOUND);
+
+    await ticketRepo.remove(ticket);
+    user.tickets &#x3D; Array.isArray(user.tickets) ? user.tickets : [];
+    user.tickets &#x3D; user.tickets.filter((t) &#x3D;&gt; t.id !&#x3D;&#x3D; id);
+    await this.userRepository.save(user);
+
+    return { success: true, deleted: true };
+  }
+
+  /**
+   * Send a message to a ticket chat.
+   * Adds a message to the ticket&#x27;s messages array.
+   * Attachments are not implemented in this example.
+   */
+  @Post(&quot;tickets/messages/send&quot;)
+  @ApiExcludeEndpoint()
+  @UseGuards(AuthenticatedGuard)
+  async sendTicketMessage(@Req() req: any, @Body() body: { ticketId: string; message: string }) {
+    const userId &#x3D; req.user?.id;
+    const user &#x3D; await this.userRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+    if (!user) throw new HttpException(&quot;User not found&quot;, HttpStatus.NOT_FOUND);
+
+    const ticketRepo &#x3D; this.userRepository.manager.getRepository(TicketEntity);
+    const ticket &#x3D; await ticketRepo.findOne({ where: { id: body.ticketId, userId: user.uuid } });
+    if (!ticket) throw new HttpException(&quot;Ticket not found&quot;, HttpStatus.NOT_FOUND);
+
+    // Message to add
+    const newMsg &#x3D; {
+      id: Math.random().toString(36).slice(2, 10),
+      user: {
+        id: user.uuid,
+        discordId: user.discordInfo?.id || &quot;&quot;,
+        name: user.name || user.discordInfo?.username || &quot;User&quot;,
+        avatar: req.user.avatar || user.discordInfo?.avatar || &quot;&quot;,
+        role: user.role || &quot;User&quot;,
+        roleColor: &quot;#43b581&quot;,
+      },
+      message: body.message,
+      createdAt: new Date().toLocaleString(),
+      attachments: [],
+    };
+
+    // Initialize messages array if not present
+    ticket.messages &#x3D; Array.isArray(ticket.messages) ? ticket.messages : [];
+    ticket.messages.push(newMsg);
+
+    await ticketRepo.save(ticket);
+
+    return { success: true, message: &quot;Message sent.&quot;, msg: newMsg };
+  }
+
+  /**
+   * Send a message to a ticket chat (Admin).
+   * Adds a message to the ticket&#x27;s messages array, accessible by admin.
+   * Attachments are not implemented in this example.
+   */
+  @Post(&quot;tickets/messages/send-admin&quot;)
+  @ApiExcludeEndpoint()
+  @UseGuards(AuthenticatedGuard)
+  async sendTicketMessageAdmin(@Body() body: { ticketUuid: string; message: string; userId: string }) {
+    const ticketRepo &#x3D; this.userRepository.manager.getRepository(TicketEntity);
+    const ticket &#x3D; await ticketRepo.findOne({ where: { uuid: body.ticketUuid } });
+    if (!ticket) throw new HttpException(&quot;Ticket not found&quot;, HttpStatus.NOT_FOUND);
+
+    const user &#x3D; await this.userRepository.findOne({ where: { uuid: ticket.userId } });
+    if (!user) throw new HttpException(&quot;User not found&quot;, HttpStatus.NOT_FOUND);
+    const newMsg &#x3D; {
+      id: Math.random().toString(36).slice(2, 10),
+      user: {
+        id: user.uuid,
+        discordId: user.discordInfo?.id || &quot;&quot;,
+        name: &quot;Admin&quot;,
+        avatar: user.discordInfo?.avatar || &quot;&quot;, // Admin avatar si es necesario
+        role: &quot;Admin&quot;,
+        roleColor: &quot;#f04747&quot;,
+      },
+      message: body.message,
+      createdAt: new Date().toLocaleString(),
+      attachments: [],
+    };
+
+    // Initialize messages array if not present
+    ticket.messages &#x3D; Array.isArray(ticket.messages) ? ticket.messages : [];
+    ticket.messages.push(newMsg);
+
+    await ticketRepo.save(ticket);
+
+    return { success: true, message: &quot;Message sent.&quot;, msg: newMsg };
+  }
+
+  /**
+   * Get all messages for a ticket.
+   * Returns the messages array for the given ticket.
+   */
+  @Get(&quot;tickets/messages/:ticketId&quot;)
+  @ApiExcludeEndpoint()
+  @UseGuards(AuthenticatedGuard)
+  async getTicketMessages(@Req() req: any, @Body() _body: any, @Param(&quot;ticketId&quot;) ticketId: string) {
+    const userId &#x3D; req.user?.id;
+    const user &#x3D; await this.userRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+    if (!user) throw new HttpException(&quot;User not found&quot;, HttpStatus.NOT_FOUND);
+
+    const ticketRepo &#x3D; this.userRepository.manager.getRepository(TicketEntity);
+    const ticket &#x3D; await ticketRepo.findOne({ where: { id: ticketId, userId: user.uuid } });
+    if (!ticket) throw new HttpException(&quot;Ticket not found&quot;, HttpStatus.NOT_FOUND);
+
+    return { messages: Array.isArray(ticket.messages) ? ticket.messages : [], userId };
+  }
+
+  /**
+   * Get all messages for a ticket (Admin).
+   * Returns the messages array for the given ticket, accessible by admin.
+   */
+  @Get(&quot;tickets/messages-admin/:ticketUuid&quot;)
+  @ApiExcludeEndpoint()
+  @UseGuards(AuthenticatedGuard)
+  async getTicketMessagesAdmin(@Param(&quot;ticketUuid&quot;) ticketUuid: string) {
+    const ticketRepo &#x3D; this.userRepository.manager.getRepository(TicketEntity);
+    const ticket &#x3D; await ticketRepo.findOne({ where: { uuid: ticketUuid } });
+    if (!ticket) throw new HttpException(&quot;Ticket not found&quot;, HttpStatus.NOT_FOUND);
+
+    const user &#x3D; await this.userRepository.findOne({ where: { uuid: ticket.userId } });
+    if (!user) throw new HttpException(&quot;User not found&quot;, HttpStatus.NOT_FOUND);
+    return {
+      messages: Array.isArray(ticket.messages) ? ticket.messages : [],
+      avatarUrl: &#x60;https://cdn.discordapp.com/avatars/${user.discordInfo?.id}/${user.discordInfo?.avatar}.png&#x60;,
+    };
+  }
+
+  @Get(&quot;tickets/history/:ticketUuid&quot;)
+  @ApiExcludeEndpoint()
+  @UseGuards(AuthenticatedGuard)
+  async getTicketHistoryAdmin(@Param(&quot;ticketUuid&quot;) ticketUuid: string) {
+    const ticketRepo &#x3D; this.userRepository.manager.getRepository(TicketEntity);
+    const ticket &#x3D; await ticketRepo.findOne({ where: { uuid: ticketUuid } });
+    if (!ticket) throw new HttpException(&quot;Ticket not found&quot;, HttpStatus.NOT_FOUND);
+
+    return { history: Array.isArray(ticket.history) ? ticket.history : [] };
+  }
+
+  /**
+   * Export tickets and messages in PDF or CSV format.
+   *
+   * This endpoint allows exporting tickets with their messages in either CSV or PDF format.
+   * It accepts advanced filters similar to &#x60;/tickets/search&#x60; and a format specifier (&quot;pdf&quot; or &quot;csv&quot;).
+   *
+   * @param _req - The request object (not used).
+   * @param body - The export options, including format and filters.
+   * @returns {Promise&lt;{ filename: string; contentType: string; data: string }&gt;} The exported file data.
+   *
+   * @example
+   * // Export tickets as CSV:
+   * fetch(&#x27;/dashboard/utils/tickets/export&#x27;, {
+   *   method: &#x27;POST&#x27;,
+   *   headers: { &#x27;Content-Type&#x27;: &#x27;application/json&#x27; },
+   *   body: JSON.stringify({ format: &#x27;csv&#x27;, filters: { status: &#x27;open&#x27; } })
+   * })
+   *   .then(res &#x3D;&gt; res.json())
+   *   .then(file &#x3D;&gt; {
+   *     // file.filename, file.contentType, file.data
+   *   });
+   *
+   * @see {@link https://docs.nestjs.com/controllers NestJS Controllers Documentation}
+   * @see {@link https://typeorm.io/#/select-query-builder TypeORM QueryBuilder}
+   */
+  @Post(&quot;tickets/export&quot;)
+  @ApiExcludeEndpoint()
+  @UseGuards(AuthenticatedGuard)
+  async exportTickets(
+    @Req() _req: any,
+    @Body()
+    body: {
+      format: &quot;pdf&quot; | &quot;csv&quot;;
+      filters?: Partial&lt;TicketExportFilters&gt;;
+    },
+  ) {
+    // Reutiliza la lógica de búsqueda avanzada
+    const qb &#x3D; this.userRepository.manager.getRepository(TicketEntity).createQueryBuilder(&quot;ticket&quot;);
+    const filters &#x3D; body.filters || {};
+
+    if (filters.userId) qb.andWhere(&quot;ticket.userId &#x3D; :userId&quot;, { userId: filters.userId });
+    if (filters.assignedTo) qb.andWhere(&quot;ticket.assignedTo &#x3D; :assignedTo&quot;, { assignedTo: filters.assignedTo });
+    if (filters.category) qb.andWhere(&quot;ticket.category &#x3D; :category&quot;, { category: filters.category });
+    if (filters.status) qb.andWhere(&quot;ticket.status &#x3D; :status&quot;, { status: filters.status });
+    if (filters.customStatus) qb.andWhere(&quot;ticket.customStatus &#x3D; :customStatus&quot;, { customStatus: filters.customStatus });
+    if (filters.tags &amp;&amp; filters.tags.length &gt; 0) {
+      qb.andWhere(
+        filters.tags.map((_, i) &#x3D;&gt; &#x60;ticket.tags LIKE :tag${i}&#x60;).join(&quot; OR &quot;),
+        Object.fromEntries(filters.tags.map((tag, i) &#x3D;&gt; [&#x60;tag${i}&#x60;, &#x60;%${tag}%&#x60;])),
+      );
+    }
+    if (filters.keywords) {
+      qb.andWhere(&quot;(ticket.title ILIKE :kw OR ticket.description ILIKE :kw)&quot;, { kw: &#x60;%${filters.keywords}%&#x60; });
+    }
+    if (filters.dateFrom) qb.andWhere(&quot;ticket.createdAt &gt;&#x3D; :dateFrom&quot;, { dateFrom: filters.dateFrom });
+    if (filters.dateTo) qb.andWhere(&quot;ticket.createdAt &lt;&#x3D; :dateTo&quot;, { dateTo: filters.dateTo });
+    if (filters.uuid) qb.andWhere(&quot;ticket.uuid &#x3D; :ticketUuid&quot;, { ticketUuid: filters.uuid });
+
+    qb.orderBy(&quot;ticket.createdAt&quot;, &quot;DESC&quot;);
+    const tickets &#x3D; await qb.getMany();
+
+    // Generates a simple CSV export of tickets.
+    // The header defines the exported columns.
+    if (body.format &#x3D;&#x3D;&#x3D; &quot;csv&quot;) {
+      const header &#x3D; [
+        &quot;id&quot;,
+        &quot;userId&quot;,
+        &quot;title&quot;,
+        &quot;description&quot;,
+        &quot;status&quot;,
+        &quot;priority&quot;,
+        &quot;category&quot;,
+        &quot;tags&quot;,
+        &quot;assignedTo&quot;,
+        &quot;customStatus&quot;,
+        &quot;createdAt&quot;,
+        &quot;updatedAt&quot;,
+      ];
+      // Maps each ticket to a CSV row.
+      const rows &#x3D; tickets.map((t) &#x3D;&gt;
+        header
+          .map((h) &#x3D;&gt; {
+            switch (h) {
+              case &quot;id&quot;:
+                return t.id ?? &quot;&quot;;
+              case &quot;userId&quot;:
+                return t.userId ?? &quot;&quot;;
+              case &quot;title&quot;:
+                return t.title ?? &quot;&quot;;
+              case &quot;description&quot;:
+                return t.description ?? &quot;&quot;;
+              case &quot;status&quot;:
+                return t.status ?? &quot;&quot;;
+              case &quot;priority&quot;:
+                return t.priority ?? &quot;&quot;;
+              case &quot;category&quot;:
+                return t.category ?? &quot;&quot;;
+              case &quot;tags&quot;:
+                return Array.isArray(t.tags) ? t.tags.join(&quot;|&quot;) : &quot;&quot;;
+              case &quot;assignedTo&quot;:
+                return t.assignedTo ?? &quot;&quot;;
+              case &quot;customStatus&quot;:
+                return t.customStatus ?? &quot;&quot;;
+              case &quot;createdAt&quot;:
+                return t.createdAt ? (t.createdAt.toISOString?.() ?? t.createdAt) : &quot;&quot;;
+              case &quot;updatedAt&quot;:
+                return t.updatedAt ? (t.updatedAt.toISOString?.() ?? t.updatedAt) : &quot;&quot;;
+              default:
+                return &quot;&quot;;
+            }
+          })
+          .join(&quot;,&quot;),
+      );
+      const csv &#x3D; [header.join(&quot;,&quot;), ...rows].join(&quot;\n&quot;);
+      return {
+        filename: &#x60;tickets_export_${Date.now()}.csv&#x60;,
+        contentType: &quot;text/csv&quot;,
+        data: csv,
+      };
+    }
+
+    /**
+     * Generates a simple PDF export of tickets.
+     * Note: This implementation returns plain text for demonstration purposes.
+     * In production, use a library such as [pdfkit](https://github.com/foliojs/pdfkit) to generate a real PDF buffer.
+     *
+     * @example
+     * // Export tickets as PDF:
+     * fetch(&#x27;/dashboard/utils/tickets/export&#x27;, {
+     *   method: &#x27;POST&#x27;,
+     *   headers: { &#x27;Content-Type&#x27;: &#x27;application/json&#x27; },
+     *   body: JSON.stringify({ format: &#x27;pdf&#x27;, filters: { status: &#x27;open&#x27; } })
+     * })
+     *   .then(res &#x3D;&gt; res.json())
+     *   .then(file &#x3D;&gt; {
+     *     // file.filename, file.contentType, file.data
+     *   });
+     */
+    if (body.format &#x3D;&#x3D;&#x3D; &quot;pdf&quot;) {
+      const pdfText &#x3D; tickets
+        .map(
+          (t) &#x3D;&gt;
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+            &#x60;Ticket: ${t.title}\nID: ${t.id}\nUser: ${t.userId}\nStatus: ${t.status}\nPriority: ${t.priority}\nCategory: ${t.category}\nTags: ${(t.tags ?? []).join(&quot;, &quot;)}\nAssigned: ${t.assignedTo}\nCustomStatus: ${t.customStatus}\nCreated: ${t.createdAt}\nUpdated: ${t.updatedAt}\n---\n&#x60;,
+        )
+        .join(&quot;\n&quot;);
+      return {
+        filename: &#x60;tickets_export_${Date.now()}.pdf&#x60;,
+        contentType: &quot;application/pdf&quot;,
+        data: pdfText, // In production, return a real PDF buffer.
+      };
+    }
+
+    throw new HttpException(&quot;Unsupported format&quot;, HttpStatus.BAD_REQUEST);
+  }
+
+  /**
+   * Checks if the user is an admin.
+   *
+   * This endpoint verifies if the authenticated user has an admin role.
+   * If not, it redirects to the logout page.
+   *
+   * @param req - The request object containing user information.
+   * @param res - The response object for redirection if not an admin.
+   * @returns {Promise&lt;boolean&gt;} True if the user is an admin, false otherwise.
+   *
+   * @example
+   * fetch(&#x27;/dashboard/utils/is-admin&#x27;)
+   *   .then(res &#x3D;&gt; res.json())
+   *   .then(isAdmin &#x3D;&gt; {
+   *     if (isAdmin) {
+   *       // User is admin
+   *     } else {
+   *       // User is not admin
+   *     }
+   *   });
+   *
+   * @see {@link https://docs.nestjs.com/controllers NestJS Controllers Documentation}
+   */
+  @Get(&quot;is-admin&quot;)
+  @ApiExcludeEndpoint()
+  async isAdminUser(@Req() req: RequestClient, @Res() res: Response) {
+    const userId &#x3D; req.user.id;
+    const user &#x3D; await this.userRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+
+    if (!user) {
+      this.logger.warn(&#x60;User with ID ${userId} not found&#x60;);
+      res.redirect(&quot;/dashboard/logout&quot;);
+      return false;
+    }
+
+    if (!user.role || !RolesAdmin.includes(user.role)) {
+      this.logger.warn(&#x60;User with ID ${userId} does not have a valid role&#x60;);
+      res.redirect(&quot;/dashboard/logout&quot;);
+      return false;
+    }
+
+    this.logger.log(&#x60;User with ID ${userId} is an admin&#x60;);
+    return true;
+  }
+
+  /**
+   * Creates a new license in the system.
+   *
+   * This endpoint allows admins to create a new software license for a user.
+   * The payload must pass strict validation; errors are returned with clear messages.
+   *
+   * @param body - License creation data.
+   * @returns {Promise&lt;LicenseEntity&gt;} The created license entity.
+   *
+   * @throws {HttpException} If the payload is invalid or creation fails.
+   *
+   * @example
+   * fetch(&#x27;/dashboard/utils/create-license&#x27;, {
+   *   method: &#x27;POST&#x27;,
+   *   headers: { &#x27;Content-Type&#x27;: &#x27;application/json&#x27; },
+   *   body: JSON.stringify({
+   *     identifier: &quot;LIC-12345&quot;,
+   *     key: &quot;ABCDEF123456&quot;,
+   *     type: &quot;basic&quot;,
+   *     userId: &quot;user-001&quot;,
+   *     adminId: &quot;admin-001&quot;,
+   *     hwid: [&quot;HWID-001&quot;],
+   *     requestLimit: 1000,
+   *     validUntil: &quot;2025-01-01T00:00:00Z&quot;,
+   *     ips: [&quot;192.168.1.1&quot;],
+   *     maxIps: 5
+   *   })
+   * })
+   *   .then(res &#x3D;&gt; res.json())
+   *   .then(license &#x3D;&gt; console.log(license));
+   */
+  @Post(&quot;create-license&quot;)
+  @UseGuards(AuthenticatedGuard)
+  @ApiExcludeEndpoint()
+  async createLicense(@Body() body: any): Promise&lt;LicenseEntity&gt; {
+    // Validate payload
+    const validation &#x3D; LicenceCreateSchema.safeParse(body);
+    if (!validation.success) {
+      this.logger.error(&quot;License creation validation failed&quot;, validation.error);
+      throw new HttpException(&#x60;License creation failed: ${validation.error.message}&#x60;, HttpStatus.BAD_REQUEST);
+    }
+
+    const repo &#x3D; this.userRepository.manager.getRepository(LicenseEntity);
+
+    const existing &#x3D; await repo.findOne({
+      where: [{ key: validation.data.key }, { identifier: validation.data.identifier }],
+    });
+    if (existing) {
+      this.logger.warn(&quot;License key or identifier already exists&quot;);
+      throw new HttpException(&quot;License key or identifier already exists.&quot;, HttpStatus.CONFLICT);
+    }
+
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+      const license &#x3D; repo.create(validation.data as LicenceCreateType);
+      await repo.save(license);
+
+      const user &#x3D; await this.userRepository.findOne({ where: { uuid: body.userId } });
+      if (user) {
+        if (!user.licenses) user.licenses &#x3D; [];
+        user.licenses.push(license);
+        await this.userRepository.save(user);
+      }
+
+      this.logger.log(&#x60;License created successfully for user ${validation.data.userId}&#x60;);
+      return license;
+    } catch (err: any) {
+      this.logger.error(&quot;Failed to create license&quot;, err);
+      throw new HttpException(
+        &quot;Failed to create license. Please check your data and try again.&quot;,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
+   * Endpoint para autocompletado de usuarios y admins en el dashboard.
+   * Devuelve un array de usuarios con uuid, name, role, email y discordInfo.
+   *
+   * @returns {Promise&lt;Array&lt;{ uuid: string; name: string; role: string; email: string; discordInfo: any }&gt;&gt;}
+   *
+   * @example
+   * fetch(&#x27;/dashboard/utils/all-users&#x27;)
+   *   .then(res &#x3D;&gt; res.json())
+   *   .then(users &#x3D;&gt; { ... });
+   */
+  @Get(&quot;all-users&quot;)
+  @ApiExcludeEndpoint()
+  async getAllUsers(): Promise&lt;Array&lt;{ uuid: string; name: string; role: string; email: string; discordInfo: any }&gt;&gt; {
+    const users &#x3D; await this.userRepository.find({
+      select: [&quot;uuid&quot;, &quot;name&quot;, &quot;role&quot;, &quot;email&quot;, &quot;discordInfo&quot;],
+      where: { deletedAt: IsNull() },
+      order: { name: &quot;ASC&quot; },
+    });
+    return users.map((u) &#x3D;&gt; ({
+      uuid: u.uuid,
+      name: u.name,
+      role: u.role,
+      email: u.email,
+      discordInfo: u.discordInfo,
+    }));
   }
 }
 </code></pre>

@@ -171,4 +171,10 @@ export class UserEntity extends BaseEntity {
   })
   @IsDate()
   deletedAt!: Date;
+
+  /**
+   * Array of tickets created by the user.
+   */
+  @Column("jsonb", { nullable: true })
+  tickets?: Record<string, any>[];
 }

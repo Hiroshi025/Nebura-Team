@@ -1,3 +1,4 @@
+import { UuidSchema } from "#adapters/schemas/shared/uuid.schema";
 /**
  * Controller for client-related endpoints.
  *
@@ -16,10 +17,14 @@
  * @see {@link https://docs.nestjs.com/guards NestJS Guards}
  */
 import { AuthGuard } from "#common/guards/auth.guard";
+import { ClientHeaderGuard } from "#common/guards/client-header.guard";
 import { ClientGuard } from "#common/guards/permissions/customer.guard";
 import { LicenseEntity } from "#entity/utils/licence.entity";
+import z from "zod";
 
-import { Controller, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
+import {
+	BadRequestException, Controller, Get, Param, Post, Query, UseGuards
+} from "@nestjs/common";
 import {
 	ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags
 } from "@nestjs/swagger";
@@ -32,7 +37,7 @@ import { ClientService } from "../client.service";
  * All routes are protected by authentication and role guards.
  * Only users with the CLIENT role can access these endpoints.
  */
-@UseGuards(AuthGuard, ClientGuard)
+@UseGuards(AuthGuard, ClientGuard, ClientHeaderGuard)
 @ApiTags("client")
 @ApiBearerAuth()
 @Controller({
@@ -62,6 +67,20 @@ export class ClientController {
   @ApiResponse({ status: 404, description: "No licenses found for user" })
   @ApiQuery({ name: "uuid", type: String, required: true, description: "UUID of the user" })
   async getLicenses(@Query("uuid") uuid: string) {
+    if (!uuid) {
+      throw new BadRequestException("UUID is required", {
+        cause: new Error("UUID is required"),
+        description: "UUID query parameter is missing",
+      });
+    }
+
+    const result = UuidSchema.safeParse(uuid);
+    if (!result.success)
+      throw new BadRequestException(result.error.message, {
+        cause: result.error.message,
+        description: "Invalid UUID format",
+      });
+
     return this.clientService.getLicenses(uuid);
   }
 
@@ -77,6 +96,24 @@ export class ClientController {
   @ApiResponse({ status: 404, description: "License not found" })
   @ApiParam({ name: "identifier", type: String, required: true, description: "Unique license identifier" })
   async getLicense(@Param("identifier") identifier: string) {
+    if (!identifier) {
+      throw new BadRequestException("Identifier is required", {
+        cause: new Error("Identifier is required"),
+        description: "License identifier path parameter is missing",
+      });
+    }
+
+    const isValidZod = z.object({
+      identifier: z.string().min(5, "Identifier must be at least 10 characters long"),
+    });
+
+    const result = isValidZod.safeParse({ identifier });
+    if (!result.success) {
+      throw new BadRequestException(result.error.message, {
+        cause: result.error.message,
+        description: "Invalid identifier format",
+      });
+    }
     return this.clientService.getLicenseByIdentifier(identifier);
   }
 
@@ -92,6 +129,24 @@ export class ClientController {
   @ApiResponse({ status: 404, description: "License not found" })
   @ApiParam({ name: "identifier", type: String, required: true, description: "Unique license identifier" })
   async resetLicenseIps(@Param("identifier") identifier: string) {
+    if (!identifier) {
+      throw new BadRequestException("Identifier is required", {
+        cause: new Error("Identifier is required"),
+        description: "License identifier path parameter is missing",
+      });
+    }
+
+    const isValidZod = z.object({
+      identifier: z.string().min(5, "Identifier must be at least 10 characters long"),
+    });
+
+    const result = isValidZod.safeParse({ identifier });
+    if (!result.success) {
+      throw new BadRequestException(result.error.message, {
+        cause: result.error.message,
+        description: "Invalid identifier format",
+      });
+    }
     return this.clientService.resetLicenseIps(identifier);
   }
 }

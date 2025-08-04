@@ -1,5 +1,6 @@
 import { Roles } from "#common/decorators/role.decorator";
 import { AuthGuard } from "#common/guards/auth.guard";
+import { ClientHeaderGuard } from "#common/guards/client-header.guard";
 import { RoleGuard } from "#common/guards/permissions/role.guard";
 import { UserRole } from "#common/typeRole";
 import { CreateIPBlockerDto } from "#routes/admin/dto/create-ip.dto";
@@ -23,7 +24,7 @@ import {
  * - All endpoints require a valid Bearer token for authentication.
  * - Intended for use by admin-level users.
  */
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
 @ApiBearerAuth()
 @ApiTags("admin")
 @Controller({

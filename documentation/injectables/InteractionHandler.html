@@ -162,11 +162,27 @@ It uses the @SlashCommand decorator to define a slash command that can be invoke
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#createNotification" >createNotification</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteNotification" >deleteNotification</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
                                 <a href="#linkAccount" >linkAccount</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
@@ -174,11 +190,27 @@ It uses the @SlashCommand decorator to define a slash command that can be invoke
                             </li>
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
                                 <a href="#showLicenses" >showLicenses</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#showMyLicences" >showMyLicences</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#showNotifications" >showNotifications</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
@@ -186,9 +218,15 @@ It uses the @SlashCommand decorator to define a slash command that can be invoke
                             </li>
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
                                 <a href="#showUserQr" >showUserQr</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#toUser" >toUser</a>
                             </li>
                         </ul>
                     </td>
@@ -213,7 +251,7 @@ It uses the @SlashCommand decorator to define a slash command that can be invoke
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/core/discord/interactions/interaction.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/core/discord/interactions/interaction.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -284,8 +322,189 @@ It uses the @SlashCommand decorator to define a slash command that can be invoke
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="createNotification"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>createNotification</b></span>
+                        <a href="#createNotification"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createNotification(undefined: SlashCommandContext, options: <a href="../classes/NotificationDto.html" target="_self">NotificationDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@SkipLogging()<br />@SlashCommand({name: &#x27;notify&#x27;, description: &#x27;(admin) Create a dashboard notification (developer/owner only).&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="391"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:391</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                        <code>SlashCommandContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>options</td>
+                                            <td>
+                                                            <code><a href="../classes/NotificationDto.html" target="_self" >NotificationDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteNotification"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteNotification</b></span>
+                        <a href="#deleteNotification"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteNotification(undefined: SlashCommandContext, options: <a href="../classes/DeleteNotificationDto.html" target="_self">DeleteNotificationDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@SkipLogging()<br />@SlashCommand({name: &#x27;delete_notification&#x27;, description: &#x27;(admin) Delete a dashboard notification by its ID (developer/owner only).&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="552"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:552</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                        <code>SlashCommandContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>options</td>
+                                            <td>
+                                                            <code><a href="../classes/DeleteNotificationDto.html" target="_self" >DeleteNotificationDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="linkAccount"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Public</span>
                             <span class="modifier">Async</span>
@@ -305,14 +524,14 @@ It uses the @SlashCommand decorator to define a slash command that can be invoke
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@SlashCommand({name: &#x27;link&#x27;, description: &#x27;Link your Discord account with your registered project account using your email.&#x27;, guilds: undefined, defaultMemberPermissions: undefined})<br /></code>
+                    <code>@SkipLogging()<br />@SlashCommand({name: &#x27;link&#x27;, description: &#x27;Link your Discord account with your registered project account using your email.&#x27;, guilds: undefined, defaultMemberPermissions: undefined})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="80"
-                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:80</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="125"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:125</a></div>
                         </td>
                     </tr>
 
@@ -379,6 +598,7 @@ Requests your email and saves Discord information to your project account.</p>
                     <a name="onAbout"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Public</span>
                             <span class="modifier">Async</span>
                         <span ><b>onAbout</b></span>
@@ -397,14 +617,14 @@ Requests your email and saves Discord information to your project account.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@SlashCommand({name: &#x27;about&#x27;, description: &#x27;Show information about the project.&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                    <code>@SkipLogging()<br />@SlashCommand({name: &#x27;about&#x27;, description: &#x27;Show information about the project.&#x27;, defaultMemberPermissions: undefined})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="49"
-                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:49</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:92</a></div>
                         </td>
                     </tr>
 
@@ -461,6 +681,7 @@ Requests your email and saves Discord information to your project account.</p>
                     <a name="showLicenses"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Public</span>
                             <span class="modifier">Async</span>
                         <span ><b>showLicenses</b></span>
@@ -479,14 +700,14 @@ Requests your email and saves Discord information to your project account.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@SlashCommand({name: &#x27;licenses&#x27;, description: &#x27;Show all your licenses registered in the system.&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                    <code>@SkipLogging()<br />@SlashCommand({name: &#x27;licenses&#x27;, description: &#x27;(admin) Show all your licenses registered in the system.&#x27;, defaultMemberPermissions: undefined})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="137"
-                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:137</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="187"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:187</a></div>
                         </td>
                     </tr>
 
@@ -537,8 +758,167 @@ Requests your email and saves Discord information to your project account.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="showMyLicences"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>showMyLicences</b></span>
+                        <a href="#showMyLicences"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>showMyLicences(undefined: SlashCommandContext)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@SkipLogging()<br />@SlashCommand({name: &#x27;mylicences&#x27;, description: &#x27;Show all your licenses registered in the system.&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="600"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:600</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Command to show only the current user&#39;s licenses with pagination.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                        <code>SlashCommandContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showNotifications"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>showNotifications</b></span>
+                        <a href="#showNotifications"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>showNotifications(undefined: SlashCommandContext)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@SkipLogging()<br />@SlashCommand({name: &#x27;notifications&#x27;, description: &#x27;(admin) Show all dashboard notifications.&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="478"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:478</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                        <code>SlashCommandContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="showProfile"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Public</span>
                             <span class="modifier">Async</span>
@@ -558,14 +938,14 @@ Requests your email and saves Discord information to your project account.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@SlashCommand({name: &#x27;profile&#x27;, description: &#x27;Show your linked profile information.&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                    <code>@SkipLogging()<br />@SlashCommand({name: &#x27;profile&#x27;, description: &#x27;Show your linked profile information.&#x27;, defaultMemberPermissions: undefined})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="227"
-                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:227</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="272"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:272</a></div>
                         </td>
                     </tr>
 
@@ -619,6 +999,7 @@ Requests your email and saves Discord information to your project account.</p>
                     <a name="showUserQr"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Public</span>
                             <span class="modifier">Async</span>
                         <span ><b>showUserQr</b></span>
@@ -637,14 +1018,14 @@ Requests your email and saves Discord information to your project account.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@SlashCommand({name: &#x27;userqr&#x27;, description: &#x27;Show your QR code if your Discord account is linked.&#x27;, defaultMemberPermissions: undefined})<br /></code>
+                    <code>@SkipLogging()<br />@SlashCommand({name: &#x27;userqr&#x27;, description: &#x27;Show your QR code if your Discord account is linked.&#x27;, defaultMemberPermissions: undefined})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="281"
-                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:281</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="310"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:310</a></div>
                         </td>
                     </tr>
 
@@ -669,6 +1050,100 @@ Requests your email and saves Discord information to your project account.</p>
                                         <tr>
                                             <td>
                                                         <code>SlashCommandContext</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toUser"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>toUser</b></span>
+                        <a href="#toUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>toUser(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, development: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, interaction: ChatInputCommandInteraction)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">src/core/discord/interactions/interaction.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>userId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>development</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>interaction</td>
+                                            <td>
+                                                        <code>ChatInputCommandInteraction</code>
                                             </td>
 
                                             <td>
@@ -717,7 +1192,7 @@ Requests your email and saves Discord information to your project account.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/core/discord/interactions/interaction.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/core/discord/interactions/interaction.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -733,8 +1208,10 @@ Requests your email and saves Discord information to your project account.</p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { SkipLogging } from &quot;#common/decorators/logging.decorator&quot;;
 import { UserRole } from &quot;#common/typeRole&quot;;
 import { UserEntity } from &quot;#entity/users/user.entity&quot;;
+import { LicenseEntity, LicenseType } from &quot;#entity/utils/licence.entity&quot;;
 import {
-	ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedData, PermissionFlagsBits
+	ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedData,
+	PermissionFlagsBits
 } from &quot;discord.js&quot;;
 import { Context, Options, SlashCommand, SlashCommandContext } from &quot;necord&quot;;
 import { Repository } from &quot;typeorm&quot;;
@@ -746,6 +1223,7 @@ import { SkipThrottle } from &quot;@nestjs/throttler&quot;;
 import { InjectRepository } from &quot;@nestjs/typeorm&quot;;
 
 import { TextDto } from &quot;./dto/email-request.dto&quot;;
+import { DeleteNotificationDto, NotificationDto } from &quot;./dto/notification.dto&quot;;
 
 /**
  * InteractionHandler class to manage Discord interactions.
@@ -764,6 +1242,46 @@ export class InteractionHandler {
     private readonly configService: ConfigService,
     private readonly paginationService: NecordPaginationService,
   ) {}
+
+  private async toUser(userId: string, development: boolean, interaction: ChatInputCommandInteraction) {
+    const user &#x3D; await this.authRepository
+      .createQueryBuilder(&quot;user&quot;)
+      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: userId })
+      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
+      .getOne();
+
+    if (!user) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;Profile Not Found&quot;,
+            description: &quot;**Description:** No profile linked to your Discord account was found.\n\n**Example:** &#x60;/notifications&#x60;&quot;,
+            color: 0xff0000,
+            footer: { text: &quot;Link your account first using /link.&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    if (development) {
+      if (![UserRole.DEVELOPER, UserRole.OWNER].includes(user.role)) {
+        return interaction.reply({
+          embeds: [
+            {
+              title: &quot;Permission Denied&quot;,
+              description: &quot;**Description:** Only developers and owners can use this command.\n\n**Example:** &#x60;/notifications&#x60;&quot;,
+              color: 0xff0000,
+              footer: { text: &quot;Contact an admin if you need access.&quot; },
+            },
+          ],
+          flags: &quot;Ephemeral&quot;,
+        });
+      }
+    }
+
+    return user;
+  }
   /**
    * Presents Nebura project information in an embed with buttons.
    *
@@ -772,6 +1290,7 @@ export class InteractionHandler {
    *
    * Example usage: /about
    */
+  @SkipLogging()
   @SlashCommand({
     name: &quot;about&quot;,
     description: &quot;Show information about the project.&quot;,
@@ -781,7 +1300,7 @@ export class InteractionHandler {
     const embed &#x3D; {
       title: &quot;Project Control&quot;,
       description:
-        &quot;A modular, extensible, and robust API platform integrating Discord, WhatsApp, GitHub, Google Gemini AI, and more.\n\nBuilt in TypeScript for scalability and maintainability.&quot;,
+        &quot;**Description:**\nA modular, extensible, and robust API platform integrating Discord, WhatsApp, GitHub, Google Gemini AI, and more.\n\nBuilt in TypeScript for scalability and maintainability.\n\n**Example:** &#x60;/about&#x60;&quot;,
       thumbnail: { url: &quot;https://i.pinimg.com/1200x/58/08/35/5808355cb825f18671975d00cbe10870.jpg&quot; },
       fields: [
         { name: &quot;Version&quot;, value: &quot;1.0.0&quot;, inline: true },
@@ -789,6 +1308,7 @@ export class InteractionHandler {
         { name: &quot;Author&quot;, value: &quot;[Hiroshi025](https://github.com/Hiroshi025)&quot;, inline: true },
       ],
       color: 0x5865f2,
+      footer: { text: &quot;Use /about to see this information.&quot; },
     };
 
     const row &#x3D; new ActionRowBuilder&lt;ButtonBuilder&gt;().addComponents(
@@ -802,6 +1322,7 @@ export class InteractionHandler {
    * Command to link your Discord account with your registered project account.
    * Requests your email and saves Discord information to your project account.
    */
+  @SkipLogging()
   @SlashCommand({
     name: &quot;link&quot;,
     description: &quot;Link your Discord account with your registered project account using your email.&quot;,
@@ -815,8 +1336,10 @@ export class InteractionHandler {
     if (!user) {
       const embed &#x3D; {
         title: &quot;Account Linking Failed&quot;,
-        description: &quot;No account registered with that email was found.&quot;,
+        description:
+          &quot;**Description:** No account registered with that email was found.\n\n**Example:** &#x60;/link email:your@email.com&#x60;&quot;,
         color: 0xff0000,
+        footer: { text: &quot;Try again with a valid email.&quot; },
       };
       return interaction.reply({
         embeds: [embed],
@@ -844,13 +1367,15 @@ export class InteractionHandler {
       embeds: [
         {
           title: &quot;Account Linked Successfully&quot;,
-          description: &quot;Your Discord account has been successfully linked to your project account!&quot;,
+          description:
+            &quot;**Description:** Your Discord account has been successfully linked to your project account!\n\n**Example:** &#x60;/link email:your@email.com&#x60;&quot;,
           fields: [
             { name: &quot;Email&quot;, value: email, inline: true },
             { name: &quot;Discord Username&quot;, value: discordUser.username, inline: true },
           ],
           color: 0x57f287,
           thumbnail: { url: discordUser.avatarURL?.() ?? &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
+          footer: { text: &quot;You can now use all features linked to your account.&quot; },
         },
       ],
       flags: &quot;Ephemeral&quot;,
@@ -860,40 +1385,28 @@ export class InteractionHandler {
   /**
    * Command to show all user licenses with pagination.
    */
+  @SkipLogging()
   @SlashCommand({
     name: &quot;licenses&quot;,
-    description: &quot;Show all your licenses registered in the system.&quot;,
+    description: &quot;(admin) Show all your licenses registered in the system.&quot;,
     defaultMemberPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks],
   })
   public async showLicenses(@Context() [interaction]: SlashCommandContext) {
     const discordUser &#x3D; interaction.user;
-    const user &#x3D; await this.authRepository
-      .createQueryBuilder(&quot;user&quot;)
-      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: discordUser.id })
-      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
-      .getOne();
+    await this.toUser(discordUser.id, true, interaction);
+    //if (!(userResult instanceof UserEntity)) return;
 
-    if (!user) {
-      return interaction.reply({
-        embeds: [
-          {
-            title: &quot;Licenses not found&quot;,
-            description: &quot;No profile linked to your Discord account was found.&quot;,
-            color: 0xff0000,
-          },
-        ],
-        flags: &quot;Ephemeral&quot;,
-      });
-    }
+    //const user: UserEntity &#x3D; userResult;
 
-    const licenses &#x3D; user.licenses ?? [];
+    const licenses &#x3D; await this.authRepository.manager.getRepository(LicenseEntity).find();
     if (licenses.length &#x3D;&#x3D;&#x3D; 0) {
       return interaction.reply({
         embeds: [
           {
-            title: &quot;No licenses&quot;,
-            description: &quot;You have no licenses registered in your account.&quot;,
+            title: &quot;No Licenses&quot;,
+            description: &quot;**Description:** You have no licenses registered in your account.\n\n**Example:** &#x60;/licenses&#x60;&quot;,
             color: 0xff0000,
+            footer: { text: &quot;Request a license from the admin.&quot; },
           },
         ],
         flags: &quot;Ephemeral&quot;,
@@ -901,8 +1414,9 @@ export class InteractionHandler {
     }
 
     const embeds: EmbedData[] &#x3D; licenses.map((lic, idx) &#x3D;&gt; ({
-      title: &#x60;🔑 License #${idx + 1} • ${lic.type &#x3D;&#x3D;&#x3D; &quot;premium&quot; ? &quot;🌟 Premium&quot; : lic.type &#x3D;&#x3D;&#x3D; &quot;basic&quot; ? &quot;🔹 Basic&quot; : &quot;🏢 Enterprise&quot;}&#x60;,
+      title: &#x60;🔑 License #${idx + 1} • ${lic.type &#x3D;&#x3D;&#x3D; LicenseType.PREMIUM ? &quot;🌟 Premium&quot; : lic.type &#x3D;&#x3D;&#x3D; LicenseType.BASIC ? &quot;🔹 Basic&quot; : &quot;🏢 Enterprise&quot;}&#x60;,
       description: [
+        &quot;**Description:** License details for your account.&quot;,
         &#x60;**ID:** \&#x60;${lic.id}\&#x60;&#x60;,
         &#x60;**Key:** \&#x60;${lic.key}\&#x60;&#x60;,
         &#x60;**Type:** \&#x60;${lic.type}\&#x60;&#x60;,
@@ -912,18 +1426,24 @@ export class InteractionHandler {
         &#x60;**Request limit:** \&#x60;${lic.requestLimit ?? &quot;N/A&quot;}\&#x60;&#x60;,
         &#x60;**Requests used:** \&#x60;${lic.requestCount ?? 0}\&#x60;&#x60;,
         &#x60;**Identifier:** \&#x60;${lic.identifier ?? &quot;N/A&quot;}\&#x60;&#x60;,
+        &quot;&quot;,
+        &quot;**Example:** &#x60;/licenses&#x60;&quot;,
       ].join(&quot;\n&quot;),
-      color: lic.type &#x3D;&#x3D;&#x3D; &quot;premium&quot; ? 0xf1c40f : lic.type &#x3D;&#x3D;&#x3D; &quot;basic&quot; ? 0x3498db : 0x8e44ad,
+      color: lic.type &#x3D;&#x3D;&#x3D; LicenseType.PREMIUM ? 0xf1c40f : lic.type &#x3D;&#x3D;&#x3D; LicenseType.BASIC ? 0x3498db : 0x8e44ad,
       fields: [
         {
-          name: &quot;Ips List&quot;,
+          name: &quot;IPs List&quot;,
           value:
-            lic.ips &amp;&amp; lic.ips.length ? lic.ips.map((ip: any, index: number) &#x3D;&gt; &#x60;No.${index + 1} \&#x60;${ip}\&#x60;&#x60;).join(&quot;\n&quot;) : &quot;N/A&quot;,
+            Array.isArray(lic.ips) &amp;&amp; lic.ips.length
+              ? lic.ips.map((ip: any, index: number) &#x3D;&gt; &#x60;No.${index + 1} \&#x60;${ip}\&#x60;&#x60;).join(&quot;\n&quot;)
+              : &quot;N/A&quot;,
         },
         {
-          name: &quot;Hwid List&quot;,
+          name: &quot;HWID List&quot;,
           value:
-            lic.hwid &amp;&amp; lic.hwid.length ? lic.hwid.map((h: any, index: number) &#x3D;&gt; &#x60;No.${index + 1} \&#x60;${h}\&#x60;&#x60;).join(&quot;\n&quot;) : &quot;N/A&quot;,
+            Array.isArray(lic.hwid) &amp;&amp; lic.hwid.length
+              ? lic.hwid.map((h: any, index: number) &#x3D;&gt; &#x60;No.${index + 1} \&#x60;${h}\&#x60;&#x60;).join(&quot;\n&quot;)
+              : &quot;N/A&quot;,
         },
       ],
       footer: { text: &#x60;License ${idx + 1} of ${licenses.length}&#x60; },
@@ -950,6 +1470,7 @@ export class InteractionHandler {
   /**
    * Command to show the user&#x27;s profile information.
    */
+  @SkipLogging()
   @SlashCommand({
     name: &quot;profile&quot;,
     description: &quot;Show your linked profile information.&quot;,
@@ -957,30 +1478,13 @@ export class InteractionHandler {
   })
   public async showProfile(@Context() [interaction]: SlashCommandContext) {
     const discordUser &#x3D; interaction.user;
-    const user &#x3D; await this.authRepository
-      .createQueryBuilder(&quot;user&quot;)
-      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: discordUser.id })
-      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
-      .getOne();
+    const userResult &#x3D; await this.toUser(discordUser.id, false, interaction);
+    if (!(userResult instanceof UserEntity)) return;
 
-    if (!user) {
-      return interaction.reply({
-        embeds: [
-          {
-            title: &quot;❌ Profile Not Linked&quot;,
-            description: &quot;No profile linked to your Discord account was found.\n\nUse &#x60;/link&#x60; to connect your account.&quot;,
-            color: 0xe74c3c,
-            thumbnail: { url: &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
-            footer: { text: &quot;Nebura System&quot; },
-          },
-        ],
-        flags: &quot;Ephemeral&quot;,
-      });
-    }
-
+    const user: UserEntity &#x3D; userResult;
     const embed &#x3D; {
       title: &quot;👤 User Profile&quot;,
-      description: &quot;Your linked account details are shown below.&quot;,
+      description: &quot;**Description:** Your linked account details are shown below.\n\n**Example:** &#x60;/profile&#x60;&quot;,
       color: 0x2ecc71,
       thumbnail: { url: discordUser.avatarURL?.() ?? &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
       fields: [
@@ -1004,6 +1508,7 @@ export class InteractionHandler {
   /**
    * Command to show the user&#x27;s QR code if Discord is linked to an account.
    */
+  @SkipLogging()
   @SlashCommand({
     name: &quot;userqr&quot;,
     description: &quot;Show your QR code if your Discord account is linked.&quot;,
@@ -1011,33 +1516,17 @@ export class InteractionHandler {
   })
   public async showUserQr(@Context() [interaction]: SlashCommandContext) {
     const discordUser &#x3D; interaction.user;
-    const user &#x3D; await this.authRepository
-      .createQueryBuilder(&quot;user&quot;)
-      .where(&#x60;&quot;user&quot;.&quot;discordInfo&quot;-&gt;&gt;&#x27;id&#x27; &#x3D; :id&#x60;, { id: discordUser.id })
-      .andWhere(&#x60;&quot;user&quot;.&quot;deletedAt&quot; IS NULL&#x60;)
-      .getOne();
+    const userResult &#x3D; await this.toUser(discordUser.id, false, interaction);
+    if (!(userResult instanceof UserEntity)) return;
 
-    if (!user) {
-      return interaction.reply({
-        embeds: [
-          {
-            title: &quot;❌ Account Not Linked&quot;,
-            description: &quot;No profile linked to your Discord account was found.\n\nUse &#x60;/link&#x60; to connect your account.&quot;,
-            color: 0xe74c3c,
-            thumbnail: { url: &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
-            footer: { text: &quot;Nebura System&quot; },
-          },
-        ],
-        flags: &quot;Ephemeral&quot;,
-      });
-    }
+    const user: UserEntity &#x3D; userResult;
 
     if (!user.qrCodeBase64) {
       return interaction.reply({
         embeds: [
           {
             title: &quot;⚠️ QR Code Not Found&quot;,
-            description: &quot;No QR code is registered for your account.&quot;,
+            description: &quot;**Description:** No QR code is registered for your account.\n\n**Example:** &#x60;/userqr&#x60;&quot;,
             color: 0xf39c12,
             thumbnail: { url: discordUser.avatarURL?.() ?? &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
             footer: { text: &quot;Nebura System&quot; },
@@ -1053,7 +1542,7 @@ export class InteractionHandler {
         embeds: [
           {
             title: &quot;❗ QR Code Error&quot;,
-            description: &quot;Failed to decode the QR code image. Please contact support.&quot;,
+            description: &quot;**Description:** Failed to decode the QR code image. Please contact support.\n\n**Example:** &#x60;/userqr&#x60;&quot;,
             color: 0xe74c3c,
             thumbnail: { url: discordUser.avatarURL?.() ?? &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot; },
             footer: { text: &quot;Nebura System&quot; },
@@ -1074,7 +1563,8 @@ export class InteractionHandler {
             icon_url: user.discordInfo?.avatar ?? &quot;https://cdn.discordapp.com/embed/avatars/0.png&quot;,
           },
           title: &quot;🔒 Your QR Code&quot;,
-          description: &quot;This is your personal QR code. Keep it safe and do not share it with anyone.&quot;,
+          description:
+            &quot;**Description:** This is your personal QR code. Keep it safe and do not share it with anyone.\n\n**Example:** &#x60;/userqr&#x60;&quot;,
           image: { url: &quot;attachment://user-qr.png&quot; },
           fields: [
             {
@@ -1097,6 +1587,297 @@ export class InteractionHandler {
       files: [qrAttachment],
       flags: &quot;Ephemeral&quot;,
     });
+  }
+
+  @SkipLogging()
+  @SlashCommand({
+    name: &quot;notify&quot;,
+    description: &quot;(admin) Create a dashboard notification (developer/owner only).&quot;,
+    defaultMemberPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks],
+  })
+  public async createNotification(@Context() [interaction]: SlashCommandContext, @Options() options: NotificationDto) {
+    const discordUser &#x3D; interaction.user;
+    await this.toUser(discordUser.id, true, interaction);
+    //if (!(userResult instanceof UserEntity)) return;
+
+    //const user: UserEntity &#x3D; userResult;
+
+    if (!options.message || options.message.length &lt; 5) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;Invalid Message&quot;,
+            description:
+              &quot;**Description:** The message must be at least 5 characters long.\n\n**Example:** &#x60;/notify message:Hello expiresInDays:2&#x60;&quot;,
+            color: 0xfaa61a,
+            footer: { text: &quot;Try again with a longer message.&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    if (!options.expiresInDays) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;Invalid Expiration&quot;,
+            description:
+              &quot;**Description:** The expiration must be a positive number of days.\n\n**Example:** &#x60;/notify message:Hello expiresInDays:2&#x60;&quot;,
+            color: 0xfaa61a,
+            footer: { text: &quot;Specify a valid expiration in days.&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    const expiresAt &#x3D; new Date(Date.now() + options.expiresInDays * 86400000);
+
+    try {
+      const res &#x3D; await fetch(&#x60;${process.env.BASE_URL}/dashboard/utils/create-notification&#x60;, {
+        method: &quot;POST&quot;,
+        headers: { &quot;Content-Type&quot;: &quot;application/json&quot; },
+        body: JSON.stringify({
+          message: options.message,
+          type: options.type || &quot;info&quot;,
+          expiresAt,
+        }),
+      });
+      if (!res.ok) throw new Error(&quot;API error&quot;);
+      await res.json();
+
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;Notification Created&quot;,
+            description:
+              &quot;**Description:** The notification has been published on the dashboard.\n\n**Example:** &#x60;/notify message:Hello expiresInDays:2&#x60;&quot;,
+            color: 0x57f287,
+            footer: { text: &quot;Check the dashboard for your notification.&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    } catch (err: any) {
+      console.log(err);
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;Error&quot;,
+            description:
+              &quot;**Description:** Failed to create the notification.\n\n**Example:** &#x60;/notify message:Hello expiresInDays:2&#x60;&quot;,
+            color: 0xff0000,
+            footer: { text: &quot;Try again later or contact support.&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+  }
+
+  @SkipLogging()
+  @SlashCommand({
+    name: &quot;notifications&quot;,
+    description: &quot;(admin) Show all dashboard notifications.&quot;,
+    defaultMemberPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks],
+  })
+  public async showNotifications(@Context() [interaction]: SlashCommandContext) {
+    const discordUser &#x3D; interaction.user;
+    await this.toUser(discordUser.id, true, interaction);
+    //if (!(userResult instanceof UserEntity)) return;
+
+    //const user: UserEntity &#x3D; userResult;
+    const notifications &#x3D; await this.authRepository.manager
+      .getRepository(&quot;NotificationEntity&quot;)
+      .find({ order: { createdAt: &quot;DESC&quot; } });
+
+    if (!notifications || notifications.length &#x3D;&#x3D;&#x3D; 0) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;No Notifications&quot;,
+            description:
+              &quot;**Description:** There are no notifications published on the dashboard.\n\n**Example:** &#x60;/notifications&#x60;&quot;,
+            color: 0xff0000,
+            footer: { text: &quot;Create a notification using /notify.&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    const embeds: EmbedData[] &#x3D; notifications.map((notif, idx) &#x3D;&gt; ({
+      title: &#x60;📢 Notification #${idx + 1} • ${typeof notif.type &#x3D;&#x3D;&#x3D; &quot;string&quot; ? notif.type.charAt(0).toUpperCase() + notif.type.slice(1) : &quot;Unknown&quot;}&#x60;,
+      description: [
+        &quot;**Description:** Dashboard notification details.&quot;,
+        &#x60;&gt; **Notification ID:** \&#x60;${notif.id}\&#x60;&#x60;,
+        &#x60;&gt; **Message:** ${notif.message}&#x60;,
+        &quot;&quot;,
+        &quot;**Example:** &#x60;/notifications&#x60;&quot;,
+      ].join(&quot;\n&quot;),
+      color: notif.type &#x3D;&#x3D;&#x3D; &quot;error&quot; ? 0xe74c3c : notif.type &#x3D;&#x3D;&#x3D; &quot;warning&quot; ? 0xf1c40f : 0x3498db,
+      fields: [
+        {
+          name: &quot;Expires At&quot;,
+          value: notif.expiresAt ? &#x60;&lt;t:${Math.floor(new Date(notif.expiresAt).getTime() / 1000)}:R&gt;&#x60; : &quot;N/A&quot;,
+          inline: true,
+        },
+        {
+          name: &quot;Created At&quot;,
+          value: notif.createdAt ? &#x60;&lt;t:${Math.floor(new Date(notif.createdAt).getTime() / 1000)}:f&gt;&#x60; : &quot;N/A&quot;,
+          inline: true,
+        },
+      ],
+      footer: { text: &#x60;Notification ${idx + 1} of ${notifications.length}&#x60; },
+      timestamp: notif.createdAt,
+    }));
+
+    const paginatedMessage &#x3D; this.paginationService.register((builder: PaginationBuilder) &#x3D;&gt; {
+      return builder
+        .setCustomId(&quot;notifications-pagination&quot;)
+        .setPages([
+          ...embeds.map((embed) &#x3D;&gt; {
+            return new PageBuilder().addEmbed(embed);
+          }),
+        ])
+        .setPagesFactory((page) &#x3D;&gt; {
+          return new PageBuilder().setContent(&#x60;Page ${page + 1} of ${embeds.length}&#x60;);
+        });
+    });
+
+    const page &#x3D; await paginatedMessage.build();
+    return interaction.reply(page);
+  }
+
+  @SkipLogging()
+  @SlashCommand({
+    name: &quot;delete_notification&quot;,
+    description: &quot;(admin) Delete a dashboard notification by its ID (developer/owner only).&quot;,
+    defaultMemberPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks],
+  })
+  public async deleteNotification(@Context() [interaction]: SlashCommandContext, @Options() options: DeleteNotificationDto) {
+    const discordUser &#x3D; interaction.user;
+    await this.toUser(discordUser.id, true, interaction);
+    //if (!(userResult instanceof UserEntity)) return;
+
+    //const user: UserEntity &#x3D; userResult;
+
+    const repo &#x3D; this.authRepository.manager.getRepository(&quot;NotificationEntity&quot;);
+    const notification &#x3D; await repo.findOne({ where: { id: options.id } });
+
+    if (!notification) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;Notification Not Found&quot;,
+            description: &#x60;**Description:** No notification found with ID \&#x60;${options.id}\&#x60;.\n\n**Example:** \&#x60;/delete_notification id:123\&#x60;&#x60;,
+            color: 0xff0000,
+            footer: { text: &quot;Check the notification ID and try again.&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    await repo.delete(options.id);
+
+    return interaction.reply({
+      embeds: [
+        {
+          title: &quot;Notification Deleted&quot;,
+          description: &#x60;**Description:** Notification with ID \&#x60;${options.id}\&#x60; has been deleted successfully.\n\n**Example:** \&#x60;/delete_notification id:123\&#x60;&#x60;,
+          color: 0x57f287,
+          footer: { text: &quot;The notification is no longer visible on the dashboard.&quot; },
+        },
+      ],
+      flags: &quot;Ephemeral&quot;,
+    });
+  }
+
+  /**
+   * Command to show only the current user&#x27;s licenses with pagination.
+   */
+  @SkipLogging()
+  @SlashCommand({
+    name: &quot;mylicences&quot;,
+    description: &quot;Show all your licenses registered in the system.&quot;,
+    defaultMemberPermissions: [PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks],
+  })
+  public async showMyLicences(@Context() [interaction]: SlashCommandContext) {
+    const discordUser &#x3D; interaction.user;
+    const userResult &#x3D; await this.toUser(discordUser.id, false, interaction);
+    if (!(userResult instanceof UserEntity)) return;
+
+    const user: UserEntity &#x3D; userResult;
+
+    const licenses &#x3D; user.licenses ?? [];
+    if (licenses.length &#x3D;&#x3D;&#x3D; 0) {
+      return interaction.reply({
+        embeds: [
+          {
+            title: &quot;No Licenses&quot;,
+            description: &quot;**Description:** You have no licenses registered in your account.\n\n**Example:** &#x60;/mylicences&#x60;&quot;,
+            color: 0xff0000,
+            footer: { text: &quot;Request a license from the administrator.&quot; },
+          },
+        ],
+        flags: &quot;Ephemeral&quot;,
+      });
+    }
+
+    const embeds: EmbedData[] &#x3D; licenses.map((lic, idx) &#x3D;&gt; ({
+      title: &#x60;🔑 License #${idx + 1} • ${lic.type &#x3D;&#x3D;&#x3D; &quot;premium&quot; ? &quot;🌟 Premium&quot; : lic.type &#x3D;&#x3D;&#x3D; &quot;basic&quot; ? &quot;🔹 Basic&quot; : &quot;🏢 Enterprise&quot;}&#x60;,
+      description: [
+        &quot;**Description:** License details.&quot;,
+        &#x60;**ID:** \&#x60;${lic.id}\&#x60;&#x60;,
+        &#x60;**Key:** \&#x60;${lic.key}\&#x60;&#x60;,
+        &#x60;**Type:** \&#x60;${lic.type}\&#x60;&#x60;,
+        &#x60;**Created:** &lt;t:${Math.floor(new Date(lic.createdAt).getTime() / 1000)}:f&gt;&#x60;,
+        &#x60;**Expires:** &lt;t:${Math.floor(new Date(lic.validUntil).getTime() / 1000)}:R&gt;&#x60;,
+        &#x60;**Max IPs:** \&#x60;${lic.maxIps ?? &quot;N/A&quot;}\&#x60;&#x60;,
+        &#x60;**Request limit:** \&#x60;${lic.requestLimit ?? &quot;N/A&quot;}\&#x60;&#x60;,
+        &#x60;**Requests used:** \&#x60;${lic.requestCount ?? 0}\&#x60;&#x60;,
+        &#x60;**Identifier:** \&#x60;${lic.identifier ?? &quot;N/A&quot;}\&#x60;&#x60;,
+        &quot;&quot;,
+        &quot;**Example:** &#x60;/mylicences&#x60;&quot;,
+      ].join(&quot;\n&quot;),
+      color: lic.type &#x3D;&#x3D;&#x3D; &quot;premium&quot; ? 0xf1c40f : lic.type &#x3D;&#x3D;&#x3D; &quot;basic&quot; ? 0x3498db : 0x8e44ad,
+      fields: [
+        {
+          name: &quot;IPs List&quot;,
+          value:
+            Array.isArray(lic.ips) &amp;&amp; lic.ips.length
+              ? lic.ips.map((ip: any, index: number) &#x3D;&gt; &#x60;No.${index + 1} \&#x60;${ip}\&#x60;&#x60;).join(&quot;\n&quot;)
+              : &quot;N/A&quot;,
+        },
+        {
+          name: &quot;HWID List&quot;,
+          value:
+            Array.isArray(lic.hwid) &amp;&amp; lic.hwid.length
+              ? lic.hwid.map((h: any, index: number) &#x3D;&gt; &#x60;No.${index + 1} \&#x60;${h}\&#x60;&#x60;).join(&quot;\n&quot;)
+              : &quot;N/A&quot;,
+        },
+      ],
+      footer: { text: &#x60;License ${idx + 1} of ${licenses.length}&#x60; },
+      timestamp: lic.createdAt,
+    }));
+
+    const paginatedMessage &#x3D; this.paginationService.register((builder: PaginationBuilder) &#x3D;&gt; {
+      return builder
+        .setCustomId(&quot;mylicences-pagination&quot;)
+        .setPages([
+          ...embeds.map((embed) &#x3D;&gt; {
+            return new PageBuilder().addEmbed(embed);
+          }),
+        ])
+        .setPagesFactory((page) &#x3D;&gt; {
+          return new PageBuilder().setContent(&#x60;Page ${page + 1} of ${embeds.length}&#x60;);
+        });
+    });
+
+    const page &#x3D; await paginatedMessage.build();
+    return interaction.reply(page);
   }
 }
 </code></pre>

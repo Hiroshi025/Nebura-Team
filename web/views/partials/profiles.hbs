@@ -1,0 +1,158 @@
+<!-- Profile Section -->
+<div class="page-section" id="profile">
+  <h2
+    class="glitch"
+    data-text="USER PROFILE"
+    style="font-weight: 700; font-size: 24px; margin-bottom: 25px; text-align: center"
+    data-lang-key="user-profile">
+    USER PROFILE
+  </h2>
+
+  <div class="profile-section">
+    <div class="profile-card">
+      <div class="profile-avatar-large">JD</div>
+      <div class="profile-info">
+        <div class="profile-name">{{user.api.name}}</div>
+        <div class="profile-role">{{{user.api.role}}}</div>
+      </div>
+
+      <div class="profile-stats">
+        <div class="profile-stat">
+          <div class="profile-stat-value">847K</div>
+          <div class="profile-stat-label" data-lang-key="api-calls">API
+            Calls</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-value">15</div>
+          <div class="profile-stat-label"
+            data-lang-key="projects">Projects</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-value">2.5Y</div>
+          <div class="profile-stat-label"
+            data-lang-key="member-since">Member</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-value">99.8%</div>
+          <div class="profile-stat-label" data-lang-key="uptime">Uptime</div>
+        </div>
+      </div>
+
+      <div
+        style="margin-top: 20px; padding: 12px; background: var(--accent-bg); border-radius: 8px">
+        <div
+          style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px"
+          data-lang-key="user-details">
+          User Details:
+        </div>
+        <div
+          style="font-size: 11px; font-family: &quot;Courier New&quot;, monospace; line-height: 1.4">
+          <div><strong>ID:</strong> {{user.api.id}}</div>
+          <div><strong>UUID:</strong> {{user.api.uuid}}</div>
+          <div><strong>Email:</strong> {{user.api.email}}</div>
+          <div><strong>Role:</strong> {{user.api.role}}</div>
+          <div><strong>Licenses:</strong>{{licenceToCount}}</div>
+          <div><strong>Client:</strong> {{#if user.api.isClient}} Yes {{else}}
+            No {{/if}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <h4 style="margin-bottom: 15px; font-weight: 600; font-size: 16px"
+        data-lang-key="discord-integration">
+        Discord Integration
+      </h4>
+      <div class="discord-info">
+        <div
+          class="discord-avatar"
+          style="background-image: url('https://cdn.discordapp.com/avatars/{{user.discord.id}}/{{user.discord.avatar}}.png'); background-size: cover"></div>
+        <div class="discord-details">
+          <div
+            class="discord-username">{{user.discord.username}}#{{user.discord.discriminator}}</div>
+          <div class="discord-status"
+            style="display: flex; align-items: center; gap: 8px;">
+            {{#if user.discord.id}}
+            <span style="color: #5865F2; font-weight: bold;">
+              <svg width="16" height="16" fill="currentColor"
+                style="vertical-align: middle;">
+                <circle cx="8" cy="8" r="8" fill="#5865F2" />
+                <text x="8" y="12" text-anchor="middle" font-size="10"
+                  fill="#fff">D</text>
+              </svg>
+              Connected
+            </span>
+            {{#if user.discord.verified}}
+            <span style="color: #43b581; font-weight: bold;">
+              <svg width="16" height="16" fill="currentColor"
+                style="vertical-align: middle;">
+                <circle cx="8" cy="8" r="8" fill="#43b581" />
+                <text x="8" y="12" text-anchor="middle" font-size="10"
+                  fill="#fff">&#10003;</text>
+              </svg>
+              Verified
+            </span>
+            {{else}}
+            <span style="color: #faa61a; font-weight: bold;">
+              <svg width="16" height="16" fill="currentColor"
+                style="vertical-align: middle;">
+                <circle cx="8" cy="8" r="8" fill="#faa61a" />
+                <text x="8" y="12" text-anchor="middle" font-size="10"
+                  fill="#fff">!</text>
+              </svg>
+              Not Verified
+            </span>
+            {{/if}}
+            {{else}}
+            <span style="color: #f04747; font-weight: bold;">
+              <svg width="16" height="16" fill="currentColor"
+                style="vertical-align: middle;">
+                <circle cx="8" cy="8" r="8" fill="#f04747" />
+                <text x="8" y="12" text-anchor="middle" font-size="10"
+                  fill="#fff">X</text>
+              </svg>
+              Not Connected
+            </span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="margin-top: 15px; padding: 12px; background: var(--accent-bg); border-radius: 8px">
+        <div
+          style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px"
+          data-lang-key="discord-details">
+          Discord Details:
+        </div>
+        <div
+          style="font-size: 11px; font-family: &quot;Courier New&quot;, monospace; line-height: 1.4">
+          <div><strong>Discord ID:</strong> {{user.discord.id}}</div>
+          <div><strong>Username:</strong> {{user.discord.username}}</div>
+          <div><strong>Global Name:</strong> {{user.discord.global_name}}</div>
+          <div><strong>Discriminator:</strong>
+            {{user.discord.discriminator}}</div>
+          <div><strong>Email:</strong> {{user.discord.email}}</div>
+          <div><strong>Locale:</strong> {{user.discord.locale}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-card" style="margin-top: 20px; margin-bottom: 32px;">
+    <div class="card-header">
+      <div class="card-title" style="font-size: 16px;"
+        data-lang-key="license-summary">License Summary</div>
+      <div class="card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-2h-2v2zm0-4h2V7h-2v6z" />
+        </svg>
+      </div>
+    </div>
+    <div style="padding: 10px 0;">
+      <canvas id="licenseSummaryChart"
+        style="width: 100%; height: 350px;"></canvas>
+    </div>
+  </div>
+</div>

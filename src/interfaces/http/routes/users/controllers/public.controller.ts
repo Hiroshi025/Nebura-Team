@@ -1,5 +1,6 @@
 import { UuidSchema, UuidType } from "#adapters/schemas/shared/uuid.schema";
 import { AuthGuard } from "#common/guards/auth.guard";
+import { ClientHeaderGuard } from "#common/guards/client-header.guard";
 import { UserService } from "#routes/users/service/users.service";
 
 import {
@@ -15,6 +16,7 @@ import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@ne
  * @see {@link https://docs.nestjs.com/controllers NestJS Controllers}
  */
 @ApiTags("users")
+@UseGuards(ClientHeaderGuard)
 @ApiBearerAuth()
 @Controller({
   version: "1",

@@ -21,6 +21,7 @@ export class MessageInteraction {
    *
    * Usage: !about
    */
+  @SkipLogging()
   @TextCommand({ name: "about", description: "Show information about the project." })
   public async onAbout(@Context() [message]: TextCommandContext, @Arguments() _args: string[]) {
     const embed = {

@@ -1,10 +1,18 @@
 import { StatusEntity } from "#adapters/database/entities/health/status.entity";
+import { ClientHeaderGuard } from "#common/guards/client-header.guard";
 import { HttpThrottlerGuard } from "#common/guards/http-throttler.guard";
 import { LoggingInterceptor } from "#common/interceptors/register.interceptor";
+import { RequestMetricsInterceptor } from "#common/interceptors/request.interceptor";
+import { JwtConfigModule } from "#core/jwt.module";
 import { IPBlockerEntity } from "#entity/admin/ips-blocker.entity";
+import { OAuth2Credentials } from "#entity/users/Oauth2-credentials.entity";
+import { SessionEntity } from "#entity/users/session.entity";
+import { TicketEntity } from "#entity/users/tickets.entity";
 import { UserEntity } from "#entity/users/user.entity";
 import { FileEntity } from "#entity/utils/file.entity";
 import { LicenseEntity } from "#entity/utils/licence.entity";
+import { NotificationEntity } from "#entity/utils/notification.entity";
+import { RequestStatEntity } from "#entity/utils/request.entity";
 import { AdminModule } from "#routes/admin/admin.module";
 import { AuthModule } from "#routes/auth/auth.module";
 import { ClientModule } from "#routes/client/client.module";
@@ -17,16 +25,20 @@ import configuration from "#shared/utils/configuration";
 
 import { HttpModule } from "@nestjs/axios";
 import { CacheInterceptor, CacheModule } from "@nestjs/cache-manager";
-import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { EventEmitterModule } from "@nestjs/event-emitter";
 import { ScheduleModule } from "@nestjs/schedule";
+import { TerminusModule } from "@nestjs/terminus";
 import { ThrottlerModule } from "@nestjs/throttler";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 import { DiscordModule } from "./core/discord/client.module";
 import { ClientListener } from "./core/discord/listeners/client.listener";
+import {
+	RedirectIfNotAuthenticatedMiddleware
+} from "./interfaces/http/middleware/applications/auth-discord.middleware";
 import { IPBlockerMiddleware } from "./interfaces/http/middleware/ip-blocker.middleware";
 import { AppController } from "./interfaces/http/routes/app.controller";
 
@@ -48,7 +60,7 @@ import { AppController } from "./interfaces/http/routes/app.controller";
  */
 @Module({
   imports: [
-    TypeOrmModule.forFeature([StatusEntity, UserEntity]),
+    TypeOrmModule.forFeature([StatusEntity, UserEntity, RequestStatEntity, LicenseEntity, NotificationEntity, TicketEntity]),
     /**
      * Configures TypeORM for PostgreSQL database connection.
      * @see {@link https://docs.nestjs.com/techniques/database TypeORM Integration}
@@ -57,16 +69,27 @@ import { AppController } from "./interfaces/http/routes/app.controller";
       type: "postgres",
       host: process.env.DB_HOST,
       port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
-      username: process.env.DB_USERNAME ? String(process.env.DB_USERNAME) : "hiroshi",
-      password: process.env.DB_PASSWORD ? String(process.env.DB_PASSWORD) : "v94PASssrc8u1nzuZwyjGr0PuaIT1IDr",
+      username: process.env.DB_USERNAME ? String(process.env.DB_USERNAME) : "postgres",
+      password: process.env.DB_PASSWORD ? String(process.env.DB_PASSWORD) : "luisP200",
       database: process.env.DB_NAME,
-      entities: [UserEntity, StatusEntity, FileEntity, LicenseEntity, IPBlockerEntity],
+      entities: [
+        UserEntity,
+        StatusEntity,
+        FileEntity,
+        LicenseEntity,
+        IPBlockerEntity,
+        SessionEntity,
+        OAuth2Credentials,
+        RequestStatEntity,
+        NotificationEntity,
+        TicketEntity
+      ],
       synchronize: true,
       logging: true,
       ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
       extra: {
         ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : null,
-      }
+      },
     }),
     /**
      * Loads environment variables globally.
@@ -107,6 +130,13 @@ import { AppController } from "./interfaces/http/routes/app.controller";
         limit: 100,
       },
     ]),
+    /**
+     * Configures TerminusModule with logging enabled.
+     * @see {@link https://docs.nestjs.com/recipes/terminus#configuration Terminus Configuration}
+     */
+    TerminusModule.forRoot({
+      logger: true,
+    }),
     /**
      * Integrates the HttpModule for making HTTP requests.
      * @see {@link https://docs.nestjs.com/techniques/http HttpModule}
@@ -160,6 +190,11 @@ import { AppController } from "./interfaces/http/routes/app.controller";
      * @see {@link https://docs.nestjs.com/modules DiscordModule}
      */
     DiscordModule,
+    /**
+     * Integrates JWT configuration module.
+     * @see {@link #core/jwt.module.ts JwtConfigModule}
+     */
+    JwtConfigModule
   ], // List of modules to import into the application.
   controllers: [AppController, UtilsController], // List of controllers to register.
   providers: [
@@ -197,10 +232,27 @@ import { AppController } from "./interfaces/http/routes/app.controller";
       provide: APP_GUARD,
       useClass: HttpThrottlerGuard,
     },
+    /**
+     * Registers ClientHeaderGuard globally to manage the `x-client-id` header.
+     * @see {@link #common/guards/client-header.guard.ts ClientHeaderGuard}
+     */
+    {
+      provide: APP_GUARD,
+      useClass: ClientHeaderGuard,
+    },
+    /**
+     * Registers RequestMetricsInterceptor globally to collect request metrics.
+     * @see {@link #common/interceptors/request.interceptor.ts RequestMetricsInterceptor}
+     */
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: RequestMetricsInterceptor,
+    },
   ], // List of providers (services, etc.) to register.
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(IPBlockerMiddleware).forRoutes("*");
+    consumer.apply(RedirectIfNotAuthenticatedMiddleware).forRoutes({ path: "dashboard", method: RequestMethod.GET });
   }
 }

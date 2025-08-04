@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { main } from "#/main";
+import { FindOAuth2Params, OAuth2Details } from "#/types/sessions-types";
+import { OAuth2Credentials } from "#entity/users/Oauth2-credentials.entity";
 import { UserEntity } from "#entity/users/user.entity";
 import { encrypt } from "#shared/webToken";
 import { compare } from "bcryptjs";
@@ -160,5 +162,28 @@ export class AuthService {
       return result;
     }
     return null;
+  }
+
+  async validateOAuth2(details: OAuth2Details) {
+    const { discordId } = details;
+    const oauth2 = await this.findOAuth2({ discordId });
+    return oauth2 ? this.updateOAuth2(details) : this.createOAuth2(details);
+  }
+
+  createOAuth2(details: OAuth2Details) {
+    const oauth2Repository = this.authRepository.manager.getRepository(OAuth2Credentials);
+    const user = oauth2Repository.create(details);
+    return oauth2Repository.save(user);
+  }
+
+  async updateOAuth2(details: OAuth2Details) {
+    const oauth2Repository = this.authRepository.manager.getRepository(OAuth2Credentials);
+    await oauth2Repository.update(details.discordId, details);
+    return details;
+  }
+
+  findOAuth2(params: FindOAuth2Params) {
+    const oauth2Repository = this.authRepository.manager.getRepository(OAuth2Credentials);
+    return oauth2Repository.findOne({ where: params });
   }
 }

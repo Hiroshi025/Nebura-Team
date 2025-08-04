@@ -44,9 +44,10 @@
   },
   "peacock.color": "#1857a4",
   "symbols.folders.associations": {
-    "views": "folder-layout",
+    "views": "folder-interfaces",
     "locales": "folder-context",
     "schemas": "folder-models",
+    "svg": "folder-svg",
   },
   "symbols.files.associations": {
     "*.controller.ts": "nest-controller",

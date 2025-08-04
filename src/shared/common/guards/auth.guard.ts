@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     interface AuthenticatedRequest {
-      headers: { authorization?: string };
+      headers: { authorization?: string, "x-client-id"?: string };
       user?: any;
     }
     const request = context.switchToHttp().getRequest<AuthenticatedRequest>();

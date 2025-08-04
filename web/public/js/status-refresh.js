@@ -1,16 +1,69 @@
+/**
+ * Interval in milliseconds for refreshing system status.
+ * @example
+ * refreshInterval = 10000; // 10 seconds
+ */
 let refreshInterval = 5000;
+
+/**
+ * Timer reference for periodic refresh.
+ * @type {number}
+ */
 let refreshTimer;
+
+/**
+ * Array holding CPU usage history for charting.
+ * @type {{time: string, value: number}[]}
+ */
 let cpuHistory = [];
+
+/**
+ * Array holding memory usage history for charting.
+ * @type {{time: string, value: number}[]}
+ */
 let memoryHistory = [];
+
+/**
+ * Maximum number of points to display in history charts.
+ * @type {number}
+ * @default 20
+ */
 const maxHistoryPoints = 20;
+
+/**
+ * Indicates whether the compact view is active.
+ * @type {boolean}
+ */
 let isCompactView = false;
+
+/**
+ * Indicates whether real-time updates are active.
+ * @type {boolean}
+ */
 let isRealTimeActive = true;
+
+/**
+ * Stores the last fetched system status data.
+ * @type {object|null}
+ */
 let lastData = null;
 
-// Inicializar gráficos
+/**
+ * Chart.js context for CPU chart.
+ * @see https://www.chartjs.org/docs/latest/
+ */
 const cpuCtx = document.getElementById("cpuChart").getContext("2d");
+
+/**
+ * Chart.js context for Memory chart.
+ * @see https://www.chartjs.org/docs/latest/
+ */
 const memoryCtx = document.getElementById("memoryChart").getContext("2d");
 
+/**
+ * Chart.js instance for CPU usage.
+ * @type {Chart}
+ */
 const cpuChart = new Chart(cpuCtx, {
   type: "line",
   data: {
@@ -44,6 +97,10 @@ const cpuChart = new Chart(cpuCtx, {
   },
 });
 
+/**
+ * Chart.js instance for Memory usage.
+ * @type {Chart}
+ */
 const memoryChart = new Chart(memoryCtx, {
   type: "line",
   data: {
@@ -77,7 +134,12 @@ const memoryChart = new Chart(memoryCtx, {
   },
 });
 
-// Función para actualizar los datos
+/**
+ * Fetches and updates system status data, charts, and UI.
+ * @returns {void}
+ * @example
+ * updateData();
+ */
 function updateData() {
   if (!isRealTimeActive) {
     document.getElementById("updateIndicator").classList.remove("updating");
@@ -118,7 +180,13 @@ function updateData() {
     });
 }
 
-// Función para actualizar las tarjetas
+/**
+ * Updates UI cards with system status data.
+ * @param {object} data - System status data.
+ * @returns {void}
+ * @example
+ * updateCards({ memory: {...}, cpu: {...}, uptime: 12345 });
+ */
 function updateCards(data) {
   // Actualizar memoria
   const memoryPercent = (data.memory.heapUsed / data.memory.heapTotal) * 100;
@@ -202,12 +270,24 @@ function updateCards(data) {
   updateIcons(memoryPercent, cpuPercent);
 }
 
-// Helper para mostrar dos decimales en CPU
+/**
+ * Formats a number to two decimal places.
+ * @param {number} val
+ * @returns {string}
+ * @example
+ * toFixed2(12.3456); // "12.35"
+ */
 function toFixed2(val) {
   return Number(val).toFixed(2);
 }
 
-// Helper para mostrar ms en formato legible
+/**
+ * Formats milliseconds to a human-readable string.
+ * @param {number} ms
+ * @returns {string}
+ * @example
+ * formatMs(1500); // "1.50 s"
+ */
 function formatMs(ms) {
   if (ms < 1000) return ms + " ms";
   if (ms < 60000) return (ms / 1000).toFixed(2) + " s";
@@ -215,7 +295,13 @@ function formatMs(ms) {
   return (ms / 3600000).toFixed(2) + " h";
 }
 
-// Función para actualizar gráficos
+/**
+ * Updates CPU and Memory charts with new data.
+ * @param {object} data - System status data.
+ * @returns {void}
+ * @example
+ * updateCharts({ memory: {...}, cpu: {...} });
+ */
 function updateCharts(data) {
   const now = new Date();
   const timeLabel = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
@@ -248,7 +334,13 @@ function updateCharts(data) {
   memoryChart.update();
 }
 
-// Función para verificar alertas
+/**
+ * Checks for system alerts based on thresholds.
+ * @param {object} data - System status data.
+ * @returns {void}
+ * @example
+ * checkAlerts({ memory: {...}, cpu: {...} });
+ */
 function checkAlerts(data) {
   const memoryPercent = (data.memory.heapUsed / data.memory.heapTotal) * 100;
   const cpuPercent = data.cpu.process.cpuPercent;
@@ -268,7 +360,15 @@ function checkAlerts(data) {
   }
 }
 
-// Función para mostrar alertas
+/**
+ * Displays a toast alert message.
+ * @param {string} message - Message to display.
+ * @param {"error"|"warning"} type - Type of alert.
+ * @returns {void}
+ * @see https://apvarun.github.io/toastify-js/
+ * @example
+ * showAlert("High CPU usage", "error");
+ */
 function showAlert(message, type) {
   Toastify({
     text: message,
@@ -279,7 +379,14 @@ function showAlert(message, type) {
   }).showToast();
 }
 
-// Función para actualizar íconos
+/**
+ * Updates icons based on memory and CPU usage.
+ * @param {number} memoryPercent
+ * @param {number} cpuPercent
+ * @returns {void}
+ * @example
+ * updateIcons(85, 60);
+ */
 function updateIcons(memoryPercent, cpuPercent) {
   const memoryIcon = document.getElementById("memory-icon");
   const cpuIcon = document.getElementById("cpu-icon");
@@ -301,7 +408,13 @@ function updateIcons(memoryPercent, cpuPercent) {
   }
 }
 
-// Helpers (similares a los del servidor)
+/**
+ * Formats uptime in seconds to a human-readable string.
+ * @param {number} seconds
+ * @returns {string}
+ * @example
+ * formatUptime(3661); // "1h 1m 1s"
+ */
 function formatUptime(seconds) {
   const days = Math.floor(seconds / (3600 * 24));
   const hours = Math.floor((seconds % (3600 * 24)) / 3600);
@@ -317,6 +430,14 @@ function formatUptime(seconds) {
   return result.join(" ");
 }
 
+/**
+ * Returns a status class for memory usage.
+ * @param {number} used
+ * @param {number} total
+ * @returns {"error"|"warning"|"healthy"}
+ * @example
+ * getMemoryStatusClass(950, 1000); // "error"
+ */
 function getMemoryStatusClass(used, total) {
   const percentage = (used / total) * 100;
   if (percentage > 90) return "error";
@@ -324,12 +445,26 @@ function getMemoryStatusClass(used, total) {
   return "healthy";
 }
 
+/**
+ * Returns a status class for CPU usage.
+ * @param {number} percent
+ * @returns {"error"|"warning"|"healthy"}
+ * @example
+ * getCPUStatusClass(95); // "error"
+ */
 function getCPUStatusClass(percent) {
   if (percent > 90) return "error";
   if (percent > 70) return "warning";
   return "healthy";
 }
 
+/**
+ * Formats bytes to a human-readable string.
+ * @param {number} bytes
+ * @returns {string}
+ * @example
+ * formatBytes(1048576); // "1 MB"
+ */
 function formatBytes(bytes) {
   const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
   if (bytes === 0) return "0 Bytes";
@@ -337,12 +472,26 @@ function formatBytes(bytes) {
   return parseFloat((bytes / Math.pow(1024, i)).toFixed(2)) + " " + sizes[i];
 }
 
+/**
+ * Calculates percentage with two decimals.
+ * @param {number} part
+ * @param {number} total
+ * @returns {string}
+ * @example
+ * calculatePercentage(50, 200); // "25.00"
+ */
 function calculatePercentage(part, total) {
   if (total === 0) return 0;
   return ((part / total) * 100).toFixed(2);
 }
 
-// Función para exportar datos
+/**
+ * Exports system status data in JSON or CSV format.
+ * @param {"json"|"csv"} format - Export format.
+ * @returns {void}
+ * @example
+ * exportData("csv");
+ */
 function exportData(format) {
   if (!lastData) {
     showAlert("No data available to export", "warning");
@@ -386,7 +535,9 @@ function exportData(format) {
   URL.revokeObjectURL(url);
 }
 
-// Selector de intervalo de actualización
+/**
+ * Selector de intervalo de actualización
+ */
 document.querySelectorAll(".refresh-option").forEach((option) => {
   option.addEventListener("click", function () {
     document.querySelectorAll(".refresh-option").forEach((opt) => opt.classList.remove("active"));
@@ -402,7 +553,9 @@ document.querySelectorAll(".refresh-option").forEach((option) => {
   });
 });
 
-// Alternar vista compacta/detallada
+/**
+ * Alternar vista compacta/detallada
+ */
 const viewToggle = document.getElementById("viewToggle");
 viewToggle.addEventListener("click", () => {
   isCompactView = !isCompactView;
@@ -421,7 +574,9 @@ viewToggle.addEventListener("click", () => {
   }
 });
 
-// Alternar actualizaciones en tiempo real
+/**
+ * Alternar actualizaciones en tiempo real
+ */
 const realTimeToggle = document.getElementById("realTimeToggle");
 realTimeToggle.addEventListener("change", function () {
   isRealTimeActive = this.checked;
@@ -430,7 +585,9 @@ realTimeToggle.addEventListener("change", function () {
   }
 });
 
-// Menú de exportación
+/**
+ * Menú de exportación
+ */
 const exportBtn = document.getElementById("exportBtn");
 const exportMenu = document.getElementById("exportMenu");
 
@@ -455,7 +612,11 @@ document.addEventListener("click", function () {
 refreshTimer = setInterval(updateData, refreshInterval);
 updateData(); // Primera carga
 
-// Theme toggle
+/**
+ * Handles theme toggle between dark and light.
+ * Saves preference in localStorage.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+ */
 const themeToggle = document.getElementById("themeToggle");
 themeToggle.addEventListener("click", () => {
   const currentTheme = document.body.getAttribute("data-theme");
@@ -480,7 +641,10 @@ themeToggle.addEventListener("click", () => {
   localStorage.setItem("theme", newTheme);
 });
 
-// Language toggle
+/**
+ * Handles language toggle between English and Spanish.
+ * Saves preference in localStorage.
+ */
 const languageToggle = document.getElementById("languageToggle");
 languageToggle.addEventListener("click", () => {
   const currentLang = document.querySelector(".lang-en").style.display === "none" ? "es" : "en";
@@ -502,7 +666,9 @@ languageToggle.addEventListener("click", () => {
   localStorage.setItem("language", currentLang === "en" ? "es" : "en");
 });
 
-// Load saved preferences
+/**
+ * Loads saved theme and language preferences on DOMContentLoaded.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme") || "dark";
   document.body.setAttribute("data-theme", savedTheme);
@@ -522,7 +688,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Background animation
+/**
+ * Animates background based on mouse movement.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
+ */
 document.addEventListener("mousemove", (e) => {
   const x = e.clientX / window.innerWidth;
   const y = e.clientY / window.innerHeight;

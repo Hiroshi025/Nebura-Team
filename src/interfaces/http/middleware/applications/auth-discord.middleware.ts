@@ -52,7 +52,7 @@ export class RedirectIfNotAuthenticatedMiddleware implements NestMiddleware {
    * middleware.use(req, res, next);
    */
   use(req: Request, res: Response, next: NextFunction) {
-    this.logger.log(`Checking authentication for request: ${req.method} ${req.originalUrl}`);
+    this.logger.debug(`Checking authentication for request: ${req.method} ${req.originalUrl}`);
     if (!req.isAuthenticated || !req.isAuthenticated()) {
       return res.redirect("/auth/discord/login");
     }

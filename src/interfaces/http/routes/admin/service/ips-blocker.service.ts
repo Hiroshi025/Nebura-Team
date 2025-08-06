@@ -80,7 +80,7 @@ export class IPBlockerService {
       isActive: true,
     });
     const saved = await this.ipBlockerRepository.save(ip);
-    this.logger.log(`Blocked IP created: ${JSON.stringify(saved)}`);
+    this.logger.debug(`Blocked IP created: ${JSON.stringify(saved)}`);
     return saved;
   }
 
@@ -100,7 +100,7 @@ export class IPBlockerService {
       this.logger.debug(`IP unblocked (id: ${id}) at ${ip.unblockedAt}`);
     }
     const updated = await this.ipBlockerRepository.save(ip);
-    this.logger.log(`Blocked IP updated: ${JSON.stringify(updated)}`);
+    this.logger.debug(`Blocked IP updated: ${JSON.stringify(updated)}`);
     return updated;
   }
 
@@ -114,7 +114,7 @@ export class IPBlockerService {
     this.logger.debug(`Removing blocked IP (id: ${id})`);
     const ip = await this.findOne(id);
     await this.ipBlockerRepository.remove(ip);
-    this.logger.log(`Blocked IP removed (id: ${id})`);
+    this.logger.debug(`Blocked IP removed (id: ${id})`);
   }
 
   /**
@@ -128,9 +128,9 @@ export class IPBlockerService {
       ip.isActive = false;
       ip.unblockedAt = new Date();
       await this.ipBlockerRepository.save(ip);
-      this.logger.log(`IP unblocked: ${ip.ipAddress}`);
+      this.logger.debug(`IP unblocked: ${ip.ipAddress}`);
     }
-    this.logger.log("All IPs unblocked");
+    this.logger.debug("All IPs unblocked");
   }
 
   /**
@@ -140,7 +140,7 @@ export class IPBlockerService {
   async removeAll(): Promise<void> {
     this.logger.debug("Removing all blocked IPs");
     await this.ipBlockerRepository.clear();
-    this.logger.log("All blocked IPs removed");
+    this.logger.debug("All blocked IPs removed");
   }
 
   /**
@@ -169,16 +169,16 @@ export class IPBlockerService {
     });
 
     if (recentIPs.length > 0) {
-      this.logger.log(`Blocked IPs in the last 24 hours:`);
+      this.logger.debug(`Blocked IPs in the last 24 hours:`);
       recentIPs.forEach((ip) => {
-        this.logger.log(`- ${ip.ipAddress} (blocked at: ${ip.blockedAt})`);
+        this.logger.debug(`- ${ip.ipAddress} (blocked at: ${ip.blockedAt})`);
       });
     }
 
     if (lastFiveIPs.length > 0) {
-      this.logger.log(`Last 5 blocked IPs:`);
+      this.logger.debug(`Last 5 blocked IPs:`);
       lastFiveIPs.forEach((ip) => {
-        this.logger.log(`- ${ip.ipAddress} (blocked at: ${ip.blockedAt})`);
+        this.logger.debug(`- ${ip.ipAddress} (blocked at: ${ip.blockedAt})`);
       });
     }
   }

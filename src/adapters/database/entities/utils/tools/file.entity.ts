@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsDate, IsString, Min } from "class-validator";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 import { ApiProperty } from "@nestjs/swagger";
@@ -46,8 +46,9 @@ export class FileEntity extends BaseEntity {
    * @example "example.txt"
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/File/name File Name}
    */
-  @Column()
   @IsString()
+  @Min(5)
+  @Column()  
   @ApiProperty({
     description: "Name of the file",
     example: "example.txt",
@@ -63,6 +64,7 @@ export class FileEntity extends BaseEntity {
    * @see {@link https://nodejs.org/api/path.html Node.js Path}
    */
   @Column()
+  @Min(5)
   @IsString()
   @ApiProperty({
     description: "Path to the file",
@@ -144,6 +146,7 @@ export class FileEntity extends BaseEntity {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date JavaScript Date}
    */
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @IsDate()
   @ApiProperty({
     description: "Date and time when the file was created",
     example: "2023-10-01T12:00:00Z",

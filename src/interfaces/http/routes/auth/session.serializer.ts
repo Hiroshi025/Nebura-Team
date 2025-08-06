@@ -7,7 +7,7 @@ import { PassportSerializer } from "@nestjs/passport";
 import { InjectRepository } from "@nestjs/typeorm";
 
 export class SessionSerializer extends PassportSerializer {
-  private readonly logger = new Logger(SessionSerializer.name)
+  private readonly logger = new Logger(SessionSerializer.name);
   constructor(
     @InjectRepository(UserEntity)
     private readonly authRepository: Repository<UserEntity>,
@@ -15,7 +15,7 @@ export class SessionSerializer extends PassportSerializer {
     super();
   }
   serializeUser(user: any, done: Done) {
-    this.logger.log(`Serializing user: ${user.id} - ${user.username}`);
+    this.logger.debug(`Serializing user: ${user.id} - ${user.username}`);
     done(null, user);
   }
   async deserializeUser(user: any, done: Done) {
@@ -25,7 +25,7 @@ export class SessionSerializer extends PassportSerializer {
       .andWhere(`"user"."deletedAt" IS NULL`)
       .getOne();
 
-      this.logger.log(`Deserializing user: ${user.id} - ${user.username}`);
+    this.logger.debug(`Deserializing user: ${user.id} - ${user.username}`);
     return userDB ? done(null, user) : done(null, null);
   }
 }

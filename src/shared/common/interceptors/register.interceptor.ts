@@ -67,7 +67,7 @@ export class LoggingInterceptor implements NestInterceptor {
     const start = process.hrtime();
 
     // Log the start of the request
-    this.logger.log(`[${method}] ${url} - Start`);
+    this.logger.debug(`[${method}] ${url} - Start`);
 
     return next.handle().pipe(
       tap(() => {
@@ -75,7 +75,7 @@ export class LoggingInterceptor implements NestInterceptor {
         const diff = process.hrtime(start);
         const duration = (diff[0] * 1e3 + diff[1] / 1e6).toFixed(2); // ms
         // Log the end of the request with duration
-        this.logger.log(`[${method}] ${url} - End (${duration} ms)`);
+        this.logger.debug(`[${method}] ${url} - End (${duration} ms)`);
       }),
       catchError((err) => {
         // Calculate elapsed time on error

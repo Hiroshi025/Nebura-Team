@@ -8,11 +8,11 @@ import { isValidNotification } from "#adapters/schemas/shared/notification.schem
 import { UuidType } from "#adapters/schemas/shared/uuid.schema";
 import { AuthenticatedGuard } from "#common/guards/auth-discord.guard";
 import { UserRole } from "#common/typeRole";
-import { TicketEntity, TicketPriority } from "#entity/users/tickets.entity";
+import { TicketEntity, TicketPriority } from "#entity/users/support/tickets.entity";
 import { UserEntity } from "#entity/users/user.entity";
 import { LicenseEntity, LicenseType } from "#entity/utils/licence.entity";
-import { NotificationEntity } from "#entity/utils/notification.entity";
-import { RequestStatEntity } from "#entity/utils/request.entity";
+import { RequestStatEntity } from "#entity/utils/metrics/request.entity";
+import { NotificationEntity } from "#entity/utils/tools/notification.entity";
 import { randomUUID } from "crypto";
 import { Response } from "express-serve-static-core";
 import { IsNull, LessThan, MoreThan, Repository } from "typeorm";
@@ -89,20 +89,10 @@ export class UtilsController {
    */
   @Get("status-json")
   @ApiExcludeEndpoint()
-  async statusJson(): Promise<{
-    memory: any;
-    cpu: any;
-    uptime: number;
-    now: string;
-  }> {
-    const health = await this.healthService.checkHealth();
-    // You can add more fields if needed for the dashboard
-    return {
-      memory: health.info.memory,
-      cpu: health.info.cpu,
-      uptime: health.info.uptime,
-      now: new Date().toISOString(),
-    };
+  async statusJson(): Promise<any> {
+    const health = await this.healthService.getHealth();
+    // Devuelve toda la estructura de health
+    return health;
   }
 
   /**
@@ -1068,7 +1058,7 @@ export class UtilsController {
       return false;
     }
 
-    this.logger.log(`User with ID ${userId} is an admin`);
+    this.logger.debug(`User with ID ${userId} is an admin`);
     return true;
   }
 
@@ -1136,7 +1126,7 @@ export class UtilsController {
         await this.userRepository.save(user);
       }
 
-      this.logger.log(`License created successfully for user ${validation.data.userId}`);
+      this.logger.debug(`License created successfully for user ${validation.data.userId}`);
       return license;
     } catch (err: any) {
       this.logger.error("Failed to create license", err);

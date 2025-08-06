@@ -5,14 +5,14 @@ import { LoggingInterceptor } from "#common/interceptors/register.interceptor";
 import { RequestMetricsInterceptor } from "#common/interceptors/request.interceptor";
 import { JwtConfigModule } from "#core/jwt.module";
 import { IPBlockerEntity } from "#entity/admin/ips-blocker.entity";
-import { OAuth2Credentials } from "#entity/users/Oauth2-credentials.entity";
-import { SessionEntity } from "#entity/users/session.entity";
-import { TicketEntity } from "#entity/users/tickets.entity";
+import { OAuth2Credentials } from "#entity/users/auth/oauth2-credentials.entity";
+import { SessionEntity } from "#entity/users/auth/session.entity";
+import { TicketEntity } from "#entity/users/support/tickets.entity";
 import { UserEntity } from "#entity/users/user.entity";
-import { FileEntity } from "#entity/utils/file.entity";
 import { LicenseEntity } from "#entity/utils/licence.entity";
-import { NotificationEntity } from "#entity/utils/notification.entity";
-import { RequestStatEntity } from "#entity/utils/request.entity";
+import { RequestStatEntity } from "#entity/utils/metrics/request.entity";
+import { FileEntity } from "#entity/utils/tools/file.entity";
+import { NotificationEntity } from "#entity/utils/tools/notification.entity";
 import { AdminModule } from "#routes/admin/admin.module";
 import { AuthModule } from "#routes/auth/auth.module";
 import { ClientModule } from "#routes/client/client.module";
@@ -21,7 +21,6 @@ import { HealthModule } from "#routes/health/health.module";
 import { HealthService } from "#routes/health/health.service";
 import { UsersModule } from "#routes/users/users.module";
 import { UtilsController } from "#routes/utils.controller";
-import configuration from "#shared/utils/configuration";
 
 import { HttpModule } from "@nestjs/axios";
 import { CacheInterceptor, CacheModule } from "@nestjs/cache-manager";
@@ -34,8 +33,8 @@ import { TerminusModule } from "@nestjs/terminus";
 import { ThrottlerModule } from "@nestjs/throttler";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { DiscordModule } from "./core/discord/client.module";
-import { ClientListener } from "./core/discord/listeners/client.listener";
+import { ClientListener } from "./core/discord/listeners/client/client.listener";
+import { DiscordModule } from "./core/discord/necord.module";
 import {
 	RedirectIfNotAuthenticatedMiddleware
 } from "./interfaces/http/middleware/applications/auth-discord.middleware";
@@ -82,10 +81,10 @@ import { AppController } from "./interfaces/http/routes/app.controller";
         OAuth2Credentials,
         RequestStatEntity,
         NotificationEntity,
-        TicketEntity
+        TicketEntity,
       ],
       synchronize: true,
-      logging: true,
+      //logging: true,
       ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
       extra: {
         ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : null,
@@ -98,7 +97,6 @@ import { AppController } from "./interfaces/http/routes/app.controller";
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ".env", // Load environment variables from .env file
-      load: [configuration], // Load environment variables from .env file
     }),
     /**
      * Registers the AuthModule for handling authentication.
@@ -194,7 +192,7 @@ import { AppController } from "./interfaces/http/routes/app.controller";
      * Integrates JWT configuration module.
      * @see {@link #core/jwt.module.ts JwtConfigModule}
      */
-    JwtConfigModule
+    JwtConfigModule,
   ], // List of modules to import into the application.
   controllers: [AppController, UtilsController], // List of controllers to register.
   providers: [

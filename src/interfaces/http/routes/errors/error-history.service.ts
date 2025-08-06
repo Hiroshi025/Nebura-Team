@@ -64,7 +64,7 @@ export class ErrorHistoryService {
         additionalInfo: additionalInfo ? `${message} | ${additionalInfo}` : message,
       });
       const savedStatus = await this.statusRepository.save(status);
-      this.logger.log(`Error logged with ID: ${savedStatus.id}`);
+      this.logger.debug(`Error logged with ID: ${savedStatus.id}`);
       return savedStatus;
     } catch (error) {
       this.logger.error("Error logging error", error);
@@ -91,7 +91,7 @@ export class ErrorHistoryService {
       const history = await this.statusRepository.find({
         order: { timestamp: "DESC" },
       });
-      this.logger.log(`Retrieved ${history.length} error history entries`);
+      this.logger.debug(`Retrieved ${history.length} error history entries`);
       return history;
     } catch (error) {
       this.logger.error("Error retrieving error history", error);

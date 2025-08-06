@@ -1,10 +1,14 @@
 import { SkipLogging } from "#common/decorators/logging.decorator";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType } from "discord.js";
 import { Arguments, Context, TextCommand, TextCommandContext } from "necord";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from "@nestjs/common";
 import { SkipThrottle } from "@nestjs/throttler";
+
+import {
+	handleRepository, handleSearch, handleUser, showMainMenu, showQuickLookup
+} from "../lib/functions";
 
 /**
  * MessageInteraction class to handle text commands in Discord.
@@ -42,5 +46,66 @@ export class MessageInteraction {
     );
 
     return message.reply({ embeds: [embed], components: [row] });
+  }
+
+  @TextCommand({ name: "dns", description: "Show information about the DNS." })
+  public async onDns(@Context() [message]: TextCommandContext, @Arguments() args: string[]) {
+    try {
+      if (!message.guild) return;
+      if (!args.length) {
+        return showMainMenu(message, process.env.DISCORD_PREFIX as string);
+      }
+
+      const domain = args[0].replace(/^https?:\/\//, "").split("/")[0];
+      return showQuickLookup(message, domain);
+    } catch (e: any) {
+      return message.reply({
+        embeds: [
+          {
+            color: 0xff0000,
+            title: "Error",
+            description: [
+              "An error occurred while processing your request.",
+              "Please try again later or contact support if the issue persists.",
+            ].join("\n"),
+          },
+        ],
+      });
+    }
+  }
+
+  @TextCommand({ name: "github", description: "Search GitHub profiles and repositories" })
+  public async onGithub(@Context() [message]: TextCommandContext, @Arguments() args: string[]) {
+    if (!message.guild || !message.channel || message.channel.type !== ChannelType.GuildText) return;
+
+    if (!args[0]) {
+      return message.reply({
+        embeds: [
+          {
+            color: 0xff0000,
+            title: "Error",
+            description: [
+              "Please provide a GitHub username, repository, or search query.",
+              `Usage: \`${process.env.DISCORD_PREFIX}github <username/repo/search>\``,
+              "Examples:",
+              `\`${process.env.DISCORD_PREFIX}github octocat\` - Look up user 'octocat'`,
+              `\`${process.env.DISCORD_PREFIX}github octocat/Hello-World\` - Look up repository 'Hello-World' of user 'octocat'`,
+              `\`${process.env.DISCORD_PREFIX}github search <query>\` - Search GitHub for '<query>'`,
+            ].join("\n"),
+          },
+        ],
+      });
+    }
+
+    if (args[0].includes("/") && args.length === 1) {
+      return await handleRepository(message, args[0]);
+    }
+
+    if (args[0].toLowerCase() === "search") {
+      const query = args.slice(1).join(" ");
+      return await handleSearch(message, query);
+    }
+    
+    return await handleUser(message, args[0]);
   }
 }

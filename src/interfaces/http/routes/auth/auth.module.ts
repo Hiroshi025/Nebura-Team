@@ -1,7 +1,7 @@
 import { JwtConfigModule } from "#/core/jwt.module";
 import { DiscordStrategy } from "#common/strategies/discord.strategy";
 import { JwtStrategy } from "#common/strategies/jwt.strategy";
-import { OAuth2Credentials } from "#entity/users/Oauth2-credentials.entity";
+import { OAuth2Credentials } from "#entity/users/auth/oauth2-credentials.entity";
 import { UserEntity } from "#entity/users/user.entity";
 
 import { Module, NestModule } from "@nestjs/common";

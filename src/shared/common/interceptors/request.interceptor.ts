@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/require-await */
-import { RequestStatEntity } from "#entity/utils/request.entity";
+import { RequestStatEntity } from "#entity/utils/metrics/request.entity";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 import { DataSource } from "typeorm";
@@ -97,7 +97,7 @@ export class RequestMetricsInterceptor implements NestInterceptor {
               errors: isError ? 1 : 0,
               latency,
             });
-            this.logger.log(`Creating new request stat for identifier: ${identifier}`);
+            this.logger.debug(`Creating new request stat for identifier: ${identifier}`);
             await repo.save(stat);
           }
         } catch (err: any) {

@@ -1,4 +1,4 @@
-import { IsDate, IsNumber, IsString } from "class-validator";
+import { IsDate, IsNumber, IsString, Min } from "class-validator";
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 import { ApiProperty } from "@nestjs/swagger";
@@ -34,6 +34,7 @@ export class NotificationEntity extends BaseEntity {
    * Message content of the notification.
    */
   @Column()
+  @Min(5)
   @IsString()
   @ApiProperty({ description: "Message content of the notification", example: "New message received" })
   message!: string;
@@ -42,6 +43,7 @@ export class NotificationEntity extends BaseEntity {
    * Type of the notification (e.g., info, warning, error).
    */
   @Column({ default: "info" })
+  @Min(3)
   @IsString()
   @ApiProperty({ description: "Type of the notification (e.g., info, warning, error)", example: "info" })
   type!: string;
@@ -50,6 +52,7 @@ export class NotificationEntity extends BaseEntity {
    * Optional expiration date for the notification.
    */
   @Column()
+  @IsDate()
   @ApiProperty({ description: "Optional expiration date for the notification", example: new Date() })
   expiresAt!: Date;
 

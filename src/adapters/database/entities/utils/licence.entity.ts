@@ -1,4 +1,4 @@
-import { IsArray, IsDate, IsInt, IsOptional, IsString } from "class-validator";
+import { IsArray, IsDate, IsInt, IsOptional, IsString, Min } from "class-validator";
 import {
 	BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn
 } from "typeorm";
@@ -70,6 +70,7 @@ export class LicenseEntity extends BaseEntity {
    * @example "ABC123-XYZ789"
    */
   @Column({ unique: true })
+  @Min(5)
   @ApiProperty({ description: "Unique license key", example: "ABC123-XYZ789" })
   @IsString()
   key!: string;
@@ -89,6 +90,7 @@ export class LicenseEntity extends BaseEntity {
    * @example "user-uuid-123"
    */
   @Column()
+  @Min(5)
   @ApiProperty({ description: "Owner user ID", example: "user-uuid-123" })
   @IsString()
   userId!: string;
@@ -99,6 +101,7 @@ export class LicenseEntity extends BaseEntity {
    * @example "admin-uuid-456"
    */
   @Column()
+  @Min(5)
   @ApiProperty({ description: "Admin assigner ID", example: "admin-uuid-456" })
   @IsString()
   adminId!: string;
@@ -195,6 +198,7 @@ export class LicenseEntity extends BaseEntity {
    * @example "2024-07-25T12:00:00Z"
    */
   @CreateDateColumn()
+  @IsDate()
   @ApiProperty({ description: "Creation date", example: "2024-07-25T12:00:00Z" })
   createdAt!: Date;
 
@@ -204,6 +208,7 @@ export class LicenseEntity extends BaseEntity {
    * @example "2024-07-25T12:00:00Z"
    */
   @UpdateDateColumn()
+  @IsDate()
   @ApiProperty({ description: "Update date", example: "2024-07-25T12:00:00Z" })
   updatedAt!: Date;
 

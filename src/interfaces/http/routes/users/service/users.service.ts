@@ -52,7 +52,7 @@ export class UserService {
         ...user,
         role: userData.role,
       });
-      this.logger.log(`Updated role for user with ID ${user.id}`);
+      this.logger.debug(`Updated role for user with ID ${user.id}`);
       return user;
     } catch (error) {
       this.logger.error(`Failed to update role for user with ID ${userData.id}`, error);
@@ -128,7 +128,7 @@ export class UserService {
       const validRoles: UserRole[] = [UserRole.USER, UserRole.CLIENT];
       const usersToDelete = await this.userRepository.find({ where: { role: In(validRoles) } });
       await this.userRepository.remove(usersToDelete);
-      this.logger.log("All users deleted successfully");
+      this.logger.debug("All users deleted successfully");
     } catch (error) {
       this.logger.error("Error deleting all users", error);
       throw new HttpException("Failed to delete users", HttpStatus.INTERNAL_SERVER_ERROR);

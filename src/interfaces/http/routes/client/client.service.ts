@@ -52,7 +52,7 @@ export class ClientService {
       this.logger.warn(`No licenses found for user: ${uuid}`);
       throw new NotFoundException("No licenses found for user");
     }
-    this.logger.log(`Licenses retrieved for user: ${uuid}`);
+    this.logger.debug(`Licenses retrieved for user: ${uuid}`);
     return licenses;
   }
 
@@ -69,7 +69,7 @@ export class ClientService {
       this.logger.warn(`License not found: ${identifier}`);
       throw new NotFoundException("License not found");
     }
-    this.logger.log(`License retrieved: ${identifier}`);
+    this.logger.debug(`License retrieved: ${identifier}`);
     return license;
   }
 
@@ -88,7 +88,7 @@ export class ClientService {
     }
     license.ips = [];
     await this.licenseRepository.save(license);
-    this.logger.log(`License IPs reset: ${identifier}`);
+    this.logger.debug(`License IPs reset: ${identifier}`);
     return license;
   }
 }

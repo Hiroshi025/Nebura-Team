@@ -4,17 +4,22 @@ import { ButtonStyle, IntentsBitField, Options, Partials, PresenceStatusData } f
 /* eslint-disable @typescript-eslint/require-await */
 import { NecordModule } from "necord";
 
+import { NecordLavalinkModule } from "@necord/lavalink";
 import { NecordPaginationModule } from "@necord/pagination";
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { ContextInteraction } from "./interactions/components/context.interaction";
-import { ModalInteraction } from "./interactions/components/modals.interaction";
-import { InteractionHandler } from "./interactions/interaction";
+import { AdminInteraction } from "./interactions/commands/admins.interaction";
+import { LavalinkInteaction } from "./interactions/commands/lavalink.interaction";
+import { PublicInteraction } from "./interactions/commands/publics.interaction";
+import { ContextInteraction } from "./interactions/context-menus/context.interaction";
 import { MessageInteraction } from "./interactions/message.interaction";
-import { ClientListener } from "./listeners/client.listener";
-import { GuildListener } from "./listeners/guild.listener";
+import { ModalInteraction } from "./interactions/modals/modals.interaction";
+import { ClientListener } from "./listeners/client/client.listener";
+import { GuildListener } from "./listeners/guild/guild.listener";
+import { lavalinkService } from "./services/lavalink.service";
+import { NodeManager } from "./services/node-lavalink.service";
 
 /**
  * The DiscordModule is responsible for integrating the Necord Discord client
@@ -69,7 +74,6 @@ import { GuildListener } from "./listeners/guild.listener";
         ],
         development: [configService.get<string>("DISCORD_DEVELOPMENT_GUILD_ID", "")],
         prefix: configService.get<string>("DISCORD_PREFIX", ""),
-        skipRegistration: false,
         presence: {
           status: configService.get<string>("DISCORD_PRESENCE_STATUS", "") as PresenceStatusData,
           activities: [
@@ -124,8 +128,28 @@ import { GuildListener } from "./listeners/guild.listener";
       allowTraversal: true,
       buttonsPosition: "end",
     }),
+    NecordLavalinkModule.forRoot({
+      nodes: [
+        {
+          authorization: process.env.DISCORD_LAVALINK_PASSWORD || "saher.inzeworld.com",
+          host: process.env.DISCORD_LAVALINK_HOST || "lava.inzeworld.com",
+          port: process.env.DISCORD_LAVALINK_PORT ? parseInt(process.env.DISCORD_LAVALINK_PORT, 10) : 3128,
+        },
+      ],
+    }),
   ],
-  providers: [ClientListener, MessageInteraction, InteractionHandler, GuildListener, ContextInteraction, ModalInteraction],
+  providers: [
+    ClientListener,
+    MessageInteraction,
+    AdminInteraction,
+    GuildListener,
+    ContextInteraction,
+    ModalInteraction,
+    NodeManager,
+    LavalinkInteaction,
+    PublicInteraction,
+    lavalinkService
+  ],
   exports: [NecordModule],
 })
 export class DiscordModule {}

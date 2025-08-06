@@ -1,7 +1,7 @@
 import { JwtConfigModule } from "#/core/jwt.module";
 import { UserEntity } from "#entity/users/user.entity";
-import { FileEntity } from "#entity/utils/file.entity";
 import { LicenseEntity } from "#entity/utils/licence.entity";
+import { FileEntity } from "#entity/utils/tools/file.entity";
 import fs from "fs";
 import { diskStorage } from "multer";
 

@@ -23,11 +23,15 @@
     const end = start + pageSize;
     const pageCores = cores.slice(start, end);
 
-    pageCores.forEach((core) => {
+    pageCores.forEach((core, idx) => {
       const total = sumTimes(core.times);
       container.innerHTML += `
         <div class="cpu-core">
-          <h4 class="cpu-core-title">Core ${core.core}</h4>
+          <h4 class="cpu-core-title">Core ${start + idx + 1}</h4>
+          <div style="font-size:0.85rem; margin-bottom:0.5rem;">
+            <span>Model: ${core.model || "-"}</span><br>
+            <span>Speed: ${core.speed || "-"} MHz</span>
+          </div>
           <div style="margin-bottom: 0.5rem;">
             <div style="font-size: 0.8rem; margin-bottom: 0.25rem; display: flex; justify-content: space-between;">
               <span>User:</span>

@@ -1,5 +1,5 @@
 import { FileUploadSchema } from "#adapters/schemas/files.schema";
-import { FileEntity } from "#entity/utils/file.entity";
+import { FileEntity } from "#entity/utils/tools/file.entity";
 import crypto from "crypto";
 import fs from "fs/promises";
 import path from "path";
@@ -120,7 +120,7 @@ export class FileUploadService {
     });
     await this.fileRepository.save(fileEntity);
 
-    this.logger.log(`File uploaded and saved: ${fileEntity.id}`);
+    this.logger.debug(`File uploaded and saved: ${fileEntity.id}`);
     return { message: "File uploaded successfully", file: fileEntity };
   }
 
@@ -211,7 +211,7 @@ export class FileUploadService {
     Object.assign(file, updateDto);
     await this.fileRepository.save(file);
 
-    this.logger.log(`File updated: ${file.id}`);
+    this.logger.debug(`File updated: ${file.id}`);
     return file;
   }
 
@@ -258,7 +258,7 @@ export class FileUploadService {
     Object.assign(file, updateDto);
     await this.fileRepository.save(file);
 
-    this.logger.log(`File updated: ${file.id}`);
+    this.logger.debug(`File updated: ${file.id}`);
     return file;
   }
 
@@ -282,7 +282,7 @@ export class FileUploadService {
       this.logger.warn(`File not found for deletion: ${id}`);
       return false;
     }
-    this.logger.log(`File deleted: ${id}`);
+    this.logger.debug(`File deleted: ${id}`);
     return true;
   }
 
@@ -293,7 +293,7 @@ export class FileUploadService {
       this.logger.warn(`File not found for deletion: ${id}`);
       return false;
     }
-    this.logger.log(`File deleted: ${id}`);
+    this.logger.debug(`File deleted: ${id}`);
     return true;
   }
 
@@ -367,7 +367,7 @@ export class FileUploadService {
     fileEntity.checksum = "simulated-checksum";
     await this.fileRepository.save(fileEntity);
 
-    this.logger.log(`File replaced and updated: ${fileEntity.id}`);
+    this.logger.debug(`File replaced and updated: ${fileEntity.id}`);
     return fileEntity;
   }
 

@@ -1,3 +1,4 @@
+import { registerWatchedPartials } from "#shared/hbs-watched";
 import { registerHelpers } from "#shared/utils/helpers";
 import session from "express-session";
 import hbs from "hbs";
@@ -5,6 +6,7 @@ import helmet from "helmet";
 import passport from "passport";
 import { join } from "path";
 import { loadEnvFile } from "process";
+import responseTime from "response-time";
 
 import { ConsoleLogger, Logger, ValidationPipe, VersioningType } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
@@ -80,8 +82,15 @@ export class Main {
     //    - Uses ConsoleLogger for colored output in development.
     //    - See: https://docs.nestjs.com/fundamentals/logging
     const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-      logger: process.env.NODE_ENV === "development" ? new ConsoleLogger({ colors: true }) : false,
-      bufferLogs: true,
+      logger:
+        process.env.NODE_ENV === "development"
+          ? new ConsoleLogger({
+              colors: true,
+              context: "Nebura",
+              timestamp: true,
+              logLevels: ["error", "warn", "log", "debug", "verbose"],
+            })
+          : false,
     });
 
     // 2. Apply global validation pipes
@@ -117,13 +126,19 @@ export class Main {
     app.setViewEngine("hbs");
 
     registerHelpers(hbs);
+    hbs.registerHelper("inc", function (value) {
+      return parseInt(value) + 1;
+    });
     hbs.registerPartials(join(__dirname, "..", "web", "views", "partials"));
-    hbs.registerHelper('inc', function(value) { return parseInt(value) + 1; });
+    if (process.env.NODE_ENV === "development") {
+      registerWatchedPartials(join(__dirname, "..", "web", "views", "partials"));
+    }
+
     hbs.localsAsTemplateData(app);
     hbs.registerHelper("json", function (context) {
       return JSON.stringify(context, null, 2);
     });
-    
+
     // 5. Configure Swagger for API documentation
     //    - Interactive API docs at /v1/docs
     //    - Downloadable OpenAPI JSON at /v1/docs/download
@@ -203,6 +218,7 @@ export class Main {
     );
 
     app.use(passport.initialize());
+    app.use(responseTime());
     app.use(passport.session());
 
     // 8. Start the application on the specified port
@@ -211,8 +227,8 @@ export class Main {
     //app.useGlobalGuards(new RolesGuard());
     const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
     await app.listen(port, "0.0.0.0");
-    this.logger.log(`Nebura API is running at http://localhost:${port}/v1/`);
-    this.logger.log(`Swagger UI available at http://localhost:${port}/v1/docs`);
+    this.logger.debug(`Nebura API is running at http://localhost:${port}/v1/`);
+    this.logger.debug(`Swagger UI available at http://localhost:${port}/v1/docs`);
   }
 
   /**
@@ -230,7 +246,7 @@ export class Main {
    */
   public async init(): Promise<void> {
     await this.moduleApp();
-    this.logger.log("Application API successfully on port " + (process.env.PORT ?? 3000));
+    this.logger.debug("Application API successfully on port " + (process.env.PORT ?? 3000));
   }
 }
 

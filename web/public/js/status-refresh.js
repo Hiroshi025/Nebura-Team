@@ -151,19 +151,32 @@ function updateData() {
   fetch("/dashboard/utils/status-json")
     .then((response) => response.json())
     .then((data) => {
-      lastData = data;
+      // Verifica si la respuesta tiene status "ok" y datos info
+      if (data.status !== "ok" || !data.info) {
+        Toastify({
+          text: "Error obteniendo datos del sistema",
+          duration: 3000,
+          className: "toast-error",
+          gravity: "top",
+          position: "right",
+        }).showToast();
+        document.getElementById("updateIndicator").classList.remove("updating");
+        return;
+      }
+
+      lastData = data.info;
 
       // Actualizar tarjetas
-      updateCards(data);
+      updateCards(data.info);
 
       // Actualizar gráficos
-      updateCharts(data);
+      updateCharts(data.info);
 
       // Actualizar última actualización
       document.getElementById("last-updated").textContent = new Date().toLocaleTimeString();
 
       // Verificar alertas
-      checkAlerts(data);
+      checkAlerts(data.info);
 
       document.getElementById("updateIndicator").classList.remove("updating");
     })
@@ -188,6 +201,7 @@ function updateData() {
  * updateCards({ memory: {...}, cpu: {...}, uptime: 12345 });
  */
 function updateCards(data) {
+  // data = info
   // Actualizar memoria
   const memoryPercent = (data.memory.heapUsed / data.memory.heapTotal) * 100;
   document.getElementById("memory-progress").style.width = memoryPercent + "%";
@@ -303,6 +317,7 @@ function formatMs(ms) {
  * updateCharts({ memory: {...}, cpu: {...} });
  */
 function updateCharts(data) {
+  // data = info
   const now = new Date();
   const timeLabel = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
@@ -342,6 +357,7 @@ function updateCharts(data) {
  * checkAlerts({ memory: {...}, cpu: {...} });
  */
 function checkAlerts(data) {
+  // data = info
   const memoryPercent = (data.memory.heapUsed / data.memory.heapTotal) * 100;
   const cpuPercent = data.cpu.process.cpuPercent;
 

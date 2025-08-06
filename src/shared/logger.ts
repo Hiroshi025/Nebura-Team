@@ -40,7 +40,7 @@ const levelLabels: Record<LogLevel, string> = {
  * ```ts
  * const logger = new Logger();
  * logger.setContext('MyService');
- * logger.log('Service started');
+ * logger.debug('Service started');
  * logger.error('An error occurred', error);
  * ```
  *

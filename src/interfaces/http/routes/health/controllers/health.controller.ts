@@ -70,7 +70,7 @@ export class HealthController {
     summary: "Health check",
     description: "Performs a health check on the application.",
   })
-  check() {
+  public onHealth() {
     return this.health.check([
       /**
        * Checks the application's heap memory usage.
@@ -112,56 +112,7 @@ export class HealthController {
     summary: "Get health status",
     description: "Retrieves the current health status of the application.",
   })
-  getHealthStatus() {
-    return this.healthService.checkHealth();
-  }
-
-  /**
-   * Returns system metrics including memory usage, CPU usage, and uptime.
-   *
-   * @returns An object with memoryUsage, cpuUsage, and uptime.
-   *
-   * @example
-   * // GET /health/metrics
-   * // Returns:
-   * // {
-   * //   memoryUsage: { ... },
-   * //   cpuUsage: [ ... ],
-   * //   uptime: 123.45
-   * // }
-   */
-  @Get("metrics")
-  @ApiResponse({ status: 200, description: "System metrics retrieved successfully" })
-  @ApiResponse({ status: 500, description: "Internal server error" })
-  @ApiOperation({
-    summary: "Get system metrics",
-    description: "Retrieves system metrics such as memory usage, CPU usage, and uptime.",
-  })
-  getMetrics() {
-    return this.healthService.getMetrics();
-  }
-
-  /**
-   * Returns the last 100 error history records from the database.
-   *
-   * @returns An array of error history objects.
-   *
-   * @example
-   * // GET /health/errors
-   * // Returns:
-   * // [
-   * //   { id: 1, timestamp: ..., memoryUsage: ..., ... },
-   * //   ...
-   * // ]
-   */
-  @Get("errors")
-  @ApiResponse({ status: 200, description: "Error history retrieved successfully" })
-  @ApiResponse({ status: 500, description: "Internal server error" })
-  @ApiOperation({
-    summary: "Get error history",
-    description: "Retrieves the last 100 error history records from the database.",
-  })
-  getErrorHistory() {
-    return this.healthService.getErrorHistory();
+  public onStatus() {
+    return this.healthService.getHealth();
   }
 }

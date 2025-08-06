@@ -1,10 +1,9 @@
-
 import { RequestClient } from "#/types/express";
 import { AuthenticatedGuard } from "#common/guards/auth-discord.guard";
-import { TicketEntity } from "#entity/users/tickets.entity";
+import { TicketEntity } from "#entity/users/support/tickets.entity";
 import { UserEntity } from "#entity/users/user.entity";
 import { LicenseEntity } from "#entity/utils/licence.entity";
-import { RequestStatEntity } from "#entity/utils/request.entity";
+import { RequestStatEntity } from "#entity/utils/metrics/request.entity";
 import { Response } from "express-serve-static-core";
 import os from "os";
 import { firstValueFrom } from "rxjs";
@@ -62,13 +61,11 @@ export class AppController {
   @Get("status")
   @Render("status")
   async root() {
-    const health = await this.healthService.checkHealth();
-    const errors = await this.healthService.getErrorHistory();
+    const health = await this.healthService.getHealth()
     return {
       title: "Nebura Status",
       subtitle: "System Status",
-      health,
-      errors,
+      health
     };
   }
 

@@ -1,4 +1,4 @@
-import { IsDate, IsNumber, IsString } from "class-validator";
+import { IsDate, IsNumber, IsString, Min } from "class-validator";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 import { ApiProperty } from "@nestjs/swagger";
@@ -39,6 +39,7 @@ export class RequestStatEntity extends BaseEntity {
    * Used for grouping request statistics.
    */
   @Column()
+  @Min(5)
   @ApiProperty({ description: "Composite identifier endpoint-clientId-system", example: "/api/v1/data-12345-Mozilla/5.0" })
   @IsString()
   identifier!: string;
@@ -47,6 +48,7 @@ export class RequestStatEntity extends BaseEntity {
    * The requested API endpoint.
    */
   @Column()
+  @Min(1)
   @ApiProperty({ description: "Requested endpoint", example: "/api/v1/data" })
   @IsString()
   endpoint!: string;
@@ -62,6 +64,7 @@ export class RequestStatEntity extends BaseEntity {
    * The system's User-Agent string.
    */
   @Column()
+  @Min(5)
   @ApiProperty({ description: "System User-Agent", example: "Mozilla/5.0" })
   @IsString()
   system!: string;

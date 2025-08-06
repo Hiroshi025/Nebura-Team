@@ -100,7 +100,7 @@ export class AuthAdminGuard implements CanActivate {
 
     const validrole = ["admin", "moderator", "developer", "owner"];
     if (validrole.includes(data.role)) {
-      this.logger.log(`User with ID ${user.id} has valid role: ${data.role}`);
+      this.logger.debug(`User with ID ${user.id} has valid role: ${data.role}`);
       return true;
     } else {
       this.logger.warn(`User with ID ${user.id} does not have admin privileges.`);

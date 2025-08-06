@@ -1,3 +1,4 @@
+import { IsInt, IsString, Min } from "class-validator";
 import { IntegerOption, StringOption } from "necord";
 
 /**
@@ -21,6 +22,8 @@ export class NotificationDto {
    * @example
    * dto.message = "System update scheduled for tomorrow."
    */
+  @IsString()
+  @Min(5)
   @StringOption({
     name: "message",
     description: "Notification message to show on the dashboard",
@@ -35,6 +38,8 @@ export class NotificationDto {
    * @example
    * dto.type = "success"
    */
+  @IsString()
+  @Min(3)
   @StringOption({
     name: "type",
     description: "Notification type (info, success, warning, error)",
@@ -46,7 +51,7 @@ export class NotificationDto {
       { name: "Error", value: "error" },
     ],
   })
-  type?: string;
+  type!: string;
 
   /**
    * Number of days until the notification expires.
@@ -82,6 +87,7 @@ export class DeleteNotificationDto {
    * @example
    * dto.id = 42
    */
+  @IsInt()
   @IntegerOption({
     name: "id",
     description: "Notification ID to delete",

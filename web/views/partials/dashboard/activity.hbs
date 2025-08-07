@@ -1,0 +1,106 @@
+<!-- Activity Section -->
+<div class="page-section" id="activity">
+  <h2
+    class="glitch"
+    data-text="ACTIVITY HISTORY"
+    style="font-weight: 700; font-size: 24px; margin-bottom: 25px; text-align: center"
+    data-lang-key="activity-history">
+    ACTIVITY HISTORY
+  </h2>
+
+  <div class="activity-grafics" style="width: 100%; margin-bottom: 32px;">
+    <div class="dashboard-card" style="width: 100%; min-width: 0;">
+      <div class="card-header">
+        <div class="card-title" style="font-size: 16px;"
+          data-lang-key="api-requests-over-time">API Requests Over
+          Time</div>
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24"
+            fill="currentColor">
+            <path
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
+          </svg>
+        </div>
+      </div>
+      <div style="padding: 10px 0;">
+        <canvas id="requestsAreaChart"
+          style="width: 100%; height: 300px; max-height: 300px;"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="activity-history">
+    <div class="activity-header">
+      <div class="activity-title" data-lang-key="all-activity">All
+        Activity</div>
+      <button class="clear-history-btn" onclick="clearActivityHistory()"
+        data-lang-key="clear-all">Clear All</button>
+    </div>
+    <div class="activity-list" id="fullActivityList">
+      {{#if metricsToClient.length}}
+      {{#each metricsToClient}}
+      <div class="activity-item"
+        style="display: flex; align-items: center; justify-content: space-between;">
+        <div
+          style="display: flex; align-items: center; gap: 12px; flex: 1;">
+          {{!-- Icono por tipo --}}
+          {{#if (eq type "login")}}
+          <img
+            src="https://cdn.discordapp.com/avatars/{{user.discord.id}}/{{user.discord.avatar}}.png"
+            class="activity-avatar" alt="avatar">
+          {{else if (eq type "profile")}}
+          <img
+            src="https://cdn.discordapp.com/avatars/{{user.discord.id}}/{{user.discord.avatar}}.png"
+            class="activity-avatar" alt="avatar">
+          {{else if (gt errors 0)}}
+          <div class="activity-icon error">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" /></svg>
+          </div>
+          {{else}}
+          <div class="activity-icon api">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path
+                d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" /></svg>
+          </div>
+          {{/if}}
+          <div class="activity-content" style="flex: 1;">
+            <div class="activity-description"
+              style="font-size: 15px; font-weight: 600;">
+              {{system}}
+            </div>
+            <div
+              style="font-size: 12px; color: var(--text-secondary); margin-bottom: 2px;">
+              <span><strong>Client ID:</strong> {{clientId}}</span>
+              <span style="margin-left: 10px;"><strong>Endpoint:</strong>
+                {{endpoint}}</span>
+            </div>
+            <div style="font-size: 12px; color: var(--text-secondary);">
+              <strong>Requests:</strong> {{requests}}
+              {{#if (gt errors 0)}}
+              <span class="activity-badge">Errors: {{errors}}</span>
+              {{else}}
+              | <strong>Errors:</strong> {{errors}}
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <div
+          style="font-size: 13px; color: var(--nebura-purple); font-weight: 600; min-width: 80px; text-align: right;">
+          <span title="Latency"><svg
+              style="vertical-align: middle; width: 15px; height: 15px; margin-right: 3px;"
+              viewBox="0 0 24 24" fill="currentColor"><path
+                d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" /></svg></span>
+          {{latency}} ms
+        </div>
+      </div>
+      {{/each}}
+      {{else}}
+      <div class="activity-item" style="text-align:center;padding:20px;">
+        <strong>No activity history.</strong><br>
+        No API requests have been registered for this user yet.<br>
+        When you make API calls, the details of each request will appear here,
+        including endpoint, system, errors, and latency.
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</div>

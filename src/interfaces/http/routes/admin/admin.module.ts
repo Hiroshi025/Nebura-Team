@@ -8,11 +8,11 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 import { AdminCacheController } from "./controllers/cache.controller";
-import { AdminIPBlockerController } from "./controllers/ips-blocker.controller";
+import { AdminIPBlockerController } from "./controllers/ip.controller";
 import { AdminLicenceController } from "./controllers/licence.controller";
 import { AdminController } from "./controllers/users.controller";
 import { CacheService } from "./service/cache.service";
-import { IPBlockerService } from "./service/ips-blocker.service";
+import { IPBlockerService } from "./service/ip.service";
 import { LicenceService } from "./service/licence.service";
 
 /**

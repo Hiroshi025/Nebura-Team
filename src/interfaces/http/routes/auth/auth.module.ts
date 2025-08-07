@@ -8,11 +8,11 @@ import { Module, NestModule } from "@nestjs/common";
 import { PassportModule } from "@nestjs/passport";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { AuthService } from "./auth.service";
 import { AuthDiscordController } from "./controllers/auth-discord.controller";
 import { AuthController } from "./controllers/auth.controller";
+import { SessionSerializer } from "./listeners/session.serializer";
 import { UserCreatedListener } from "./listeners/user-created.listener";
-import { SessionSerializer } from "./session.serializer";
+import { AuthService } from "./service/auth.service";
 
 /**
  * Authentication module for handling user authentication logic.

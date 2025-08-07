@@ -5,8 +5,8 @@ import { LicenseEntity } from "#entity/utils/licence.entity";
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { ClientService } from "./client.service";
 import { ClientController } from "./controllers/client.controller";
+import { ClientService } from "./service/client.service";
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity, LicenseEntity]), JwtConfigModule, TypeOrmModule.forFeature([LicenseEntity])],

@@ -1,6 +1,6 @@
 import { Done } from "#/types/sessions-types";
 import { UserEntity } from "#entity/users/user.entity";
-import { AuthService } from "#routes/auth/auth.service";
+import { AuthService } from "#routes/auth/service/auth.service";
 import { encrypt } from "#shared/webToken";
 import { Profile, Strategy } from "passport-discord";
 import { Repository } from "typeorm";

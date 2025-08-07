@@ -11,9 +11,9 @@ import {
 	ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags
 } from "@nestjs/swagger";
 
-import { AuthService } from "../auth.service";
 import { LoginUserDto } from "../dto/user/login-user.dto";
 import { RegisterUserDto } from "../dto/user/register.dto";
+import { AuthService } from "../service/auth.service";
 
 /**
  * Controller for authentication endpoints.

@@ -5,14 +5,10 @@ import { RoleGuard } from "#common/guards/permissions/role.guard";
 import { UserRole } from "#common/typeRole";
 import { CreateIPBlockerDto } from "#routes/admin/dto/create-ip.dto";
 import { UpdateIPBlockerDto } from "#routes/admin/dto/update-ip.dto";
-import { IPBlockerService } from "#routes/admin/service/ips-blocker.service";
+import { IPBlockerService } from "#routes/admin/service/ip.service";
 
-import {
-	Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards
-} from "@nestjs/common";
-import {
-	ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags
-} from "@nestjs/swagger";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 /**
  * AdminIPBlockerController

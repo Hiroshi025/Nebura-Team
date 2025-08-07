@@ -12,6 +12,11 @@ function showFeedback(id, msg, type = "info") {
 // Crear Ticket
 document.getElementById("ticketForm")?.addEventListener("submit", async function (e) {
   e.preventDefault();
+  if (!window.user || !window.user.api || !window.user.api.uuid) {
+    showFeedback("ticketChatFeedback", "No user session detected.", "error");
+    return;
+  }
+
   const form = e.target;
   const data = {
     title: form.title.value,
@@ -62,86 +67,135 @@ function filterTickets() {
   });
 }
 
+// Inicializa socket.io
+window.socket = window.socket || io();
+const socket = window.socket;
+
+// ...existing code...
+
+function closeTicketHistoryModal() {
+  adminTicketHistoryModal.style.display = "none";
+}
+
+// Exponer la función globalmente
+window.closeTicketHistoryModal = closeTicketHistoryModal;
+
+// ...existing code...
+
 // Abrir Chat de Ticket
 window.openTicketChat = async function (ticketId) {
+  if (!window.user || !window.user.api || !window.user.api.uuid) {
+    showFeedback("ticketChatFeedback", "No user session detected.", "error");
+    return;
+  }
+
   document.getElementById("ticketChatModal").style.display = "block";
   document.getElementById("ticketChatTitle").textContent = "Ticket Chat";
   document.getElementById("ticketChatId").textContent = "#" + ticketId;
   document.getElementById("ticketChatFeedback").textContent = "";
-  // Guardar ticketId para enviar mensajes
   document.getElementById("ticketChatForm").dataset.ticketId = ticketId;
 
-  // Función para cargar mensajes
-  async function loadMessages() {
-    const messagesEl = document.getElementById("ticketChatMessages");
-    messagesEl.innerHTML = "<div class='loading'></div> Loading messages...";
-    try {
-      const res = await fetch(`/dashboard/utils/tickets/messages/${ticketId}`);
-      const result = await res.json();
-      if (Array.isArray(result.messages)) {
-        messagesEl.innerHTML = "";
-        result.messages.forEach((msg) => {
-          messagesEl.innerHTML += `
-            <div class="chat-message" style="display:flex; align-items:flex-start; gap:10px; margin-bottom:10px;">
-              <img src="https://cdn.discordapp.com/avatars/${msg.user.discordId}/${msg.user.avatar}.png" alt="avatar" style="width:32px; height:32px; border-radius:50%; object-fit:cover;" />
-              <div style="flex:1;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="font-weight:600; color:${msg.user.roleColor};">${msg.user.name}</span>
-                  <span style="font-size:11px; background:${msg.user.roleColor}; color:white; border-radius:4px; padding:2px 6px;">${msg.user.role}</span>
-                  <span style="font-size:11px; color:var(--text-secondary);">${msg.createdAt}</span>
-                  <span style="font-size:11px; color:var(--nebura-purple);">ID: ${msg.id}</span>
-                </div>
-                <div style="margin-top:2px; font-size:13px;">${msg.message}</div>
-                ${msg.attachments?.length ? `<div style="margin-top:4px;">${msg.attachments.map((a) => `<a href="${a.url}" target="_blank" style="font-size:11px; color:var(--nebura-magenta); margin-right:8px;">File</a>`).join("")}</div>` : ""}
-              </div>
-            </div>
-          `;
-        });
-      } else {
-        messagesEl.innerHTML =
-          "<div style='text-align:center; color:var(--text-secondary); padding:12px;'>No messages in this ticket.</div>";
-      }
-    } catch {
-      messagesEl.innerHTML =
-        "<div style='text-align:center; color:var(--text-secondary); padding:12px;'>Error loading messages.</div>";
-    }
+  // Función para cargar mensajes usando socket.io
+  function loadMessages() {
+    const userId = window.user?.api?.uuid || "";
+    socket.emit("getMessages", { ticketId, userId });
   }
 
-  // Cargar mensajes al abrir
-  await loadMessages();
+  // Escucha respuesta de mensajes
+  socket.off("messages");
+  socket.on("messages", function (result) {
+    const messagesEl = document.getElementById("ticketChatMessages");
+    if (Array.isArray(result.messages)) {
+      messagesEl.innerHTML = "";
+      result.messages.forEach((msg) => {
+        messagesEl.innerHTML += `
+          <div class="chat-message" style="display:flex; align-items:flex-start; gap:10px; margin-bottom:10px;">
+            <img src="https://cdn.discordapp.com/avatars/${msg.user.discordId}/${msg.user.avatar}.png" alt="avatar" style="width:32px; height:32px; border-radius:50%; object-fit:cover;" />
+            <div style="flex:1;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-weight:600; color:${msg.user.roleColor};">${msg.user.name}</span>
+                <span style="font-size:11px; background:${msg.user.roleColor}; color:white; border-radius:4px; padding:2px 6px;">${msg.user.role}</span>
+                <span style="font-size:11px; color:var(--text-secondary);">${msg.createdAt}</span>
+                <span style="font-size:11px; color:var(--nebura-purple);">ID: ${msg.id}</span>
+              </div>
+              <div style="margin-top:2px; font-size:13px;">${msg.message}</div>
+              ${msg.attachments?.length ? `<div style="margin-top:4px;">${msg.attachments.map((a) => `<a href="${a.url}" target="_blank" style="font-size:11px; color:var(--nebura-magenta); margin-right:8px;">File</a>`).join("")}</div>` : ""}
+            </div>
+          </div>
+        `;
+      });
+    } else {
+      messagesEl.innerHTML =
+        "<div style='text-align:center; color:var(--text-secondary); padding:12px;'>No messages in this ticket.</div>";
+    }
+  });
 
-  // Exponer función global para el botón de recarga
+  // Cargar mensajes al abrir
+  loadMessages();
+
+  // Actualización en tiempo real usando socket.io
+  socket.off("messageSentRealtime");
+  socket.on("messageSentRealtime", function (data) {
+    // Depuración: muestra el id recibido
+    // console.log("Realtime event:", data.ticketUuid, "local:", ticketId, window.currentTicketChatId);
+    // Actualiza si coincide el id del ticket abierto (puede ser id o uuid)
+    console.log(ticketId)
+    if (data.ticketUuid === ticketId || data.ticketUuid === window.currentTicketChatId) {
+      loadMessages();
+    }
+  });
+
+  // Actualizar el chat también cuando el usuario envía un mensaje exitosamente
+  socket.off("messageSent");
+  socket.on("messageSent", function (result) {
+    if (result.success) {
+      showFeedback("ticketChatFeedback", "Message sent.", "success");
+      // Actualiza el chat tras respuesta exitosa
+      loadMessages();
+    } else {
+      showFeedback("ticketChatFeedback", result.message || "Error sending message.", "error");
+    }
+  });
+
+  window.currentTicketChatId = ticketId;
   window.ticketReloadChat = loadMessages;
 };
 
 window.closeTicketChat = function () {
   document.getElementById("ticketChatModal").style.display = "none";
+  // Elimina el setInterval
+  if (window.ticketChatInterval) {
+    clearInterval(window.ticketChatInterval);
+    window.ticketChatInterval = null;
+  }
+  // Limpia el ticketId actual
+  window.currentTicketChatId = null;
+  // Elimina listeners de chat para evitar fugas de memoria
+  socket.off("messageSentRealtime");
+  socket.off("messageSent");
+  socket.off("messages");
 };
 
-// Enviar mensaje al chat del ticket
-document.getElementById("ticketChatForm")?.addEventListener("submit", async function (e) {
+// Enviar mensaje al chat del ticket usando socket.io
+document.getElementById("ticketChatForm").addEventListener("submit", function (e) {
   e.preventDefault();
+  if (!window.user || !window.user.api || !window.user.api.uuid) {
+    showFeedback("ticketChatFeedback", "No user session detected.", "error");
+    return;
+  }
+
   const form = e.target;
   const ticketId = form.dataset.ticketId;
   const message = form.message.value;
-  // Adjuntos no implementados en este ejemplo
-  try {
-    const res = await fetch(`/dashboard/utils/tickets/messages/send`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ticketId, message }),
-    });
-    const result = await res.json();
-    if (result.success) {
-      showFeedback("ticketChatFeedback", "Message sent.", "success");
-      openTicketChat(ticketId); // Recargar mensajes
-      form.reset();
-    } else {
-      showFeedback("ticketChatFeedback", result.message || "Error sending message.", "error");
-    }
-  } catch {
-    showFeedback("ticketChatFeedback", "Network error.", "error");
-  }
+  socket.emit("sendMessage", {
+    ticketId,
+    message,
+    userId: window.user.api.uuid || "",
+  });
+
+  // Limpiar el campo de mensaje inmediatamente
+  this.message.value = "";
+  // Ya no es necesario llamar a window.ticketReloadChat aquí, se actualiza por el evento
 });
 
 // Cerrar Ticket

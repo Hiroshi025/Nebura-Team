@@ -16,9 +16,8 @@ import { NotificationEntity } from "#entity/utils/tools/notification.entity";
 import { AdminModule } from "#routes/admin/admin.module";
 import { AuthModule } from "#routes/auth/auth.module";
 import { ClientModule } from "#routes/client/client.module";
-import { ErrorHistoryModule } from "#routes/errors/error-history.module";
 import { HealthModule } from "#routes/health/health.module";
-import { HealthService } from "#routes/health/health.service";
+import { HealthService } from "#routes/health/service/health.service";
 import { UsersModule } from "#routes/users/users.module";
 import { UtilsController } from "#routes/utils.controller";
 
@@ -40,29 +39,46 @@ import {
 } from "./interfaces/http/middleware/applications/auth-discord.middleware";
 import { IPBlockerMiddleware } from "./interfaces/http/middleware/ip-blocker.middleware";
 import { AppController } from "./interfaces/http/routes/app.controller";
+import { ChatGateway } from "./interfaces/http/socket/chats.gateaway";
 
 /**
- * The root module of the application.
+ * The root module of the Nebura application.
  *
- * This module is the entry point for the NestJS application and is responsible for
- * importing other modules, registering controllers, and providers.
+ * This module serves as the main entry point for the NestJS application.
+ * It is responsible for importing feature modules, registering controllers, and providers.
  *
- * It configures the database connection using TypeORM, sets up request throttling
- * with {@link ThrottlerModule}, loads environment configuration with {@link ConfigModule},
- * and integrates health and authentication modules.
+ * ## Features
+ * - Configures PostgreSQL database connection using TypeORM.
+ * - Loads environment variables globally using {@link https://docs.nestjs.com/techniques/configuration | ConfigModule}.
+ * - Sets up request throttling with {@link https://docs.nestjs.com/security/rate-limiting | ThrottlerModule}.
+ * - Integrates health checks, authentication, user management, admin, error history, client, Discord, and JWT modules.
+ * - Registers global interceptors and guards for caching, logging, throttling, client header validation, and request metrics.
+ * - Applies custom middlewares for IP blocking and Discord authentication.
  *
- * @see {@link https://docs.nestjs.com/modules NestJS Modules}
- * @see {@link https://docs.nestjs.com/techniques/database NestJS TypeORM}
- * @see {@link https://docs.nestjs.com/techniques/configuration NestJS ConfigModule}
- * @see {@link https://docs.nestjs.com/security/rate-limiting NestJS Throttler}
- * @see {@link https://docs.nestjs.com/recipes/terminus NestJS Terminus}
+ * @example
+ * // Main bootstrap in main.ts
+ * async function bootstrap() {
+ *   const app = await NestFactory.create(AppModule);
+ *   await app.listen(3000);
+ * }
+ *
+ * @see {@link https://docs.nestjs.com/modules | NestJS Modules}
+ * @see {@link https://docs.nestjs.com/techniques/database | NestJS TypeORM}
+ * @see {@link https://docs.nestjs.com/techniques/configuration | NestJS ConfigModule}
+ * @see {@link https://docs.nestjs.com/security/rate-limiting | NestJS Throttler}
+ * @see {@link https://docs.nestjs.com/recipes/terminus | NestJS Terminus}
  */
 @Module({
   imports: [
+    /**
+     * Registers TypeORM entities for dependency injection.
+     * @see {@link https://docs.nestjs.com/techniques/database | TypeORM Integration}
+     */
     TypeOrmModule.forFeature([StatusEntity, UserEntity, RequestStatEntity, LicenseEntity, NotificationEntity, TicketEntity]),
     /**
      * Configures TypeORM for PostgreSQL database connection.
-     * @see {@link https://docs.nestjs.com/techniques/database TypeORM Integration}
+     * Environment variables are used for connection parameters.
+     * @see {@link https://typeorm.io/#/connection-options | TypeORM Connection Options}
      */
     TypeOrmModule.forRoot({
       type: "postgres",
@@ -91,25 +107,29 @@ import { AppController } from "./interfaces/http/routes/app.controller";
       },
     }),
     /**
-     * Loads environment variables globally.
-     * @see {@link https://docs.nestjs.com/techniques/configuration ConfigModule}
+     * Loads environment variables globally from .env file.
+     * @see {@link https://docs.nestjs.com/techniques/configuration | ConfigModule}
      */
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ".env", // Load environment variables from .env file
+      envFilePath: ".env",
     }),
     /**
-     * Registers the AuthModule for handling authentication.
-     * @see {@link https://docs.nestjs.com/security/authentication AuthModule}
+     * Registers the global cache manager.
+     * @see {@link https://docs.nestjs.com/techniques/caching | CacheModule}
      */
     CacheModule.register({
-      isGlobal: true, // Make cache available globally
-      ttl: 5 * 60, // Cache time-to-live in seconds
-      max: 100, // Maximum number of items in cache
+      isGlobal: true,
+      ttl: 5 * 60,
+      max: 100,
     }),
     /**
-     * Integrates the ThrottlerModule for request throttling.
-     * @see {@link https://docs.nestjs.com/security/rate-limiting ThrottlerModule}
+     * Integrates request throttling strategies.
+     * @see {@link https://docs.nestjs.com/security/rate-limiting | ThrottlerModule}
+     * @example
+     * // Short: 3 requests per second
+     * // Medium: 20 requests per 10 seconds
+     * // Long: 100 requests per minute
      */
     ThrottlerModule.forRoot([
       {
@@ -129,86 +149,64 @@ import { AppController } from "./interfaces/http/routes/app.controller";
       },
     ]),
     /**
-     * Configures TerminusModule with logging enabled.
-     * @see {@link https://docs.nestjs.com/recipes/terminus#configuration Terminus Configuration}
+     * Enables health check endpoints with logging.
+     * @see {@link https://docs.nestjs.com/recipes/terminus#configuration | Terminus Configuration}
      */
     TerminusModule.forRoot({
       logger: true,
     }),
     /**
-     * Integrates the HttpModule for making HTTP requests.
-     * @see {@link https://docs.nestjs.com/techniques/http HttpModule}
+     * Integrates HTTP client module for outbound requests.
+     * @see {@link https://docs.nestjs.com/techniques/http | HttpModule}
      */
     HttpModule.register({
       timeout: 5000,
       maxRedirects: 5,
     }),
     /**
-     * Integrates the EventEmitterModule for event-driven architecture.
-     * @see {@link https://docs.nestjs.com/recipes/event-emitter EventEmitterModule}
+     * Enables event-driven architecture.
+     * @see {@link https://docs.nestjs.com/recipes/event-emitter | EventEmitterModule}
      */
     EventEmitterModule.forRoot(),
     /**
-     * Integrates the HealthModule for health checks.
-     * @see {@link https://docs.nestjs.com/recipes/terminus HealthModule}
+     * Enables scheduled tasks.
+     * @see {@link https://docs.nestjs.com/techniques/task-scheduling | ScheduleModule}
      */
     ScheduleModule.forRoot(),
     /**
-     * Integrates health check endpoints.
-     * @see {@link https://docs.nestjs.com/recipes/terminus HealthModule}
+     * Feature modules for application functionality.
      */
     HealthModule,
-    /**
-     * Integrates authentication endpoints.
-     * @see {@link https://docs.nestjs.com/security/authentication AuthModule}
-     */
     AuthModule,
-    /**
-     * Integrates user management endpoints.
-     * @see {@link https://docs.nestjs.com/modules UsersModule}
-     */
     UsersModule,
-    /**
-     * Integrates admin management endpoints.
-     * @see {@link https://docs.nestjs.com/modules AdminModule}
-     */
     AdminModule,
-    /**
-     * Integrates error history management endpoints.
-     * @see {@link https://docs.nestjs.com/modules ErrorHistoryModule}
-     */
-    ErrorHistoryModule,
-    /**
-     * Integrates client management endpoints.
-     * @see {@link https://docs.nestjs.com/modules ClientModule}
-     */
     ClientModule,
-    /**
-     * Integrates Discord client management.
-     * @see {@link https://docs.nestjs.com/modules DiscordModule}
-     */
     DiscordModule,
-    /**
-     * Integrates JWT configuration module.
-     * @see {@link #core/jwt.module.ts JwtConfigModule}
-     */
     JwtConfigModule,
-  ], // List of modules to import into the application.
-  controllers: [AppController, UtilsController], // List of controllers to register.
+  ],
+  /**
+   * Application controllers.
+   */
+  controllers: [AppController, UtilsController],
   providers: [
     /**
+     * Provides the ChatGateway for WebSocket communication.
+     * @see {@link #interfaces/http/socket/chats.gateaway.ts | ChatGateway}
+     */
+    ChatGateway,
+    /**
      * Provides the HealthService for health check functionality.
-     * @see {@link #routes/health/health.service.ts HealthService}
+     * @see {@link #routes/health/health.service.ts | HealthService}
      */
     HealthService,
     /**
      * Registers the ClientListener service to handle Discord client events.
-     * @see {@link ./interfaces/mesagging/discord/client.module.ts ClientListener}
+     * @see {@link ./core/discord/listeners/client/client.listener.ts | ClientListener}
      */
     ClientListener,
     /**
      * Registers CacheInterceptor globally to enable caching for all endpoints.
-     * @see {@link https://docs.nestjs.com/techniques/caching Cache
+     * @see {@link https://docs.nestjs.com/techniques/caching | CacheInterceptor}
      */
     {
       provide: APP_INTERCEPTOR,
@@ -216,7 +214,7 @@ import { AppController } from "./interfaces/http/routes/app.controller";
     },
     /**
      * Registers LoggingInterceptor globally to log request lifecycle events.
-     * @see {@link #common/interceptors/register.interceptor.ts LoggingInterceptor}
+     * @see {@link #common/interceptors/register.interceptor.ts | LoggingInterceptor}
      */
     {
       provide: APP_INTERCEPTOR,
@@ -224,7 +222,7 @@ import { AppController } from "./interfaces/http/routes/app.controller";
     },
     /**
      * Registers ThrottlerGuard globally to enforce request rate limiting.
-     * @see {@link https://docs.nestjs.com/security/rate-limiting ThrottlerGuard}
+     * @see {@link https://docs.nestjs.com/security/rate-limiting | ThrottlerGuard}
      */
     {
       provide: APP_GUARD,
@@ -232,7 +230,7 @@ import { AppController } from "./interfaces/http/routes/app.controller";
     },
     /**
      * Registers ClientHeaderGuard globally to manage the `x-client-id` header.
-     * @see {@link #common/guards/client-header.guard.ts ClientHeaderGuard}
+     * @see {@link #common/guards/client-header.guard.ts | ClientHeaderGuard}
      */
     {
       provide: APP_GUARD,
@@ -240,15 +238,27 @@ import { AppController } from "./interfaces/http/routes/app.controller";
     },
     /**
      * Registers RequestMetricsInterceptor globally to collect request metrics.
-     * @see {@link #common/interceptors/request.interceptor.ts RequestMetricsInterceptor}
+     * @see {@link #common/interceptors/request.interceptor.ts | RequestMetricsInterceptor}
      */
     {
       provide: APP_INTERCEPTOR,
       useClass: RequestMetricsInterceptor,
     },
-  ], // List of providers (services, etc.) to register.
+  ],
 })
 export class AppModule implements NestModule {
+  /**
+   * Configures middlewares for the application.
+   *
+   * - Applies {@link IPBlockerMiddleware} to all routes for IP blocking.
+   * - Applies {@link RedirectIfNotAuthenticatedMiddleware} to dashboard GET requests for Discord authentication.
+   *
+   * @param consumer MiddlewareConsumer instance for configuring middlewares.
+   * @see {@link https://docs.nestjs.com/middleware | NestJS Middleware}
+   * @example
+   * consumer.apply(IPBlockerMiddleware).forRoutes("*");
+   * consumer.apply(RedirectIfNotAuthenticatedMiddleware).forRoutes({ path: "dashboard", method: RequestMethod.GET });
+   */
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(IPBlockerMiddleware).forRoutes("*");
     consumer.apply(RedirectIfNotAuthenticatedMiddleware).forRoutes({ path: "dashboard", method: RequestMethod.GET });

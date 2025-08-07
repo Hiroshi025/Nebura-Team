@@ -1,210 +1,182 @@
-<!doctype html>
-<html lang="en" data-theme="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{title}}</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet" />
-    <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
-    <link rel="stylesheet" href="/css/dashboard.css" />
-    <link rel="shortcut icon" href="/assets/icono.jpg" type="image/x-icon">
-  </head>
-  <body>
-    <!-- Animated Background -->
-    <div class="animated-bg">
-      <div class="floating-particles" id="particles"></div>
+ <!-- Notificaciones -->
+<div id="dashboardNotifications" class="dashboard-notifications"></div>
+<!-- Dashboard Section -->
+<div class="page-section active" id="dashboard">
+  <div class="dashboard-grid">
+    <!-- Stats Cards -->
+    <div class="dashboard-card">
+      <div class="card-header">
+        <div class="card-title" data-lang-key="api-calls">API Calls</div>
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24"
+            fill="currentColor">
+            <path
+              d="M8.5 8.5L12 5l3.5 3.5L12 12l-3.5-3.5zM12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </div>
+      </div>
+      <div class="stat-value">+{{isRequestCount}}</div>
+      <div class="stat-label" data-lang-key="monthly-calls">Calls this
+        month</div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 85%"></div>
+      </div>
     </div>
 
-    <!-- Enhanced Sidebar -->
-    {{> sidebar }}
+    <div class="dashboard-card">
+      <div class="card-header">
+        <div class="card-title" data-lang-key="active-users">Active
+          Users</div>
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24"
+            fill="currentColor">
+            <path
+              d="M16 7c0-2.21-1.79-4-4-4S8 4.79 8 7s1.79 4 4 4 4-1.79 4-4zm-4 6c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z" />
+          </svg>
+        </div>
+      </div>
+      <div class="stat-value">+{{isUsers}}</div>
+      <div class="stat-label" data-lang-key="registered-users">Registered
+        Users</div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 75%"></div>
+      </div>
+    </div>
 
-    <!-- Enhanced Header -->
-    {{> header }}
+    <div class="dashboard-card">
+      <div class="card-header">
+        <div class="card-title"
+          data-lang-key="anime-database">Database</div>
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24"
+            fill="currentColor">
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+        </div>
+      </div>
+      <div class="stat-value">{{isDatabase}}</div>
+      <div class="stat-label" data-lang-key="anime-entries">Anime
+        Entries</div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 92%"></div>
+      </div>
+    </div>
 
-    <!-- Main Content -->
-    <main class="main-content" id="mainContent">
-      <!-- Notificaciones -->
-      <div id="dashboardNotifications" class="dashboard-notifications"></div>
-      <!-- Dashboard Section -->
-      <div class="page-section active" id="dashboard">
-        <div class="dashboard-grid">
-          <!-- Stats Cards -->
-          <div class="dashboard-card">
-            <div class="card-header">
-              <div class="card-title" data-lang-key="api-calls">API Calls</div>
-              <div class="card-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24"
-                  fill="currentColor">
-                  <path
-                    d="M8.5 8.5L12 5l3.5 3.5L12 12l-3.5-3.5zM12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
-              </div>
-            </div>
-            <div class="stat-value">+{{isRequestCount}}</div>
-            <div class="stat-label" data-lang-key="monthly-calls">Calls this
-              month</div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 85%"></div>
-            </div>
+    <div class="dashboard-card">
+      <div class="card-header">
+        <div class="card-title" data-lang-key="system-status">System
+          Status</div>
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24"
+            fill="currentColor">
+            <path
+              d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" />
+          </svg>
+        </div>
+      </div>
+      <div class="stat-value">{{isTimeActive}}</div>
+      <div class="stat-label" data-lang-key="uptime">Uptime</div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 99%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity History -->
+  <div class="activity-history">
+    <div class="activity-header">
+      <div class="activity-title" data-lang-key="recent-activity">Recent
+        Activity</div>
+      <button class="clear-history-btn" onclick="clearActivityHistory()"
+        data-lang-key="clear">Clear</button>
+    </div>
+    <div class="activity-list" id="activityList">
+      {{#if metricsToClient.length}}
+      {{#each metricsToClient}}
+      {{#ifCond @index '<' 10}}
+      <div class="activity-item"
+        style="display: flex; align-items: center; justify-content: space-between;">
+        <div
+          style="display: flex; align-items: center; gap: 12px; flex: 1;">
+          {{!-- Icono por tipo --}}
+          {{#if (eq type "login")}}
+          <img
+            src="https://cdn.discordapp.com/avatars/{{user.discord.id}}/{{user.discord.avatar}}.png"
+            class="activity-avatar" alt="avatar">
+          {{else if (eq type "profile")}}
+          <img
+            src="https://cdn.discordapp.com/avatars/{{user.discord.id}}/{{user.discord.avatar}}.png"
+            class="activity-avatar" alt="avatar">
+          {{else if (gt errors 0)}}
+          <div class="activity-icon error">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" /></svg>
           </div>
-
-          <div class="dashboard-card">
-            <div class="card-header">
-              <div class="card-title" data-lang-key="active-users">Active
-                Users</div>
-              <div class="card-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24"
-                  fill="currentColor">
-                  <path
-                    d="M16 7c0-2.21-1.79-4-4-4S8 4.79 8 7s1.79 4 4 4 4-1.79 4-4zm-4 6c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z" />
-                </svg>
-              </div>
-            </div>
-            <div class="stat-value">+{{isUsers}}</div>
-            <div class="stat-label" data-lang-key="registered-users">Registered
-              Users</div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 75%"></div>
-            </div>
+          {{else}}
+          <div class="activity-icon api">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path
+                d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" /></svg>
           </div>
-
-          <div class="dashboard-card">
-            <div class="card-header">
-              <div class="card-title"
-                data-lang-key="anime-database">Database</div>
-              <div class="card-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24"
-                  fill="currentColor">
-                  <path
-                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-              </div>
+          {{/if}}
+          <div class="activity-content" style="flex: 1;">
+            <div class="activity-description"
+              style="font-size: 15px; font-weight: 600;">
+              {{system}}
             </div>
-            <div class="stat-value">{{isDatabase}}</div>
-            <div class="stat-label" data-lang-key="anime-entries">Anime
-              Entries</div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 92%"></div>
+            <div
+              style="font-size: 12px; color: var(--text-secondary); margin-bottom: 2px;">
+              <span><strong>Client ID:</strong> {{clientId}}</span>
+              <span style="margin-left: 10px;"><strong>Endpoint:</strong>
+                {{endpoint}}</span>
             </div>
-          </div>
-
-          <div class="dashboard-card">
-            <div class="card-header">
-              <div class="card-title" data-lang-key="system-status">System
-                Status</div>
-              <div class="card-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24"
-                  fill="currentColor">
-                  <path
-                    d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" />
-                </svg>
-              </div>
-            </div>
-            <div class="stat-value">{{isTimeActive}}</div>
-            <div class="stat-label" data-lang-key="uptime">Uptime</div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 99%"></div>
+            <div style="font-size: 12px; color: var(--text-secondary);">
+              <strong>Requests:</strong> {{requests}}
+              {{#if (gt errors 0)}}
+              <span class="activity-badge">Errors: {{errors}}</span>
+              {{else}}
+              | <strong>Errors:</strong> {{errors}}
+              {{/if}}
             </div>
           </div>
         </div>
-
-        <!-- Activity History -->
-        <div class="activity-history">
-          <div class="activity-header">
-            <div class="activity-title" data-lang-key="recent-activity">Recent
-              Activity</div>
-            <button class="clear-history-btn" onclick="clearActivityHistory()"
-              data-lang-key="clear">Clear</button>
-          </div>
-          <div class="activity-list" id="activityList">
-            {{#if metricsToClient.length}}
-            {{#each metricsToClient}}
-            {{#ifCond @index '<' 10}}
-            <div class="activity-item"
-              style="display: flex; align-items: center; justify-content: space-between;">
-              <div
-                style="display: flex; align-items: center; gap: 12px; flex: 1;">
-                {{!-- Icono por tipo --}}
-                {{#if (eq type "login")}}
-                <img
-                  src="https://cdn.discordapp.com/avatars/{{user.discord.id}}/{{user.discord.avatar}}.png"
-                  class="activity-avatar" alt="avatar">
-                {{else if (eq type "profile")}}
-                <img
-                  src="https://cdn.discordapp.com/avatars/{{user.discord.id}}/{{user.discord.avatar}}.png"
-                  class="activity-avatar" alt="avatar">
-                {{else if (gt errors 0)}}
-                <div class="activity-icon error">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" /></svg>
-                </div>
-                {{else}}
-                <div class="activity-icon api">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path
-                      d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" /></svg>
-                </div>
-                {{/if}}
-                <div class="activity-content" style="flex: 1;">
-                  <div class="activity-description"
-                    style="font-size: 15px; font-weight: 600;">
-                    {{system}}
-                  </div>
-                  <div
-                    style="font-size: 12px; color: var(--text-secondary); margin-bottom: 2px;">
-                    <span><strong>Client ID:</strong> {{clientId}}</span>
-                    <span style="margin-left: 10px;"><strong>Endpoint:</strong>
-                      {{endpoint}}</span>
-                  </div>
-                  <div style="font-size: 12px; color: var(--text-secondary);">
-                    <strong>Requests:</strong> {{requests}}
-                    {{#if (gt errors 0)}}
-                    <span class="activity-badge">Errors: {{errors}}</span>
-                    {{else}}
-                    | <strong>Errors:</strong> {{errors}}
-                    {{/if}}
-                  </div>
-                </div>
-              </div>
-              <div
-                style="font-size: 13px; color: var(--nebura-purple); font-weight: 600; min-width: 80px; text-align: right;">
-                <span title="Latency"><svg
-                    style="vertical-align: middle; width: 15px; height: 15px; margin-right: 3px;"
-                    viewBox="0 0 24 24" fill="currentColor"><path
-                      d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" /></svg></span>
-                {{latency}} ms
-              </div>
-            </div>
-            {{/ifCond}}
-            {{/each}}
-            {{else}}
-            <div class="activity-item" style="text-align:center;padding:20px;">
-              No recent activity history.
-            </div>
-            {{/if}}
-          </div>
+        <div
+          style="font-size: 13px; color: var(--nebura-purple); font-weight: 600; min-width: 80px; text-align: right;">
+          <span title="Latency"><svg
+              style="vertical-align: middle; width: 15px; height: 15px; margin-right: 3px;"
+              viewBox="0 0 24 24" fill="currentColor"><path
+                d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" /></svg></span>
+          {{latency}} ms
         </div>
+      </div>
+      {{/ifCond}}
+      {{/each}}
+      {{else}}
+      <div class="activity-item" style="text-align:center;padding:20px;">
+        No recent activity history.
+      </div>
+      {{/if}}
+    </div>
+  </div>
 
-        <!-- Chart Container -->
-        <div class="dashboard-card"
-          style="grid-column: 1 / -1; margin-top: 20px">
-          <div class="card-header">
-            <div class="card-title glitch" data-text="NEBURA TEMPORAL ANALYSIS"
-              data-lang-key="temporal-analysis">
-              NEBURA TEMPORAL ANALYSIS
-            </div>
-            <div class="card-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24"
-                fill="currentColor">
-                <path
-                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-              </svg>
-            </div>
-          </div>
-          <div
-            style="
+  <!-- Chart Container -->
+  <div class="dashboard-card"
+    style="grid-column: 1 / -1; margin-top: 20px">
+    <div class="card-header">
+      <div class="card-title glitch" data-text="NEBURA TEMPORAL ANALYSIS"
+        data-lang-key="temporal-analysis">
+        NEBURA TEMPORAL ANALYSIS
+      </div>
+      <div class="card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24"
+          fill="currentColor">
+          <path
+            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
+        </svg>
+      </div>
+    </div>
+    <div
+      style="
               height: 250px;
               background: var(--accent-bg);
               border-radius: 8px;
@@ -215,397 +187,48 @@
               font-size: 14px;
               font-weight: 500;
             ">
-            <div class="loading"></div>
-            <span style="margin-left: 10px"
-              data-lang-key="loading-chart">Loading advanced analysis...</span>
-          </div>
-        </div>
-      </div>
+      <div class="loading"></div>
+      <span style="margin-left: 10px"
+        data-lang-key="loading-chart">Loading advanced analysis...</span>
+    </div>
+  </div>
+</div>
 
-      <!-- Examples Section -->
-      {{> examples }}
+<!-- Examples Section -->
+{{> dashboard/examples }}
 
-      <!-- Profile Section -->
-      {{> profiles }}
+<!-- Profile Section -->
+{{> dashboard/profiles }}
 
-      <!-- Licenses Section -->
-      {{> licence }}
+<!-- Licenses Section -->
+{{> dashboard/licence }}
 
-      <!-- Activity Section -->
-      <div class="page-section" id="activity">
-        <h2
-          class="glitch"
-          data-text="ACTIVITY HISTORY"
-          style="font-weight: 700; font-size: 24px; margin-bottom: 25px; text-align: center"
-          data-lang-key="activity-history">
-          ACTIVITY HISTORY
-        </h2>
+<!-- Activity Section -->
+{{> dashboard/activity }}
 
-        <div class="activity-grafics" style="width: 100%; margin-bottom: 32px;">
-          <div class="dashboard-card" style="width: 100%; min-width: 0;">
-            <div class="card-header">
-              <div class="card-title" style="font-size: 16px;"
-                data-lang-key="api-requests-over-time">API Requests Over
-                Time</div>
-              <div class="card-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24"
-                  fill="currentColor">
-                  <path
-                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-                </svg>
-              </div>
-            </div>
-            <div style="padding: 10px 0;">
-              <canvas id="requestsAreaChart"
-                style="width: 100%; height: 300px; max-height: 300px;"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="activity-history">
-          <div class="activity-header">
-            <div class="activity-title" data-lang-key="all-activity">All
-              Activity</div>
-            <button class="clear-history-btn" onclick="clearActivityHistory()"
-              data-lang-key="clear-all">Clear All</button>
-          </div>
-          <div class="activity-list" id="fullActivityList">
-            {{#if metricsToClient.length}}
-            {{#each metricsToClient}}
-            <div class="activity-item"
-              style="display: flex; align-items: center; justify-content: space-between;">
-              <div
-                style="display: flex; align-items: center; gap: 12px; flex: 1;">
-                {{!-- Icono por tipo --}}
-                {{#if (eq type "login")}}
-                <img
-                  src="https://cdn.discordapp.com/avatars/{{user.discord.id}}/{{user.discord.avatar}}.png"
-                  class="activity-avatar" alt="avatar">
-                {{else if (eq type "profile")}}
-                <img
-                  src="https://cdn.discordapp.com/avatars/{{user.discord.id}}/{{user.discord.avatar}}.png"
-                  class="activity-avatar" alt="avatar">
-                {{else if (gt errors 0)}}
-                <div class="activity-icon error">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" /></svg>
-                </div>
-                {{else}}
-                <div class="activity-icon api">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path
-                      d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" /></svg>
-                </div>
-                {{/if}}
-                <div class="activity-content" style="flex: 1;">
-                  <div class="activity-description"
-                    style="font-size: 15px; font-weight: 600;">
-                    {{system}}
-                  </div>
-                  <div
-                    style="font-size: 12px; color: var(--text-secondary); margin-bottom: 2px;">
-                    <span><strong>Client ID:</strong> {{clientId}}</span>
-                    <span style="margin-left: 10px;"><strong>Endpoint:</strong>
-                      {{endpoint}}</span>
-                  </div>
-                  <div style="font-size: 12px; color: var(--text-secondary);">
-                    <strong>Requests:</strong> {{requests}}
-                    {{#if (gt errors 0)}}
-                    <span class="activity-badge">Errors: {{errors}}</span>
-                    {{else}}
-                    | <strong>Errors:</strong> {{errors}}
-                    {{/if}}
-                  </div>
-                </div>
-              </div>
-              <div
-                style="font-size: 13px; color: var(--nebura-purple); font-weight: 600; min-width: 80px; text-align: right;">
-                <span title="Latency"><svg
-                    style="vertical-align: middle; width: 15px; height: 15px; margin-right: 3px;"
-                    viewBox="0 0 24 24" fill="currentColor"><path
-                      d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" /></svg></span>
-                {{latency}} ms
-              </div>
-            </div>
-            {{/each}}
-            {{else}}
-            <div class="activity-item" style="text-align:center;padding:20px;">
-              <strong>No activity history.</strong><br>
-              No API requests have been registered for this user yet.<br>
-              When you make API calls, the details of each request will appear here, including endpoint, system, errors, and latency.
-            </div>
-            {{/if}}
-          </div>
-        </div>
-      </div>
+<!-- Support Section -->
+{{> dashboard/support }}
 
-      <!-- Support Section -->
-      {{> support }}
+<!-- Quick Start Section -->
+{{> dashboard/tutorial }}
 
-      <!-- Quick Start Section -->
-      <div class="page-section" id="quick-start">
-        <div class="dashboard-card" style="grid-column: 1 / -1; margin-bottom: 20px;">
-          <div class="card-header">
-            <div class="card-title glitch" data-text="QUICK START" style="font-size: 20px;">
-              QUICK START
-            </div>
-            <div class="card-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-              </svg>
-            </div>
-          </div>
-          <div style="padding: 20px;">
-            <div style="display: flex; flex-wrap: wrap; gap: 32px;">
-              <div class="dashboard-card" style="flex: 1; min-width: 320px; margin-bottom: 0;">
-                <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px;">
-                  🚀 How to Start Nebura API
-                </h3>
-                <ol style="margin-bottom: 18px;">
-                  <li>Clone the repository: <br>
-                    <code>git clone https://github.com/Hiroshi025/Nebura-Control-API.git</code>
-                  </li>
-                  <li>Install dependencies: <br>
-                    <code>npm install</code>
-                  </li>
-                  <li>Configure environment variables: <br>
-                    <code>.env</code> file (see <a href="https://docs.nestjs.com/techniques/configuration" target="_blank">NestJS Config</a>)
-                  </li>
-                  <li>Start the server (development): <br>
-                    <code>npm run start:dev</code>
-                  </li>
-                  <li>Access API: <br>
-                    <code>http://localhost:3000/api/v1/</code>
-                  </li>
-                  <li>Access Swagger Docs: <br>
-                    <a href="http://localhost:3000/v1/docs" target="_blank">Swagger UI</a>
-                  </li>
-                </ol>
-                <div style="margin-bottom: 10px; display: flex; gap: 12px; flex-wrap: wrap;">
-                  <a class="support-link run-btn" style="flex:1; min-width:150px; justify-content:left;" href="https://docs.nestjs.com/" target="_blank">
-                    <div class="support-icon discord-icon">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-                      </svg>
-                    </div>
-                    <div>NestJS Documentation</div>
-                  </a>
-                  <a class="support-link run-btn" style="flex:1; min-width:150px; justify-content:left;" href="https://docs.nestjs.com/openapi/introduction" target="_blank">
-                    <div class="support-icon github-icon">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-                      </svg>
-                    </div>
-                    <div>Swagger Help</div>
-                  </a>
-                  <a class="support-link run-btn" style="flex:1; min-width:150px; justify-content:left;" href="https://github.com/Hiroshi025/Nebura-Control-API" target="_blank">
-                    <div class="support-icon telegram-icon">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                      </svg>
-                    </div>
-                    <div>GitHub Repo</div>
-                  </a>
-                </div>
-              </div>
-              <div class="dashboard-card" style="flex: 1; min-width: 320px; margin-bottom: 0;">
-                <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px;">
-                  🗂️ Project Structure & Modules
-                </h3>
-                <table style="width:100%; font-size:13px; border-collapse:collapse; margin-bottom: 12px;">
-                  <thead>
-                    <tr style="background: var(--accent-bg);">
-                      <th style="padding:6px; border:1px solid var(--border-color);">Module</th>
-                      <th style="padding:6px; border:1px solid var(--border-color);">Purpose</th>
-                      <th style="padding:6px; border:1px solid var(--border-color);">Docs</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td style="padding:6px; border:1px solid var(--border-color);"><code>main.ts</code></td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">App entrypoint, configures NestJS, Swagger, sessions, security</td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">
-                        <a href="https://docs.nestjs.com/" target="_blank">NestJS</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px; border:1px solid var(--border-color);"><code>app.module.ts</code></td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">Root module, imports all feature modules</td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">
-                        <a href="https://docs.nestjs.com/modules" target="_blank">Modules</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px; border:1px solid var(--border-color);"><code>core/jwt.module.ts</code></td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">JWT authentication config</td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">
-                        <a href="https://docs.nestjs.com/security/authentication#jwt-functionality" target="_blank">JWT</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px; border:1px solid var(--border-color);"><code>core/discord/client.module.ts</code></td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">Discord bot integration (Necord)</td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">
-                        <a href="https://necord.dev/" target="_blank">Necord</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px; border:1px solid var(--border-color);"><code>routes/auth/auth.module.ts</code></td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">Authentication endpoints (JWT, Discord OAuth)</td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">
-                        <a href="https://docs.nestjs.com/security/authentication" target="_blank">Auth</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px; border:1px solid var(--border-color);"><code>routes/users/users.module.ts</code></td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">User management, file upload</td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">
-                        <a href="https://docs.nestjs.com/techniques/file-upload" target="_blank">File Upload</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px; border:1px solid var(--border-color);"><code>routes/admin/admin.module.ts</code></td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">Admin endpoints (users, licenses, IP blocker, cache)</td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">
-                        <a href="https://docs.nestjs.com/middleware" target="_blank">Middleware</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px; border:1px solid var(--border-color);"><code>routes/client/client.module.ts</code></td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">Client endpoints (API keys, licenses)</td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">
-                        <a href="https://docs.nestjs.com/modules" target="_blank">Modules</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px; border:1px solid var(--border-color);"><code>routes/errors/error-history.module.ts</code></td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">Error history endpoints</td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">
-                        <a href="https://docs.nestjs.com/modules" target="_blank">Modules</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px; border:1px solid var(--border-color);"><code>routes/health/health.module.ts</code></td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">Health check endpoints (memory, DB, system)</td>
-                      <td style="padding:6px; border:1px solid var(--border-color);">
-                        <a href="https://docs.nestjs.com/recipes/terminus" target="_blank">Health</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div style="margin-bottom: 10px;">
-                  <span style="font-size: 13px; color: var(--text-secondary);">
-                    All modules are imported in <code>AppModule</code> and initialized in <code>main.ts</code>.
-                  </span>
-                </div>
-              </div>
-            </div>
-            <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--border-color);">
-            <div style="display: flex; flex-wrap: wrap; gap: 32px;">
-              <div class="dashboard-card" style="flex: 1; min-width: 320px; margin-bottom: 0;">
-                <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px;">
-                  🛠️ Useful Commands
-                </h3>
-                <ul style="margin-bottom: 10px;">
-                  <li><code>npm run start:dev</code> <span style="color: var(--text-secondary);">Start development server</span></li>
-                  <li><code>npm run start:prod</code> <span style="color: var(--text-secondary);">Start production server</span></li>
-                  <li><code>npm run build</code> <span style="color: var(--text-secondary);">Build project</span></li>
-                  <li><code>npm run test</code> <span style="color: var(--text-secondary);">Run tests</span></li>
-                  <li><code>npm run lint</code> <span style="color: var(--text-secondary);">Lint code</span></li>
-                  <li><code>npm run compodoc</code> <span style="color: var(--text-secondary);">Generate documentation</span></li>
-                </ul>
-                <div style="margin-bottom: 10px;">
-                  <a href="https://docs.nestjs.com/cli/usages" target="_blank" style="font-size: 13px; color: var(--nebura-purple);">NestJS CLI Usage</a>
-                </div>
-              </div>
-              <div class="dashboard-card" style="flex: 1; min-width: 320px; margin-bottom: 0;">
-                <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px;">
-                  📚 More Help & Resources
-                </h3>
-                <ul style="margin-bottom: 10px;">
-                  <li>
-                    <a href="https://docs.nestjs.com/" target="_blank">NestJS Official Docs</a>
-                  </li>
-                  <li>
-                    <a href="https://docs.nestjs.com/openapi/introduction" target="_blank">Swagger & OpenAPI</a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/Hiroshi025/Nebura-Control-API" target="_blank">Nebura GitHub Repository</a>
-                  </li>
-                  <li>
-                    <a href="https://discord.gg/nebura" target="_blank">Discord Support</a>
-                  </li>
-                  <li>
-                    <a href="https://t.me/nebura_support" target="_blank">Telegram Support</a>
-                  </li>
-                </ul>
-                <div style="margin-bottom: 10px;">
-                  <span style="font-size: 13px; color: var(--text-secondary);">
-                    For advanced configuration, see <a href="https://docs.nestjs.com/techniques/configuration" target="_blank">Configuration Techniques</a>.
-                  </span>
-                </div>
-              </div>
-            </div>
-            <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--border-color);">
-            <div class="dashboard-card" style="margin-bottom: 10px;">
-              <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px;">
-                🧩 Interactive: Explore Modules
-              </h3>
-              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <a class="support-link run-btn" href="https://docs.nestjs.com/modules" target="_blank">
-                  <div class="support-icon discord-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-                    </svg>
-                  </div>
-                  <div>NestJS Modules</div>
-                </a>
-                <a class="support-link run-btn" href="https://docs.nestjs.com/techniques/database" target="_blank">
-                  <div class="support-icon github-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-                    </svg>
-                  </div>
-                  <div>TypeORM</div>
-                </a>
-                <a class="support-link run-btn" href="https://docs.nestjs.com/security/authentication" target="_blank">
-                  <div class="support-icon telegram-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                    </svg>
-                  </div>
-                  <div>Health Checks</div>
-                </a>
-                <a class="support-link run-btn" href="https://necord.dev/" target="_blank">
-                  <div class="support-icon github-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-                    </svg>
-                  </div>
-                  <div>Discord Bot (Necord)</div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- Administration Section -->
+{{> dashboard/administration }}
 
-      <!-- Administration Section -->
-      {{> administration }} 
-    </main>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="/js/dashboard/chart.js"></script>
-    <script src="/js/dashboard/interface.js"></script>
-    <script src="/js/dashboard/hash.js"></script>
-    <script src="/js/dashboard/notification.js"></script>
-    <script src="/js/dashboard/tickets.js"></script>
-    <script src="/js/dashboard/licence.js"></script>
-    <script src="/js/dashboard/ticket-admin.js"></script>
-    <script src="/js/dashboard/functions.js"></script>
-  </body>
-</html>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="/js/dashboard/chart.js"></script>
+<script src="/js/dashboard/interface.js"></script>
+<script src="/js/dashboard/tickets.js"></script>
+<script src="/js/dashboard/licence.js"></script>
+<script src="/js/dashboard/ticket-admin.js"></script>
+<script src="/js/dashboard/functions.js"></script>
+<script>
+      window.user = {{{json user}}};
+</script>

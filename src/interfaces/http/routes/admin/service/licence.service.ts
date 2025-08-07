@@ -95,8 +95,6 @@ export class LicenceService {
   async create(data: LicenceCreateType): Promise<LicenseEntity> {
     const licence = this.licenceRepository.create(data);
     const savedLicence = await this.licenceRepository.save(licence);
-
-    // Guardar el JSON de la licencia en el parámetro licenses de UserEntity
     const userRepo = this.licenceRepository.manager.getRepository(UserEntity);
     const user = await userRepo.findOne({ where: { uuid: data.userId } });
     if (user) {
@@ -120,10 +118,21 @@ export class LicenceService {
    * const updated = await licenceService.update("550e8400-e29b-41d4-a716-446655440000", { requestLimit: 2000 });
    * ```
    */
-  async update(id: string, data: LicenceUpdateType): Promise<LicenseEntity> {
+  async update(id: string, data: LicenceUpdateType) {
     const licence = await this.findOne(id);
     Object.assign(licence, data);
-    return this.licenceRepository.save(licence);
+    await this.licenceRepository.save(licence);
+
+    const userRepo = this.licenceRepository.manager.getRepository(UserEntity);
+    const user = await userRepo.findOne({ where: { uuid: licence.userId } });
+    if (!user) throw new NotFoundException("User not found");
+
+    if (user.licenses) {
+      user.licenses = user.licenses.map(l => (l.id === licence.id ? licence : l));
+      await userRepo.save(user);
+    }
+
+    return licence;
   }
 
   /**
@@ -140,6 +149,12 @@ export class LicenceService {
   async remove(id: string): Promise<void> {
     const licence = await this.findOne(id);
     await this.licenceRepository.remove(licence);
+    const userRepo = this.licenceRepository.manager.getRepository(UserEntity);
+    const user = await userRepo.findOne({ where: { uuid: licence.userId } });
+    if (user && user.licenses) {
+      user.licenses = user.licenses.filter(l => l.id !== licence.id);
+      await userRepo.save(user);
+    }
   }
 
   /**
@@ -153,6 +168,12 @@ export class LicenceService {
    */
   async removeAll(): Promise<void> {
     await this.licenceRepository.clear();
+    const userRepo = this.licenceRepository.manager.getRepository(UserEntity);
+    const users = await userRepo.find();
+    for (const user of users) {
+      user.licenses = [];
+      await userRepo.save(user);
+    }
   }
 
   /**

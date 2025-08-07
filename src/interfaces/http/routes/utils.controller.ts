@@ -1,7 +1,5 @@
 import { RequestClient } from "#/types/express";
-import {
-	TicketCreate, TicketEdit, TicketExportFilters, TicketSearch
-} from "#adapters/schemas/admin/ticket.schema";
+import { TicketCreate, TicketEdit, TicketExportFilters, TicketSearch } from "#adapters/schemas/admin/ticket.schema";
 import { RolesAdmin } from "#adapters/schemas/auth.schema";
 import { LicenceCreateSchema, LicenceCreateType } from "#adapters/schemas/licence.schema";
 import { isValidNotification } from "#adapters/schemas/shared/notification.schema";
@@ -18,14 +16,24 @@ import { Response } from "express-serve-static-core";
 import { IsNull, LessThan, MoreThan, Repository } from "typeorm";
 
 import {
-	BadRequestException, Body, Controller, Get, HttpException, HttpStatus, Logger, Param, Post, Req,
-	Res, UseGuards
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Logger,
+  Param,
+  Post,
+  Req,
+  Res,
+  UseGuards,
 } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { ApiExcludeController, ApiExcludeEndpoint } from "@nestjs/swagger";
 import { InjectRepository } from "@nestjs/typeorm";
 
-import { HealthService } from "./health/health.service";
+import { HealthService } from "./health/service/health.service";
 
 /**
  * Dashboard utilities controller.

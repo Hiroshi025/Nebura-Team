@@ -15,7 +15,7 @@ import { EventEmitter2 } from "@nestjs/event-emitter";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
 
-import { RegisterUserDto } from "./dto/user/register.dto";
+import { RegisterUserDto } from "../dto/user/register.dto";
 
 /**
  * Service for authentication-related operations.

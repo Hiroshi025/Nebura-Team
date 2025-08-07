@@ -1,0 +1,350 @@
+<!-- Quick Start Section -->
+<div class="page-section" id="quick-start">
+  <div class="dashboard-card" style="grid-column: 1 / -1; margin-bottom: 20px;">
+    <div class="card-header">
+      <div class="card-title glitch" data-text="QUICK START"
+        style="font-size: 20px;">
+        QUICK START
+      </div>
+      <div class="card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
+        </svg>
+      </div>
+    </div>
+    <div style="padding: 20px;">
+      <div style="display: flex; flex-wrap: wrap; gap: 32px;">
+        <div class="dashboard-card"
+          style="flex: 1; min-width: 320px; margin-bottom: 0;">
+          <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px;">
+            🚀 How to Start Nebura API
+          </h3>
+          <ol style="margin-bottom: 18px;">
+            <li>Clone the repository: <br>
+              <code>git clone
+                https://github.com/Hiroshi025/Nebura-Control-API.git</code>
+            </li>
+            <li>Install dependencies: <br>
+              <code>npm install</code>
+            </li>
+            <li>Configure environment variables: <br>
+              <code>.env</code> file (see <a
+                href="https://docs.nestjs.com/techniques/configuration"
+                target="_blank">NestJS Config</a>)
+            </li>
+            <li>Start the server (development): <br>
+              <code>npm run start:dev</code>
+            </li>
+            <li>Access API: <br>
+              <code>http://localhost:3000/api/v1/</code>
+            </li>
+            <li>Access Swagger Docs: <br>
+              <a href="http://localhost:3000/v1/docs" target="_blank">Swagger
+                UI</a>
+            </li>
+          </ol>
+          <div
+            style="margin-bottom: 10px; display: flex; gap: 12px; flex-wrap: wrap;">
+            <a class="support-link run-btn"
+              style="flex:1; min-width:150px; justify-content:left;"
+              href="https://docs.nestjs.com/" target="_blank">
+              <div class="support-icon discord-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24"
+                  fill="currentColor">
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
+                </svg>
+              </div>
+              <div>NestJS Documentation</div>
+            </a>
+            <a class="support-link run-btn"
+              style="flex:1; min-width:150px; justify-content:left;"
+              href="https://docs.nestjs.com/openapi/introduction"
+              target="_blank">
+              <div class="support-icon github-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24"
+                  fill="currentColor">
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
+                </svg>
+              </div>
+              <div>Swagger Help</div>
+            </a>
+            <a class="support-link run-btn"
+              style="flex:1; min-width:150px; justify-content:left;"
+              href="https://github.com/Hiroshi025/Nebura-Control-API"
+              target="_blank">
+              <div class="support-icon telegram-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24"
+                  fill="currentColor">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </div>
+              <div>GitHub Repo</div>
+            </a>
+          </div>
+        </div>
+        <div class="dashboard-card"
+          style="flex: 1; min-width: 320px; margin-bottom: 0;">
+          <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px;">
+            🗂️ Project Structure & Modules
+          </h3>
+          <table
+            style="width:100%; font-size:13px; border-collapse:collapse; margin-bottom: 12px;">
+            <thead>
+              <tr style="background: var(--accent-bg);">
+                <th
+                  style="padding:6px; border:1px solid var(--border-color);">Module</th>
+                <th
+                  style="padding:6px; border:1px solid var(--border-color);">Purpose</th>
+                <th
+                  style="padding:6px; border:1px solid var(--border-color);">Docs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);"><code>main.ts</code></td>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);">App
+                  entrypoint, configures NestJS, Swagger, sessions,
+                  security</td>
+                <td style="padding:6px; border:1px solid var(--border-color);">
+                  <a href="https://docs.nestjs.com/" target="_blank">NestJS</a>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);"><code>app.module.ts</code></td>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);">Root
+                  module, imports all feature modules</td>
+                <td style="padding:6px; border:1px solid var(--border-color);">
+                  <a href="https://docs.nestjs.com/modules"
+                    target="_blank">Modules</a>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);"><code>core/jwt.module.ts</code></td>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);">JWT
+                  authentication config</td>
+                <td style="padding:6px; border:1px solid var(--border-color);">
+                  <a
+                    href="https://docs.nestjs.com/security/authentication#jwt-functionality"
+                    target="_blank">JWT</a>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);"><code>core/discord/client.module.ts</code></td>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);">Discord
+                  bot integration (Necord)</td>
+                <td style="padding:6px; border:1px solid var(--border-color);">
+                  <a href="https://necord.dev/" target="_blank">Necord</a>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);"><code>routes/auth/auth.module.ts</code></td>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);">Authentication
+                  endpoints (JWT, Discord OAuth)</td>
+                <td style="padding:6px; border:1px solid var(--border-color);">
+                  <a href="https://docs.nestjs.com/security/authentication"
+                    target="_blank">Auth</a>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);"><code>routes/users/users.module.ts</code></td>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);">User
+                  management, file upload</td>
+                <td style="padding:6px; border:1px solid var(--border-color);">
+                  <a href="https://docs.nestjs.com/techniques/file-upload"
+                    target="_blank">File Upload</a>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);"><code>routes/admin/admin.module.ts</code></td>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);">Admin
+                  endpoints (users, licenses, IP blocker, cache)</td>
+                <td style="padding:6px; border:1px solid var(--border-color);">
+                  <a href="https://docs.nestjs.com/middleware"
+                    target="_blank">Middleware</a>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);"><code>routes/client/client.module.ts</code></td>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);">Client
+                  endpoints (API keys, licenses)</td>
+                <td style="padding:6px; border:1px solid var(--border-color);">
+                  <a href="https://docs.nestjs.com/modules"
+                    target="_blank">Modules</a>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);"><code>routes/errors/error-history.module.ts</code></td>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);">Error
+                  history endpoints</td>
+                <td style="padding:6px; border:1px solid var(--border-color);">
+                  <a href="https://docs.nestjs.com/modules"
+                    target="_blank">Modules</a>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);"><code>routes/health/health.module.ts</code></td>
+                <td
+                  style="padding:6px; border:1px solid var(--border-color);">Health
+                  check endpoints (memory, DB, system)</td>
+                <td style="padding:6px; border:1px solid var(--border-color);">
+                  <a href="https://docs.nestjs.com/recipes/terminus"
+                    target="_blank">Health</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="margin-bottom: 10px;">
+            <span style="font-size: 13px; color: var(--text-secondary);">
+              All modules are imported in <code>AppModule</code> and initialized
+              in <code>main.ts</code>.
+            </span>
+          </div>
+        </div>
+      </div>
+      <hr
+        style="margin: 24px 0; border: none; border-top: 1px solid var(--border-color);">
+      <div style="display: flex; flex-wrap: wrap; gap: 32px;">
+        <div class="dashboard-card"
+          style="flex: 1; min-width: 320px; margin-bottom: 0;">
+          <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px;">
+            🛠️ Useful Commands
+          </h3>
+          <ul style="margin-bottom: 10px;">
+            <li><code>npm run start:dev</code> <span
+                style="color: var(--text-secondary);">Start development
+                server</span></li>
+            <li><code>npm run start:prod</code> <span
+                style="color: var(--text-secondary);">Start production
+                server</span></li>
+            <li><code>npm run build</code> <span
+                style="color: var(--text-secondary);">Build project</span></li>
+            <li><code>npm run test</code> <span
+                style="color: var(--text-secondary);">Run tests</span></li>
+            <li><code>npm run lint</code> <span
+                style="color: var(--text-secondary);">Lint code</span></li>
+            <li><code>npm run compodoc</code> <span
+                style="color: var(--text-secondary);">Generate
+                documentation</span></li>
+          </ul>
+          <div style="margin-bottom: 10px;">
+            <a href="https://docs.nestjs.com/cli/usages" target="_blank"
+              style="font-size: 13px; color: var(--nebura-purple);">NestJS CLI
+              Usage</a>
+          </div>
+        </div>
+        <div class="dashboard-card"
+          style="flex: 1; min-width: 320px; margin-bottom: 0;">
+          <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px;">
+            📚 More Help & Resources
+          </h3>
+          <ul style="margin-bottom: 10px;">
+            <li>
+              <a href="https://docs.nestjs.com/" target="_blank">NestJS Official
+                Docs</a>
+            </li>
+            <li>
+              <a href="https://docs.nestjs.com/openapi/introduction"
+                target="_blank">Swagger & OpenAPI</a>
+            </li>
+            <li>
+              <a href="https://github.com/Hiroshi025/Nebura-Control-API"
+                target="_blank">Nebura GitHub Repository</a>
+            </li>
+            <li>
+              <a href="https://discord.gg/nebura" target="_blank">Discord
+                Support</a>
+            </li>
+            <li>
+              <a href="https://t.me/nebura_support" target="_blank">Telegram
+                Support</a>
+            </li>
+          </ul>
+          <div style="margin-bottom: 10px;">
+            <span style="font-size: 13px; color: var(--text-secondary);">
+              For advanced configuration, see <a
+                href="https://docs.nestjs.com/techniques/configuration"
+                target="_blank">Configuration Techniques</a>.
+            </span>
+          </div>
+        </div>
+      </div>
+      <hr
+        style="margin: 24px 0; border: none; border-top: 1px solid var(--border-color);">
+      <div class="dashboard-card" style="margin-bottom: 10px;">
+        <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px;">
+          🧩 Interactive: Explore Modules
+        </h3>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <a class="support-link run-btn" href="https://docs.nestjs.com/modules"
+            target="_blank">
+            <div class="support-icon discord-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24"
+                fill="currentColor">
+                <path
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
+              </svg>
+            </div>
+            <div>NestJS Modules</div>
+          </a>
+          <a class="support-link run-btn"
+            href="https://docs.nestjs.com/techniques/database" target="_blank">
+            <div class="support-icon github-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24"
+                fill="currentColor">
+                <path
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
+              </svg>
+            </div>
+            <div>TypeORM</div>
+          </a>
+          <a class="support-link run-btn"
+            href="https://docs.nestjs.com/security/authentication"
+            target="_blank">
+            <div class="support-icon telegram-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24"
+                fill="currentColor">
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+            </div>
+            <div>Health Checks</div>
+          </a>
+          <a class="support-link run-btn" href="https://necord.dev/"
+            target="_blank">
+            <div class="support-icon github-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24"
+                fill="currentColor">
+                <path
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
+              </svg>
+            </div>
+            <div>Discord Bot (Necord)</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

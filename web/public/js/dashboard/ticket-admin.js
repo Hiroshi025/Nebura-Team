@@ -379,6 +379,13 @@ async function viewTicketHistory(ticketUuid) {
   }
 }
 
+function closeAdminTicketChat() {
+  adminTicketChatModal.style.display = "none";
+}
+
+// Exponer la función globalmente
+window.closeAdminTicketChat = closeAdminTicketChat;
+
 // Ticket Chat (Admin puede responder)
 async function openAdminTicketChat(ticketUuid) {
   adminTicketChatModal.style.display = "block";
@@ -387,99 +394,122 @@ async function openAdminTicketChat(ticketUuid) {
   adminTicketChatFeedback.textContent = "";
   adminTicketChatForm.dataset.ticketUuid = ticketUuid;
 
-  // Función para cargar mensajes
-  async function loadMessages() {
-    adminTicketChatMessages.innerHTML = "<div class='loading'></div> Loading messages...";
-    try {
-      const res = await fetch(`/dashboard/utils/tickets/messages-admin/${ticketUuid}`);
-      const result = await res.json();
-      if (Array.isArray(result.messages)) {
-        adminTicketChatMessages.innerHTML = "";
-        result.messages.forEach((msg) => {
-          const isAdmin =
-            msg.user.role === "admin" ||
-            msg.user.role === "developer" ||
-            msg.user.role === "moderator" ||
-            msg.user.role === "owner";
-          adminTicketChatMessages.innerHTML += `
-            <div class="chat-message" style="display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; ${isAdmin ? "flex-direction:row-reverse;" : ""}">
-              <div style="width:38px; height:38px; border-radius:50%; background:${isAdmin ? "var(--nebura-purple)" : "#43b581"}; display:flex; align-items:center; justify-content:center;">
-                <img src="https://cdn.discordapp.com/avatars/${msg.user.discordId}/${msg.user.avatar}.png" alt="avatar" style="width:32px; height:32px; border-radius:50%; object-fit:cover;" />
-              </div>
-              <div style="flex:1;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="font-weight:600; color:${isAdmin ? "var(--nebura-purple)" : msg.user.roleColor};">${msg.user.name}</span>
-                  <span style="font-size:11px; background:${isAdmin ? "var(--nebura-purple)" : msg.user.roleColor}; color:white; border-radius:4px; padding:2px 6px;">${msg.user.role}${isAdmin ? " (Admin)" : ""}</span>
-                  <span style="font-size:11px; color:var(--text-secondary);">${msg.createdAt}</span>
-                  <span style="font-size:11px; color:var(--nebura-magenta);">ID: ${msg.id}</span>
-                </div>
-                <div style="margin-top:2px; font-size:13px; background:${isAdmin ? "rgba(193,71,217,0.10)" : "rgba(67,181,129,0.10)"}; border-radius:6px; padding:6px 10px;">
-                  ${msg.message}
-                </div>
-                ${msg.attachments?.length ? `<div style="margin-top:4px;">${msg.attachments.map((a) => `<a href="${a.url}" target="_blank" style="font-size:11px; color:var(--nebura-magenta); margin-right:8px;">File</a>`).join("")}</div>` : ""}
-              </div>
-            </div>
-          `;
-        });
-      } else {
-        adminTicketChatMessages.innerHTML =
-          "<div style='text-align:center; color:var(--text-secondary); padding:12px;'>No messages in this ticket.</div>";
-      }
-    } catch {
-      adminTicketChatMessages.innerHTML =
-        "<div style='text-align:center; color:var(--text-secondary); padding:12px;'>Error loading messages.</div>";
-    }
+  // Función para cargar mensajes usando socket.io
+  function loadMessages() {
+    socket.emit("getMessagesAdmin", { ticketUuid });
   }
 
+  // Escucha respuesta de mensajes admin
+  socket.off("messagesAdmin");
+  socket.on("messagesAdmin", function (result) {
+    if (Array.isArray(result.messages)) {
+      adminTicketChatMessages.innerHTML = "";
+      result.messages.forEach((msg) => {
+        const isAdmin =
+          msg.user.role === "admin" ||
+          msg.user.role === "developer" ||
+          msg.user.role === "moderator" ||
+          msg.user.role === "owner";
+        adminTicketChatMessages.innerHTML += `
+          <div class="chat-message" style="display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; ${isAdmin ? "flex-direction:row-reverse;" : ""}">
+            <div style="width:38px; height:38px; border-radius:50%; background:${isAdmin ? "var(--nebura-purple)" : "#43b581"}; display:flex; align-items:center; justify-content:center;">
+              <img src="https://cdn.discordapp.com/avatars/${msg.user.discordId}/${msg.user.avatar}.png" alt="avatar" style="width:32px; height:32px; border-radius:50%; object-fit:cover;" />
+            </div>
+            <div style="flex:1;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-weight:600; color:${isAdmin ? "var(--nebura-purple)" : msg.user.roleColor};">${msg.user.name}</span>
+                <span style="font-size:11px; background:${isAdmin ? "var(--nebura-purple)" : msg.user.roleColor}; color:white; border-radius:4px; padding:2px 6px;">${msg.user.role}${isAdmin ? " (Admin)" : ""}</span>
+                <span style="font-size:11px; color:var(--text-secondary);">${msg.createdAt}</span>
+                <span style="font-size:11px; color:var(--nebura-magenta);">ID: ${msg.id}</span>
+              </div>
+              <div style="margin-top:2px; font-size:13px; background:${isAdmin ? "rgba(193,71,217,0.10)" : "rgba(67,181,129,0.10)"}; border-radius:6px; padding:6px 10px;">
+                ${msg.message}
+              </div>
+              ${msg.attachments?.length ? `<div style="margin-top:4px;">${msg.attachments.map((a) => `<a href="${a.url}" target="_blank" style="font-size:11px; color:var(--nebura-magenta); margin-right:8px;">File</a>`).join("")}</div>` : ""}
+            </div>
+          </div>
+        `;
+      });
+    } else {
+      adminTicketChatMessages.innerHTML =
+        "<div style='text-align:center; color:var(--text-secondary); padding:12px;'>No messages in this ticket.</div>";
+    }
+  });
+
   // Cargar mensajes al abrir
-  await loadMessages();
+  loadMessages();
 
   // Exponer función global para el botón de recarga
   window.adminReloadChat = loadMessages;
+
+  // Escuchar en tiempo real nuevos mensajes enviados por otros admins/usuarios
+  socket.off("messageSentAdminRealtime");
+  socket.on("messageSentAdminRealtime", function (data) {
+    // Si el ticket abierto es el mismo, recargar mensajes
+    if (data.ticketUuid === ticketUuid) {
+      loadMessages();
+    }
+  });
+
+  socket.off("messageSentRealtime");
+  socket.on("messageSentRealtime", function (data) {
+    if (data.ticketUuid === ticketUuid) {
+      loadMessages();
+    }
+  });
 }
 
-// Cerrar chat de ticket
-function closeAdminTicketChat() {
-  adminTicketChatModal.style.display = "none";
-  if (chatReloadInterval) {
-    clearInterval(chatReloadInterval);
-    chatReloadInterval = null;
-  }
-}
-
-function closeTicketHistoryModal() {
-  adminTicketHistoryModal.style.display = "none";
-}
-
-// Enviar mensaje como admin
-adminTicketChatForm?.addEventListener("submit", async function (e) {
+// Enviar mensaje como admin usando socket.io
+adminTicketChatForm?.addEventListener("submit", function (e) {
   e.preventDefault();
   const ticketUuid = adminTicketChatForm.dataset.ticketUuid;
   const message = adminTicketChatForm.message.value;
-  try {
-    const userId = window.user?.uuid || ""; // Ajusta según tu sistema
-    const res = await fetch(`/dashboard/utils/tickets/messages/send-admin`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ticketUuid, message, userId }),
-    });
-    const result = await res.json();
-    if (result.success) {
-      adminTicketChatFeedback.textContent = "Message sent.";
-      openAdminTicketChat(ticketUuid); // Recargar mensajes
-      adminTicketChatForm.reset();
-      setTimeout(() => (adminTicketChatFeedback.textContent = ""), 2000);
-    } else {
-      adminTicketChatFeedback.textContent = result.message || "Error sending message.";
-    }
-  } catch {
-    adminTicketChatFeedback.textContent = "Network error.";
+  const userId = window.user?.api.uuid || "";
+  socket.emit("sendMessageAdmin", { ticketUuid, message, userId });
+});
+
+// Escucha respuesta de envío de mensaje admin
+socket.off("messageSentAdmin");
+socket.on("messageSentAdmin", function (result) {
+  if (result.success) {
+    adminTicketChatFeedback.textContent = "Message sent.";
+    window.adminReloadChat && window.adminReloadChat();
+    adminTicketChatForm.reset();
+    setTimeout(() => (adminTicketChatFeedback.textContent = ""), 2000);
+  } else {
+    adminTicketChatFeedback.textContent = result.message || "Error sending message.";
+  }
+});
+
+// Escucha respuesta de envío de mensaje usuario (por si quieres mostrarlo en tiempo real también)
+socket.off("messageSent");
+socket.on("messageSent", function (result) {
+  // Si el ticket abierto es el mismo, recargar mensajes
+  const ticketUuid = adminTicketChatForm?.dataset.ticketUuid;
+  if (result.msg && result.msg.ticketUuid === ticketUuid) {
+    window.adminReloadChat && window.adminReloadChat();
   }
 });
 
 // Inicialización
 fetchTickets();
 
+window.viewTicketDetails = viewTicketDetails;
+window.editTicketModal = editTicketModal;
+window.viewTicketHistory = viewTicketHistory;
+window.closeTicketDetailsModal = closeTicketDetailsModal;
+window.closeTicketHistoryModal = closeTicketHistoryModal;
+window.openAdminTicketChat = openAdminTicketChat;
+window.closeAdminTicketChat = closeAdminTicketChat;
+fetchTickets();
+
+window.viewTicketDetails = viewTicketDetails;
+window.editTicketModal = editTicketModal;
+window.viewTicketHistory = viewTicketHistory;
+window.closeTicketDetailsModal = closeTicketDetailsModal;
+window.closeTicketHistoryModal = closeTicketHistoryModal;
+window.openAdminTicketChat = openAdminTicketChat;
+window.closeAdminTicketChat = closeAdminTicketChat;
 window.viewTicketDetails = viewTicketDetails;
 window.editTicketModal = editTicketModal;
 window.viewTicketHistory = viewTicketHistory;

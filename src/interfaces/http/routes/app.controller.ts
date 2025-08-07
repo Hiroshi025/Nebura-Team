@@ -15,7 +15,7 @@ import { ApiExcludeController } from "@nestjs/swagger";
 import { TypeOrmHealthIndicator } from "@nestjs/terminus";
 import { InjectRepository } from "@nestjs/typeorm";
 
-import { HealthService } from "./health/health.service";
+import { HealthService } from "./health/service/health.service";
 
 /**
  * The main application controller.
@@ -61,11 +61,11 @@ export class AppController {
   @Get("status")
   @Render("status")
   async root() {
-    const health = await this.healthService.getHealth()
+    const health = await this.healthService.getHealth();
     return {
       title: "Nebura Status",
       subtitle: "System Status",
-      health
+      health,
     };
   }
 
@@ -129,6 +129,7 @@ export class AppController {
     };
   }
 
+  //TODO: Arreglo de la actualizacion automatica del chat del lado del usuario en los tickets
   /**
    * Renderiza el dashboard con datos de prueba.
    * Accede en: http://localhost:3000/dashboard/test?lang=es
@@ -170,6 +171,7 @@ export class AppController {
     );
 
     return {
+      layout: "/layouts/main",
       title: "Nebura Dashboard",
       isRequestCount: await this.authRepository.manager.getRepository(RequestStatEntity).count(),
       isDatabase: checkIsDB.database.status === "up" ? "✔️ Online" : "❌ Offline",

@@ -1,4 +1,4 @@
-import { HealthService } from "#routes/health/health.service";
+import { HealthService } from "#routes/health/service/health.service";
 
 import { Controller, Get } from "@nestjs/common";
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";

@@ -1,7 +1,7 @@
 import { Cache } from "cache-manager";
 
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
-import { Inject, Injectable, Logger } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
 
 /**
  * Service to provide administrative access to the API cache.
@@ -22,14 +22,14 @@ export class CacheService {
   async getCacheValue(key: string): Promise<any> {
     if (!key) {
       this.logger.warn("No cache key provided to getCacheValue.");
-      throw new Error("Cache key must be provided.");
+      throw new HttpException("Cache key must be provided", HttpStatus.BAD_REQUEST);
     }
     try {
       return await this.cacheManager.get(key);
     } catch (error) {
       const errMsg = error instanceof Error ? error.message : String(error);
       this.logger.error(`Failed to get cache value for key "${key}": ${errMsg}`);
-      throw new Error(`Failed to get cache value for key "${key}".`);
+      throw new HttpException(`Failed to get cache value for key "${key}".`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -47,11 +47,11 @@ export class CacheService {
       } catch (error) {
         const errMsg = error instanceof Error ? error.message : String(error);
         this.logger.error(`Failed to retrieve cache keys: ${errMsg}`);
-        throw new Error("Failed to retrieve cache keys from the cache store.");
+        throw new HttpException(`Failed to retrieve cache keys: ${errMsg}`, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
     this.logger.warn("The current cache store does not support key listing.");
-    throw new Error("The current cache store does not support key listing.");
+    throw new HttpException("The current cache store does not support key listing.", HttpStatus.NOT_IMPLEMENTED);
   }
 
   /**
@@ -76,7 +76,7 @@ export class CacheService {
     } catch (error) {
       const errMsg = error instanceof Error ? error.message : String(error);
       this.logger.error(`Failed to retrieve all cache entries: ${errMsg}`);
-      throw new Error("Failed to retrieve all cache entries.");
+      throw new HttpException("Failed to retrieve all cache entries.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

@@ -22,14 +22,10 @@ import { ClientGuard } from "#common/guards/permissions/customer.guard";
 import { LicenseEntity } from "#entity/utils/licence.entity";
 import z from "zod";
 
-import {
-	BadRequestException, Controller, Get, Param, Post, Query, UseGuards
-} from "@nestjs/common";
-import {
-	ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags
-} from "@nestjs/swagger";
+import { BadRequestException, Controller, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 
-import { ClientService } from "../client.service";
+import { ClientService } from "../service/client.service";
 
 /**
  * Controller for client endpoints.

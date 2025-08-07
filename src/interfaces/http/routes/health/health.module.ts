@@ -5,7 +5,7 @@ import { TerminusModule } from "@nestjs/terminus";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 import { HealthController } from "./controllers/health.controller";
-import { HealthService } from "./health.service";
+import { HealthService } from "./service/health.service";
 
 /**
  * Health module for application health checks.

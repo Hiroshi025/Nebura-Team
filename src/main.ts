@@ -1,4 +1,5 @@
 import { registerWatchedPartials } from "#shared/hbs-watched";
+import { LoggerService } from "#shared/utils/custom-logger";
 import { registerHelpers } from "#shared/utils/helpers";
 import session from "express-session";
 import hbs from "hbs";
@@ -8,7 +9,7 @@ import { join } from "path";
 import { loadEnvFile } from "process";
 import responseTime from "response-time";
 
-import { ConsoleLogger, Logger, ValidationPipe, VersioningType } from "@nestjs/common";
+import { Logger, ValidationPipe, VersioningType } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
@@ -84,9 +85,12 @@ export class Main {
     const app = await NestFactory.create<NestExpressApplication>(AppModule, {
       logger:
         process.env.NODE_ENV === "development"
-          ? new ConsoleLogger({
+          ? new LoggerService({
               colors: true,
-              context: "Nebura",
+              sorted: true,
+              prefix: "Nebura",
+              maxArrayLength: 1000,
+              maxStringLength: 1000,
               timestamp: true,
               logLevels: ["error", "warn", "log", "debug", "verbose"],
             })
@@ -124,6 +128,7 @@ export class Main {
     });
 
     app.setViewEngine("hbs");
+    app.set("view options", { layout: "/layouts/main" });
 
     registerHelpers(hbs);
     hbs.registerHelper("inc", function (value) {

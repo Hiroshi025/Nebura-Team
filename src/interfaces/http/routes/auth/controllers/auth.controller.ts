@@ -4,8 +4,9 @@ import { AuthGuard } from "#common/guards/auth.guard";
 import { ClientHeaderGuard } from "#common/guards/client-header.guard";
 import { randomUUID } from "crypto";
 
+import { CacheInterceptor, CacheKey, CacheTTL } from "@nestjs/cache-manager";
 import {
-	BadRequestException, Body, Controller, Delete, Get, Post, Query, UseGuards
+	BadRequestException, Body, Controller, Delete, Get, Post, Query, UseGuards, UseInterceptors
 } from "@nestjs/common";
 import {
 	ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags
@@ -177,6 +178,9 @@ export class AuthController {
    */
   @UseGuards(AuthGuard)
   @Get("me")
+  @CacheKey("auth-user")
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
   @ApiResponse({ status: 200, description: "User retrieved successfully", type: Object })
   @ApiResponse({ status: 400, description: "Bad request. Missing required fields or invalid data." })
   @ApiOperation({

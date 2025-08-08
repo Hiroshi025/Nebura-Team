@@ -63,6 +63,7 @@ export class AppController {
   async root() {
     const health = await this.healthService.getHealth();
     return {
+      layout: false, // This disables the layout
       title: "Nebura Status",
       subtitle: "System Status",
       health,
@@ -83,6 +84,7 @@ export class AppController {
   @Render("playground")
   onPlayground() {
     return {
+      layout: false, // This disables the layout
       url: "/api/v1/validate-licence?key=YOUR_KEY&identifier=YOUR_ID",
       title: "Nebura Playground",
       endpoint: "/api/v1/validate-licence",
@@ -110,6 +112,7 @@ export class AppController {
   @Render("auth")
   renderToAuth() {
     return {
+      layout: false,
       title: "Nebura Auth",
       subtitle: "Authentication",
       toLoginDiscord: `/auth/discord/login`,
@@ -121,6 +124,7 @@ export class AppController {
   @Render("logout")
   renderToLogout() {
     return {
+      layout: false,
       title: "Nebura Logout",
       subtitle: "Logout",
       discordToInvite: "",

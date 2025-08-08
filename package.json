@@ -17,8 +17,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./_test_/jest-e2e.json",
     "typeorm": "typeorm-ts-node-commonjs",
-    "compodoc": "npx compodoc -p tsconfig.json -s",
-    "build-tailwind": "npx @tailwindcss/cli -i ./input.css -o ./web/public/css/style.css --watch"
+    "compodoc": "npx compodoc -p tsconfig.json -s"
   },
   "dependencies": {
     "@necord/lavalink": "^1.1.4",

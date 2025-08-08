@@ -22,8 +22,13 @@ import { ClientGuard } from "#common/guards/permissions/customer.guard";
 import { LicenseEntity } from "#entity/utils/licence.entity";
 import z from "zod";
 
-import { BadRequestException, Controller, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { CacheInterceptor, CacheKey, CacheTTL } from "@nestjs/cache-manager";
+import {
+	BadRequestException, Controller, Get, Param, Post, Query, UseGuards, UseInterceptors
+} from "@nestjs/common";
+import {
+	ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags
+} from "@nestjs/swagger";
 
 import { ClientService } from "../service/client.service";
 
@@ -55,6 +60,9 @@ export class ClientController {
    * @returns Array of LicenseEntity objects.
    */
   @Get("licences")
+  @CacheKey("client-licenses")
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
   @ApiOperation({
     summary: "Get all licenses for user",
     description: "Retrieves all licenses associated with the authenticated user.",
@@ -87,6 +95,9 @@ export class ClientController {
    * @returns LicenseEntity object.
    */
   @Get("licence/:identifier")
+  @CacheKey("client-license")
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
   @ApiOperation({ summary: "Get license by identifier", description: "Retrieves a specific license by its unique identifier." })
   @ApiResponse({ status: 200, description: "License retrieved successfully", type: LicenseEntity })
   @ApiResponse({ status: 404, description: "License not found" })

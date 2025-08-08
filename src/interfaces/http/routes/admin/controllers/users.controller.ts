@@ -9,8 +9,10 @@ import { UserEntity } from "#entity/users/user.entity";
 import { UserService } from "#routes/users/service/users.service";
 import { Repository } from "typeorm";
 
+import { CacheInterceptor, CacheKey, CacheTTL } from "@nestjs/cache-manager";
 import {
-	BadRequestException, Body, Controller, Delete, Get, NotFoundException, Post, Query, UseGuards
+	BadRequestException, Body, Controller, Delete, Get, NotFoundException, Post, Query, UseGuards,
+	UseInterceptors
 } from "@nestjs/common";
 import {
 	ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags
@@ -55,6 +57,9 @@ export class AdminController {
    */
   @Get("")
   @Roles(UserRole.ADMIN, UserRole.DEVELOPER)
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey("admin:users:list")
   @ApiResponse({ status: 200, description: "List of all users retrieved successfully", type: [UserEntity] })
   @ApiResponse({ status: 500, description: "Internal server error" })
   @ApiOperation({

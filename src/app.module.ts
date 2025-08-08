@@ -4,14 +4,10 @@ import { HttpThrottlerGuard } from "#common/guards/http-throttler.guard";
 import { LoggingInterceptor } from "#common/interceptors/register.interceptor";
 import { RequestMetricsInterceptor } from "#common/interceptors/request.interceptor";
 import { JwtConfigModule } from "#core/jwt.module";
-import { IPBlockerEntity } from "#entity/admin/ips-blocker.entity";
-import { OAuth2Credentials } from "#entity/users/auth/oauth2-credentials.entity";
-import { SessionEntity } from "#entity/users/auth/session.entity";
 import { TicketEntity } from "#entity/users/support/tickets.entity";
 import { UserEntity } from "#entity/users/user.entity";
 import { LicenseEntity } from "#entity/utils/licence.entity";
 import { RequestStatEntity } from "#entity/utils/metrics/request.entity";
-import { FileEntity } from "#entity/utils/tools/file.entity";
 import { NotificationEntity } from "#entity/utils/tools/notification.entity";
 import { AdminModule } from "#routes/admin/admin.module";
 import { AuthModule } from "#routes/auth/auth.module";
@@ -87,18 +83,9 @@ import { ChatGateway } from "./interfaces/http/socket/chats.gateaway";
       username: process.env.DB_USERNAME ? String(process.env.DB_USERNAME) : "postgres",
       password: process.env.DB_PASSWORD ? String(process.env.DB_PASSWORD) : "luisP200",
       database: process.env.DB_NAME,
-      entities: [
-        UserEntity,
-        StatusEntity,
-        FileEntity,
-        LicenseEntity,
-        IPBlockerEntity,
-        SessionEntity,
-        OAuth2Credentials,
-        RequestStatEntity,
-        NotificationEntity,
-        TicketEntity,
-      ],
+      logger: "advanced-console",
+      logging: process.env.NODE_ENV === "development" ? ["query", "error"] : ["error"],
+      entities: ["./adapters/database/entities/**/*.entity{.ts,.js}"], 
       synchronize: true,
       //logging: true,
       ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,

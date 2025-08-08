@@ -3,8 +3,9 @@ import { AuthGuard } from "#common/guards/auth.guard";
 import { ClientHeaderGuard } from "#common/guards/client-header.guard";
 import { UserService } from "#routes/users/service/users.service";
 
+import { CacheInterceptor, CacheKey, CacheTTL } from "@nestjs/cache-manager";
 import {
-	BadRequestException, Controller, Get, Ip, NotFoundException, Query, UseGuards
+	BadRequestException, Controller, Get, Ip, NotFoundException, Query, UseGuards, UseInterceptors
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 
@@ -39,6 +40,9 @@ export class PublicUserController {
    * @throws {HttpException} If validation fails or the user is not found.
    */
   @Get("users/me")
+  @CacheKey("public-user-me")
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
   @ApiResponse({ status: 200, description: "User found", type: Object, isArray: false })
   @ApiResponse({ status: 500, description: "Internal server error" })
   @UseGuards(AuthGuard)
@@ -91,6 +95,9 @@ export class PublicUserController {
    * @see {@link https://docs.nestjs.com/openapi/introduction NestJS Swagger}
    */
   @Get("validate-licence")
+  @CacheKey("validate-licence")
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
   @ApiOperation({
     summary: "Validate a software licence",
     description: "Checks licence validity, expiration, request limits, IP registration, and identifier.",

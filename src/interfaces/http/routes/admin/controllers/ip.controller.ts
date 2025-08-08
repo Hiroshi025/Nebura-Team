@@ -7,8 +7,14 @@ import { CreateIPBlockerDto } from "#routes/admin/dto/create-ip.dto";
 import { UpdateIPBlockerDto } from "#routes/admin/dto/update-ip.dto";
 import { IPBlockerService } from "#routes/admin/service/ip.service";
 
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards } from "@nestjs/common";
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { CacheInterceptor, CacheKey, CacheTTL } from "@nestjs/cache-manager";
+import {
+	Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards,
+	UseInterceptors
+} from "@nestjs/common";
+import {
+	ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags
+} from "@nestjs/swagger";
 
 /**
  * AdminIPBlockerController
@@ -39,6 +45,9 @@ export class AdminIPBlockerController {
    * @returns An array of all blocked IPs.
    */
   @Get()
+  @CacheKey("admin-ip-blocker")
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
   @Roles(UserRole.OWNER, UserRole.DEVELOPER)
   @ApiResponse({ status: 200, description: "All blocked IPs retrieved successfully" })
   @ApiOperation({
@@ -56,6 +65,9 @@ export class AdminIPBlockerController {
    * @throws {HttpException} If the IP is not found.
    */
   @Get(":id")
+  @CacheKey("admin-ip-blocker-id")
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
   @Roles(UserRole.OWNER, UserRole.DEVELOPER)
   @ApiResponse({ status: 200, description: "Blocked IP retrieved successfully" })
   @ApiResponse({ status: 404, description: "Blocked IP not found" })
@@ -75,6 +87,9 @@ export class AdminIPBlockerController {
    * @throws {HttpException} If the IP is not found.
    */
   @Get("address/:ipAddress")
+  @CacheKey("admin-ip-blocker-address")
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
   @Roles(UserRole.OWNER, UserRole.DEVELOPER)
   @ApiResponse({ status: 200, description: "Blocked IP retrieved successfully by address" })
   @ApiResponse({ status: 404, description: "Blocked IP not found" })

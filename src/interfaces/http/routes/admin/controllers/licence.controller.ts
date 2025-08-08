@@ -8,9 +8,10 @@ import { LicenceCreateDto } from "#routes/admin/dto/create-licence.dto";
 import { LicenceUpdateDto } from "#routes/admin/dto/update-licence.dto";
 import { LicenceService } from "#routes/admin/service/licence.service";
 
+import { CacheInterceptor, CacheKey, CacheTTL } from "@nestjs/cache-manager";
 import {
 	BadRequestException, Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put,
-	UseGuards
+	UseGuards, UseInterceptors
 } from "@nestjs/common";
 import {
 	ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags
@@ -67,6 +68,9 @@ export class AdminLicenceController {
    * GET /admin/licence
    */
   @Get()
+  @CacheKey("admin-licences")
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
   @Roles(UserRole.OWNER, UserRole.ADMIN, UserRole.DEVELOPER)
   @ApiResponse({ status: 200, description: "All licences retrieved successfully" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
@@ -88,6 +92,9 @@ export class AdminLicenceController {
    * GET /admin/licence/550e8400-e29b-41d4-a716-446655440000
    */
   @Get(":id")
+  @CacheKey("admin-licence")
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
   @Roles(UserRole.ADMIN)
   @ApiResponse({ status: 200, description: "Licence retrieved successfully" })
   @ApiResponse({ status: 404, description: "Licence not found" })
@@ -110,6 +117,9 @@ export class AdminLicenceController {
    * GET /admin/licence/identifier/LIC-UNIQUE-001
    */
   @Get("identifier/:identifier")
+  @CacheKey("admin-licence-identifier")
+  @CacheTTL(60) // Cache for 60 seconds
+  @UseInterceptors(CacheInterceptor)
   @Roles(UserRole.ADMIN)
   @ApiResponse({ status: 200, description: "Licence retrieved successfully by identifier" })
   @ApiResponse({ status: 404, description: "Licence not found" })

@@ -1,5 +1,7 @@
-import { RequestClient } from "#/types/express";
-import { TicketCreate, TicketEdit, TicketExportFilters, TicketSearch } from "#adapters/schemas/admin/ticket.schema";
+import { RequestClient } from "#/types";
+import {
+	TicketCreate, TicketEdit, TicketExportFilters, TicketSearch
+} from "#adapters/schemas/admin/ticket.schema";
 import { RolesAdmin } from "#adapters/schemas/auth.schema";
 import { LicenceCreateSchema, LicenceCreateType } from "#adapters/schemas/licence.schema";
 import { isValidNotification } from "#adapters/schemas/shared/notification.schema";
@@ -13,23 +15,12 @@ import { RequestStatEntity } from "#entity/utils/metrics/request.entity";
 import { NotificationEntity } from "#entity/utils/tools/notification.entity";
 import { randomUUID } from "crypto";
 import { Response } from "express-serve-static-core";
-import { IsNull, LessThan, MoreThan, Repository } from "typeorm";
+import { IsNull, MoreThan, Repository } from "typeorm";
 
 import {
-  BadRequestException,
-  Body,
-  Controller,
-  Get,
-  HttpException,
-  HttpStatus,
-  Logger,
-  Param,
-  Post,
-  Req,
-  Res,
-  UseGuards,
+	BadRequestException, Body, Controller, Get, HttpException, HttpStatus, Logger, Param, Post, Req,
+	Res, UseGuards
 } from "@nestjs/common";
-import { Cron } from "@nestjs/schedule";
 import { ApiExcludeController, ApiExcludeEndpoint } from "@nestjs/swagger";
 import { InjectRepository } from "@nestjs/typeorm";
 
@@ -502,39 +493,6 @@ export class UtilsController {
       take: 3,
     });
     return notifications;
-  }
-
-  /**
-   * Purges expired notifications from the database.
-   *
-   * This method is scheduled to run daily at midnight using a cron job.
-   * It deletes all notifications whose expiration date is in the past.
-   *
-   * @returns {Promise<{ deleted: number; message: string }>} Object with the number of deleted notifications and a status message.
-   *
-   * @example
-   * // This method is not exposed as an endpoint, but runs automatically.
-   * // See: https://docs.nestjs.com/techniques/task-scheduling
-   */
-  @Cron("0 0 * * *")
-  async purgeExpiredNotifications(): Promise<{ deleted: number; message: string }> {
-    const repo = this.userRepository.manager.getRepository(NotificationEntity);
-    const now = new Date();
-    const expiredNotifications = await repo.find({
-      where: {
-        expiresAt: LessThan(now),
-      },
-    });
-
-    if (expiredNotifications.length === 0) {
-      return { deleted: 0, message: "No expired notifications found." };
-    }
-
-    for (const notification of expiredNotifications) {
-      await repo.remove(notification);
-    }
-
-    return { deleted: expiredNotifications.length, message: "Expired notifications have been deleted." };
   }
 
   /**

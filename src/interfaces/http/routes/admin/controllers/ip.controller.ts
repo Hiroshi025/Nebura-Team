@@ -28,7 +28,7 @@ import {
  */
 @UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
 @ApiBearerAuth()
-@ApiTags("admin")
+@ApiTags("ip-blocker")
 @Controller({
   path: "admin/ip-blocker",
   version: "1",

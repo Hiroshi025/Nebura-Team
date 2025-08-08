@@ -1,4 +1,4 @@
-import { IsDate, IsString, Min } from "class-validator";
+import { IsDate, IsNotEmpty, IsString, Min } from "class-validator";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 import { ApiProperty } from "@nestjs/swagger";
@@ -49,6 +49,7 @@ export class FileEntity extends BaseEntity {
   @IsString()
   @Min(5)
   @Column()  
+  @IsNotEmpty()
   @ApiProperty({
     description: "Name of the file",
     example: "example.txt",
@@ -65,6 +66,7 @@ export class FileEntity extends BaseEntity {
    */
   @Column()
   @Min(5)
+  @IsNotEmpty()
   @IsString()
   @ApiProperty({
     description: "Path to the file",
@@ -147,6 +149,7 @@ export class FileEntity extends BaseEntity {
    */
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   @IsDate()
+  @IsNotEmpty()
   @ApiProperty({
     description: "Date and time when the file was created",
     example: "2023-10-01T12:00:00Z",

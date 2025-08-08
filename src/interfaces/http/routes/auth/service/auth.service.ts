@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { main } from "#/main";
-import { FindOAuth2Params, OAuth2Details } from "#/types/sessions-types";
+import { FindOAuth2Params, OAuth2Details } from "#/types";
 import { OAuth2Credentials } from "#entity/users/auth/oauth2-credentials.entity";
 import { UserEntity } from "#entity/users/user.entity";
 import { encrypt } from "#shared/webToken";

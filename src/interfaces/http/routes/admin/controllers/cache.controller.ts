@@ -23,7 +23,7 @@ import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@ne
  * - Intended for use by admin-level users.
  */
 @UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
-@ApiTags("admin")
+@ApiTags("cache")
 @ApiBearerAuth()
 @Controller({
   path: "admin/cache",

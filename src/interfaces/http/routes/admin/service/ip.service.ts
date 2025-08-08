@@ -2,10 +2,9 @@
 import { IPBlockerEntity } from "#entity/admin/ips-blocker.entity";
 import { CreateIPBlockerDto } from "#routes/admin/dto/create-ip.dto";
 import { UpdateIPBlockerDto } from "#routes/admin/dto/update-ip.dto";
-import { MoreThanOrEqual, Repository } from "typeorm";
+import { Repository } from "typeorm";
 
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
-import { Cron, CronExpression } from "@nestjs/schedule";
 import { InjectRepository } from "@nestjs/typeorm";
 
 /**
@@ -141,45 +140,5 @@ export class IPBlockerService {
     this.logger.debug("Removing all blocked IPs");
     await this.ipBlockerRepository.clear();
     this.logger.debug("All blocked IPs removed");
-  }
-
-  /**
-   * Logs blocked IPs from the last 24 hours
-   * and the last 5 blocked IPs saved in the database.
-   */
-  @Cron(CronExpression.EVERY_HOUR, { name: "logRecentBlockedIPs", timeZone: "UTC" })
-  async logRecentBlockedIPs(): Promise<void> {
-    const now = new Date();
-    const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-
-    // Blocked IPs in the last 24 hours
-    const recentIPs = await this.ipBlockerRepository.find({
-      where: {
-        blockedAt: MoreThanOrEqual(yesterday),
-        isActive: true,
-      },
-      order: { blockedAt: "DESC" },
-    });
-
-    // Last 5 blocked IPs
-    const lastFiveIPs = await this.ipBlockerRepository.find({
-      where: { isActive: true },
-      order: { blockedAt: "DESC" },
-      take: 5,
-    });
-
-    if (recentIPs.length > 0) {
-      this.logger.debug(`Blocked IPs in the last 24 hours:`);
-      recentIPs.forEach((ip) => {
-        this.logger.debug(`- ${ip.ipAddress} (blocked at: ${ip.blockedAt})`);
-      });
-    }
-
-    if (lastFiveIPs.length > 0) {
-      this.logger.debug(`Last 5 blocked IPs:`);
-      lastFiveIPs.forEach((ip) => {
-        this.logger.debug(`- ${ip.ipAddress} (blocked at: ${ip.blockedAt})`);
-      });
-    }
   }
 }

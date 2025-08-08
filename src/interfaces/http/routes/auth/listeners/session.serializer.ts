@@ -1,4 +1,4 @@
-import { Done } from "#/types/sessions-types";
+import { Done } from "#/types/session";
 import { UserEntity } from "#entity/users/user.entity";
 import { Repository } from "typeorm";
 

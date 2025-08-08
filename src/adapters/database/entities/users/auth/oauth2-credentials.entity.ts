@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 import { BaseEntity, Column, Entity, PrimaryColumn } from "typeorm";
 
 import { ApiProperty } from "@nestjs/swagger";
@@ -52,6 +52,7 @@ export class OAuth2Credentials extends BaseEntity {
    */
   @Column({ name: "access_token" })
   @IsString()
+  @IsNotEmpty()
   @ApiProperty({
     description: "Access token for OAuth2. Used for authenticating API requests.",
     example: "abc123xyz456",
@@ -71,6 +72,7 @@ export class OAuth2Credentials extends BaseEntity {
    * @see https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-refresh-token-exchange-example
    */
   @Column({ name: "refresh_token" })
+  @IsNotEmpty()
   @IsString()
   @ApiProperty({
     description: "Refresh token for OAuth2. Used to renew access tokens.",

@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsNotEmpty, IsString, MinLength } from "class-validator";
 import { ISession } from "connect-typeorm/out";
 import { Column, Entity, Index, PrimaryColumn } from "typeorm";
 
@@ -47,6 +47,8 @@ export class SessionEntity implements ISession {
    */
   @PrimaryColumn("varchar", { length: 255 })
   @IsString()
+  @IsNotEmpty()
+  @MinLength(1)
   @ApiProperty({
     description: "Session ID. Unique identifier for the session.",
     example: "session_1234567890abcdef",
@@ -67,6 +69,7 @@ export class SessionEntity implements ISession {
    */
   @Column("text")
   @IsString()
+  @IsNotEmpty()
   @ApiProperty({
     description: "Session JSON data. Contains serialized session information.",
     example: '{"userId": "1234567890", "expires": "2023-12-31T23:59:59Z"}',

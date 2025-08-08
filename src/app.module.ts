@@ -4,6 +4,7 @@ import { HttpThrottlerGuard } from "#common/guards/http-throttler.guard";
 import { LoggingInterceptor } from "#common/interceptors/register.interceptor";
 import { RequestMetricsInterceptor } from "#common/interceptors/request.interceptor";
 import { JwtConfigModule } from "#core/jwt.module";
+import { IPBlockerEntity } from "#entity/admin/ips-blocker.entity";
 import { TicketEntity } from "#entity/users/support/tickets.entity";
 import { UserEntity } from "#entity/users/user.entity";
 import { LicenseEntity } from "#entity/utils/licence.entity";
@@ -14,6 +15,7 @@ import { AuthModule } from "#routes/auth/auth.module";
 import { ClientModule } from "#routes/client/client.module";
 import { HealthModule } from "#routes/health/health.module";
 import { HealthService } from "#routes/health/service/health.service";
+import { TasksModule } from "#routes/tasks/tasks.module";
 import { UsersModule } from "#routes/users/users.module";
 import { UtilsController } from "#routes/utils.controller";
 
@@ -70,7 +72,7 @@ import { ChatGateway } from "./interfaces/http/socket/chats.gateaway";
      * Registers TypeORM entities for dependency injection.
      * @see {@link https://docs.nestjs.com/techniques/database | TypeORM Integration}
      */
-    TypeOrmModule.forFeature([StatusEntity, UserEntity, RequestStatEntity, LicenseEntity, NotificationEntity, TicketEntity]),
+    TypeOrmModule.forFeature([StatusEntity, UserEntity, RequestStatEntity, LicenseEntity, NotificationEntity, TicketEntity, IPBlockerEntity]),
     /**
      * Configures TypeORM for PostgreSQL database connection.
      * Environment variables are used for connection parameters.
@@ -85,7 +87,7 @@ import { ChatGateway } from "./interfaces/http/socket/chats.gateaway";
       database: process.env.DB_NAME,
       logger: "advanced-console",
       logging: process.env.NODE_ENV === "development" ? ["query", "error"] : ["error"],
-      entities: ["./adapters/database/entities/**/*.entity{.ts,.js}"], 
+      entities: ["./adapters/database/entities/**/*.entity{.ts,.js}", IPBlockerEntity], 
       synchronize: true,
       //logging: true,
       ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
@@ -170,6 +172,7 @@ import { ChatGateway } from "./interfaces/http/socket/chats.gateaway";
     ClientModule,
     DiscordModule,
     JwtConfigModule,
+    TasksModule,
   ],
   /**
    * Application controllers.

@@ -12,9 +12,10 @@ import responseTime from "response-time";
 import { Logger, ValidationPipe, VersioningType } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { SwaggerModule } from "@nestjs/swagger";
 
 import { AppModule } from "./app.module";
+import { configSwagger, swagger } from "./swagger";
 
 /**
  * Main class responsible for initializing and starting the Nebura API application.
@@ -149,46 +150,7 @@ export class Main {
     //    - Downloadable OpenAPI JSON at /v1/docs/download
     //    - JWT Bearer authentication enabled
     //    - See: https://docs.nestjs.com/openapi/introduction
-    const swaggerApp = new DocumentBuilder()
-      .setTitle("Nebura API")
-      .setDescription("API documentation for the Nebura application")
-      .setVersion("1.0")
-      .addSecurity("bearer", {
-        type: "http",
-        scheme: "bearer",
-        bearerFormat: "JWT",
-        description: "Enter JWT token in the format: Bearer <token>",
-      })
-      .addServer("http://localhost:3000", "Local development server")
-      .addGlobalResponse({
-        status: 500,
-        description: "Internal Server Error",
-      })
-      .build();
-
-    const documentFactory = () =>
-      SwaggerModule.createDocument(app, swaggerApp, {
-        operationIdFactory: (controllerKey: string, methodKey: string) => `${controllerKey}_${methodKey}`,
-        autoTagControllers: true,
-        linkNameFactory: (controllerKey: string, methodKey: string, fieldKey: string) =>
-          `${controllerKey}_${methodKey}_${fieldKey}`,
-        ignoreGlobalPrefix: false,
-        deepScanRoutes: true,
-        extraModels: [],
-      });
-    SwaggerModule.setup("v1/docs", app, documentFactory, {
-      jsonDocumentUrl: "v1/docs/download",
-      swaggerOptions: {
-        displayRequestDuration: true,
-        persistAuthorization: true,
-        docExpansion: "list",
-      },
-      customSiteTitle: process.env.SWAGGER_TITLE,
-      customfavIcon: process.env.SWAGGER_FAVICON_URL,
-      customCssUrl: "/css/swagger.css",
-      explorer: true,
-      swaggerUiEnabled: true,
-    });
+    SwaggerModule.setup("v1/docs", app, swagger(app), configSwagger);
 
     // 6. Apply Helmet middleware for HTTP security
     //    - Sets various HTTP headers for security best practices

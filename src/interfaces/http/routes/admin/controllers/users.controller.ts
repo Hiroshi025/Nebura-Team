@@ -32,7 +32,7 @@ import { InjectRepository } from "@nestjs/typeorm";
  * @see https://docs.nestjs.com/controllers
  */
 @UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
-@ApiTags("admin")
+@ApiTags("admin-users")
 @ApiBearerAuth()
 @Controller({
   path: "admin/users",

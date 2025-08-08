@@ -1,4 +1,4 @@
-import { RequestClient } from "#/types/express";
+import { RequestClient } from "#/types";
 import { AuthenticatedGuard } from "#common/guards/auth-discord.guard";
 import { TicketEntity } from "#entity/users/support/tickets.entity";
 import { UserEntity } from "#entity/users/user.entity";

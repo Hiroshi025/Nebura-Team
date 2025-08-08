@@ -17,6 +17,7 @@
 *_LOCAL_*.txt
 *_REMOTE_*.txt
 sessions.sqlite
+config.yaml
 
 ### GitBook ###
 # Node rules:

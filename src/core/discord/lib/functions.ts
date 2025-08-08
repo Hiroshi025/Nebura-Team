@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { GitHubRepo, GitHubSearchResult, GitHubUser } from "#/types/necord";
+import { GitHubRepo, GitHubSearchResult, GitHubUser } from "#/types";
 import axios from "axios";
 import { exec } from "child_process";
 import {

@@ -1,0 +1,37 @@
+# =========================
+# Nebura API Swagger Config (Example)
+# =========================
+# This is an example configuration file for the Nebura API platform.
+# All values are left empty ("") and should be filled in according to your environment and requirements.
+# Each section below describes the purpose and usage of the configuration options.
+
+swagger:
+  # Title of the API documentation.
+  title: ""
+
+  # Description of the API, outlining its features and integrations.
+  description: ""
+
+  # Base URL for the API endpoints.
+  baseUrl: ""
+
+  # Contact information for support or inquiries.
+  contact:
+    name: "" # Name of the support team or contact person.
+    email: "" # Email address for support.
+    url: "" # URL for support or contact page.
+
+  # License information for the API.
+  license:
+    name: "" # Name of the license.
+    url: "" # URL to the license details.
+
+  # External documentation links for further information.
+  externalDocs:
+    description: "" # Description of the external documentation.
+    url: "" # URL to the external documentation.
+
+  # Logo settings for the API documentation UI.
+  logoUrl: "" # URL to the logo image.
+  logoAltText: "" # Alternative text for the logo image.
+  logoBackgroundColor: "" # Background color for the logo display.

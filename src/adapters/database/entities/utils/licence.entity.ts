@@ -1,4 +1,6 @@
-import { IsArray, IsDate, IsInt, IsOptional, IsString, Min } from "class-validator";
+import {
+	ArrayMaxSize, IsArray, IsDate, IsInt, IsNotEmpty, IsOptional, IsString, Matches, Min
+} from "class-validator";
 import {
 	BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn
 } from "typeorm";
@@ -61,6 +63,7 @@ export class LicenseEntity extends BaseEntity {
    * @example "550e8400-e29b-41d4-a716-446655440000"
    */
   @PrimaryGeneratedColumn("uuid")
+  @IsNotEmpty()
   @ApiProperty({ description: "Unique license ID", example: "550e8400-e29b-41d4-a716-446655440000" })
   id!: string;
 
@@ -71,6 +74,7 @@ export class LicenseEntity extends BaseEntity {
    */
   @Column({ unique: true })
   @Min(5)
+  @IsNotEmpty()
   @ApiProperty({ description: "Unique license key", example: "ABC123-XYZ789" })
   @IsString()
   key!: string;
@@ -81,6 +85,7 @@ export class LicenseEntity extends BaseEntity {
    * @example "premium"
    */
   @Column({ type: "enum", enum: LicenseType })
+  @IsNotEmpty()
   @ApiProperty({ description: "License type", example: "premium", enum: LicenseType })
   type!: LicenseType;
 
@@ -90,6 +95,7 @@ export class LicenseEntity extends BaseEntity {
    * @example "user-uuid-123"
    */
   @Column()
+  @IsNotEmpty()
   @Min(5)
   @ApiProperty({ description: "Owner user ID", example: "user-uuid-123" })
   @IsString()
@@ -101,6 +107,7 @@ export class LicenseEntity extends BaseEntity {
    * @example "admin-uuid-456"
    */
   @Column()
+  @IsNotEmpty()
   @Min(5)
   @ApiProperty({ description: "Admin assigner ID", example: "admin-uuid-456" })
   @IsString()
@@ -123,6 +130,7 @@ export class LicenseEntity extends BaseEntity {
    * @example 1000
    */
   @Column({ default: 1000 })
+  @IsNotEmpty()
   @ApiProperty({ description: "Request limit", example: 1000 })
   @IsInt()
   requestLimit!: number;
@@ -135,6 +143,7 @@ export class LicenseEntity extends BaseEntity {
    */
   @Column({ default: 0 })
   @ApiProperty({ description: "Requests made", example: 10 })
+  @IsNotEmpty()
   @IsInt()
   requestCount!: number;
 
@@ -145,6 +154,7 @@ export class LicenseEntity extends BaseEntity {
    */
   @Column()
   @ApiProperty({ description: "Expiration date", example: "2025-12-31T23:59:59Z" })
+  @IsNotEmpty()
   @IsDate()
   validUntil!: Date;
 
@@ -176,6 +186,8 @@ export class LicenseEntity extends BaseEntity {
    * @example ["192.168.1.1", "10.0.0.2"]
    */
   @Column("simple-array", { default: "" })
+  @Matches(/^(?!\s*$).+/, { message: "IPs must not be empty" })
+  @ArrayMaxSize(5)
   @ApiProperty({ description: "Associated IPs", example: ["192.168.1.1", "10.0.0.2"] })
   @IsArray()
   ips!: string[];

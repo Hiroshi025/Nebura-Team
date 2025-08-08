@@ -47,7 +47,7 @@ import {
  */
 @UseGuards(AuthGuard, RoleGuard, ClientHeaderGuard)
 @ApiBearerAuth()
-@ApiTags("admin")
+@ApiTags("admin-licence")
 @Controller({
   path: "admin/licence",
   version: "1",
